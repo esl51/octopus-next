@@ -63,3 +63,11 @@ body {
   margin-right: $toast-padding-x;
   margin-bottom: $toast-padding-x;
 }
+
+.navbar-vertical {
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
