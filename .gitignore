@@ -1,0 +1,37 @@
+# public builds and storages
+
+/public/build
+/public/dist
+/public/hot
+/public/storage
+/storage/*.key
+
+# vendor packages
+
+/node_modules
+/vendor
+
+# local configs, logs, cache, testing
+
+/coverage
+.env
+.env.backup
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+auth.json
+npm-debug.log
+yarn-error.log
+phpunit.dusk.xml
+composer.lock
+package-lock.json
+_ide_helper.php
+.DS_Store
+
+# local editor configs
+
+/.idea
+/.vscode
+*.code-workspace
+*.sublime-*
+sftp-config.json

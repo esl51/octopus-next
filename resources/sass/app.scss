@@ -1,0 +1,65 @@
+// Fonts
+// @import "https://fonts.bunny.net/css?family=Nunito";
+
+// Variables
+@import 'variables';
+
+// Tabler
+@import '@tabler/core/src/scss/tabler';
+
+// Bootstrap Vue 3
+/* stylelint-disable-next-line scss/at-import-partial-extension */
+@import 'bootstrap-vue-3/src/styles/styles.scss';
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  flex-shrink: 0;
+}
+
+.page {
+  flex-shrink: 0;
+}
+
+.icon-tabler {
+  width: 1.25rem;
+  height: 1.25rem;
+  font-size: 1.25rem;
+  vertical-align: bottom;
+  stroke-width: 1.5;
+}
+
+.form-control:-webkit-autofill {
+  box-shadow: 0 0 0 1000px var(--tblr-bg-forms) inset;
+}
+
+.input-group-flat {
+  .input-group-text.is-invalid {
+    border-color: $danger;
+  }
+
+  .form-control:-webkit-autofill {
+    box-shadow: 0 0 0 1000px var(--tblr-bg-forms) inset;
+  }
+}
+
+.container-xl,
+.container-lg,
+.container-md,
+.container-sm,
+.container-xs,
+.container-fluid {
+  --tblr-gutter-x: 3rem;
+}
+
+.toast-body + .btn-close {
+  margin-top: $toast-padding-x;
+  margin-right: $toast-padding-x;
+  margin-bottom: $toast-padding-x;
+}
