@@ -14,7 +14,7 @@ class UserResource extends ItemResource
         $this->makeVisible('roles');
         $data = parent::toArray($request);
 
-        if (auth()->user()->can('manage users')) {
+        if ($request->user()->can('manage users')) {
             $data['avatar_files'] = $this->getAvatarFiles();
         } else {
             $data['avatar_files'] = $this->getAvatarFiles('profile');

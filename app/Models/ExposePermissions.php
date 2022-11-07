@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Auth;
 use Spatie\Permission\Models\Permission;
 
 trait ExposePermissions
@@ -25,7 +26,7 @@ trait ExposePermissions
     {
         $permissions = [];
         foreach (Permission::all() as $permission) {
-            if (auth()->user()->can($permission->name)) {
+            if (Auth::user()->can($permission->name)) {
                 $permissions[$permission->name] = true;
             } else {
                 $permissions[$permission->name] = false;
