@@ -77,6 +77,14 @@ axios.interceptors.response.use(
       })
     }
 
+    // not found
+    else if (status === 404 && data.message) {
+      danger({
+        title: t('error.alert_title'),
+        body: data.message,
+      })
+    }
+
     // validation
     else if (status === 422 && data.message) {
       danger({

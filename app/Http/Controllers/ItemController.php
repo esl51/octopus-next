@@ -253,6 +253,9 @@ abstract class ItemController extends Controller
     public function show($id)
     {
         $item = $this->getItem($id, true);
+        if (!$item) {
+            abort(404, trans('item.not_found'));
+        }
         return new $this->resourceClass($item);
     }
 
@@ -268,6 +271,9 @@ abstract class ItemController extends Controller
         $rules = $this->getValidationRules($request, intval($id));
         $this->validate($request, $rules);
         $item = $this->getItem($id);
+        if (!$item) {
+            abort(404, trans('item.not_found'));
+        }
         if (!$item->is_editable) {
             return response()->json([
                 'status' => trans('item.not_editable'),
@@ -293,6 +299,9 @@ abstract class ItemController extends Controller
     public function destroy($id)
     {
         $item = call_user_func([$this->class, 'find'], $id);
+        if (!$item) {
+            abort(404, trans('item.not_found'));
+        }
         if (!$item->is_deletable) {
             return response()->json([
                 'status' => trans('item.not_deletable'),
@@ -368,6 +377,9 @@ abstract class ItemController extends Controller
     public function moveBefore($id, $before)
     {
         $item = $this->getItem($id);
+        if (!$item) {
+            abort(404, trans('item.not_found'));
+        }
         $itemBefore = $this->getItem($before);
         $item->moveBefore($itemBefore);
         return $this->show($item->id);
@@ -383,7 +395,13 @@ abstract class ItemController extends Controller
     public function moveAfter($id, $after)
     {
         $item = $this->getItem($id);
+        if (!$item) {
+            abort(404, trans('item.not_found'));
+        }
         $itemAfter = $this->getItem($after);
+        if (!$itemAfter) {
+            abort(404, trans('item.not_found'));
+        }
         $item->moveAfter($itemAfter);
         return $this->show($item->id);
     }
@@ -399,6 +417,9 @@ abstract class ItemController extends Controller
     public function destroyFile($id, $directory = null, $fileName = null)
     {
         $item = $this->getItem($id);
+        if (!$item) {
+            abort(404, trans('item.not_found'));
+        }
         $item->deleteFile($fileName, $directory);
 
         return response()->json(null, 204);
@@ -415,6 +436,9 @@ abstract class ItemController extends Controller
     public function getFile($id, $directory = null, $fileName = null)
     {
         $item = $this->getItem($id);
+        if (!$item) {
+            abort(404, trans('item.not_found'));
+        }
         return $item->getFile($fileName, $directory);
     }
 }
