@@ -8,7 +8,9 @@ const authStore = useAuthStore()
 
 export default ({ next }: MiddlewareInterface) => {
   setLanguage(langStore.locale)
-  authStore.fetchUser()
+  if (authStore.check) {
+    authStore.fetchUser()
+  }
 
   next()
 }
