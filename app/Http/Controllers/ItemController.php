@@ -164,7 +164,7 @@ abstract class ItemController extends Controller
         }
 
         $sortBy = htmlspecialchars($request->sort_by);
-        $sortDesc = (bool) $request->sort_desc;
+        $sortDesc = filter_var($request->sort_desc, FILTER_VALIDATE_BOOLEAN);
         if ($sortBy) {
             $replacements = $this->sortByReplacements();
             $translations = $this->sortByTranslations();
