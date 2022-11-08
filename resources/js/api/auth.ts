@@ -1,4 +1,4 @@
-import api from './index'
+import api from './'
 
 export const authUrls = {
   user: '/api/auth/user',
