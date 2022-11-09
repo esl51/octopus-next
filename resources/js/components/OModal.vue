@@ -122,10 +122,6 @@ onClickOutside(dialog, () => {
   }
 })
 
-onMounted(() => {
-  show()
-})
-
 // expose
 defineExpose({ show, hide })
 </script>
