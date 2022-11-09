@@ -11,6 +11,7 @@ class Permission extends BasePermission
     use PerPageResolverTrait;
     use HasFactory;
     use HasColumns;
+    use SerializesDates;
 
     public function getIsDeletableAttribute(): bool
     {

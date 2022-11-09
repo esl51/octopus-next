@@ -32,6 +32,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasFiles;
     use HasRoles;
     use Notifiable;
+    use SerializesDates;
 
     /**
      * The attributes that are mass assignable.

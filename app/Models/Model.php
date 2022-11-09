@@ -20,6 +20,7 @@ abstract class Model extends BaseModel
     use PerPageResolverTrait;
     use HasEagerLimit;
     use HasColumns;
+    use SerializesDates;
 
     public function getIsEditableAttribute()
     {
@@ -34,10 +35,5 @@ abstract class Model extends BaseModel
     public function newEloquentBuilder($query)
     {
         return new EloquentBuilder($query);
-    }
-
-    protected function serializeDate(\DateTimeInterface $date)
-    {
-        return $date->format('c');
     }
 }

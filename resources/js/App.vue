@@ -21,6 +21,8 @@ import { usePageStore } from './stores/page'
 import { useLangStore } from '@/stores/lang'
 import { useHead } from '@vueuse/head'
 import axios from 'axios'
+import dayjs from 'dayjs'
+import qs from 'qs'
 import { computed } from 'vue'
 import { MountTarget } from 'vue3-mount'
 import { useI18n } from 'vue-i18n'
@@ -52,12 +54,38 @@ axios.interceptors.request.use((config) => {
     config.headers['Accept-Language'] = locale
   }
 
+  config.paramsSerializer = {
+    serialize: (params) =>
+      qs.stringify(params, {
+        serializeDate: (date: Date) => dayjs(date).format(),
+      }),
+  }
+
   return config
 })
 
+// convert dates to dates
+function handleDates(body: any) {
+  if (body === null || body === undefined || typeof body !== 'object') {
+    return body
+  }
+  for (const key of Object.keys(body)) {
+    const value = body[key]
+    const date = dayjs(value, 'YYYY-MM-DD[T]HH:mm:ssZ', true)
+    if (typeof value === 'string' && date.isValid()) {
+      body[key] = date.toDate()
+    } else if (typeof value === 'object') {
+      handleDates(value)
+    }
+  }
+}
+
 // axios response interceptor
 axios.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    handleDates(response.data)
+    return response
+  },
   async (error) => {
     const { status, data } = error.response
 

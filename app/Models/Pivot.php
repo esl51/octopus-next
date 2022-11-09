@@ -13,6 +13,8 @@ use Illuminate\Database\Eloquent\Relations\Pivot as BasePivot;
  */
 abstract class Pivot extends BasePivot
 {
+    use SerializesDates;
+
     // for potential using with laravel-translatable
     public $incrementing = true;
 

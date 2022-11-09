@@ -14,6 +14,7 @@ class Role extends BaseRole implements TranslatableContract
     use HasFactory;
     use HasColumns;
     use Translatable;
+    use SerializesDates;
 
     public $translatedAttributes = [
         'title',
