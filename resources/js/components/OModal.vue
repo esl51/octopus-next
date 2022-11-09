@@ -57,7 +57,7 @@
 
 <script setup lang="ts">
 import { onClickOutside } from '@vueuse/core'
-import { computed, onMounted, ref } from 'vue'
+import { computed, ref } from 'vue'
 
 // props
 const props = withDefaults(
