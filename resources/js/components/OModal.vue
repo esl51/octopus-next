@@ -79,17 +79,17 @@ const props = withDefaults(
 const emit = defineEmits(['backdropClick', 'show', 'hide'])
 
 const localShow = ref(false)
-const localHidden = ref(false)
+const localHidden = ref(true)
 
 // modal classes and styles
 const classes = computed(() => ({
-  show: !!localShow.value,
+  show: localShow.value,
 }))
 const dialogClasses = computed(() => ({
   [`modal-${props.size}`]: !!props.size,
 }))
 const backdropClasses = computed(() => ({
-  show: !!localShow.value,
+  show: localShow.value,
 }))
 const styles = computed(() =>
   localHidden.value ? 'display: none;' : 'display: block;'
@@ -117,7 +117,7 @@ const hide = () => {
 const dialog = ref(null)
 onClickOutside(dialog, () => {
   emit('backdropClick')
-  if (props.hideOnBackdropClick) {
+  if (localShow.value && props.hideOnBackdropClick) {
     hide()
   }
 })
