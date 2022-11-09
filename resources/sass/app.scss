@@ -60,3 +60,11 @@ body {
   overflow-y: scroll;
   padding-left: 0.5rem !important;
 }
+
+.btn-icon {
+  .btn-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
