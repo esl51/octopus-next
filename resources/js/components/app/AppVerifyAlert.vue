@@ -10,7 +10,7 @@
   >
     <div class="d-flex">
       <div>
-        <alert-triangle-icon class="alert-icon" />
+        <alert-triangle-icon class="icon alert-icon" />
       </div>
       <div>
         <h3 class="mb-1">{{ $t('auth.verification.alert_title') }}</h3>
@@ -38,7 +38,7 @@
   >
     <div class="d-flex">
       <div>
-        <check-icon class="alert-icon" />
+        <check-icon class="icon alert-icon" />
       </div>
       <div>
         {{ $t('auth.verification.sent', { email: user?.email }) }}
@@ -56,7 +56,7 @@
   >
     <div class="d-flex">
       <div>
-        <alert-circle-icon class="alert-icon" />
+        <alert-circle-icon class="icon alert-icon" />
       </div>
       <div>
         {{ $t('auth.verification.too_many_attempts_error') }}
@@ -75,7 +75,7 @@
   >
     <div class="d-flex">
       <div>
-        <check-icon class="alert-icon" />
+        <check-icon class="icon alert-icon" />
       </div>
       <div>
         {{ $t('auth.verification.verified', { email: user?.email }) }}

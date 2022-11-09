@@ -27,7 +27,7 @@
                   data-bs-toggle="modal"
                   data-bs-target="#modal-report"
                 >
-                  <plus-icon />
+                  <plus-icon class="icon"/>
                   Create new report
                 </a>
                 <a
@@ -37,7 +37,7 @@
                   data-bs-target="#modal-report"
                   aria-label="Create new report"
                 >
-                  <plus-icon />
+                  <plus-icon class="icon"/>
                 </a>
               </div>
             </div>

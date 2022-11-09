@@ -4,6 +4,7 @@
     :disabled="disabled"
     :variant="variant"
     :size="size"
+    :class="classes"
   >
     <b-spinner
       v-if="busy"
@@ -16,15 +17,17 @@
 
 <script setup lang="ts">
 import { ButtonType, ButtonVariant, Size } from 'bootstrap-vue-3'
+import { computed } from 'vue'
 
 // props
-withDefaults(
+const props = withDefaults(
   defineProps<{
     disabled?: boolean
     busy?: boolean
     type?: ButtonType
     variant?: ButtonVariant
     size?: Size
+    icon?: boolean
   }>(),
   {
     disabled: false,
@@ -32,6 +35,11 @@ withDefaults(
     type: 'submit',
     variant: 'primary',
     size: undefined,
+    icon: false,
   }
 )
+
+const classes = computed(() => ({
+  'btn-icon': !!props.icon,
+}))
 </script>

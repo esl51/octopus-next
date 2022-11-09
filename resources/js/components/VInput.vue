@@ -39,8 +39,14 @@
             :data-bs-original-title="$t('global.show_password')"
             @click.prevent="togglePasswordVisible"
           >
-            <eye-off-icon v-if="passwordVisible" />
-            <eye-icon v-else />
+            <eye-off-icon
+              v-if="passwordVisible"
+              class="icon"
+            />
+            <eye-icon
+              v-else
+              class="icon"
+            />
           </b-link>
         </b-input-group-text>
       </template>

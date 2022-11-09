@@ -19,7 +19,7 @@
       />
       <template #footer>
         <v-submit class="w-100">
-          <mail-icon />
+          <mail-icon class="icon" />
           {{ $t('auth.forgot_password.submit_button') }}
         </v-submit>
       </template>
