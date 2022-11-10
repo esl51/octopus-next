@@ -112,6 +112,7 @@
               :placeholder="$t('auth.profile.password_placeholder')"
               name="password"
               type="password"
+              autocomplete="new-password"
             />
           </div>
           <div class="col-auto">
