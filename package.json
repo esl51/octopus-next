@@ -40,7 +40,7 @@
     "@vueuse/head": "^0.9.8",
     "axios": "^1.1.2",
     "bootstrap": "^5.2.2",
-    "bootstrap-vue-3": "^0.4.6",
+    "bootstrap-vue-3": "^0.4.7",
     "dayjs": "^1.11.6",
     "pinia": "^2.0.23",
     "pinia-plugin-persistedstate": "^2.3.0",
