@@ -21,6 +21,7 @@
             :busy="busy"
             @click="send"
           >
+            <mail-icon class="icon" />
             {{ $t('auth.verification.alert_send_button') }}
           </o-button>
         </div>
