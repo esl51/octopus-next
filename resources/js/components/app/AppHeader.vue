@@ -13,6 +13,7 @@
       </div>
       <app-user-menu />
     </b-navbar-nav>
+    <div id="page-search" />
   </b-navbar>
 </template>
 

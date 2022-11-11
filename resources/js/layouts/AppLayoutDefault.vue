@@ -10,38 +10,12 @@
               <app-breadcrumb class="mb-1" />
               <h1 class="page-title">{{ title }}</h1>
             </div>
-            <!--
             <div class="col-12 col-md-auto ms-auto d-print-none">
-              <div class="btn-list">
-                <span class="d-none d-sm-inline">
-                  <a
-                    href="#"
-                    class="btn"
-                  >
-                    New view
-                  </a>
-                </span>
-                <a
-                  href="#"
-                  class="btn btn-primary d-none d-sm-inline-block"
-                  data-bs-toggle="modal"
-                  data-bs-target="#modal-report"
-                >
-                  <plus-icon class="icon"/>
-                  Create new report
-                </a>
-                <a
-                  href="#"
-                  class="btn btn-primary d-sm-none btn-icon"
-                  data-bs-toggle="modal"
-                  data-bs-target="#modal-report"
-                  aria-label="Create new report"
-                >
-                  <plus-icon class="icon"/>
-                </a>
-              </div>
+              <div
+                id="page-buttons"
+                class="btn-list"
+              />
             </div>
-            -->
           </div>
         </div>
       </div>
