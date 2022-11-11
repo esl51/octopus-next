@@ -115,7 +115,7 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @return string
      */
-    public function getPhotoUrlAttribute()
+    public function getPhotoUrlAttribute(): ?string
     {
         $avatarFiles = $this->getAvatarFiles();
         if (count($avatarFiles)) {
@@ -128,7 +128,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return null;
     }
 
-    public function getNamePlaceholderAttribute()
+    public function getNamePlaceholderAttribute(): string
     {
         $capitals = '';
         $words = preg_split('/[\s-]+/', $this->name);

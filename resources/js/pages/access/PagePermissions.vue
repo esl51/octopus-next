@@ -18,26 +18,25 @@
     >
       <template #cell(action-column)="{ item }">
         <b-dropdown
-          variant="link"
+          v-if="true == true || item.is_editable || item.is_deletable"
+          variant="action"
           no-caret
-          toggle-class="p-0 btn-action"
+          toggle-class="btn-action-table"
           :popper-opts="{ strategy: 'fixed' }"
         >
           <template #button-content>
             <dots-vertical-icon class="icon" />
           </template>
           <b-dropdown-item-button
-            :disable="!item.is_editable"
+            :disabled="!item.is_editable"
             @click="edit(item)"
           >
-            <edit-icon
-              class="icon dropdown-item-icon"
-              :disable="!item.is_deletable"
-            />
+            <edit-icon class="icon dropdown-item-icon" />
             {{ $t('global.edit') }}
           </b-dropdown-item-button>
           <b-dropdown-item-button
             variant="danger"
+            :disabled="!item.is_deletable"
             @click="destroy(item, item.name)"
           >
             <trash-icon class="icon dropdown-item-icon text-danger" />
