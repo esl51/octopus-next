@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Access;
 
-use App\Http\Controllers\ItemController;
-use App\Http\Resources\Access\PermissionResource;
 use App\Models\Permission;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use App\Http\Controllers\ItemController;
+use App\Http\Resources\Access\PermissionResource;
 
 class PermissionController extends ItemController
 {
@@ -22,7 +23,14 @@ class PermissionController extends ItemController
     public function getValidationRules(Request $request, $id = null)
     {
         return [
-            'name' => 'required|string|max:255',
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('permissions')
+                    ->ignore($id)
+                    ->where(fn($query) => $query->where('guard_name', $request->input('guard_name'))),
+            ],
             'guard_name' => 'required|string|max:255',
         ];
     }
