@@ -1,5 +1,9 @@
-import axios, { AxiosError } from 'axios'
+import axios, { AxiosError, AxiosStatic } from 'axios'
 
-export default axios
+export type Api = AxiosStatic
 
 export type ApiError = AxiosError
+
+const api: Api = axios
+
+export default api
