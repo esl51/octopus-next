@@ -78,6 +78,12 @@ body {
   display: flex;
 }
 
+.btn {
+  .spinner-border ~ .icon {
+    display: none;
+  }
+}
+
 .table-id-column,
 .table-action-column {
   width: 1%;
