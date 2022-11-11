@@ -5,9 +5,10 @@
   <teleport to="#page-buttons">
     <o-button-add @click="add" />
   </teleport>
-  <div
-    class="card"
+  <b-card
     :class="cardClasses"
+    body-class="p-0"
+    footer-class="border-top-0"
   >
     <o-table
       class="card-table"
@@ -19,9 +20,9 @@
       <template #cell(action-column)="{ item }">
         <b-dropdown
           v-if="true == true || item.is_editable || item.is_deletable"
-          variant="action"
+          variant="link"
           no-caret
-          toggle-class="btn-action-table"
+          toggle-class="btn-action btn-action-table"
           :popper-opts="{ strategy: 'fixed' }"
         >
           <template #button-content>
@@ -45,17 +46,13 @@
         </b-dropdown>
       </template>
     </o-table>
-    <div class="card-footer d-flex align-items-center">
-      <p class="m-0 text-muted">
-        {{ $t('global.items_table_footer', { ...meta }) }}
-      </p>
-      <o-pagination
-        class="m-0 ms-auto"
+    <template #footer>
+      <o-table-footer
         :meta="meta"
-        @change="paginate"
+        @paginate="paginate"
       />
-    </div>
-  </div>
+    </template>
+  </b-card>
   <o-modal
     ref="modal"
     :title="current.name as string ?? $t('access.permissions.new_title')"
@@ -140,6 +137,9 @@ const {
   api: permissionsApi,
   defaults,
   modal,
+  params: {
+    per_page: 1,
+  },
 })
 
 // card class
@@ -154,12 +154,13 @@ const columns = ref([
     key: 'id',
     title: t('global.id_label'),
     sortable: true,
-    class: 'w-1',
+    class: 'table-id-column',
   },
   {
     key: 'name',
     title: t('global.name_label'),
     sortable: true,
+    class: 'table-title-column',
   },
   {
     key: 'guard_name',
@@ -168,7 +169,7 @@ const columns = ref([
   },
   {
     key: 'action-column',
-    class: 'w-1',
+    class: 'table-action-column',
   },
 ])
 </script>

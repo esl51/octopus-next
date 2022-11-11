@@ -1,6 +1,11 @@
 <template>
   <div class="table-responsive">
-    <table class="table card-table table-vcenter text-nowrap datatable">
+    <table
+      class="table card-table table-vcenter text-nowrap datatable"
+      :class="{
+        [`table-stacked-${stacked}`]: !!stacked,
+      }"
+    >
       <thead>
         <tr>
           <th
@@ -38,6 +43,7 @@
             v-for="column in columns"
             :key="column.key"
             :class="column.class"
+            :data-title="column.title"
           >
             <slot
               :name="`cell(${column.key})`"
@@ -59,11 +65,17 @@ import { OTableColumn } from '@/types'
 import { computed } from 'vue'
 
 // props
-const props = defineProps<{
-  data: Array<Item>
-  columns: Array<OTableColumn>
-  params: ListParams
-}>()
+const props = withDefaults(
+  defineProps<{
+    data: Array<Item>
+    columns: Array<OTableColumn>
+    params: ListParams
+    stacked?: string
+  }>(),
+  {
+    stacked: 'md',
+  }
+)
 
 // emits
 const emit = defineEmits(['sort'])

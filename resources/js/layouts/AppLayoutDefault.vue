@@ -10,7 +10,7 @@
               <app-breadcrumb class="mb-1" />
               <h1 class="page-title">{{ title }}</h1>
             </div>
-            <div class="col-12 col-md-auto ms-auto d-print-none">
+            <div class="col-12 col-sm-auto ms-auto d-print-none">
               <div
                 id="page-buttons"
                 class="btn-list"

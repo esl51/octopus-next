@@ -5,6 +5,7 @@ import OConfirm from './OConfirm.vue'
 import OPagination from './OPagination.vue'
 import OSearch from './OSearch.vue'
 import OTable from './OTable.vue'
+import OTableFooter from './OTableFooter.vue'
 import OToast from './OToast.vue'
 import VCheckbox from './VCheckbox.vue'
 import VForm from './VForm.vue'
@@ -20,6 +21,7 @@ export default {
   OPagination,
   OSearch,
   OTable,
+  OTableFooter,
   OToast,
   VCheckbox,
   VForm,
