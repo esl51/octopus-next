@@ -43,7 +43,6 @@
 </template>
 
 <script setup lang="ts">
-import { ApiError } from '@/api'
 import authApi from '@/api/auth'
 import { useToast } from '@/composables/useToast'
 import { useAuthStore } from '@/stores/auth'
@@ -55,7 +54,7 @@ const router = useRouter()
 const route = useRoute()
 const authStore = useAuthStore()
 const { t } = useI18n()
-const { success, danger } = useToast()
+const { success } = useToast()
 
 // user
 const user = computed(() => authStore.user)
@@ -74,13 +73,6 @@ const send = async () => {
     success({
       body: t('auth.verification.sent', { email: user.value?.email }),
     })
-  } catch (e) {
-    const err = e as ApiError
-    if (err.response?.status === 429) {
-      danger({
-        body: t('auth.verification.too_many_attempts_error'),
-      })
-    }
   } finally {
     busy.value = false
   }
