@@ -12,7 +12,11 @@ export const messages = {
     show_password: 'Показать/спрятать пароль',
     close: 'Закрыть',
     confirm_title: 'Вы уверены?',
+    confirm_delete_body: 'Если вы продолжите, запись "{name}" будет удалена.',
     yes_delete: 'Да, удаляем',
+    id_label: 'ID',
+    name_label: 'Название',
+    items_table_footer: 'Отображаются записи с {from} по {to} из {total}',
   },
   error: {
     alert_title: 'Ой...',
@@ -108,5 +112,19 @@ export const messages = {
   },
   dashboard: {
     title: 'Панель управления',
+  },
+  access: {
+    title: 'Доступ',
+    guard_name_label: 'Гард',
+    users: {
+      title: 'Пользователи',
+    },
+    roles: {
+      title: 'Роли',
+    },
+    permissions: {
+      title: 'Разрешения',
+      new_title: 'Новое разрешение',
+    },
   },
 }

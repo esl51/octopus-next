@@ -48,6 +48,13 @@ export interface User {
   photo_url: string | null
 }
 
+export interface OTableColumn {
+  key: string
+  title?: string
+  sortable?: boolean
+  class?: string
+}
+
 export type AppConfig = {
   name: string
   locale: LangLocale

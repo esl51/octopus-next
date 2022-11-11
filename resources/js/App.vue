@@ -64,6 +64,8 @@ axios.interceptors.request.use((config) => {
   return config
 })
 
+const dateTimeFormat = 'YYYY-MM-DD[T]HH:mm:ssZ'
+
 // convert dates to dates
 function handleDates(body: any) {
   if (body === null || body === undefined || typeof body !== 'object') {
@@ -71,8 +73,8 @@ function handleDates(body: any) {
   }
   for (const key of Object.keys(body)) {
     const value = body[key]
-    const date = dayjs(value, 'YYYY-MM-DD[T]HH:mm:ssZ', true)
-    if (typeof value === 'string' && date.isValid()) {
+    const date = dayjs(value, dateTimeFormat, true)
+    if (date.format(dateTimeFormat) === value) {
       body[key] = date.toDate()
     } else if (typeof value === 'object') {
       handleDates(value)
@@ -89,16 +91,8 @@ axios.interceptors.response.use(
   async (error) => {
     const { status, data } = error.response
 
-    // server error
-    if (status >= 500) {
-      danger({
-        title: t('error.alert_title'),
-        body: t('error.alert_text'),
-      })
-    }
-
     // bad request
-    else if (status === 400 && data.status) {
+    if (status === 400 && data.status) {
       danger({
         title: t('error.alert_title'),
         body: data.status,
@@ -137,6 +131,14 @@ axios.interceptors.response.use(
       })
       await authStore.logout()
       router.push({ name: 'auth.login', query: { intended_url: route.path } })
+    }
+
+    // other errors
+    else if (status >= 400) {
+      danger({
+        title: t('error.alert_title'),
+        body: t('error.alert_text'),
+      })
     }
 
     return Promise.reject(error)

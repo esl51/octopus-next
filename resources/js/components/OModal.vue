@@ -94,6 +94,10 @@ const backdropClasses = computed(() => ({
 const styles = computed(() =>
   localHidden.value ? 'display: none;' : 'display: block;'
 )
+const dialog = ref<HTMLElement | null>(null)
+const autofocusInput = computed(
+  () => dialog.value?.querySelector('[autofocus],.autofocus') as HTMLElement
+)
 
 // show
 const show = () => {
@@ -101,6 +105,7 @@ const show = () => {
   localHidden.value = false
   setTimeout(() => {
     localShow.value = true
+    autofocusInput.value?.focus()
   }, 1)
 }
 
@@ -114,7 +119,6 @@ const hide = () => {
 }
 
 // backdrop click
-const dialog = ref(null)
 onClickOutside(dialog, () => {
   emit('backdropClick')
   if (localShow.value && props.hideOnBackdropClick) {

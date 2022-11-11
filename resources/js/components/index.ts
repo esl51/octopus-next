@@ -1,6 +1,9 @@
 import OAvatar from './OAvatar.vue'
 import OButton from './OButton.vue'
 import OConfirm from './OConfirm.vue'
+import OPagination from './OPagination.vue'
+import OSearch from './OSearch.vue'
+import OTable from './OTable.vue'
 import OToast from './OToast.vue'
 import VCheckbox from './VCheckbox.vue'
 import VForm from './VForm.vue'
@@ -12,6 +15,9 @@ export default {
   OAvatar,
   OButton,
   OConfirm,
+  OPagination,
+  OSearch,
+  OTable,
   OToast,
   VCheckbox,
   VForm,

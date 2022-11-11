@@ -12,7 +12,11 @@ export const messages = {
     show_password: 'Show/hide password',
     close: 'Close',
     confirm_title: 'Are you shure?',
+    confirm_delete_body: 'If you proceed, "{name}" will be deleted.',
     yes_delete: 'Yes, delete',
+    id_label: 'ID',
+    name_label: 'Name',
+    items_table_footer: 'Showing {from} to {to} of {total} entries',
   },
   error: {
     alert_title: 'Oops...',
@@ -109,5 +113,19 @@ export const messages = {
   },
   dashboard: {
     title: 'Dashboard',
+  },
+  access: {
+    title: 'Access',
+    guard_name_label: 'Guard name',
+    users: {
+      title: 'Users',
+    },
+    roles: {
+      title: 'Roles',
+    },
+    permissions: {
+      title: 'Permissions',
+      new_title: 'New permission',
+    },
   },
 }

@@ -18,6 +18,7 @@
       <b-form-input
         :id="id"
         v-model="model"
+        :name="name"
         :state="state"
         :type="inputType"
         :readonly="readonly"
@@ -26,6 +27,9 @@
         :autocomplete="autocomplete"
         :placeholder="placeholder"
         :size="size"
+        :class="{
+          autofocus: !!autofocus,
+        }"
       />
       <template
         v-if="type === 'password'"
