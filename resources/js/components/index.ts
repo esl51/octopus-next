@@ -1,5 +1,6 @@
 import OAvatar from './OAvatar.vue'
 import OButton from './OButton.vue'
+import OButtonAdd from './OButtonAdd.vue'
 import OConfirm from './OConfirm.vue'
 import OPagination from './OPagination.vue'
 import OSearch from './OSearch.vue'
@@ -14,6 +15,7 @@ import VSubmit from './VSubmit.vue'
 export default {
   OAvatar,
   OButton,
+  OButtonAdd,
   OConfirm,
   OPagination,
   OSearch,

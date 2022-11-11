@@ -3,17 +3,9 @@
     <o-search @input="search" />
   </teleport>
   <teleport to="#page-buttons">
-    <o-button
-      v-b-tooltip="$t('global.add')"
-      variant="primary"
-      icon
-      @click="add"
-    >
-      <plus-icon class="icon" />
-    </o-button>
+    <o-button-add @click="add" />
   </teleport>
   <div
-    ref="card"
     class="card"
     :class="cardClasses"
   >
@@ -152,7 +144,6 @@ const {
 })
 
 // card class
-const card = ref(null)
 const cardClasses = computed(() => ({
   'opacity-50': busy.value,
   'pe-none': busy.value,
