@@ -1,3 +1,5 @@
+import dayjs from 'dayjs'
+
 /**
  * Debounce
  * @param func Callback function
@@ -49,4 +51,28 @@ export function simplifyParams(
     }
   })
   return sParams
+}
+
+/**
+ * Cast strings as Date
+ * @param body Object
+ * @param dateTimeFormat Date time format for dayjs
+ * @returns void
+ */
+export function handleDates(
+  body: any, // eslint-disable-line @typescript-eslint/no-explicit-any
+  dateTimeFormat = 'YYYY-MM-DD[T]HH:mm:ssZ'
+) {
+  if (body === null || body === undefined || typeof body !== 'object') {
+    return body
+  }
+  for (const key of Object.keys(body)) {
+    const value = body[key]
+    const date = dayjs(value, dateTimeFormat, true)
+    if (date.format(dateTimeFormat) === value) {
+      body[key] = date.toDate()
+    } else if (typeof value === 'object') {
+      handleDates(value)
+    }
+  }
 }

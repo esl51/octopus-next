@@ -15,6 +15,7 @@
 
 <script setup lang="ts">
 import { useToast } from './composables/useToast'
+import { handleDates } from './helpers'
 import AppLayout from './layouts/AppLayout.vue'
 import { useAuthStore } from './stores/auth'
 import { usePageStore } from './stores/page'
@@ -63,24 +64,6 @@ axios.interceptors.request.use((config) => {
 
   return config
 })
-
-const dateTimeFormat = 'YYYY-MM-DD[T]HH:mm:ssZ'
-
-// convert dates to dates
-function handleDates(body: any) {
-  if (body === null || body === undefined || typeof body !== 'object') {
-    return body
-  }
-  for (const key of Object.keys(body)) {
-    const value = body[key]
-    const date = dayjs(value, dateTimeFormat, true)
-    if (date.format(dateTimeFormat) === value) {
-      body[key] = date.toDate()
-    } else if (typeof value === 'object') {
-      handleDates(value)
-    }
-  }
-}
 
 // axios response interceptor
 axios.interceptors.response.use(
