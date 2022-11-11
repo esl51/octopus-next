@@ -3,7 +3,7 @@ import OModal from '@/components/OModal.vue'
 import { useConfirm } from '@/composables/useConfirm'
 import { debounce } from '@/helpers'
 import Form from 'vform'
-import { reactive, Ref, ref, watch } from 'vue'
+import { nextTick, onMounted, reactive, Ref, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from 'vue-router'
 
@@ -35,6 +35,11 @@ export function useItems(config: ItemsConfig) {
 
   // form
   const form = reactive(new Form(config.defaults))
+
+  // fetch item
+  const fetchItem = async (id: number) => {
+    current.value = await config.api.get(id)
+  }
 
   // fetch items
   const fetchItems = async () => {
@@ -157,15 +162,46 @@ export function useItems(config: ItemsConfig) {
     }
   }
 
+  // clean route add/edit params to prevent showing modal when route changes
+  const cleanRoute = () => {
+    if (route.query.add || route.query.edit) {
+      const query = { ...route.query, add: undefined, edit: undefined }
+      router.replace({ query })
+    }
+  }
+
   // route change
   watch(
     () => route.query,
-    (query) => {
-      params.value = { ...params.value, ...query }
+    async (query) => {
+      const clearParams = { ...params.value }
+      if (!query.add && clearParams.add) {
+        delete clearParams.add
+      }
+      if (!query.edit && clearParams.edit) {
+        delete clearParams.edit
+      }
+      params.value = { ...clearParams, ...query }
       fetchItems()
     },
     { immediate: true, deep: true }
   )
+
+  // show add/edit modal with specific route query
+  onMounted(async () => {
+    const addItem = Number(route.query.add)
+    const editItem = Number(route.query.edit)
+    if (addItem) {
+      nextTick(() => {
+        add()
+      })
+    } else if (editItem) {
+      await fetchItem(editItem)
+      nextTick(() => {
+        edit(current.value)
+      })
+    }
+  })
 
   return {
     items,
@@ -174,6 +210,7 @@ export function useItems(config: ItemsConfig) {
     busy,
     form,
     current,
+    fetchItem,
     fetchItems,
     paginate,
     sort,
@@ -184,5 +221,6 @@ export function useItems(config: ItemsConfig) {
     update,
     submit,
     destroy,
+    cleanRoute,
   }
 }

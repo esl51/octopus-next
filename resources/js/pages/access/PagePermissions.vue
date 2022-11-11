@@ -56,6 +56,7 @@
   <o-modal
     ref="modal"
     :title="current.name as string ?? $t('access.permissions.new_title')"
+    @hide="cleanRoute"
   >
     <v-form
       :form="form"
@@ -133,6 +134,7 @@ const {
   edit,
   submit,
   destroy,
+  cleanRoute,
 } = useItems({
   api: permissionsApi,
   defaults,
