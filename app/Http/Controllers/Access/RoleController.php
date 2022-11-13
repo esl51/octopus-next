@@ -6,6 +6,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Resources\Access\RoleResource;
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class RoleController extends ItemController
 {
@@ -31,7 +32,14 @@ class RoleController extends ItemController
     public function getValidationRules(Request $request, $id = null)
     {
         return [
-            'name' => 'required|string|max:255',
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('roles')
+                    ->ignore($id)
+                    ->where(fn($query) => $query->where('guard_name', $request->input('guard_name'))),
+            ],
             '%title%' => 'required|string|max:255',
             'guard_name' => 'required|string|max:255',
             'permissions' => 'nullable|array',
