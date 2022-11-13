@@ -85,11 +85,6 @@ body {
   margin-bottom: $toast-padding-x;
 }
 
-.navbar-vertical {
-  overflow-y: scroll;
-  padding-left: 0.5rem !important;
-}
-
 .btn-icon {
   .btn-content {
     display: flex;
@@ -199,5 +194,11 @@ body {
         }
       }
     }
+  }
+}
+
+.card-body:last-child {
+  .card-table:last-child tbody tr:last-child td {
+    border-bottom: none;
   }
 }
