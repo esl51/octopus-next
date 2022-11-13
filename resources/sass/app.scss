@@ -1,8 +1,26 @@
 // Fonts
 // @import "https://fonts.bunny.net/css?family=Nunito";
+@use 'sass:map';
 
 // Variables
 @import 'variables';
+
+// Tabler config
+@import '@tabler/core/src/scss/config';
+
+$utilities: map.merge(
+  $utilities,
+  (
+    'min-width': (
+      property: min-width,
+      class: min-w,
+      values: (
+        0: 0,
+        auth: auto,
+      ),
+    ),
+  )
+);
 
 // Tabler
 @import '@tabler/core/src/scss/tabler';
@@ -59,15 +77,6 @@ body {
       border-color: $success;
     }
   }
-}
-
-.container-xl,
-.container-lg,
-.container-md,
-.container-sm,
-.container-xs,
-.container-fluid {
-  --tblr-gutter-x: 3rem;
 }
 
 .toast-body + .btn-close {
