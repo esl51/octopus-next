@@ -76,6 +76,11 @@
         name="guard_name"
         :label="$t('access.guard_name_label')"
       />
+      <v-checkboxes
+        name="permissions"
+        :label="$t('access.permissions.title')"
+        :options="permissions"
+      />
       <template #footer>
         <o-button
           variant="link"
@@ -93,11 +98,12 @@
 </template>
 
 <script setup lang="ts">
-import { rolesApi } from '@/api/access'
+import { permissionsApi, rolesApi } from '@/api/access'
+import { Item } from '@/api/items'
 import OModal from '@/components/OModal.vue'
 import { useItems } from '@/composables/useItems'
 import { usePage } from '@/composables/usePage'
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 const { t, availableLocales } = useI18n()
@@ -120,6 +126,7 @@ const modal = ref<typeof OModal | null>(null)
 const defaults = {
   name: '',
   guard_name: 'web',
+  permissions: [],
 } as Record<string, unknown>
 availableLocales.forEach((locale) => {
   defaults['title:' + locale] = ''
@@ -182,4 +189,11 @@ const columns = ref([
     class: 'table-action-column',
   },
 ])
+
+// permissions
+const permissions = ref<Array<Item>>([])
+onMounted(async () => {
+  const { data } = await permissionsApi.all()
+  permissions.value = data
+})
 </script>

@@ -41,6 +41,18 @@ export function useItems(config: ItemsConfig) {
   const fillForm = (item: Item) => {
     const data = {} as Record<string, unknown>
     Object.keys(config.defaults).forEach((key) => {
+      if (Array.isArray(item[key])) {
+        // property values
+        if ((item[key] as Array<{ id: number }>)?.some((i) => i.id)) {
+          data[key] = (item[key] as Array<{ id: number }>)?.map((i) => i.id)
+        } else {
+          data[key] = []
+        }
+      } else {
+        data[key] = item[key]
+      }
+
+      // translations
       const localeKeys = key.match(/^([^:]+):([^$]+)$/)
       if (
         item.translations &&
@@ -57,8 +69,6 @@ export function useItems(config: ItemsConfig) {
         } else {
           data[key] = null
         }
-      } else {
-        data[key] = item[key]
       }
     })
     form.fill(data)
