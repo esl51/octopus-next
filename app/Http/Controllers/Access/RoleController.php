@@ -51,7 +51,7 @@ class RoleController extends ItemController
             $items->where(function ($query) use ($search) {
                 $query->orWhere('name', 'like', '%' . $search . '%')
                     ->orWhere('guard_name', 'like', '%' . $search . '%')
-                    ->orWhereTranslation('title', 'like', '%' . $search . '%');
+                    ->orWhereTranslationLike('title', '%' . $search . '%');
             });
         }
 
