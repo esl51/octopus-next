@@ -45,6 +45,7 @@ export interface ListResponse {
 
 export interface ItemsApi {
   url: string
+  all: () => Promise<ListResponse>
   list: (params?: ListParams) => Promise<ListResponse>
   get: (id: number) => Promise<Item>
   store: (payload: Record<string, unknown>) => Promise<Item>
@@ -59,6 +60,14 @@ export interface ItemsApi {
  */
 export default function itemsApi(endpoint: string): ItemsApi {
   const url = endpoint.replace(/\/*$/, '/')
+
+  /**
+   * All items.
+   * @returns ListResponse
+   */
+  const all = async (): Promise<ListResponse> => {
+    return await list({ per_page: 999 })
+  }
 
   /**
    * List items.
@@ -114,6 +123,7 @@ export default function itemsApi(endpoint: string): ItemsApi {
 
   return {
     url,
+    all,
     list,
     get,
     store,
