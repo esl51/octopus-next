@@ -9,7 +9,6 @@
       @submit="submit"
     >
       <v-input
-        v-model="form.email"
         :label="$t('auth.forgot_password.email_label')"
         :placeholder="$t('auth.forgot_password.email_placeholder')"
         name="email"

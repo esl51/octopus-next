@@ -60,7 +60,6 @@
         >
           <div class="col-auto">
             <v-input
-              v-model="profileForm.name"
               :label="$t('auth.profile.name_label')"
               :placeholder="$t('auth.profile.name_placeholder')"
               name="name"
@@ -68,7 +67,6 @@
           </div>
           <div class="col-auto">
             <v-input
-              v-model="profileForm.email"
               :label="$t('auth.profile.email_label')"
               :placeholder="$t('auth.profile.email_placeholder')"
               name="email"
@@ -98,7 +96,6 @@
         >
           <div class="col-auto">
             <v-input
-              v-model="passwordForm.current_password"
               :label="$t('auth.profile.current_password_label')"
               :placeholder="$t('auth.profile.current_password_placeholder')"
               name="current_password"
@@ -107,7 +104,6 @@
           </div>
           <div class="col-auto">
             <v-input
-              v-model="passwordForm.password"
               :label="$t('auth.profile.password_label')"
               :placeholder="$t('auth.profile.password_placeholder')"
               name="password"

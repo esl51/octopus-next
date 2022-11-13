@@ -5,21 +5,31 @@
         name="labelDescription"
         v-bind="slotData"
       />
+      <v-locale-switch
+        v-if="translatable"
+        v-model="activeLocale"
+        :states="localeStates"
+      />
     </template>
-    <b-input-group class="input-group-flat">
+    <b-input-group
+      v-for="locale in translatable ? availableLocales : [undefined]"
+      v-show="!translatable || locale === activeLocale"
+      :key="locale ? name + ':' + locale : name"
+      class="input-group-flat"
+    >
       <template
         v-if="icon"
         #prepend
       >
-        <b-input-group-text :class="state === false ? 'is-invalid' : null">
+        <b-input-group-text>
           <component :is="iconComponent" />
         </b-input-group-text>
       </template>
       <b-form-input
-        :id="id"
-        v-model="model"
-        :name="name"
-        :state="state"
+        :id="locale ? id + '-' + locale : id"
+        v-model="model[locale ? name + ':' + locale : name]"
+        :name="locale ? name + ':' + locale : name"
+        :state="locale ? (locale === activeLocale ? state : undefined) : state"
         :type="inputType"
         :readonly="readonly"
         :disabled="disabled"
@@ -35,12 +45,11 @@
         v-if="type === 'password'"
         #append
       >
-        <b-input-group-text :class="state === false ? 'is-invalid' : null">
+        <b-input-group-text>
           <b-link
+            v-b-tooltip="$t('global.show_password')"
             class="link-secondary"
-            data-bs-toggle="tooltip"
             :aria-label="$t('global.show_password')"
-            :data-bs-original-title="$t('global.show_password')"
             @click.prevent="togglePasswordVisible"
           >
             <eye-off-icon
@@ -61,12 +70,13 @@
 <script setup lang="ts">
 import { useFormControl } from '@/composables/useFormControl'
 import { InputType, Size } from 'bootstrap-vue-3'
-import { ref, computed } from 'vue'
+import Form from 'vform'
+import { ref, computed, inject } from 'vue'
 
 // props
 const props = withDefaults(
   defineProps<{
-    modelValue: string | number | undefined
+    modelValue?: Form
     name: string
     label?: string
     hint?: string
@@ -78,8 +88,10 @@ const props = withDefaults(
     type?: InputType
     placeholder?: string
     icon?: string
+    translatable?: boolean
   }>(),
   {
+    modelValue: undefined,
     label: undefined,
     hint: undefined,
     readonly: false,
@@ -90,20 +102,23 @@ const props = withDefaults(
     placeholder: undefined,
     icon: undefined,
     type: 'text',
+    translatable: false,
   }
 )
 
 // control
-const { id, state } = useFormControl(props)
+const { id, state, activeLocale, availableLocales, localeStates } =
+  useFormControl(props)
+
+// form
+const form: Form | undefined = inject('form')
 
 // value
 const emit = defineEmits(['update:modelValue'])
 const model = computed({
-  get() {
-    return props.modelValue
-  },
-  set(value) {
-    return emit('update:modelValue', value)
+  get: () => props.modelValue || form?.value,
+  set: (value) => {
+    emit('update:modelValue', value)
   },
 })
 

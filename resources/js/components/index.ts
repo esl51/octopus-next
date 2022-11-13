@@ -11,6 +11,7 @@ import VCheckbox from './VCheckbox.vue'
 import VForm from './VForm.vue'
 import VFormControl from './VFormControl.vue'
 import VInput from './VInput.vue'
+import VLocaleSwitch from './VLocaleSwitch.vue'
 import VSubmit from './VSubmit.vue'
 
 export default {
@@ -27,5 +28,6 @@ export default {
   VForm,
   VFormControl,
   VInput,
+  VLocaleSwitch,
   VSubmit,
 }

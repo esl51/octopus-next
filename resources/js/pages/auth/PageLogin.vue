@@ -6,7 +6,6 @@
       @submit="login"
     >
       <v-input
-        v-model="form.email"
         :label="$t('auth.login.email_label')"
         :placeholder="$t('auth.login.email_placeholder')"
         name="email"
@@ -15,7 +14,6 @@
         autofocus
       />
       <v-input
-        v-model="form.password"
         :label="$t('auth.login.password_label')"
         :placeholder="$t('auth.login.password_placeholder')"
         name="password"
@@ -32,7 +30,6 @@
         </template>
       </v-input>
       <v-checkbox
-        v-model="form.remember"
         :label="$t('auth.login.remember_label')"
         name="remember"
         class="mb-3"

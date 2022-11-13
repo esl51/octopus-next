@@ -2,6 +2,7 @@ import { Item, ItemsApi, ListParams, Meta } from '@/api/items'
 import OModal from '@/components/OModal.vue'
 import { useConfirm } from '@/composables/useConfirm'
 import { debounce } from '@/helpers'
+import { serialize } from 'object-to-formdata'
 import Form from 'vform'
 import { nextTick, onMounted, reactive, Ref, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -18,7 +19,7 @@ export function useItems(config: ItemsConfig) {
   const router = useRouter()
   const route = useRoute()
   const { confirm } = useConfirm()
-  const { t } = useI18n()
+  const { t, availableLocales } = useI18n()
 
   const items = ref([] as Array<Item>)
   const meta = ref({} as Meta)
@@ -36,9 +37,44 @@ export function useItems(config: ItemsConfig) {
   // form
   const form = reactive(new Form(config.defaults))
 
+  // fill form
+  const fillForm = (item: Item) => {
+    const data = {} as Record<string, unknown>
+    Object.keys(config.defaults).forEach((key) => {
+      const localeKeys = key.match(/^([^:]+):([^$]+)$/)
+      if (
+        item.translations &&
+        Array.isArray(localeKeys) &&
+        availableLocales.includes(localeKeys[2])
+      ) {
+        const localeKey = localeKeys[1]
+        const locale = localeKeys[2]
+        const localeTranslations = item.translations.find(
+          (translation) => translation.locale === locale
+        )
+        if (localeTranslations && localeTranslations[localeKey]) {
+          data[key] = localeTranslations[localeKey]
+        } else {
+          data[key] = null
+        }
+      } else {
+        data[key] = item[key]
+      }
+    })
+    form.fill(data)
+  }
+
+  // current item
+  const current = ref({} as Item)
+
   // fetch item
   const fetchItem = async (id: number) => {
-    current.value = await config.api.get(id)
+    loadItem(await config.api.get(id))
+  }
+
+  // load item
+  const loadItem = async (item: Item) => {
+    current.value = item
   }
 
   // fetch items
@@ -103,9 +139,6 @@ export function useItems(config: ItemsConfig) {
     })
   }, 300)
 
-  // current item
-  const current = ref({} as Item)
-
   // add
   const add = () => {
     current.value = {} as Item
@@ -116,31 +149,44 @@ export function useItems(config: ItemsConfig) {
   // edit
   const edit = (item: Item) => {
     current.value = item
-    form.fill(item)
+    fillForm(item)
     config.modal?.value?.show()
   }
 
   // submit
   const submit = async () => {
     if (current.value.id) {
-      current.value = await update(current.value.id)
+      loadItem(await update(current.value.id))
     } else {
-      current.value = await store()
+      loadItem(await store())
     }
     fetchItems()
     config.modal?.value?.hide()
   }
 
+  // transform request translations
+  const transformRequest = (data: Record<string, unknown>) => {
+    Object.entries(data).forEach(([key, value]) => {
+      data[key] = value === '' ? null : value
+    })
+    return serialize(data, { nullsAsUndefineds: true })
+  }
+
   // store
   const store = async () => {
-    const { data } = await form.post(config.api.url)
+    const { data } = await form.post(config.api.url, { transformRequest })
     return data.data
   }
 
   // update
   const update = async (item: number | Item) => {
     const id = typeof item === 'number' ? item : item.id
-    const { data } = await form.put(config.api.url + id)
+    const { data } = await form.post(config.api.url + id, {
+      transformRequest: [
+        (data) => ({ ...data, _method: 'PUT' }),
+        (data) => transformRequest(data),
+      ],
+    })
     return data.data
   }
 

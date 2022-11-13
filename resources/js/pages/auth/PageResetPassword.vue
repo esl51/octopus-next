@@ -9,7 +9,6 @@
       @submit="submit"
     >
       <v-input
-        v-model="form.email"
         :label="$t('auth.reset_password.email_label')"
         :placeholder="$t('auth.reset_password.email_placeholder')"
         name="email"
@@ -18,7 +17,6 @@
         autofocus
       />
       <v-input
-        v-model="form.password"
         :label="$t('auth.reset_password.password_label')"
         :placeholder="$t('auth.reset_password.password_placeholder')"
         name="password"

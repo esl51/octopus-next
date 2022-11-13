@@ -63,13 +63,11 @@
       @submit="submit"
     >
       <v-input
-        v-model="form.name"
         name="name"
         :label="$t('global.name_label')"
         autofocus
       />
       <v-input
-        v-model="form.guard_name"
         name="guard_name"
         :label="$t('access.guard_name_label')"
       />
@@ -139,9 +137,6 @@ const {
   api: permissionsApi,
   defaults,
   modal,
-  params: {
-    per_page: 1,
-  },
 })
 
 // card class

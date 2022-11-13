@@ -8,14 +8,12 @@
       @submit="register"
     >
       <v-input
-        v-model="form.name"
         :label="$t('auth.register.name_label')"
         :placeholder="$t('auth.register.name_placeholder')"
         name="name"
         autofocus
       />
       <v-input
-        v-model="form.email"
         :label="$t('auth.register.email_label')"
         :placeholder="$t('auth.register.email_placeholder')"
         name="email"
@@ -23,7 +21,6 @@
         autocomplete="new-password"
       />
       <v-input
-        v-model="form.password"
         :label="$t('auth.register.password_label')"
         :placeholder="$t('auth.register.password_placeholder')"
         name="password"

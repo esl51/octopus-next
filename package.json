@@ -42,6 +42,7 @@
     "bootstrap": "^5.2.2",
     "bootstrap-vue-3": "^0.4.7",
     "dayjs": "^1.11.6",
+    "object-to-formdata": "^4.4.2",
     "pinia": "^2.0.23",
     "pinia-plugin-persistedstate": "^2.3.0",
     "qs": "^6.11.0",

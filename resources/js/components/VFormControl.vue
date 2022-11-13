@@ -1,13 +1,13 @@
 <template>
-  <b-form-group
-    :label-for="id"
-    :state="state"
-    :description="hint"
-    :label-size="size"
+  <div
+    class="mb-3"
+    :class="state === false ? 'is-invalid' : undefined"
   >
-    <template
+    <label
       v-if="label || $slots.labelDescription"
-      #label
+      class="form-label"
+      :class="'form-label-' + size"
+      :for="label ? id : undefined"
     >
       {{ label }}
       <span
@@ -16,21 +16,29 @@
       >
         <slot name="labelDescription" />
       </span>
-    </template>
+    </label>
     <slot />
-    <b-form-invalid-feedback :state="state">
-      <div v-html="errors" />
-    </b-form-invalid-feedback>
-  </b-form-group>
+    <div
+      v-if="hint"
+      class="form-text"
+    >
+      {{ hint }}
+    </div>
+    <div
+      v-if="state === false && errors?.length"
+      class="invalid-feedback"
+      v-html="errors?.join('<br />')"
+    />
+  </div>
 </template>
 
 <script setup lang="ts">
-import { inject } from 'vue'
+import { ComputedRef, inject } from 'vue'
 
-const id: string | undefined = inject('id')
-const state: boolean | undefined = inject('state')
-const errors: string | undefined = inject('errors')
-const label: string | undefined = inject('label')
-const hint: string | undefined = inject('hint')
-const size: string | undefined = inject('size')
+const id: ComputedRef<string> | undefined = inject('id')
+const errors: ComputedRef<Array<string>> | undefined = inject('errors')
+const state: ComputedRef<boolean> | undefined = inject('state')
+const label: ComputedRef<string> | undefined = inject('label')
+const hint: ComputedRef<string> | undefined = inject('hint')
+const size: ComputedRef<string> | undefined = inject('size')
 </script>

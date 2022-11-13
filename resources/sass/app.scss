@@ -41,6 +41,26 @@ body {
   }
 }
 
+.is-invalid {
+  .input-group-flat {
+    .input-group-text {
+      border-color: $danger;
+    }
+  }
+
+  .invalid-feedback {
+    display: block;
+  }
+}
+
+.is-valid {
+  .input-group-flat {
+    .input-group-text {
+      border-color: $success;
+    }
+  }
+}
+
 .container-xl,
 .container-lg,
 .container-md,
