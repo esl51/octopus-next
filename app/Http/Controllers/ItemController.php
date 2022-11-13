@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Model;
 use App\Models\TranslatableRuleFactory;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -25,6 +24,11 @@ abstract class ItemController extends Controller
      */
     protected $fillable = [];
     /**
+     * Fillable translatable properties of class
+     * @var array
+     */
+    protected $fillableTranslations = [];
+    /**
      * Relations for loading
      * @var array
      */
@@ -34,11 +38,6 @@ abstract class ItemController extends Controller
      * @var array
      */
     protected $withCount = [];
-    /**
-     * Return translated items
-     * @var boolean
-     */
-    protected $translatable = false;
     /**
      * Return sortable listing
      * @var boolean
@@ -60,20 +59,36 @@ abstract class ItemController extends Controller
     abstract protected function getValidationRules(Request $request, $id = null);
 
     /**
-     * Unset empty translations.
+     * Get messages.
      *
-     * @param array $translations Translations
-     * @return array Prepared translations
+     * @return array
      */
-    public static function prepareTranslations($translations)
+    public function getMessages(): array
     {
-        foreach ($translations as $key => $value) {
-            if (is_array($value)) {
-                $translations[$key] = self::prepareTranslations($translations[$key]);
-            }
+        return [];
+    }
 
-            if (empty($translations[$key])) {
-                unset($translations[$key]);
+    /**
+     * Get custom attributes.
+     *
+     * @return array
+     */
+    public function getCustomAttributes(): array
+    {
+        return [];
+    }
+
+    /**
+     * Get fillable translations.
+     *
+     * @return array Prepared fillable translations
+     */
+    public function getFillableTranslations()
+    {
+        $translations = [];
+        foreach ($this->fillableTranslations as $key) {
+            foreach (config('translatable.locales') as $locale) {
+                $translations[] = $key . ':' . $locale;
             }
         }
 
@@ -117,10 +132,24 @@ abstract class ItemController extends Controller
      */
     public function validate(Request $request, array $rules, array $messages = [], array $customAttributes = [])
     {
-        if ($this->translatable) {
+        $allMessages = $this->getMessages();
+        $allCustomAttributes = $this->getCustomAttributes();
+        if (count($this->fillableTranslations)) {
             $rules = TranslatableRuleFactory::make($rules);
+
+            foreach ($this->fillableTranslations as $attribute) {
+                foreach (config('translatable.locales') as $locale) {
+                    $allCustomAttributes[$attribute . ':' . $locale] =
+                        trans('validation.attributes.' . $attribute) . ' (' . $locale . ')';
+                }
+            }
         }
-        return parent::validate($request, $rules, $messages, $customAttributes);
+        return parent::validate(
+            $request,
+            $rules,
+            array_merge($messages, $allMessages),
+            array_merge($customAttributes, $allCustomAttributes)
+        );
     }
 
     /**
@@ -139,7 +168,7 @@ abstract class ItemController extends Controller
 
         $items = $this->checkPermissions($items);
         $with = $this->with;
-        if ($this->translatable) {
+        if (method_exists($this->class, 'translations')) {
             $with[] = 'translations';
             //$items = call_user_func([$items, 'withTranslation']);
         }
@@ -202,7 +231,7 @@ abstract class ItemController extends Controller
         if ($withRelations) {
             $with = $this->with;
             // load all translations for modifying purposes
-            if ($this->translatable) {
+            if (method_exists($this->class, 'translations')) {
                 $with[] = 'translations';
             }
             if (!empty($with)) {
@@ -235,8 +264,8 @@ abstract class ItemController extends Controller
         $rules = $this->getValidationRules($request);
         $this->validate($request, $rules);
         $data = $request->only($this->fillable);
-        if ($this->translatable) {
-            $data = array_merge($data, self::prepareTranslations($request->translations));
+        if (count($this->fillableTranslations)) {
+            $data = array_merge($data, $request->only($this->getFillableTranslations()));
         }
         $data = $this->beforeStore($request, $data);
         $item = call_user_func([$this->class, 'create'], $data);
@@ -280,8 +309,8 @@ abstract class ItemController extends Controller
             ], 400);
         }
         $data = $request->only($this->fillable);
-        if ($this->translatable) {
-            $data = array_merge($data, self::prepareTranslations($request->translations));
+        if (count($this->fillableTranslations)) {
+            $data = array_merge($data, $request->only($this->getFillableTranslations()));
             $item->deleteTranslations();
         }
         $data = $this->beforeUpdate($request, $data);

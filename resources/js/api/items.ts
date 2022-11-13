@@ -1,4 +1,5 @@
 import api from './'
+import messages from '@/lang'
 
 export interface ListParams {
   id?: number
@@ -10,12 +11,21 @@ export interface ListParams {
   [key: string]: unknown
 }
 
+export interface Translation {
+  id: number
+  locale: keyof typeof messages
+  created_at: Date
+  updated_at: Date
+  [key: string]: unknown
+}
+
 export interface Item {
   id: number
   is_deletable: boolean
   is_editable: boolean
   created_at: Date
   updated_at: Date
+  translations?: Array<Translation>
   [key: string]: unknown
 }
 

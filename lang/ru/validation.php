@@ -170,7 +170,9 @@ return [
     */
 
     'attributes' => [
-        'name' => 'имя',
+        'name' => 'название',
+        'first_name' => 'имя',
+        'title' => 'заголовок',
         'password' => 'пароль',
         'avatar' => 'фото',
         'current_password' => 'текущий пароль',
