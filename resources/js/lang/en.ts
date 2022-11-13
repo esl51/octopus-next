@@ -120,6 +120,10 @@ export const messages = {
     guard_name_label: 'Guard name',
     users: {
       title: 'Users',
+      new_title: 'New user',
+      name_label: 'Name',
+      email_label: 'Email',
+      password_label: 'Password',
     },
     roles: {
       title: 'Roles',

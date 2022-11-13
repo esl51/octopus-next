@@ -119,6 +119,10 @@ export const messages = {
     guard_name_label: 'Гард',
     users: {
       title: 'Пользователи',
+      new_title: 'Новый пользователь',
+      name_label: 'Имя',
+      email_label: 'Email',
+      password_label: 'Пароль',
     },
     roles: {
       title: 'Роли',
