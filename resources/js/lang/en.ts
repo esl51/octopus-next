@@ -16,6 +16,7 @@ export const messages = {
     yes_delete: 'Yes, delete',
     id_label: 'ID',
     name_label: 'Name',
+    title_label: 'Заголовок',
     items_table_footer: 'Showing {from} to {to} of {total} entries',
   },
   error: {
@@ -122,6 +123,7 @@ export const messages = {
     },
     roles: {
       title: 'Roles',
+      new_title: 'New role',
     },
     permissions: {
       title: 'Permissions',

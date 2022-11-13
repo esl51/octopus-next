@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Access;
 
 use App\Http\Controllers\ItemController;
 use App\Http\Resources\Access\RoleResource;
-use App\Models\Model;
 use App\Models\Role;
 use Illuminate\Http\Request;
 
@@ -16,13 +15,15 @@ class RoleController extends ItemController
         'name',
         'guard_name',
     ];
+    protected $fillableTranslations = [
+        'title',
+    ];
     protected $with = [
         'permissions',
     ];
     protected $withCount = [
         'users',
     ];
-    protected $translatable = true;
 
     /**
      * @inheritDoc
@@ -31,7 +32,7 @@ class RoleController extends ItemController
     {
         return [
             'name' => 'required|string|max:255',
-            'translations.%title%' => 'required_if_fallback:nullable|string|max:255',
+            '%title%' => 'required|string|max:255',
             'guard_name' => 'required|string|max:255',
             'permissions' => 'nullable|array',
             'permissions.*' => 'integer',

@@ -16,6 +16,7 @@ export const messages = {
     yes_delete: 'Да, удаляем',
     id_label: 'ID',
     name_label: 'Название',
+    title_label: 'Заголовок',
     items_table_footer: 'Отображаются записи с {from} по {to} из {total}',
   },
   error: {
@@ -121,6 +122,7 @@ export const messages = {
     },
     roles: {
       title: 'Роли',
+      new_title: 'Новая роль',
     },
     permissions: {
       title: 'Разрешения',
