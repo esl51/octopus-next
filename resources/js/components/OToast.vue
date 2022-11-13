@@ -4,7 +4,7 @@
     role="alert"
     :class="classes"
   >
-    <div class="d-flex">
+    <div class="d-flex align-items-center">
       <div class="toast-body pe-0">
         <component :is="iconComponent" />
       </div>
