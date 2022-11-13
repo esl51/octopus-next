@@ -161,11 +161,12 @@ body {
           }
         }
 
-        .table-title-column {
+        td.table-title-column {
           background-color: $card-cap-bg;
           padding-right: 2.75rem;
           order: -1;
           font-weight: $font-weight-medium;
+          text-align: left;
 
           &::before {
             display: none;
