@@ -18,6 +18,7 @@ export const messages = {
     name_label: 'Название',
     title_label: 'Заголовок',
     items_table_footer: 'Отображаются записи с {from} по {to} из {total}',
+    page_meta: '{from}-{to} из {total}',
   },
   error: {
     alert_title: 'Ой...',

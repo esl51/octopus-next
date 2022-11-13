@@ -5,6 +5,11 @@
   <teleport to="#page-buttons">
     <o-button-add @click="add" />
   </teleport>
+  <teleport to="#page-meta">
+    <span v-if="meta.total > 1">
+      {{ $t('global.page_meta', { ...meta }) }}
+    </span>
+  </teleport>
   <b-card
     :class="cardClasses"
     body-class="p-0"
@@ -72,7 +77,10 @@
         </b-dropdown>
       </template>
     </o-table>
-    <template #footer>
+    <template
+      v-if="meta.last_page > 1"
+      #footer
+    >
       <o-table-footer
         :meta="meta"
         @paginate="paginate"

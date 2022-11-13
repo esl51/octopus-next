@@ -18,6 +18,7 @@ export const messages = {
     name_label: 'Name',
     title_label: 'Заголовок',
     items_table_footer: 'Showing {from} to {to} of {total} entries',
+    page_meta: '{from}-{to} of {total}',
   },
   error: {
     alert_title: 'Oops...',

@@ -3,7 +3,10 @@
     v-if="meta.from"
     class="row align-items-center"
   >
-    <p class="col m-sm-0 text-muted">
+    <p
+      v-if="showMeta"
+      class="col m-sm-0 text-muted"
+    >
       {{ $t('global.items_table_footer', { ...meta }) }}
     </p>
     <o-pagination
@@ -18,9 +21,15 @@
 import { Meta } from '@/api/items'
 
 // props
-defineProps<{
-  meta: Meta
-}>()
+withDefaults(
+  defineProps<{
+    meta: Meta
+    showMeta?: boolean
+  }>(),
+  {
+    showMeta: false,
+  }
+)
 
 // emits
 const emit = defineEmits(['paginate'])

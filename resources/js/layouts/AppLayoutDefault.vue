@@ -7,8 +7,11 @@
         <div class="container-xl">
           <div class="row g-2 align-items-center">
             <div class="col">
-              <app-breadcrumb class="mb-1" />
               <h1 class="page-title">{{ title }}</h1>
+              <div
+                id="page-meta"
+                class="text-muted mt-1"
+              />
             </div>
             <div class="col-12 col-sm-auto ms-auto d-print-none">
               <div
@@ -31,7 +34,6 @@
 </template>
 
 <script setup lang="ts">
-import AppBreadcrumb from '@/components/app/AppBreadcrumb.vue'
 import AppFooter from '@/components/app/AppFooter.vue'
 import AppHeader from '@/components/app/AppHeader.vue'
 import AppSidebar from '@/components/app/AppSidebar.vue'
