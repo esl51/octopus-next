@@ -8,6 +8,7 @@ import OTable from './OTable.vue'
 import OTableFooter from './OTableFooter.vue'
 import OToast from './OToast.vue'
 import VCheckbox from './VCheckbox.vue'
+import VCheckboxes from './VCheckboxes.vue'
 import VForm from './VForm.vue'
 import VFormControl from './VFormControl.vue'
 import VInput from './VInput.vue'
@@ -25,6 +26,7 @@ export default {
   OTableFooter,
   OToast,
   VCheckbox,
+  VCheckboxes,
   VForm,
   VFormControl,
   VInput,
