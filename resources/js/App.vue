@@ -19,6 +19,7 @@ import { handleDates } from './helpers'
 import AppLayout from './layouts/AppLayout.vue'
 import { useAuthStore } from './stores/auth'
 import { usePageStore } from './stores/page'
+import { useThemeStore } from './stores/theme'
 import { useLangStore } from '@/stores/lang'
 import { useHead } from '@vueuse/head'
 import axios from 'axios'
@@ -32,6 +33,7 @@ import { useRoute, useRouter } from 'vue-router'
 const authStore = useAuthStore()
 const langStore = useLangStore()
 const pageStore = usePageStore()
+const themeStore = useThemeStore()
 const router = useRouter()
 const route = useRoute()
 const { t } = useI18n()
@@ -42,7 +44,13 @@ const appName = window.config.name
 const title = computed(() =>
   pageStore.title ? pageStore.title + ' • ' + appName : appName
 )
-useHead({ title })
+const theme = computed(() => 'theme-' + themeStore.theme)
+useHead({
+  title,
+  bodyAttrs: {
+    class: theme,
+  },
+})
 
 // axios defaults
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'

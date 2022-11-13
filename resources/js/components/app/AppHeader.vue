@@ -9,6 +9,7 @@
       <div class="nav-item d-none d-md-flex me-3">
         <div class="btn-list">
           <app-locale-dropdown variant="link" />
+          <app-theme-switch />
         </div>
       </div>
       <app-user-menu />
@@ -20,4 +21,5 @@
 <script setup lang="ts">
 import AppUserMenu from './AppUserMenu.vue'
 import AppLocaleDropdown from '@/components/app/AppLocaleDropdown.vue'
+import AppThemeSwitch from '@/components/app/AppThemeSwitch.vue'
 </script>

@@ -17,7 +17,7 @@ $appConfig = [
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
   @vite(['resources/js/app.ts'])
 </head>
-<body class="theme-light">
+<body>
   <div id="app" class="app"></div>
   <script>
     window.config = @json($appConfig);

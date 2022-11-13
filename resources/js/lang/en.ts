@@ -19,6 +19,8 @@ export const messages = {
     title_label: 'Заголовок',
     items_table_footer: 'Showing {from} to {to} of {total} entries',
     page_meta: '{from}-{to} of {total}',
+    enable_light_mode: 'Enable light mode',
+    enable_dark_mode: 'Enable dark mode',
   },
   error: {
     alert_title: 'Oops...',

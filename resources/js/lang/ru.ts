@@ -19,6 +19,8 @@ export const messages = {
     title_label: 'Заголовок',
     items_table_footer: 'Отображаются записи с {from} по {to} из {total}',
     page_meta: '{from}-{to} из {total}',
+    enable_light_mode: 'Включить дневной режим',
+    enable_dark_mode: 'Включить ночной режим',
   },
   error: {
     alert_title: 'Ой...',
