@@ -19,7 +19,7 @@
     >
       <template #cell(action-column)="{ item }">
         <b-dropdown
-          v-if="true == true || item.is_editable || item.is_deletable"
+          v-if="item.is_editable || item.is_deletable"
           variant="link"
           no-caret
           toggle-class="btn-action btn-action-table"
