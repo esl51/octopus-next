@@ -38,7 +38,10 @@
         </div>
       </template>
       <template #cell(roles)="{ item }">
-        <div v-html="item.roles.map((r: Item) => r.title).join('<br />')" />
+        <div
+          class="text-muted"
+          v-html="item.roles.map((r: Item) => r.title).join('<br />')"
+        />
       </template>
       <template #cell(action-column)="{ item }">
         <b-dropdown
