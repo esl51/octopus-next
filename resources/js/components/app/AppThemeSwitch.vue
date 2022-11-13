@@ -3,7 +3,7 @@
     v-b-tooltip="$t(tooltip)"
     class="nav-link px-0"
     :aria-label="$t(tooltip)"
-    @click="theme.toggleTheme"
+    @click.prevent="theme.toggleTheme"
   >
     <component
       :is="iconComponent"
