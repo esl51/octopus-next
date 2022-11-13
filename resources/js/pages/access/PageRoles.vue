@@ -38,7 +38,7 @@
           <b-dropdown-item-button
             variant="danger"
             :disabled="!item.is_deletable"
-            @click="destroy(item, item.name)"
+            @click="destroy(item, item.title)"
           >
             <trash-icon class="icon dropdown-item-icon text-danger" />
             {{ $t('global.delete') }}
@@ -55,7 +55,7 @@
   </b-card>
   <o-modal
     ref="modal"
-    :title="current.name as string ?? $t('access.roles.new_title')"
+    :title="current.title as string ?? $t('access.roles.new_title')"
     @hide="cleanRoute"
   >
     <v-form
