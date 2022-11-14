@@ -211,3 +211,12 @@ body {
   right: 0;
   transform: none;
 }
+
+.dropdown-toggle {
+  &::after {
+    transition: transform 0.35s ease;
+  }
+  &.collapsed::after {
+    transform: rotate(135deg);
+  }
+}
