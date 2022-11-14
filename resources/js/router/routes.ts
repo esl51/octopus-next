@@ -1,4 +1,3 @@
-import authRoutes from './auth'
 import { RouteRecordRaw } from 'vue-router'
 
 const modules: Array<RouteRecordRaw> = []
@@ -17,8 +16,6 @@ const routes: Array<RouteRecordRaw> = [
     name: 'home',
     redirect: { name: 'dashboard' },
   },
-
-  ...authRoutes,
 
   ...modules,
 
