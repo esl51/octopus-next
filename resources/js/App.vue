@@ -63,6 +63,7 @@ Object.entries(
     nav.push(...(definition as Array<NavItem>))
   }
 })
+nav.sort((a, b) => (a.position || 100) - (b.position || 100))
 provide('nav', nav)
 
 // axios defaults

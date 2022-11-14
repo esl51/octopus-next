@@ -11,6 +11,7 @@ export type BreadcrumbItem = {
 }
 
 export type NavItem = {
+  position?: number
   label: string
   to?: RouteLocationRaw
   icon?: string
