@@ -60,7 +60,23 @@ Object.entries(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
 ).forEach(([path, definition]) => {
   if (definition) {
-    nav.push(...(definition as Array<NavItem>))
+    ;(definition as Array<NavItem>).forEach((item) => {
+      if (item.children) {
+        const existing = nav.find(
+          (navItem) =>
+            navItem.label === item.label &&
+            navItem.icon === item.icon &&
+            navItem.children
+        )
+        if (existing) {
+          existing.children?.push(...item.children)
+        } else {
+          nav.push(item)
+        }
+      } else {
+        nav.push(item)
+      }
+    })
   }
 })
 nav.sort((a, b) => (a.position || 100) - (b.position || 100))
