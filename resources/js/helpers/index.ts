@@ -1,4 +1,7 @@
 import dayjs from 'dayjs'
+import timezone from 'dayjs/plugin/timezone'
+
+dayjs.extend(timezone)
 
 /**
  * Debounce
@@ -56,23 +59,56 @@ export function simplifyParams(
 /**
  * Cast strings as Date
  * @param body Object
- * @param dateTimeFormat Date time format for dayjs
  * @returns void
  */
-export function handleDates(
-  body: any, // eslint-disable-line @typescript-eslint/no-explicit-any
-  dateTimeFormat = 'YYYY-MM-DD[T]HH:mm:ssZ'
-) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function handleDates(body: any) {
   if (body === null || body === undefined || typeof body !== 'object') {
     return body
   }
   for (const key of Object.keys(body)) {
     const value = body[key]
-    const date = dayjs(value, dateTimeFormat, true)
-    if (date.format(dateTimeFormat) === value) {
-      body[key] = date.toDate()
+    if (typeof value === 'string') {
+      const tz = import.meta.env.VITE_SERVER_TIMEZONE
+      const date = dayjs(value).tz(tz)
+      if (date.format().replace(/Z$/, '+00:00') === value.toString()) {
+        body[key] = new Date(
+          date.toDate().toLocaleString('en-US', { timeZone: tz })
+        )
+      } else {
+        body[key] = value
+      }
     } else if (typeof value === 'object') {
       handleDates(value)
     }
   }
+}
+
+/**
+ * Cast Dates as strings
+ * @param body Object
+ * @returns void
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function handleDatesAsStrings(body: any) {
+  if (body === null || body === undefined || typeof body !== 'object') {
+    return body
+  }
+  for (const key of Object.keys(body)) {
+    const value = body[key]
+    if (value instanceof Date) {
+      body[key] = serializeDate(value)
+    } else if (typeof value === 'object') {
+      handleDatesAsStrings(value)
+    }
+  }
+}
+
+/**
+ * Serialize Date as string
+ * @param date Date
+ * @returns string
+ */
+export function serializeDate(date: Date): string {
+  return dayjs(date).format('YYYY-MM-DDTHH:mm:ss')
 }

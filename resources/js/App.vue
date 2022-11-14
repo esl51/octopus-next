@@ -15,7 +15,7 @@
 
 <script setup lang="ts">
 import { useToast } from './composables/useToast'
-import { handleDates } from './helpers'
+import { handleDates, handleDatesAsStrings, serializeDate } from './helpers'
 import AppLayout from './layouts/AppLayout.vue'
 import { useAuthStore } from './stores/auth'
 import { usePageStore } from './stores/page'
@@ -24,7 +24,6 @@ import { NavItem } from './types'
 import { useLangStore } from '@/stores/lang'
 import { useHead } from '@vueuse/head'
 import axios from 'axios'
-import dayjs from 'dayjs'
 import qs from 'qs'
 import { computed, provide } from 'vue'
 import { MountTarget } from 'vue3-mount'
@@ -93,11 +92,14 @@ axios.interceptors.request.use((config) => {
     config.headers['Accept-Language'] = locale
   }
 
+  handleDatesAsStrings(config.data)
+
   config.paramsSerializer = {
-    serialize: (params) =>
-      qs.stringify(params, {
-        serializeDate: (date: Date) => dayjs(date).format(),
-      }),
+    serialize: (params) => {
+      return qs.stringify(params, {
+        serializeDate,
+      })
+    },
   }
 
   return config
