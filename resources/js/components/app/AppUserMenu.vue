@@ -10,7 +10,15 @@
         :image="user?.photo_url"
         :placeholder="user?.name_placeholder"
         size="sm"
-      />
+      >
+        <span
+          v-if="
+            $appConfig.authFeatures.includes('email-verification') &&
+            user?.email_verified_at === null
+          "
+          class="badge bg-warning"
+        />
+      </o-avatar>
       <div class="d-none d-xl-block ps-2">
         <div>{{ user?.name }}</div>
         <div
@@ -30,6 +38,13 @@
         :to="{ name: 'auth.profile' }"
       >
         {{ $t('auth.profile.title') }}
+        <span
+          v-if="
+            $appConfig.authFeatures.includes('email-verification') &&
+            user?.email_verified_at === null
+          "
+          class="badge bg-warning ms-auto"
+        />
       </b-dropdown-item>
       <b-dropdown-item-button @click="logout">
         {{ $t('auth.logout.title') }}

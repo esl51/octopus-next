@@ -12,6 +12,7 @@
     <template v-else-if="!image && !icon && placeholder">
       {{ placeholder }}
     </template>
+    <slot />
   </span>
 </template>
 

@@ -1,4 +1,5 @@
 <template>
+  <app-verify-alert />
   <div class="card">
     <div class="card-body">
       <div
@@ -128,6 +129,7 @@
 
 <script setup lang="ts">
 import authApi, { authUrls } from '@/api/auth'
+import AppVerifyAlert from '@/components/app/AppVerifyAlert.vue'
 import { useConfirm } from '@/composables/useConfirm'
 import { usePage } from '@/composables/usePage'
 import { useToast } from '@/composables/useToast'

@@ -24,7 +24,6 @@
       </div>
       <div class="page-body">
         <div class="container-xl">
-          <app-verify-alert />
           <slot />
         </div>
       </div>
@@ -37,7 +36,6 @@
 import AppFooter from '@/components/app/AppFooter.vue'
 import AppHeader from '@/components/app/AppHeader.vue'
 import AppSidebar from '@/components/app/AppSidebar.vue'
-import AppVerifyAlert from '@/components/app/AppVerifyAlert.vue'
 import { usePageStore } from '@/stores/page'
 import { computed } from 'vue'
 

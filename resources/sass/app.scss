@@ -204,3 +204,10 @@ body {
     border-bottom: none;
   }
 }
+
+.navbar .navbar-nav .nav-link .avatar .badge {
+  position: absolute;
+  top: auto;
+  right: 0;
+  transform: none;
+}
