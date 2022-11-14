@@ -35,7 +35,7 @@
           </span>
         </b-nav-item>
         <li
-          v-if="authStore?.canOne(['manage users', 'manage access'])"
+          v-if="authStore?.canAny(['manage users', 'manage access'])"
           class="nav-item active dropdown"
         >
           <b-link
@@ -57,7 +57,7 @@
             class="dropdown-menu show"
           >
             <b-dropdown-item
-              v-if="authStore?.canOne(['manage users', 'manage access'])"
+              v-if="authStore?.canAny(['manage users', 'manage access'])"
               :to="{ name: 'access.users' }"
             >
               {{ $t('access.users.title') }}
