@@ -38,10 +38,4 @@
     "public",
     "vendor"
   ],
-  "files": [
-    "resources/js/shims-vue.d.ts",
-    "resources/js/shims-vue-router.d.ts",
-    "resources/js/shims-vue-runtime.d.ts",
-    "resources/js/shims-bootstrap-vue-3.d.ts"
-  ]
 }
