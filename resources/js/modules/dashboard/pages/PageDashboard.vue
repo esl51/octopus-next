@@ -4,7 +4,6 @@
 </template>
 
 <script setup lang="ts">
-import api from '@/api'
 import AppVerifyAlert from '@/components/app/AppVerifyAlert.vue'
 import { usePage } from '@/composables/usePage'
 import { useI18n } from 'vue-i18n'
@@ -15,6 +14,4 @@ const { t } = useI18n()
 usePage({
   title: t('dashboard.title'),
 })
-
-api.get('/api/access/roles')
 </script>
