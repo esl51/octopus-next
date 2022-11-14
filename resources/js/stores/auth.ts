@@ -38,7 +38,10 @@ export const useAuthStore = defineStore('auth', {
     can(permission: string): boolean {
       return this.user?.can !== undefined && this.user.can[permission] === true
     },
-    canAny(permissions: Array<string>): boolean {
+    canAny(permissions: Array<string> | string): boolean {
+      if (typeof permissions === 'string') {
+        return this.can(permissions)
+      }
       return permissions.filter((permission) => this.can(permission)).length > 0
     },
   },

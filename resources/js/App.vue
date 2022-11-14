@@ -20,12 +20,13 @@ import AppLayout from './layouts/AppLayout.vue'
 import { useAuthStore } from './stores/auth'
 import { usePageStore } from './stores/page'
 import { useThemeStore } from './stores/theme'
+import { NavItem } from './types'
 import { useLangStore } from '@/stores/lang'
 import { useHead } from '@vueuse/head'
 import axios from 'axios'
 import dayjs from 'dayjs'
 import qs from 'qs'
-import { computed } from 'vue'
+import { computed, provide } from 'vue'
 import { MountTarget } from 'vue3-mount'
 import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from 'vue-router'
@@ -51,6 +52,18 @@ useHead({
     class: theme,
   },
 })
+
+// nav
+const nav: Array<NavItem> = []
+Object.entries(
+  import.meta.glob('./modules/*/nav.ts', { eager: true, import: 'default' })
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+).forEach(([path, definition]) => {
+  if (definition) {
+    nav.push(...(definition as Array<NavItem>))
+  }
+})
+provide('nav', nav)
 
 // axios defaults
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'

@@ -10,6 +10,14 @@ export type BreadcrumbItem = {
   text: string
 }
 
+export type NavItem = {
+  label: string
+  to?: RouteLocationRaw
+  icon?: string
+  children?: Array<NavItem>
+  permissions: Array<string> | string
+}
+
 export type Toast = {
   id?: number
   variant?: string

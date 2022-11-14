@@ -76,6 +76,7 @@
       <v-input
         name="guard_name"
         :label="$t('access.guard_name_label')"
+        disabled
       />
       <template #footer>
         <o-button
@@ -94,7 +95,7 @@
 </template>
 
 <script setup lang="ts">
-import { permissionsApi } from '@/api/access'
+import { permissionsApi } from '../api'
 import OModal from '@/components/OModal.vue'
 import { useItems } from '@/composables/useItems'
 import { usePage } from '@/composables/usePage'

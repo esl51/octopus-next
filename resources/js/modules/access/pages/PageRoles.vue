@@ -81,6 +81,7 @@
       <v-input
         name="guard_name"
         :label="$t('access.guard_name_label')"
+        disabled
       />
       <v-checkboxes
         name="permissions"
@@ -104,7 +105,7 @@
 </template>
 
 <script setup lang="ts">
-import { permissionsApi, rolesApi } from '@/api/access'
+import { permissionsApi, rolesApi } from '../api'
 import { Item } from '@/api/items'
 import OModal from '@/components/OModal.vue'
 import { useItems } from '@/composables/useItems'

@@ -34,48 +34,78 @@
             {{ $t('dashboard.title') }}
           </span>
         </b-nav-item>
-        <li
-          v-if="authStore?.canAny(['manage users', 'manage access'])"
-          class="nav-item active dropdown"
+        <template
+          v-for="(item, index) in nav"
+          :key="'nav-' + index"
         >
-          <b-link
-            class="nav-link dropdown-toggle"
-            data-bs-toggle="dropdown"
-            data-bs-auto-close="false"
-            role="button"
-            aria-expanded="true"
+          <li
+            v-if="item.permissions && authStore.canAny(item.permissions)"
+            class="nav-item"
+            :class="{
+              dropdown: !!item.children,
+              active: navItemActive(item),
+            }"
           >
-            <span class="nav-link-icon d-md-none d-lg-inline-block">
-              <layout-2-icon class="icon" />
-            </span>
-            <span class="nav-link-title">
-              {{ $t('access.title') }}
-            </span>
-          </b-link>
-          <div
-            id="nav-dropdown-1"
-            class="dropdown-menu show"
-          >
-            <b-dropdown-item
-              v-if="authStore?.canAny(['manage users', 'manage access'])"
-              :to="{ name: 'access.users' }"
+            <b-link
+              class="nav-link"
+              :to="item.to"
+              :data-bs-toggle="!!item.children ? 'dropdown' : null"
+              :data-bs-auto-close="!!item.children ? false : null"
+              :role="!!item.children ? 'button' : null"
+              :aria-expanded="!!item.children ? navItemActive(item) : null"
+              :class="{
+                'dropdown-toggle': !!item.children,
+              }"
             >
-              {{ $t('access.users.title') }}
-            </b-dropdown-item>
-            <b-dropdown-item
-              v-if="authStore?.can('manage access')"
-              :to="{ name: 'access.roles' }"
+              <span
+                v-if="item.icon"
+                class="nav-link-icon d-md-none d-lg-inline-block"
+              >
+                <component
+                  :is="item.icon + '-icon'"
+                  class="icon"
+                />
+              </span>
+              <span
+                v-if="item.label"
+                class="nav-link-title"
+              >
+                {{ $t(item.label) }}
+              </span>
+            </b-link>
+            <div
+              v-if="item.children"
+              :id="'nav-dropdown-' + index"
+              class="dropdown-menu"
+              :class="{
+                show: navItemActive(item),
+              }"
             >
-              {{ $t('access.roles.title') }}
-            </b-dropdown-item>
-            <b-dropdown-item
-              v-if="authStore?.can('manage access')"
-              :to="{ name: 'access.permissions' }"
-            >
-              {{ $t('access.permissions.title') }}
-            </b-dropdown-item>
-          </div>
-        </li>
+              <template
+                v-for="(child, childIndex) in item.children"
+                :key="'nav-child-' + childIndex"
+              >
+                <b-dropdown-item
+                  v-if="
+                    child.permissions && authStore?.canAny(child.permissions)
+                  "
+                  :to="child.to"
+                >
+                  <span
+                    v-if="child.icon"
+                    class="nav-link-icon d-md-none d-lg-inline-block"
+                  >
+                    <component
+                      :is="child.icon + '-icon'"
+                      class="icon"
+                    />
+                  </span>
+                  {{ $t(child.label) }}
+                </b-dropdown-item>
+              </template>
+            </div>
+          </li>
+        </template>
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>
@@ -84,6 +114,23 @@
 <script setup lang="ts">
 import AppUserMenu from './AppUserMenu.vue'
 import { useAuthStore } from '@/stores/auth'
+import { NavItem } from '@/types'
+import { inject } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+
+const route = useRoute()
+const router = useRouter()
 
 const authStore = useAuthStore()
+
+const nav: Array<NavItem> | undefined = inject('nav')
+
+const navItemActive = (item: NavItem) => {
+  return (
+    !!item.children &&
+    route.matched.some(({ name }) =>
+      item.children?.some((c) => c.to && router.resolve(c.to)?.name === name)
+    )
+  )
+}
 </script>

@@ -5,7 +5,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/access/users',
     name: 'access.users',
-    component: () => import('@/pages/access/PageUsers.vue'),
+    component: () => import('./pages/PageUsers.vue'),
     meta: {
       middleware: ['auth', 'acl'],
       permissions: ['manage access', 'manage users'],
@@ -16,7 +16,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/access/roles',
     name: 'access.roles',
-    component: () => import('@/pages/access/PageRoles.vue'),
+    component: () => import('./pages/PageRoles.vue'),
     meta: {
       middleware: ['auth', 'acl'],
       permissions: ['manage access'],
@@ -27,7 +27,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/access/permissions',
     name: 'access.permissions',
-    component: () => import('@/pages/access/PagePermissions.vue'),
+    component: () => import('./pages/PagePermissions.vue'),
     meta: {
       middleware: ['auth', 'acl'],
       permissions: ['manage access'],
