@@ -32,7 +32,7 @@ const props = withDefaults(
   {
     disabled: false,
     busy: false,
-    type: 'submit',
+    type: 'button',
     variant: 'primary',
     size: undefined,
     icon: false,
