@@ -4,7 +4,6 @@ const nav: Array<NavItem> = [
   {
     label: 'access.title',
     icon: 'lock',
-    permissions: ['manage access', 'manage users'],
     children: [
       {
         to: { name: 'access.users' },

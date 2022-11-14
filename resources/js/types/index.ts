@@ -16,7 +16,7 @@ export type NavItem = {
   to?: RouteLocationRaw
   icon?: string
   children?: Array<NavItem>
-  permissions: Array<string> | string
+  permissions?: Array<string> | string
 }
 
 export type Toast = {

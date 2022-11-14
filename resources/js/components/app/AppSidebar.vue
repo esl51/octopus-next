@@ -39,7 +39,14 @@
           :key="'nav-' + index"
         >
           <li
-            v-if="item.permissions && authStore.canAny(item.permissions)"
+            v-if="
+              !item.permissions ||
+              authStore.canAny(item.permissions) ||
+              (item.children &&
+                item.children.some(
+                  (c) => !c.permissions || authStore.canAny(c.permissions)
+                ))
+            "
             class="nav-item"
             :class="{
               dropdown: !!item.children,
@@ -87,7 +94,7 @@
               >
                 <b-dropdown-item
                   v-if="
-                    child.permissions && authStore?.canAny(child.permissions)
+                    !child.permissions || authStore?.canAny(child.permissions)
                   "
                   :to="child.to"
                 >
@@ -127,10 +134,11 @@ const nav: Array<NavItem> | undefined = inject('nav')
 
 const navItemActive = (item: NavItem) => {
   return (
-    !!item.children &&
-    route.matched.some(({ name }) =>
-      item.children?.some((c) => c.to && router.resolve(c.to)?.name === name)
-    )
+    (item.to && router.resolve(item.to)?.name === route.name) ||
+    (!!item.children &&
+      route.matched.some(({ name }) =>
+        item.children?.some((c) => c.to && router.resolve(c.to)?.name === name)
+      ))
   )
 }
 </script>
