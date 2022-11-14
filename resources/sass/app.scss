@@ -47,6 +47,7 @@ body {
 
 .form-control:-webkit-autofill {
   box-shadow: 0 0 0 1000px var(--tblr-bg-forms) inset;
+  -webkit-text-fill-color: var(--tblr-body-color);
 }
 
 .input-group-flat {
@@ -56,6 +57,7 @@ body {
 
   .form-control:-webkit-autofill {
     box-shadow: 0 0 0 1000px var(--tblr-bg-forms) inset;
+    -webkit-text-fill-color: var(--tblr-body-color);
   }
 }
 
