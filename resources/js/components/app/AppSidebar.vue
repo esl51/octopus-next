@@ -26,14 +26,6 @@
       class="navbar-collapse"
     >
       <b-navbar-nav class="pt-lg-3">
-        <b-nav-item :to="{ name: 'dashboard' }">
-          <span class="nav-link-icon d-md-none d-lg-inline-block">
-            <dashboard-icon class="icon" />
-          </span>
-          <span class="nav-link-title">
-            {{ $t('dashboard.title') }}
-          </span>
-        </b-nav-item>
         <template
           v-for="(item, index) in nav"
           :key="'nav-' + index"

@@ -115,7 +115,4 @@ export default {
   layout: {
     open_user_menu: 'Open user menu',
   },
-  dashboard: {
-    title: 'Dashboard',
-  },
 }

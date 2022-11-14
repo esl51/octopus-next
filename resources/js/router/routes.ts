@@ -18,15 +18,6 @@ const routes: Array<RouteRecordRaw> = [
     redirect: { name: 'dashboard' },
   },
 
-  {
-    path: '/dashboard',
-    name: 'dashboard',
-    component: () => import('@/pages/PageDashboard.vue'),
-    meta: {
-      middleware: 'auth',
-    },
-  },
-
   ...authRoutes,
 
   ...modules,
