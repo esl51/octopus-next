@@ -31,29 +31,17 @@
           :key="'nav-' + index"
         >
           <li
-            v-if="
-              !item.permissions ||
-              authStore.canAny(item.permissions) ||
-              (item.children &&
-                item.children.some(
-                  (c) => !c.permissions || authStore.canAny(c.permissions)
-                ))
-            "
+            v-if="checkPermissions(item)"
             class="nav-item"
             :class="{
               dropdown: !!item.children,
               active: navItemActive(item),
             }"
           >
-            <component
-              :is="!!item.children ? 'a' : 'b-link'"
-              v-b-toggle="!!item.children ? 'sidebar-sub-' + index : undefined"
-              class="nav-link"
+            <b-link
+              v-if="!item.children"
               :to="item.to"
-              :class="{
-                'dropdown-toggle': !!item.children,
-              }"
-              :href="!!item.children ? '#' : undefined"
+              class="nav-link"
             >
               <span
                 v-if="item.icon"
@@ -70,8 +58,31 @@
               >
                 {{ $t(item.label) }}
               </span>
-            </component>
+            </b-link>
+            <a
+              v-else
+              v-b-toggle="'sidebar-sub-' + index"
+              class="nav-link dropdown-toggle"
+              href="#"
+            >
+              <span
+                v-if="item.icon"
+                class="nav-link-icon d-md-none d-lg-inline-block"
+              >
+                <component
+                  :is="item.icon + '-icon'"
+                  class="icon"
+                />
+              </span>
+              <span
+                v-if="item.label"
+                class="nav-link-title"
+              >
+                {{ $t(item.label) }}
+              </span>
+            </a>
             <b-collapse
+              v-if="!!item.children"
               :id="'sidebar-sub-' + index"
               :visible="navItemActive(item)"
             >
@@ -98,7 +109,12 @@
                         class="icon"
                       />
                     </span>
-                    {{ $t(child.label) }}
+                    <span
+                      v-if="child.label"
+                      class="nav-link-title"
+                    >
+                      {{ $t(child.label) }}
+                    </span>
                   </b-dropdown-item>
                 </template>
               </div>
@@ -130,6 +146,17 @@ const navItemActive = (item: NavItem) => {
     (!!item.children &&
       route.matched.some(({ name }) =>
         item.children?.some((c) => c.to && router.resolve(c.to)?.name === name)
+      ))
+  )
+}
+
+const checkPermissions = (item: NavItem) => {
+  return (
+    !item.permissions ||
+    authStore.canAny(item.permissions) ||
+    (item.children &&
+      item.children.some(
+        (c) => !c.permissions || authStore.canAny(c.permissions)
       ))
   )
 }
