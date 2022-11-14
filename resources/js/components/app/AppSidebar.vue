@@ -45,16 +45,15 @@
               active: navItemActive(item),
             }"
           >
-            <b-link
+            <component
+              :is="!!item.children ? 'a' : 'b-link'"
+              v-b-toggle="!!item.children ? 'sidebar-sub-' + index : undefined"
               class="nav-link"
               :to="item.to"
-              :data-bs-toggle="!!item.children ? 'dropdown' : null"
-              :data-bs-auto-close="!!item.children ? false : null"
-              :role="!!item.children ? 'button' : null"
-              :aria-expanded="!!item.children ? navItemActive(item) : null"
               :class="{
                 'dropdown-toggle': !!item.children,
               }"
+              :href="!!item.children ? '#' : undefined"
             >
               <span
                 v-if="item.icon"
@@ -71,38 +70,39 @@
               >
                 {{ $t(item.label) }}
               </span>
-            </b-link>
-            <div
-              v-if="item.children"
-              :id="'nav-dropdown-' + index"
-              class="dropdown-menu"
-              :class="{
-                show: navItemActive(item),
-              }"
+            </component>
+            <b-collapse
+              :id="'sidebar-sub-' + index"
+              :visible="navItemActive(item)"
             >
-              <template
-                v-for="(child, childIndex) in item.children"
-                :key="'nav-child-' + childIndex"
+              <div
+                v-if="item.children"
+                class="dropdown-menu show"
               >
-                <b-dropdown-item
-                  v-if="
-                    !child.permissions || authStore?.canAny(child.permissions)
-                  "
-                  :to="child.to"
+                <template
+                  v-for="(child, childIndex) in item.children"
+                  :key="'nav-child-' + childIndex"
                 >
-                  <span
-                    v-if="child.icon"
-                    class="nav-link-icon d-md-none d-lg-inline-block"
+                  <b-dropdown-item
+                    v-if="
+                      !child.permissions || authStore?.canAny(child.permissions)
+                    "
+                    :to="child.to"
                   >
-                    <component
-                      :is="child.icon + '-icon'"
-                      class="icon"
-                    />
-                  </span>
-                  {{ $t(child.label) }}
-                </b-dropdown-item>
-              </template>
-            </div>
+                    <span
+                      v-if="child.icon"
+                      class="nav-link-icon d-md-none d-lg-inline-block"
+                    >
+                      <component
+                        :is="child.icon + '-icon'"
+                        class="icon"
+                      />
+                    </span>
+                    {{ $t(child.label) }}
+                  </b-dropdown-item>
+                </template>
+              </div>
+            </b-collapse>
           </li>
         </template>
       </b-navbar-nav>
