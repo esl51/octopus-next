@@ -51,11 +51,9 @@
         </b-dropdown>
       </template>
     </o-table>
-    <template
-      v-if="meta.last_page > 1"
-      #footer
-    >
+    <template #footer>
       <o-table-footer
+        v-if="meta.last_page > 1"
         :meta="meta"
         @paginate="paginate"
       />
