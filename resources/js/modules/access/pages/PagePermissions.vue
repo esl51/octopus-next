@@ -107,12 +107,6 @@ const { t } = useI18n()
 // page
 usePage({
   title: t('access.permissions.title'),
-  breadcrumb: [
-    {
-      text: t('access.title'),
-      to: { name: 'access.users' },
-    },
-  ],
 })
 
 // modal

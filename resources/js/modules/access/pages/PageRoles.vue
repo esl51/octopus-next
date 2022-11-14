@@ -118,12 +118,6 @@ const { t, availableLocales } = useI18n()
 // page
 usePage({
   title: t('access.roles.title'),
-  breadcrumb: [
-    {
-      text: t('access.title'),
-      to: { name: 'access.users' },
-    },
-  ],
 })
 
 // modal
