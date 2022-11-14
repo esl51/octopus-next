@@ -6,7 +6,10 @@
   >
     <div class="d-flex align-items-center">
       <div class="toast-body pe-0">
-        <component :is="iconComponent" />
+        <component
+          :is="iconComponent"
+          class="icon"
+        />
       </div>
       <div class="toast-body flex-grow-1">
         <div

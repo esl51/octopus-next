@@ -22,7 +22,10 @@
         #prepend
       >
         <b-input-group-text>
-          <component :is="iconComponent" />
+          <component
+            :is="iconComponent"
+            class="icon"
+          />
         </b-input-group-text>
       </template>
       <b-form-input
