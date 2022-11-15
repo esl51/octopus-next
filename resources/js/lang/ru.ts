@@ -9,6 +9,7 @@ export default {
     update: 'Обновить',
     new: 'Новый',
     search: 'Искать...',
+    choose: 'Выберите',
     show_password: 'Показать/спрятать пароль',
     close: 'Закрыть',
     confirm_title: 'Вы уверены?',

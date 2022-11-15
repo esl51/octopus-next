@@ -9,6 +9,7 @@ export default {
     update: 'Update',
     new: 'New',
     search: 'Search...',
+    choose: 'Choose',
     show_password: 'Show/hide password',
     close: 'Close',
     confirm_title: 'Are you shure?',
