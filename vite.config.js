@@ -7,10 +7,7 @@ export default defineConfig({
   plugins: [
     eslintPlugin(),
     laravel({
-      input: [
-        'resources/sass/app.scss',
-        'resources/js/app.ts',
-      ],
+      input: ['resources/sass/app.scss', 'resources/js/app.ts'],
       refresh: true,
     }),
     vue({
