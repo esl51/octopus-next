@@ -1,0 +1,15 @@
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  flex-shrink: 0;
+}
+
+.page {
+  flex-shrink: 0;
+}

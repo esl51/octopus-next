@@ -1,45 +1,21 @@
-// Fonts
-// @import "https://fonts.bunny.net/css?family=Nunito";
-@use 'sass:map';
+@import 'config';
 
-// Variables
-@import 'variables';
-
-// Tabler config
-@import '@tabler/core/src/scss/config';
-
-$utilities: map.merge(
-  $utilities,
-  (
-    'min-width': (
-      property: min-width,
-      class: min-w,
-      values: (
-        0: 0,
-        auth: auto,
-      ),
-    ),
-  )
-);
-
-// Tabler
+// tabler
 @import '@tabler/core/src/scss/tabler';
 
-// Bootstrap Vue 3
-/* stylelint-disable-next-line scss/at-import-partial-extension */
+// bootstrap vue 3
+// stylelint-disable-next-line scss/at-import-partial-extension
 @import 'bootstrap-vue-3/src/styles/styles.scss';
 
-body {
-  display: flex;
-  flex-direction: column;
-}
+// layout
+@import 'layout/core';
 
-.app {
-  display: flex;
-  flex-direction: column;
-  min-height: 100%;
-  flex-shrink: 0;
-}
+// ui
+@import 'ui/buttons';
+@import 'ui/forms';
+@import 'ui/forms/validation';
+@import 'ui/toasts';
+@import 'ui/tables';
 
 // vendor
 @import 'vendor/datepicker';

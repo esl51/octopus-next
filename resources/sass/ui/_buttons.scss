@@ -1,0 +1,13 @@
+.btn-icon {
+  .btn-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.btn {
+  .spinner-border + .icon {
+    display: none;
+  }
+}

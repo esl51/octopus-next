@@ -1,0 +1,15 @@
+@use 'sass:map';
+
+$utilities: map.merge(
+  $utilities,
+  (
+    'min-width': (
+      property: min-width,
+      class: min-w,
+      values: (
+        0: 0,
+        auth: auto,
+      ),
+    ),
+  )
+);

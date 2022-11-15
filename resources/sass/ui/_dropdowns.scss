@@ -1,0 +1,8 @@
+.dropdown-toggle {
+  &::after {
+    transition: transform 0.35s ease;
+  }
+  &.collapsed::after {
+    transform: rotate(135deg);
+  }
+}

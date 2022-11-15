@@ -1,0 +1,30 @@
+// form
+.form-footer {
+  display: flex;
+}
+
+// form control
+.form-control:-webkit-autofill {
+  box-shadow: 0 0 0 1000px var(--#{$prefix}bg-forms) inset;
+  -webkit-text-fill-color: $body-color;
+}
+
+// input group
+.input-group-flat {
+  .form-control:-webkit-autofill {
+    box-shadow: 0 0 0 1000px var(--#{$prefix}bg-forms) inset;
+    -webkit-text-fill-color: $body-color;
+  }
+
+  .is-invalid & {
+    .input-group-text {
+      border-color: $danger;
+    }
+  }
+
+  .is-valid & {
+    .input-group-text {
+      border-color: $success;
+    }
+  }
+}
