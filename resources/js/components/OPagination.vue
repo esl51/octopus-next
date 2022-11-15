@@ -62,7 +62,7 @@
 </template>
 
 <script setup lang="ts">
-import { Meta } from '@/api/items'
+import { Meta } from '@/types'
 import { computed } from 'vue'
 
 // props

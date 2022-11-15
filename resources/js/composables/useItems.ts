@@ -1,7 +1,7 @@
-import { Item, ItemsApi, ListParams, Meta } from '@/api/items'
 import OModal from '@/components/OModal.vue'
 import { useConfirm } from '@/composables/useConfirm'
 import { debounce } from '@/helpers'
+import { Item, ItemsApi, ListParams, Meta } from '@/types'
 import { serialize } from 'object-to-formdata'
 import Form from 'vform'
 import { nextTick, onMounted, reactive, Ref, ref, watch } from 'vue'

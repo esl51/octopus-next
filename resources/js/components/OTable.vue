@@ -60,7 +60,7 @@
 </template>
 
 <script setup lang="ts">
-import { Item, ListParams } from '@/api/items'
+import { Item, ListParams } from '@/types'
 import { OTableColumn } from '@/types'
 import { computed } from 'vue'
 

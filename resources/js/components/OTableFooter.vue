@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import { Meta } from '@/api/items'
+import { Meta } from '@/types'
 
 // props
 withDefaults(

@@ -1,4 +1,5 @@
-import itemsApi, { ItemsApi } from '@/api/items'
+import itemsApi from '@/api/items'
+import { ItemsApi } from '@/types'
 
 export const accessUrls = {
   users: '/api/access/users',

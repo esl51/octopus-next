@@ -40,13 +40,65 @@ export interface MiddlewareInterface {
   next: NavigationGuardNext
 }
 
-export type Role = {
+export interface ListParams {
+  id?: number
+  search?: string
+  page?: number
+  per_page?: number
+  sort_by?: string
+  sort_desc?: number
+  [key: string]: unknown
+}
+
+export interface Translation {
+  id: number
+  locale: keyof typeof messages
+  created_at: Date
+  updated_at: Date
+  [key: string]: unknown
+}
+
+export interface Item {
+  id: number
+  is_deletable: boolean
+  is_editable: boolean
+  created_at: Date
+  updated_at: Date
+  translations?: Array<Translation>
+  [key: string]: unknown
+}
+
+export interface Meta {
+  current_page: number
+  from: number
+  last_page: number
+  per_page: number
+  to: number
+  total: number
+}
+
+export interface ListResponse {
+  data: Array<Item>
+  meta: Meta
+}
+
+export interface ItemsApi {
+  url: string
+  all: () => Promise<ListResponse>
+  list: (params?: ListParams) => Promise<ListResponse>
+  get: (id: number) => Promise<Item>
+  store: (payload: Record<string, unknown>) => Promise<Item>
+  update: (id: number, payload: Record<string, unknown>) => Promise<Item>
+  destroy: (id: number) => Promise<void>
+}
+
+export interface Role extends Item {
   id: number
   name: string
   title: string
 }
 
-export interface User {
+export interface User extends Item {
   id: number
   name: string
   email: string

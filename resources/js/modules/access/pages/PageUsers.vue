@@ -134,10 +134,10 @@
 
 <script setup lang="ts">
 import { rolesApi, usersApi } from '../api'
-import { Item } from '@/api/items'
 import OModal from '@/components/OModal.vue'
 import { useItems } from '@/composables/useItems'
 import { usePage } from '@/composables/usePage'
+import { Item } from '@/types'
 import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
