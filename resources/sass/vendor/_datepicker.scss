@@ -1,0 +1,147 @@
+@use 'sass:color';
+
+$namespace: 'xmx';
+
+$default-color: inherit;
+$primary-color: $primary;
+
+$today-color: $primary;
+
+$popup-z-index: 2001;
+
+$input-border-color: $input-border-color;
+$input-color: $input-color;
+$input-hover-border-color: $input-border-color;
+
+$disabled-color: $input-color;
+$disabled-background-color: $input-disabled-bg;
+
+$border-color: $border-color-translucent;
+
+$calendar-active-color: var(--#{$prefix}primary-fg);
+$calendar-active-background-color: $primary-color;
+
+$calendar-hover-color: inherit;
+$calendar-hover-background-color: rgba(var(--#{$prefix}muted-rgb), 0.04);
+
+$calendar-in-range-color: $default-color;
+$calendar-in-range-background-color: color.mix(
+  #fff,
+  $calendar-active-background-color,
+  85%
+);
+
+$time-active-color: $primary-color;
+$time-active-background-color: transparent;
+
+$time-hover-color: $default-color;
+$time-hover-background-color: color.mix(
+  #fff,
+  $calendar-active-background-color,
+  95%
+);
+
+$input-border-radius: $input-border-radius;
+$sidebar-margin-left: 100px;
+
+// stylelint-disable-next-line scss/at-import-partial-extension
+@import 'vue-datepicker-next/scss/index.scss';
+
+.#{$namespace}-datepicker {
+  width: 100%;
+
+  svg {
+    fill: none;
+  }
+
+  .form-control {
+    &:not(:last-child) {
+      padding-right: 2.5rem;
+    }
+
+    &.is-invalid ~ .#{$namespace}-icon-clear,
+    &.is-invalid ~ .#{$namespace}-icon-calendar {
+      display: none;
+    }
+  }
+}
+
+.#{$namespace}-icon-calendar,
+.#{$namespace}-icon-clear {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  min-width: 2.5rem;
+  font-size: 1.2em;
+  color: $icon-color;
+  transform: none;
+}
+.#{$namespace}-icon-calendar {
+  pointer-events: none;
+}
+.#{$namespace}-icon-clear {
+  &:hover {
+    color: inherit;
+  }
+}
+
+.#{$namespace}-input-wrapper:hover {
+  .#{$namespace}-icon-clear {
+    display: flex;
+  }
+}
+
+.#{$namespace}-btn-current-month,
+.#{$namespace}-table-month,
+.#{$namespace}-table-date th {
+  text-transform: capitalize;
+}
+
+.#{$namespace}-datepicker-main {
+  font: inherit;
+  background-color: $bg-surface;
+  border: $border-width solid $border-color-translucent;
+  border-radius: $border-radius;
+
+  .theme-dark & {
+    background-color: $bg-surface-dark;
+  }
+}
+
+.#{$namespace}-datepicker-popup {
+  left: 0 !important;
+  box-shadow: $dropdown-box-shadow;
+  margin-top: $dropdown-spacer;
+  margin-bottom: $dropdown-spacer;
+}
+
+.#{$namespace}-table-date td {
+  font-size: $font-size-base;
+}
+
+.#{$namespace}-table-date th {
+  font-size: 0.75rem;
+}
+
+.#{$namespace}-table-date .today {
+  color: $primary;
+}
+
+.#{$namespace}-calendar-header-label {
+  font-size: 0.75rem;
+}
+
+.#{$namespace}-calendar-content .cell {
+  border-radius: $border-radius-sm;
+
+  &.accent {
+    color: $warning !important;
+  }
+
+  &.not-current-month {
+    color: $text-muted;
+  }
+}
