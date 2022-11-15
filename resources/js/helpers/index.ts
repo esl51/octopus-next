@@ -1,6 +1,8 @@
 import dayjs from 'dayjs'
 import timezone from 'dayjs/plugin/timezone'
+import utc from 'dayjs/plugin/utc'
 
+dayjs.extend(utc)
 dayjs.extend(timezone)
 
 /**
@@ -70,7 +72,7 @@ export function handleDates(body: any) {
     const value = body[key]
     if (typeof value === 'string') {
       const tz = import.meta.env.VITE_SERVER_TIMEZONE
-      const date = dayjs(value).tz(tz)
+      const date = dayjs(value)
       if (date.format().replace(/Z$/, '+00:00') === value.toString()) {
         body[key] = new Date(
           date.toDate().toLocaleString('en-US', { timeZone: tz })
