@@ -23,6 +23,7 @@
       }"
       :class="{
         [`v-select--${size}`]: !!size,
+        'is-invalid': state === false,
       }"
       @search="search"
       @input="input"

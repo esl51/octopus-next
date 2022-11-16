@@ -66,6 +66,12 @@
   }
 }
 
+.is-invalid {
+  .vs__dropdown-toggle {
+    border-color: var(--#{$prefix}danger);
+  }
+}
+
 .vs--open {
   .vs__dropdown-toggle {
     color: $input-focus-color;
@@ -85,6 +91,25 @@
       background-color: $dark-mode-darken;
       color: $dark-mode-text;
       border-color: $dark-mode-border-color;
+    }
+  }
+
+  .is-invalid & {
+    .vs__dropdown-toggle {
+      border-color: var(--#{$prefix}danger);
+      @if $enable-shadows {
+        @include box-shadow(
+          $input-box-shadow,
+          0 0 $input-btn-focus-blur $input-focus-width
+            rgba($danger, $input-btn-focus-color-opacity)
+        );
+      } @else {
+        box-shadow: 0
+          0
+          $input-btn-focus-blur
+          $input-focus-width
+          rgba($danger, $input-btn-focus-color-opacity);
+      }
     }
   }
 }
