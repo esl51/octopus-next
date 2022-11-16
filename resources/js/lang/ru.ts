@@ -10,6 +10,8 @@ export default {
     new: 'Новый',
     search: 'Искать...',
     choose: 'Выберите',
+    start_typing: 'Начните вводить...',
+    no_items: 'Ничего не найдено.',
     show_password: 'Показать/спрятать пароль',
     close: 'Закрыть',
     confirm_title: 'Вы уверены?',

@@ -14,6 +14,7 @@ import VForm from './VForm.vue'
 import VFormControl from './VFormControl.vue'
 import VInput from './VInput.vue'
 import VLocaleSwitch from './VLocaleSwitch.vue'
+import VSelect from './VSelect.vue'
 import VSubmit from './VSubmit.vue'
 
 export default {
@@ -33,5 +34,6 @@ export default {
   VFormControl,
   VInput,
   VLocaleSwitch,
+  VSelect,
   VSubmit,
 }

@@ -10,6 +10,8 @@ export default {
     new: 'New',
     search: 'Search...',
     choose: 'Choose',
+    start_typing: 'Start typing...',
+    no_items: 'No items found.',
     show_password: 'Show/hide password',
     close: 'Close',
     confirm_title: 'Are you shure?',
