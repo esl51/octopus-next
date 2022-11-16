@@ -16,6 +16,7 @@ import VInput from './VInput.vue'
 import VLocaleSwitch from './VLocaleSwitch.vue'
 import VSelect from './VSelect.vue'
 import VSubmit from './VSubmit.vue'
+import VTextarea from './VTextarea.vue'
 
 export default {
   OAvatar,
@@ -36,4 +37,5 @@ export default {
   VLocaleSwitch,
   VSelect,
   VSubmit,
+  VTextarea,
 }
