@@ -6,7 +6,7 @@
   --vs-font-size: #{$input-font-size};
   --vs-line-height: #{$input-line-height};
   --vs-state-disabled-bg: #{$input-disabled-bg};
-  --vs-state-disabled-color: var(--#{$prefix}tblr-muted);
+  --vs-state-disabled-color: var(--#{$prefix}muted);
   --vs-state-disabled-controls-color: #{$input-disabled-color};
   --vs-state-disabled-cursor: default;
   --vs-border-color: #{$input-border-color};
