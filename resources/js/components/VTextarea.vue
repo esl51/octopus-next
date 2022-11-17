@@ -36,7 +36,7 @@
 import { useFormControl } from '@/composables/useFormControl'
 import { Size } from 'bootstrap-vue-3'
 import Form from 'vform'
-import { ref, computed, inject } from 'vue'
+import { computed, inject } from 'vue'
 
 // props
 const props = withDefaults(
