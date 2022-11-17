@@ -1,0 +1,201 @@
+@import 'jodit/build/jodit.es2018.css';
+
+.jodit-editor,
+.jodit-popup-container {
+  --jd-color-white: var(--#{$prefix}white);
+  --jd-color-gray: #dadada;
+  --jd-color-gray-dark: #a5a5a5;
+  --jd-color-dark: #4c4c4c;
+  --jd-color-blue: #b5d6fd;
+  --jd-color-light-blue: rgba(181, 214, 253, 0.5);
+  --jd-color-red: #ff3b3b;
+  --jd-color-light-red: rgba(255, 59, 59, 0.4);
+  --jd-color-default: var(--jd-color-dark);
+  --jd-color-text: #222222;
+  --jd-color-label: var(--jd-color-gray-dark);
+  --jd-color-error: var(--jd-color-red);
+  --jd-color-border: var(--#{$prefix}border-color);
+  --jd-color-border-dark: var(--jd-color-dark);
+  --jd-color-border-selected: #1e88e5;
+  --jd-color-border-active: #b5b5b5;
+  --jd-color-selection: var(--jd-color-dark);
+  --jd-color-selection-area: #bdbdbd;
+  --jd-color-separator: var(--jd-color-border);
+  --jd-color-placeholder: var(--jd-color-gray-dark);
+  --jd-color-panel: var(--#{$prefix}gray-50);
+  --jd-color-resizer: #c8c8c8;
+  --jd-color-background-default: var(--jd-color-white);
+  --jd-color-background-light-gray: #f5f5f6;
+  --jd-color-background-gray: var(--jd-color-gray);
+  --jd-color-background-gray-hover: #f8f8f8;
+  --jd-color-background-hover: #7a450f;
+  --jd-color-background-button-hover: #ecebe9;
+  --jd-color-background-button-hover-opacity30: rgba(236, 235, 233, 0.3);
+  --jd-color-background-progress: #b91f1f;
+  --jd-color-background-filebrowser-folders: #3f3f3f;
+  --jd-color-background-active: #2196f3;
+  --jd-color-background-selection: #b5d6fd;
+  --jd-color-background-selection_opacity50: rgba(181, 214, 253, 0.995);
+  --jd-color-source-area: #323232;
+  --jd-color-button-background-hover: #dcdcdc;
+  --jd-color-button-background-hover_opacity40: rgba(220, 220, 220, 0.4);
+  --jd-color-button-background-hover_opacity60: rgba(220, 220, 220, 0.6);
+  --jd-font-default: inherit;
+  --jd-font-size-default: #{$font-size-base};
+  --jd-font-size-small: #{$font-size-sm};
+  --jd-color-text-icons: rgba(0, 0, 0, 0.75);
+  --jd-color-icon: var(--jd-color-dark);
+  --jd-padding-default: 8px;
+  --jd-border-radius-default: #{$border-radius};
+  --jd-z-index-full-size: 100000;
+  --jd-z-index-popup: 10000001;
+  --jd-z-index-dialog-overlay: 20000003;
+  --jd-z-index-dialog: 20000004;
+  --jd-z-index-context-menu: 30000005;
+  --jd-z-index-tooltip: 30000006;
+  --jd-icon-loader-size: 48px;
+  --jd-width_element_default: 18px;
+  --jd-height_element_default: 18px;
+  --jd-dark_background_color: #{$dark-mode-darken};
+  --jd-dark-text-color: var(--jd-color-white);
+  --jd-dark_background_ligher: var(--#{$prefix}gray-700-darken);
+  --jd-dark_background_darknes: #353535;
+  --jd-dark_border_color: var(--#{$prefix}border-color);
+  --jd-dark_text_color: var(--#{$prefix}body-color);
+  --jd-dark_text_color_opacity80: rgba(209, 204, 204, 0.8);
+  --jd-dark_text_color_opacity50: rgba(209, 204, 204, 0.5);
+  --jd-dark_icon_color: #c0c0c0;
+  --jd-dark_toolbar_color: var(--#{$prefix}dark);
+  --jd-dark_toolbar_seperator_color1: rgba(81, 81, 81, 0.41);
+  --jd-dark_toolbar_seperator_color2: #686767;
+  --jd-dark_toolbar_seperator_color_opacity80: rgba(104, 103, 103, 0.8);
+  --jd-dark_toolbar_seperator_color3: rgba(104, 103, 103, 0.75);
+  --jd-dark_color-border-selected: #152f5f;
+  --jd-width-default: 180px;
+  --jd-width-input-min: var(--jd-width-default);
+  --jd-input-height: 32px;
+  --jd-button-icon-size: 14px;
+  --jd-margin-v: 2px;
+  --jd-button-df-size: calc((var(--jd-button-icon-size) - 4px) * 2);
+  --jd-button-size: calc(
+    var(--jd-button-icon-size) + var(--jd-button-df-size) + var(--jd-margin-v) *
+      2
+  );
+  --jd-focus-input-box-shadow: 0 0 0 0.05rem rgba(0, 123, 255, 0.25);
+
+  --jd-popup-box-shadow: #{$box-shadow};
+}
+.jodit-dialog_theme_dark.jodit-container,
+.jodit_theme_dark.jodit-container {
+  --jd-color-border: var(--#{$prefix}border-color);
+}
+.jodit-dialog_theme_dark,
+.jodit_theme_dark {
+  --jd-color-border: var(--#{$prefix}border-color);
+}
+.jodit-popup {
+  border: 1px solid var(--#{$prefix}border-color);
+  border-radius: #{$border-radius};
+}
+.jodit-container:not(.jodit_inline) .jodit-wysiwyg {
+  padding: $input-padding-y $input-padding-x;
+}
+
+.jodit-toolbar-button__trigger {
+  &::before {
+    content: '';
+    display: block;
+    transform: translateY(-2px) rotate(45deg);
+    border-right: 1px solid currentColor;
+    border-bottom: 1px solid currentColor;
+    width: 6px;
+    height: 6px;
+  }
+  svg {
+    display: none;
+  }
+}
+
+.jodit_theme_dark .jodit-toolbar-button__button {
+  color: var(--#{$prefix}surface);
+}
+.jodit_theme_dark .jodit-toolbar-button__button:active:not([disabled]),
+.jodit_theme_dark
+  .jodit-toolbar-button__button[aria-pressed='true']:not([disabled]) {
+  background-color: var(--#{$prefix}gray-700);
+}
+.jodit-dialog_theme_dark .jodit-ui-button:hover:not([disabled]),
+.jodit_theme_dark .jodit-ui-button:hover:not([disabled]),
+.jodit-dialog_theme_dark .jodit-toolbar-button:hover:not([disabled]),
+.jodit_theme_dark .jodit-toolbar-button:hover:not([disabled]),
+.jodit-dialog_theme_dark .jodit-ui-button__button:hover:not([disabled]),
+.jodit_theme_dark .jodit-ui-button__button:hover:not([disabled]),
+.jodit-dialog_theme_dark .jodit-toolbar-button__button:hover:not([disabled]),
+.jodit_theme_dark .jodit-toolbar-button__button:hover:not([disabled]),
+.jodit-dialog_theme_dark .jodit-ui-button__trigger:hover:not([disabled]),
+.jodit_theme_dark .jodit-ui-button__trigger:hover:not([disabled]),
+.jodit-dialog_theme_dark .jodit-toolbar-button__trigger:hover:not([disabled]),
+.jodit_theme_dark .jodit-toolbar-button__trigger:hover:not([disabled]) {
+  background-color: var(--#{$prefix}gray-600-darken);
+}
+
+.jodit-add-new-line span {
+  border-radius: #{$border-radius};
+}
+
+.jodit-dialog_theme_dark .jodit-add-new-line span,
+.jodit_theme_dark .jodit-add-new-line span {
+  background-color: var(--#{$prefix}dark);
+  border-color: var(--#{$prefix}border-color);
+}
+
+.jodit-dialog_theme_dark .jodit-add-new-line::after,
+.jodit_theme_dark .jodit-add-new-line::after {
+  background-color: var(--#{$prefix}border-color);
+}
+
+.jodit-toolbar-button .jodit-icon.icon {
+  width: 1em;
+  height: 1em;
+  fill: none;
+  stroke: currentColor;
+}
+
+.jodit-ui-group__h1 {
+  display: none;
+}
+
+.jodit-dialog_theme_dark .jodit-status-bar,
+.jodit_theme_dark .jodit-status-bar,
+.jodit-dialog_theme_dark .jodit-workplace + .jodit-status-bar:not(:empty),
+.jodit_theme_dark .jodit-workplace + .jodit-status-bar:not(:empty),
+.jodit-dialog_theme_dark .jodit-status-bar .jodit-status-bar__item a,
+.jodit_theme_dark .jodit-status-bar .jodit-status-bar__item a,
+.jodit-dialog_theme_dark .jodit-status-bar .jodit-status-bar__item span,
+.jodit_theme_dark .jodit-status-bar .jodit-status-bar__item span,
+.jodit-dialog_theme_dark
+  .jodit-workplace
+  + .jodit-status-bar:not(:empty)
+  .jodit-status-bar__item
+  a,
+.jodit_theme_dark
+  .jodit-workplace
+  + .jodit-status-bar:not(:empty)
+  .jodit-status-bar__item
+  a,
+.jodit-dialog_theme_dark
+  .jodit-workplace
+  + .jodit-status-bar:not(:empty)
+  .jodit-status-bar__item
+  span,
+.jodit_theme_dark
+  .jodit-workplace
+  + .jodit-status-bar:not(:empty)
+  .jodit-status-bar__item
+  span {
+  color: var(--#{$prefix}muted);
+}
+
+.jodit-container.is-invalid {
+  border-color: $danger;
+}
