@@ -96,6 +96,7 @@
 .jodit-popup {
   border: 1px solid var(--#{$prefix}border-color);
   border-radius: #{$border-radius};
+  overflow: hidden;
 }
 .jodit-container:not(.jodit_inline) .jodit-wysiwyg {
   padding: $input-padding-y $input-padding-x;
@@ -198,4 +199,12 @@
 
 .jodit-container.is-invalid {
   border-color: $danger;
+}
+
+.jodit-ui-button_variant_primary {
+  background-color: $primary;
+
+  &:hover:not([disabled]) {
+    background-color: var(--#{$prefix}primary-darken);
+  }
 }
