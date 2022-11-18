@@ -32,15 +32,21 @@ const props = withDefaults(
 const textarea = ref()
 const jodit = ref()
 
+const editorConfig = computed(() => ({ ...props.config }))
+
 onMounted(() => {
-  jodit.value = Jodit.make(textarea.value, props.config)
+  jodit.value = Jodit.make(textarea.value, editorConfig.value)
 })
 
 watch(
-  () => props.config,
+  () => editorConfig.value,
   (config: Record<string, unknown>) => {
-    jodit.value.destruct()
-    jodit.value = Jodit.make(textarea.value, config)
+    if (config.disabled !== undefined) {
+      jodit.value.setDisabled(config.disabled)
+    }
+    if (config.readonly !== undefined) {
+      jodit.value.setReadOnly(config.readonly)
+    }
   },
   { deep: true }
 )

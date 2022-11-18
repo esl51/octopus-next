@@ -25,7 +25,6 @@
         placeholder: placeholder ?? '',
         editorClassName: autofocus ? 'autofocus' : null,
         className: state === false ? 'is-invalid' : null,
-        theme,
         hidePoweredByJodit: true,
         controls: {
           paragraph: {
@@ -80,7 +79,6 @@
 <script setup lang="ts">
 import JoditEditor from './vendor/JoditEditor.vue'
 import { useFormControl } from '@/composables/useFormControl'
-import { useThemeStore } from '@/stores/theme'
 import Form from 'vform'
 import { computed, inject, ref } from 'vue'
 
@@ -123,7 +121,7 @@ const iconNames: { [key: string]: string } = {
 }
 Object.entries(
   import.meta.glob(
-    '../../../node_modules/@tabler/icons/icons/(rotate-2|rotate-clockwise-2|search|section-sign|bold|italic|underline|strikethrough|align-left|align-right|align-center|align-justified|typography|text-size|shadow|line-height|text-spellcheck|cut|copy|clipboard-copy|box-margin|paint|table|link|minus|omega|indent-increase|indent-decrease|list|list-numbers|superscript|subscript|photo|file|video|eraser|maximize|code|droplet|arrows-vertical|layout-board-split|column-insert-right|arrows-diagonal-minimize|row-insert-bottom|trash|eye|printer|question-mark|chevron-down).svg',
+    '../../../node_modules/@tabler/icons/icons/(rotate-2|rotate-clockwise-2|search|section-sign|bold|italic|underline|strikethrough|align-left|align-right|align-center|align-justified|typography|text-size|shadow|line-height|text-spellcheck|cut|copy|clipboard-copy|box-margin|paint|table|link|minus|omega|indent-increase|indent-decrease|list|list-numbers|superscript|subscript|photo|file|video|eraser|maximize|code|droplet|arrows-vertical|layout-board-split|column-insert-right|arrows-diagonal-minimize|row-insert-bottom|trash|eye|printer|question-mark|chevron-down|pencil|unlink).svg',
     { eager: true, as: 'raw' }
   )
 ).forEach(([path, definition]) => {
@@ -136,10 +134,6 @@ Object.entries(
     icons.value[iconNames[name] || name] = definition
   }
 })
-
-const themeStore = useThemeStore()
-
-const theme = computed(() => (themeStore.theme === 'dark' ? 'dark' : 'default'))
 
 // props
 const props = withDefaults(
