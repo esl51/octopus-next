@@ -114,6 +114,13 @@ export interface OTableColumn {
   title?: string
   sortable?: boolean
   class?: string
+  formatter?:
+    | 'date'
+    | 'datetime'
+    | 'time'
+    | 'money'
+    | 'filesize'
+    | ((value: unknown) => string)
 }
 
 export type AppConfig = {

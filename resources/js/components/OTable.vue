@@ -50,7 +50,7 @@
               :value="item[column.key]"
               :item="item"
             >
-              {{ item[column.key] }}
+              {{ format(item[column.key], column.formatter) }}
             </slot>
           </td>
         </tr>
@@ -60,9 +60,13 @@
 </template>
 
 <script setup lang="ts">
+import { useFormatter } from '@/composables/useFormatter'
 import { Item, ListParams } from '@/types'
 import { OTableColumn } from '@/types'
 import { computed } from 'vue'
+
+const { formatDate, formatDateTime, formatTime, formatMoney, formatFileSize } =
+  useFormatter()
 
 // props
 const props = withDefaults(
@@ -86,5 +90,35 @@ const items = computed(() => props.data)
 // sort
 const sort = (key: string) => {
   emit('sort', key)
+}
+
+// format
+const format = (value: unknown, formatter?: OTableColumn['formatter']) => {
+  if (typeof formatter === 'function') {
+    return formatter(value)
+  } else if (
+    formatter === 'date' &&
+    (value instanceof Date || typeof value === 'string')
+  ) {
+    return formatDate(value)
+  } else if (
+    formatter === 'datetime' &&
+    (value instanceof Date || typeof value === 'string')
+  ) {
+    return formatDateTime(value)
+  } else if (
+    formatter === 'time' &&
+    (value instanceof Date || typeof value === 'string')
+  ) {
+    return formatTime(value)
+  } else if (
+    formatter === 'money' &&
+    (typeof value === 'string' || typeof value === 'number')
+  ) {
+    return formatMoney(value)
+  } else if (formatter === 'filesize' && typeof value === 'number') {
+    return formatFileSize(value)
+  }
+  return value
 }
 </script>
