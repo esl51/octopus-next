@@ -137,21 +137,4 @@ class UserController extends ItemController
         }
         $item->syncRoles($roles);
     }
-
-    /**
-     * Get user avatar.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  integer $id
-     * @return \Illuminate\Http\Response
-     */
-    public function avatar(Request $request, $id)
-    {
-        $user = User::find($id);
-        $userAvatars = $user->getAvatarFiles();
-        if (count($userAvatars)) {
-            return $user->getFile($userAvatars[0]->name, 'avatar');
-        }
-        return response(null, 404);
-    }
 }

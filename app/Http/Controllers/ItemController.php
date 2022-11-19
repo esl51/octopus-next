@@ -434,40 +434,4 @@ abstract class ItemController extends Controller
         $item->moveAfter($itemAfter);
         return $this->show($item->id);
     }
-
-    /**
-     * Remove the specified file from storage.
-     *
-     * @param  integer  $id
-     * @param  string|null  $directory
-     * @param  string|null  $fileName
-     * @return \Illuminate\Http\Response
-     */
-    public function destroyFile($id, $directory = null, $fileName = null)
-    {
-        $item = $this->getItem($id);
-        if (!$item) {
-            abort(404, trans('item.not_found'));
-        }
-        $item->deleteFile($fileName, $directory);
-
-        return response()->json(null, 204);
-    }
-
-    /**
-     * Get the specified file from storage.
-     *
-     * @param  integer  $id
-     * @param  string|null  $directory
-     * @param  string|null  $fileName
-     * @return \Illuminate\Http\Response
-     */
-    public function getFile($id, $directory = null, $fileName = null)
-    {
-        $item = $this->getItem($id);
-        if (!$item) {
-            abort(404, trans('item.not_found'));
-        }
-        return $item->getFile($fileName, $directory);
-    }
 }

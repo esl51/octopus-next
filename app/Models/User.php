@@ -78,17 +78,6 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $guard_name = 'web';
 
     /**
-     * Get avatar files.
-     *
-     * @param string $routePrefix
-     * @return \Illuminate\Support\Collection
-     */
-    public function getAvatarFiles($routePrefix = null)
-    {
-        return File::collect($this, 'avatar', $routePrefix);
-    }
-
-    /**
      * Store avatar.
      *
      * @param Illuminate\Http\UploadedFile $avatar
@@ -110,6 +99,11 @@ class User extends Authenticatable implements MustVerifyEmail
         $this->deleteDirectory('avatar');
     }
 
+    public function avatar()
+    {
+        return $this->morphOne(File::class, 'filable')->where('type', 'avatar');
+    }
+
     /**
      * Get the profile photo URL attribute.
      *
@@ -117,12 +111,10 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function getPhotoUrlAttribute(): ?string
     {
-        $avatarFiles = $this->getAvatarFiles();
-        if (count($avatarFiles)) {
-            $avatarFile = $avatarFiles[0];
-            return route('avatar', [
-                'user' => $this->id,
-                'fileName' => $avatarFile->name,
+        $avatarFile = $this->files()->where('type', 'avatar')->first();
+        if ($avatarFile) {
+            return route('files.view', [
+                'file' => $avatarFile,
             ]);
         }
         return null;
@@ -168,5 +160,20 @@ class User extends Authenticatable implements MustVerifyEmail
             return false;
         }
         return true;
+    }
+
+    public static function viewableFilesScope($query)
+    {
+        $query->where('type', 'avatar');
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function boot()
+    {
+        parent::boot();
+
+        self::bootHasFiles();
     }
 }

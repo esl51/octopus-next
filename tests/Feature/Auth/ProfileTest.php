@@ -81,8 +81,7 @@ class ProfileTest extends TestCase
                 'avatar' => UploadedFile::fake()->image('avatar.jpg', 768, 1024),
             ])
             ->assertSuccessful();
-        $avatarFiles = $this->user->getAvatarFiles();
-        $this->storage->assertExists($avatarFiles[0]->path);
+        $this->storage->assertExists($this->user->avatar->path);
     }
 
     /** @test */
@@ -93,9 +92,8 @@ class ProfileTest extends TestCase
                 'avatar' => UploadedFile::fake()->image('avatar.jpg', 1024, 768),
             ])
             ->assertSuccessful();
-        $avatarFiles = $this->user->getAvatarFiles();
-        $this->storage->assertExists($avatarFiles[0]->path);
-        $avatarPath = $avatarFiles[0]->path;
+        $this->storage->assertExists($this->user->avatar->path);
+        $avatarPath = $this->user->avatar->path;
         $this->deleteJson($this->updateAvatarUrl)
             ->assertSuccessful();
         $this->storage->assertMissing($avatarPath);

@@ -32,14 +32,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('access/users', [UserController::class, 'store']);
         Route::put('access/users/{user}', [UserController::class, 'update']);
         Route::delete('access/users/{user}', [UserController::class, 'destroy']);
-        Route::get(
-            'access/users/{user}/file/{directory?}/{fileName}',
-            [
-                UserController::class,
-                'getFile',
-            ]
-        )->name('user.file');
-        Route::delete('access/users/{user}/file/{directory?}/{fileName}', [UserController::class, 'destroyFile']);
     });
 
     // Users

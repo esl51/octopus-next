@@ -60,8 +60,7 @@ class UserTest extends ItemTest
         $response->assertJsonCount(1, 'data.roles');
         $data = $response->getData()->data;
         $item = ($this->class)::find($data->id);
-        $avatarFiles = $item->getAvatarFiles();
-        $this->storage->assertExists($avatarFiles[0]->path);
+        $this->storage->assertExists($item->avatar->path);
     }
 
     /** @test */
@@ -71,8 +70,7 @@ class UserTest extends ItemTest
         $response->assertJsonCount(1, 'data.roles');
         $data = $response->getData()->data;
         $item = ($this->class)::find($data->id);
-        $avatarFiles = $item->getAvatarFiles();
-        $this->storage->assertExists($avatarFiles[0]->path);
+        $this->storage->assertExists($item->avatar->path);
     }
 
     /** @test */

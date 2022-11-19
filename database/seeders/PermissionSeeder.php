@@ -34,6 +34,7 @@ class PermissionSeeder extends Seeder
         $permissions = [
             'manage access' => [],
             'manage users' => ['admin'],
+            'manage files' => ['admin'],
         ];
         foreach ($permissions as $item => $roles) {
             Permission::factory()->create([
