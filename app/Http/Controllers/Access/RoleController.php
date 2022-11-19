@@ -40,7 +40,7 @@ class RoleController extends ItemController
                     ->ignore($id)
                     ->where(fn($query) => $query->where('guard_name', $request->input('guard_name'))),
             ],
-            '%title%' => 'required|string|max:255',
+            '%title%' => 'required_if_fallback:nullable|string|max:255',
             'guard_name' => 'required|string|max:255',
             'permissions' => 'nullable|array',
             'permissions.*' => 'integer',
