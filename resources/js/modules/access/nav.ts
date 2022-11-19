@@ -2,6 +2,7 @@ import { NavItem } from '@/types'
 
 const nav: Array<NavItem> = [
   {
+    position: 100,
     label: 'access.title',
     icon: 'lock',
     children: [
