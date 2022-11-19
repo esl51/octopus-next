@@ -15,7 +15,7 @@
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.0",
         "roquie/laravel-perpage-resolver": "^2.0",
-        "spatie/eloquent-sortable": "^4.0",
+        "rutorika/sortable": "^9.0",
         "spatie/laravel-permission": "^5.5",
         "staudenmeir/eloquent-eager-limit": "^1.7",
         "staudenmeir/eloquent-has-many-deep": "^1.16"
