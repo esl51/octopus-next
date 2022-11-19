@@ -134,7 +134,7 @@ abstract class ItemTest extends TestCase
             $dummyData = array_merge($dummyData, $this->dummyAdditionalData);
         }
         if (!empty($this->dummyTranslatableData)) {
-            $dummyData['translations'] = $this->dummyTranslatableData;
+            $dummyData = array_merge($dummyData, $this->dummyTranslatableData);
         }
         $response = $this->actingAs($this->user)
             ->postJson($this->uri, $dummyData)
@@ -146,9 +146,11 @@ abstract class ItemTest extends TestCase
         $this->assertDatabaseHas($this->tableName, $this->dummyData);
 
         if ($this->dummyTranslatableData) {
-            foreach ($this->dummyTranslatableData as $locale => $dummyTranslatableItem) {
-                $dummyTranslatableData = $dummyTranslatableItem;
-                $dummyTranslatableData['locale'] = $locale;
+            foreach ($this->dummyTranslatableData as $field => $value) {
+                $fieldParts = [];
+                preg_match('/^([^:]+):([^$]+)$/', $field, $fieldParts);
+                $dummyTranslatableData[$fieldParts[1]] = $value;
+                $dummyTranslatableData['locale'] = $fieldParts[2];
                 $this->assertDatabaseHas($this->translationsTableName, $dummyTranslatableData);
             }
         }
@@ -168,7 +170,7 @@ abstract class ItemTest extends TestCase
             $dummyData = array_merge($dummyData, $this->dummyAdditionalData);
         }
         if (!empty($this->dummyTranslatableData)) {
-            $dummyData['translations'] = $this->dummyTranslatableData;
+            $dummyData = array_merge($dummyData, $this->dummyTranslatableData);
         }
         $response = $this->actingAs($this->user)
             ->putJson($this->uri . '/' . ($this->pivot ? $item->{$this->pivotAttribute} : $item->id), $dummyData)
@@ -180,9 +182,11 @@ abstract class ItemTest extends TestCase
         $this->assertDatabaseHas($this->tableName, $this->dummyData);
 
         if ($this->dummyTranslatableData) {
-            foreach ($this->dummyTranslatableData as $locale => $dummyTranslatableItem) {
-                $dummyTranslatableData = $dummyTranslatableItem;
-                $dummyTranslatableData['locale'] = $locale;
+            foreach ($this->dummyTranslatableData as $field => $value) {
+                $fieldParts = [];
+                preg_match('/^([^:]+):([^$]+)$/', $field, $fieldParts);
+                $dummyTranslatableData[$fieldParts[1]] = $value;
+                $dummyTranslatableData['locale'] = $fieldParts[2];
                 $this->assertDatabaseHas($this->translationsTableName, $dummyTranslatableData);
             }
         }
@@ -201,9 +205,11 @@ abstract class ItemTest extends TestCase
         $this->assertDatabaseMissing($this->tableName, $this->dummyData);
 
         if ($this->dummyTranslatableData) {
-            foreach ($this->dummyTranslatableData as $locale => $dummyTranslatableItem) {
-                $dummyTranslatableData = $dummyTranslatableItem;
-                $dummyTranslatableData['locale'] = $locale;
+            foreach ($this->dummyTranslatableData as $field => $value) {
+                $fieldParts = [];
+                preg_match('/^([^:]+):([^$]+)$/', $field, $fieldParts);
+                $dummyTranslatableData[$fieldParts[1]] = $value;
+                $dummyTranslatableData['locale'] = $fieldParts[2];
                 $this->assertDatabaseMissing($this->translationsTableName, $dummyTranslatableData);
             }
         }

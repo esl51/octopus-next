@@ -35,9 +35,7 @@ class RoleTest extends ItemTest
             'permissions' => [$this->dummyPermission->id],
         ];
         $this->dummyTranslatableData = [
-            config('app.locale') => [
-                'title' => 'Test Role',
-            ],
+            'title:' . config('translatable.fallback_locale') => 'Test Role',
         ];
     }
 
