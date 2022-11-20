@@ -28,7 +28,7 @@
       />
       <template #append>
         <b-input-group-text>
-          <file-icon class="icon" />
+          <file-upload-icon class="icon" />
         </b-input-group-text>
       </template>
     </b-input-group>
