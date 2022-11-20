@@ -172,6 +172,7 @@ export function useItems(config: ItemsConfig) {
     }
     fetchItems()
     config.modal?.value?.hide()
+    form.fill(config.defaults)
   }
 
   // transform request translations

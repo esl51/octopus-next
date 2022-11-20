@@ -11,6 +11,7 @@ import VCheckbox from './VCheckbox.vue'
 import VCheckboxes from './VCheckboxes.vue'
 import VDatepicker from './VDatepicker.vue'
 import VEditor from './VEditor.vue'
+import VFile from './VFile.vue'
 import VForm from './VForm.vue'
 import VFormControl from './VFormControl.vue'
 import VInput from './VInput.vue'
@@ -35,6 +36,7 @@ export default {
   VEditor,
   VForm,
   VFormControl,
+  VFile,
   VInput,
   VLocaleSwitch,
   VSelect,

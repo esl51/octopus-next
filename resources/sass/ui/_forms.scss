@@ -4,9 +4,19 @@
 }
 
 // form control
-.form-control:-webkit-autofill {
-  box-shadow: 0 0 0 1000px var(--#{$prefix}bg-forms) inset;
-  -webkit-text-fill-color: var(--#{$prefix}body-color);
+.form-control {
+  &::-webkit-file-upload-button {
+    display: none;
+  }
+
+  &::file-selector-button {
+    display: none;
+  }
+
+  &:-webkit-autofill {
+    box-shadow: 0 0 0 1000px var(--#{$prefix}bg-forms) inset;
+    -webkit-text-fill-color: var(--#{$prefix}body-color);
+  }
 }
 
 // input group
@@ -28,3 +38,5 @@
     }
   }
 }
+
+// Form control
