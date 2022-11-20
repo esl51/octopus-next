@@ -19,7 +19,7 @@ export default {
     yes_delete: 'Yes, delete',
     id_label: 'ID',
     name_label: 'Name',
-    title_label: 'Заголовок',
+    title_label: 'Title',
     items_table_footer: 'Showing {from} to {to} of {total} entries',
     page_meta: '{from}-{to} of {total}',
     enable_light_mode: 'Enable light mode',
