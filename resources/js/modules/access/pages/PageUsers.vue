@@ -25,7 +25,7 @@
       <template #cell(name)="{ item }">
         <div class="d-flex py-1 align-items-center min-w-0">
           <o-avatar
-            :image="item.photo_url"
+            :image="item.avatar?.url"
             :placeholder="item.name_placeholder"
             class="flex-shrink-0 me-2"
           />

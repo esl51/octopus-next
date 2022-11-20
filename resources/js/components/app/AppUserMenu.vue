@@ -7,7 +7,7 @@
       aria-expanded="false"
     >
       <o-avatar
-        :image="user?.photo_url"
+        :image="user?.avatar?.url"
         :placeholder="user?.name_placeholder"
         size="sm"
       >

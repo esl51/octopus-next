@@ -106,7 +106,17 @@ export interface User extends Item {
   can?: { [permission: string]: boolean }
   roles?: Array<Role>
   name_placeholder: string
-  photo_url: string | null
+  avatar?: File
+}
+
+export interface File extends Item {
+  type?: string
+  original_name: string
+  size: number
+  mime_type: string
+  extension: string
+  title?: string
+  url: string
 }
 
 export interface OTableColumn {

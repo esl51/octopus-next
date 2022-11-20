@@ -10,7 +10,7 @@
         <div class="row align-items-center">
           <div class="col-auto">
             <o-avatar
-              :image="user?.photo_url"
+              :image="user?.avatar?.url"
               :placeholder="user?.name_placeholder"
               size="xl"
             />
@@ -35,7 +35,7 @@
             </label>
           </div>
           <div
-            v-if="user?.photo_url"
+            v-if="user?.avatar?.url"
             class="col-auto"
           >
             <o-button

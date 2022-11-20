@@ -17,6 +17,7 @@ class AuthController extends Controller
     {
         $user = $request->user();
         $user->append('can', 'all_permissions');
+        $user->load('avatar');
         $user->makeVisible('roles');
         $data = (new UserResource($user))->toArray($request);
         return response()->json($data);

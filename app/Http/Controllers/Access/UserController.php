@@ -19,6 +19,7 @@ class UserController extends ItemController
     ];
     protected $with = [
         'roles',
+        'avatar',
     ];
 
     /**

@@ -47,8 +47,7 @@ class FileController extends ItemController
         $search = htmlspecialchars($request->search);
         if ($search && !is_numeric($search)) {
             $items->where(function ($query) use ($search) {
-                $query->orWhere('file_name', 'like', '%' . $search . '%')
-                    ->orWhere('original_name', 'like', '%' . $search . '%')
+                $query->orWhere('original_name', 'like', '%' . $search . '%')
                     ->orWhereTranslationLike('title', '%' . $search . '%');
             });
         }

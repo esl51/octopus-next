@@ -71,7 +71,6 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array<int, string>
      */
     protected $appends = [
-        'photo_url',
         'name_placeholder',
     ];
 
@@ -102,22 +101,6 @@ class User extends Authenticatable implements MustVerifyEmail
     public function avatar()
     {
         return $this->morphOne(File::class, 'filable')->where('type', 'avatar');
-    }
-
-    /**
-     * Get the profile photo URL attribute.
-     *
-     * @return string
-     */
-    public function getPhotoUrlAttribute(): ?string
-    {
-        $avatarFile = $this->files()->where('type', 'avatar')->first();
-        if ($avatarFile) {
-            return route('files.view', [
-                'file' => $avatarFile,
-            ]);
-        }
-        return null;
     }
 
     public function getNamePlaceholderAttribute(): string

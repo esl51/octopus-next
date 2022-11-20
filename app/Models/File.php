@@ -44,7 +44,13 @@ class File extends Model
 
     public $appends = [
         'url',
+    ];
+
+    public $hidden = [
         'path',
+        'filable_id',
+        'filable_type',
+        'file_name',
     ];
 
     public function filable()
