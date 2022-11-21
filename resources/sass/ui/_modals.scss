@@ -1,0 +1,4 @@
+.modal-content {
+  box-shadow: $box-shadow;
+  border-radius: var(--#{$prefix}modal-border-radius);
+}
