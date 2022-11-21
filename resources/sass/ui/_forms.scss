@@ -18,25 +18,3 @@
     -webkit-text-fill-color: var(--#{$prefix}body-color);
   }
 }
-
-// input group
-.input-group-flat {
-  .form-control:-webkit-autofill {
-    box-shadow: 0 0 0 1000px var(--#{$prefix}bg-forms) inset;
-    -webkit-text-fill-color: var(--#{$prefix}body-color);
-  }
-
-  .is-invalid & {
-    .input-group-text {
-      border-color: $danger;
-    }
-  }
-
-  .is-valid & {
-    .input-group-text {
-      border-color: $success;
-    }
-  }
-}
-
-// Form control

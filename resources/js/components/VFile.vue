@@ -7,7 +7,7 @@
       />
     </template>
     <slot />
-    <b-input-group class="input-group-flat">
+    <div class="input-icon">
       <input
         :id="id"
         ref="input"
@@ -26,12 +26,10 @@
         :multiple="multiple"
         @change="change"
       />
-      <template #append>
-        <b-input-group-text>
-          <file-upload-icon class="icon" />
-        </b-input-group-text>
-      </template>
-    </b-input-group>
+      <span class="input-icon-addon">
+        <file-upload-icon class="icon" />
+      </span>
+    </div>
   </v-form-control>
 </template>
 

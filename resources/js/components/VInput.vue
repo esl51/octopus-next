@@ -11,23 +11,21 @@
         :states="localeStates"
       />
     </template>
-    <b-input-group
+    <div
       v-for="locale in translatable ? availableLocales : [undefined]"
       v-show="!translatable || locale === activeLocale"
       :key="locale ? name + ':' + locale : name"
-      class="input-group-flat"
+      class="input-icon"
     >
-      <template
+      <span
         v-if="icon"
-        #prepend
+        class="input-icon-addon"
       >
-        <b-input-group-text>
-          <component
-            :is="iconComponent"
-            class="icon"
-          />
-        </b-input-group-text>
-      </template>
+        <component
+          :is="iconComponent"
+          class="icon"
+        />
+      </span>
       <b-form-input
         :id="locale ? id + '-' + locale : id"
         v-model="model[locale ? name + ':' + locale : name]"
@@ -44,29 +42,27 @@
           autofocus: !!autofocus,
         }"
       />
-      <template
+      <span
         v-if="type === 'password'"
-        #append
+        class="input-icon-addon pe-auto"
       >
-        <b-input-group-text>
-          <b-link
-            v-b-tooltip="$t('global.show_password')"
-            class="link-secondary"
-            :aria-label="$t('global.show_password')"
-            @click.prevent="togglePasswordVisible"
-          >
-            <eye-off-icon
-              v-if="passwordVisible"
-              class="icon"
-            />
-            <eye-icon
-              v-else
-              class="icon"
-            />
-          </b-link>
-        </b-input-group-text>
-      </template>
-    </b-input-group>
+        <b-link
+          v-b-tooltip="$t('global.show_password')"
+          class="link-secondary d-flex"
+          :aria-label="$t('global.show_password')"
+          @click.prevent="togglePasswordVisible"
+        >
+          <eye-off-icon
+            v-if="passwordVisible"
+            class="icon"
+          />
+          <eye-icon
+            v-else
+            class="icon"
+          />
+        </b-link>
+      </span>
+    </div>
   </v-form-control>
 </template>
 
