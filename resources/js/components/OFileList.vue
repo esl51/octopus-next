@@ -10,6 +10,8 @@
     >
       <div class="d-flex align-items-center min-w-0">
         <b-link
+          v-b-tooltip="$t('global.view')"
+          :aria-label="$t('global.view')"
           :href="item.url"
           target="_blank"
         >
@@ -22,12 +24,20 @@
         <div class="flex-fill min-w-0">
           <div class="font-weight-medium text-truncate">{{ item.title }}</div>
         </div>
-        <b-link @click.prevent="download(item)">
+        <b-link
+          v-b-tooltip="$t('global.download')"
+          button
+          :aria-label="$t('global.download')"
+          @click="download(item)"
+        >
           <download-icon class="icon me-2" />
         </b-link>
         <b-link
+          v-b-tooltip="$t('global.delete')"
+          button
+          :aria-label="$t('global.delete')"
           :class="item.is_deletable ? 'text-danger' : 'text-muted'"
-          @click.prevent="destroy(item)"
+          @click="destroy(item)"
         >
           <trash-icon class="icon me-1" />
         </b-link>

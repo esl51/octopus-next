@@ -8,6 +8,8 @@ export default {
     delete: 'Delete',
     update: 'Update',
     new: 'New',
+    view: 'View',
+    download: 'Download',
     search: 'Search...',
     choose: 'Choose',
     start_typing: 'Start typing...',

@@ -8,6 +8,8 @@ export default {
     delete: 'Удалить',
     update: 'Обновить',
     new: 'Новый',
+    view: 'Просмотр',
+    download: 'Скачать',
     search: 'Искать...',
     choose: 'Выберите',
     start_typing: 'Начните вводить...',
