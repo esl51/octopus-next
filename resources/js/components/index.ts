@@ -2,6 +2,8 @@ import OAvatar from './OAvatar.vue'
 import OButton from './OButton.vue'
 import OButtonAdd from './OButtonAdd.vue'
 import OConfirm from './OConfirm.vue'
+import OFileImage from './OFileImage.vue'
+import OFileList from './OFileList.vue'
 import OPagination from './OPagination.vue'
 import OSearch from './OSearch.vue'
 import OTable from './OTable.vue'
@@ -25,6 +27,8 @@ export default {
   OButton,
   OButtonAdd,
   OConfirm,
+  OFileImage,
+  OFileList,
   OPagination,
   OSearch,
   OTable,
@@ -34,9 +38,9 @@ export default {
   VCheckboxes,
   VDatepicker,
   VEditor,
+  VFile,
   VForm,
   VFormControl,
-  VFile,
   VInput,
   VLocaleSwitch,
   VSelect,
