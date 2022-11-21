@@ -1,7 +1,7 @@
 import OModal from '@/components/OModal.vue'
 import { useConfirm } from '@/composables/useConfirm'
 import { debounce } from '@/helpers'
-import { Item, ItemsApi, ListParams, Meta } from '@/types'
+import { Item, ItemsApi, ListParams, Meta, File } from '@/types'
 import { serialize } from 'object-to-formdata'
 import Form from 'vform'
 import { nextTick, onMounted, reactive, Ref, ref, watch } from 'vue'
@@ -41,13 +41,26 @@ export function useItems(config: ItemsConfig) {
   const fillForm = (item: Item) => {
     const data = {} as Record<string, unknown>
     Object.keys(config.defaults).forEach((key) => {
+      data[key] = null
       if (Array.isArray(item[key])) {
-        // property values
-        if ((item[key] as Array<{ id: number }>)?.some((i) => i.id)) {
-          data[key] = (item[key] as Array<{ id: number }>)?.map((i) => i.id)
+        if ((item[key] as Array<File>)?.some((f) => f.original_name && f.url)) {
+          // files
+          data[key] = []
+        } else if ((item[key] as Array<Item>)?.some((i) => i.id)) {
+          // options
+          data[key] = (item[key] as Array<Item>)?.map((i) => i.id)
         } else {
           data[key] = []
         }
+      } else if (
+        (item[key] as File)?.original_name &&
+        (item[key] as File)?.url
+      ) {
+        // file
+        data[key] = null
+      } else if ((item[key] as Item)?.id) {
+        // option
+        data[key] = (item[key] as Item)?.id
       } else {
         data[key] = item[key]
       }

@@ -26,9 +26,8 @@
     >
       <template #cell(title)="{ item }">
         <div class="d-flex py-1 align-items-center min-w-0">
-          <o-avatar
-            :image="item.mime_type.match(/^image\//) ? item.url : null"
-            :icon="getIcon(item.mime_type)"
+          <o-file-image
+            :file="item"
             class="flex-shrink-0 me-2"
           />
           <div class="flex-fill min-w-0">
@@ -198,13 +197,4 @@ const columns = ref<Array<OTableColumn>>([
     class: 'table-action-column',
   },
 ])
-
-// get file icon
-const getIcon = (mimeType: string) => {
-  let icon = 'file'
-  if (mimeType.match(/^image\//)) {
-    icon = 'photo'
-  }
-  return icon
-}
 </script>
