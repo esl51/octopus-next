@@ -14,10 +14,7 @@
         type="file"
         :name="name"
         class="form-control"
-        :class="{
-          autofocus: !!autofocus,
-          'is-invalid': state === false,
-        }"
+        :class="classes"
         :disabled="disabled"
         :autofocus="autofocus"
         :autocomplete="autocomplete"
@@ -104,4 +101,11 @@ watch(
     }
   }
 )
+
+const classes = computed(() => ({
+  autofocus: !!props.autofocus,
+  'is-invalid': state.value === false,
+  'text-muted':
+    model.value[props.name] === undefined || model.value[props.name] === null,
+}))
 </script>
