@@ -2,11 +2,6 @@
   <teleport to="#page-search">
     <o-search @input="search" />
   </teleport>
-  <!--
-  <teleport to="#page-buttons">
-    <o-button-add @click="add" />
-  </teleport>
-  -->
   <teleport to="#page-meta">
     <span v-if="meta.total > 1">
       {{ $t('global.page_meta', { ...meta }) }}
@@ -144,7 +139,6 @@ const {
   paginate,
   sort,
   search,
-  add,
   edit,
   submit,
   destroy,
