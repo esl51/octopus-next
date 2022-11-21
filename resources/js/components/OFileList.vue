@@ -26,18 +26,16 @@
         </div>
         <b-link
           v-b-tooltip="$t('global.download')"
-          button
           :aria-label="$t('global.download')"
-          @click="download(item)"
+          @click.prevent="download(item)"
         >
           <download-icon class="icon me-2" />
         </b-link>
         <b-link
           v-b-tooltip="$t('global.delete')"
-          button
           :aria-label="$t('global.delete')"
           :class="item.is_deletable ? 'text-danger' : 'text-muted'"
-          @click="destroy(item)"
+          @click.prevent="destroy(item)"
         >
           <trash-icon class="icon me-1" />
         </b-link>
