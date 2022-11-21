@@ -5,6 +5,7 @@
     role="dialog"
     :class="classes"
     :style="styles"
+    @click.self="backdropClick"
   >
     <div
       ref="dialog"
@@ -56,7 +57,6 @@
 </template>
 
 <script setup lang="ts">
-import { onClickOutside } from '@vueuse/core'
 import { computed, ref } from 'vue'
 
 // props
@@ -119,12 +119,12 @@ const hide = () => {
 }
 
 // backdrop click
-onClickOutside(dialog, () => {
+const backdropClick = () => {
   emit('backdropClick')
   if (localShow.value && props.hideOnBackdropClick) {
     hide()
   }
-})
+}
 
 // expose
 defineExpose({ show, hide })
