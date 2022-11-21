@@ -12,6 +12,9 @@ class UserResource extends ItemResource
     public function toArray($request)
     {
         $this->makeVisible('roles');
+        if ($this->avatar) {
+            $this->avatar->append('is_editable', 'is_deletable');
+        }
         $data = parent::toArray($request);
 
         return $data;
