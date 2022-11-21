@@ -18,6 +18,7 @@ import VForm from './VForm.vue'
 import VFormControl from './VFormControl.vue'
 import VInput from './VInput.vue'
 import VLocaleSwitch from './VLocaleSwitch.vue'
+import VRadios from './VRadios.vue'
 import VSelect from './VSelect.vue'
 import VSubmit from './VSubmit.vue'
 import VTextarea from './VTextarea.vue'
@@ -43,6 +44,7 @@ export default {
   VFormControl,
   VInput,
   VLocaleSwitch,
+  VRadios,
   VSelect,
   VSubmit,
   VTextarea,
