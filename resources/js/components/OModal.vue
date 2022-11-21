@@ -5,7 +5,8 @@
     role="dialog"
     :class="classes"
     :style="styles"
-    @click.self="backdropClick"
+    @mousedown.self="backdropClick"
+    @touchstart.self="backdropClick"
   >
     <div
       ref="dialog"
