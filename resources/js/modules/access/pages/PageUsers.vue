@@ -28,7 +28,15 @@
             :image="item.avatar?.url"
             :placeholder="item.name_placeholder"
             class="flex-shrink-0 me-2"
-          />
+          >
+            <span
+              v-if="
+                $appConfig.authFeatures.includes('email-verification') &&
+                item?.email_verified_at === null
+              "
+              class="badge bg-warning"
+            />
+          </o-avatar>
           <div class="flex-fill min-w-0">
             <div class="font-weight-medium text-truncate">{{ item.name }}</div>
             <div class="text-muted fw-normal text-truncate">
