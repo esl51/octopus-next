@@ -92,7 +92,7 @@
   >
     <v-form
       :form="form"
-      @submit="submit"
+      @submit="submitUser"
     >
       <v-input
         name="name"
@@ -104,6 +104,17 @@
         :label="$t('access.users.email_label')"
         type="email"
       />
+      <v-file
+        name="avatar"
+        :label="$t('access.users.avatar_label')"
+      >
+        <o-file-list
+          :files="(current as User).avatar"
+          class="mb-2"
+          confirmable
+          @delete="fetchItems"
+        />
+      </v-file>
       <v-input
         name="password"
         :label="$t('access.users.password_label')"
@@ -137,11 +148,14 @@ import { rolesApi, usersApi } from '../api'
 import OModal from '@/components/OModal.vue'
 import { useItems } from '@/composables/useItems'
 import { usePage } from '@/composables/usePage'
-import { Item } from '@/types'
+import { useAuthStore } from '@/stores/auth'
+import { Item, User } from '@/types'
 import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
+
+const authStore = useAuthStore()
 
 // page
 usePage({
@@ -155,6 +169,7 @@ const modal = ref<typeof OModal | null>(null)
 const defaults = {
   name: '',
   email: '',
+  avatar: null,
   roles: [],
 } as Record<string, unknown>
 
@@ -166,6 +181,7 @@ const {
   busy,
   form,
   current,
+  fetchItems,
   paginate,
   sort,
   search,
@@ -220,4 +236,12 @@ onMounted(async () => {
   const { data } = await rolesApi.all()
   roles.value = data
 })
+
+// submit user
+const submitUser = async () => {
+  await submit()
+  if (current.value.id === authStore.user?.id) {
+    authStore.fetchUser()
+  }
+}
 </script>

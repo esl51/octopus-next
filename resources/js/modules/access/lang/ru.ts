@@ -7,6 +7,7 @@ export default {
     name_label: 'Имя',
     email_label: 'Email',
     password_label: 'Пароль',
+    avatar_label: 'Фото',
   },
   roles: {
     title: 'Роли',
