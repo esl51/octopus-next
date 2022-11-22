@@ -4,9 +4,9 @@
     :class="classes"
     :style="style"
   >
-    <component
-      :is="iconComponent"
+    <o-icon
       v-if="!image && icon"
+      :name="icon"
       class="avatar-icon"
     />
     <template v-else-if="!image && !icon && placeholder">
@@ -26,11 +26,6 @@ const props = defineProps<{
   icon?: string
   size?: string
 }>()
-
-// icon
-const iconComponent = computed(() => {
-  return props.icon ? props.icon + '-icon' : null
-})
 
 // classes
 const classes = computed(() => {

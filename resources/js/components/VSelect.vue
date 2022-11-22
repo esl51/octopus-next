@@ -18,8 +18,8 @@
       :placeholder="placeholder"
       :close-on-select="!multiple"
       :components="{
-        Deselect: { render: () => h(XIcon, { class: 'icon' }) },
-        OpenIndicator: { render: () => h(ChevronDownIcon, { class: 'icon' }) },
+        Deselect: { render: () => h(OIcon, { name: 'x' }) },
+        OpenIndicator: { render: () => h(OIcon, { name: 'chevron-down' }) },
       }"
       :class="{
         [`v-select--${size}`]: !!size,
@@ -42,13 +42,13 @@
 </template>
 
 <script setup lang="ts">
+import OIcon from './OIcon.vue'
 import { useFormControl } from '@/composables/useFormControl'
 import { Item } from '@/types'
 import { Size } from 'bootstrap-vue-3'
 import Form from 'vform'
 import { computed, h, inject, ref } from 'vue'
 import VueSelect from 'vue-select'
-import { XIcon, ChevronDownIcon } from 'vue-tabler-icons'
 
 // todo: translate strings https://github.com/sagalbot/vue-select/pull/988
 

@@ -16,7 +16,7 @@
         :busy="busy"
         @click="send"
       >
-        <mail-icon class="icon" />
+        <o-icon name="mail" />
         {{ $t('auth.verification.alert_send_button') }}
       </o-button>
     </div>
@@ -33,7 +33,10 @@
   >
     <div class="d-flex">
       <div>
-        <check-icon class="icon alert-icon" />
+        <o-icon
+          name="check"
+          class="alert-icon"
+        />
       </div>
       <div>
         {{ $t('auth.verification.verified', { email: user?.email }) }}

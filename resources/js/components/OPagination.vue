@@ -15,7 +15,7 @@
         :aria-disabled="!prev"
         @click.prevent="change(prev)"
       >
-        <chevron-left-icon class="icon" />
+        <o-icon name="chevron-left" />
       </b-link>
     </li>
     <template
@@ -55,7 +55,7 @@
         :aria-disabled="!next"
         @click.prevent="change(next)"
       >
-        <chevron-right-icon class="icon" />
+        <o-icon name="chevron-right" />
       </b-link>
     </li>
   </ul>

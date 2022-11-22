@@ -10,7 +10,7 @@
         :to="{ name: 'home' }"
         class="btn btn-primary"
       >
-        <arrow-left-icon class="icon" />
+        <o-icon name="arrow-left" />
         {{ $t('error.home_button') }}
       </router-link>
     </div>

@@ -29,7 +29,10 @@
           :aria-label="$t('global.download')"
           @click.prevent="download(item)"
         >
-          <download-icon class="icon me-2" />
+          <o-icon
+            name="download"
+            class="me-2"
+          />
         </b-link>
         <b-link
           v-b-tooltip="$t('global.delete')"
@@ -38,7 +41,10 @@
           :class="item.is_deletable ? 'text-danger' : 'text-muted pe-none'"
           @click.prevent="destroy(item)"
         >
-          <trash-icon class="icon me-1" />
+          <o-icon
+            name="trash"
+            class="me-1"
+          />
         </b-link>
       </div>
     </li>

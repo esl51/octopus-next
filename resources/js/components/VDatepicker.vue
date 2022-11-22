@@ -27,10 +27,10 @@
       :get-classes="dateClass"
     >
       <template #icon-calendar>
-        <calendar-icon class="icon" />
+        <o-icon name="calendar" />
       </template>
       <template #icon-clear>
-        <x-icon class="icon" />
+        <o-icon name="x" />
       </template>
     </date-picker>
   </v-form-control>

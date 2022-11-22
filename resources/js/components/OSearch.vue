@@ -1,7 +1,7 @@
 <template>
   <div class="input-icon">
     <span class="input-icon-addon">
-      <search-icon class="icon" />
+      <o-icon name="search" />
     </span>
     <b-form-input
       :placeholder="$t('global.search')"

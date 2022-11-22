@@ -5,7 +5,7 @@
     icon
     @click="emit('click')"
   >
-    <plus-icon class="icon" />
+    <o-icon name="plus" />
   </o-button>
 </template>
 

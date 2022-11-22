@@ -18,13 +18,10 @@
                 {{ column.title }}
               </b-link>
               <template v-if="params.sort_by === column.key">
-                <chevron-up-icon
-                  v-if="params.sort_desc == 0"
-                  class="icon icon-sm icon-thick"
-                />
-                <chevron-down-icon
-                  v-else-if="params.sort_desc == 1"
-                  class="icon icon-sm icon-thick"
+                <o-icon
+                  v-if="params.sort_desc !== undefined"
+                  :name="params.sort_desc == 1 ? 'chevron-down' : 'chevron-up'"
+                  class="icon-sm icon-thick"
                 />
               </template>
             </template>

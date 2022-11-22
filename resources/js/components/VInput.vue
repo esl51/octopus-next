@@ -21,10 +21,7 @@
         v-if="icon"
         class="input-icon-addon"
       >
-        <component
-          :is="iconComponent"
-          class="icon"
-        />
+        <o-icon :name="icon" />
       </span>
       <b-form-input
         :id="locale ? id + '-' + locale : id"
@@ -52,14 +49,7 @@
           :aria-label="$t('global.show_password')"
           @click.prevent="togglePasswordVisible"
         >
-          <eye-off-icon
-            v-if="passwordVisible"
-            class="icon"
-          />
-          <eye-icon
-            v-else
-            class="icon"
-          />
+          <o-icon :name="passwordVisible ? 'eye-off' : 'eye'" />
         </b-link>
       </span>
     </div>
@@ -120,9 +110,6 @@ const model = computed({
     emit('update:modelValue', value)
   },
 })
-
-// icon
-const iconComponent = computed(() => (props.icon ? props.icon + '-icon' : null))
 
 // password input type
 const passwordVisible = ref(false)

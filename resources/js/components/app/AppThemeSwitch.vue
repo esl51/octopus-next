@@ -5,10 +5,7 @@
     :aria-label="$t(tooltip)"
     @click.prevent="theme.toggleTheme"
   >
-    <component
-      :is="iconComponent"
-      class="icon"
-    />
+    <o-icon :name="icon" />
   </b-link>
 </template>
 
@@ -18,9 +15,7 @@ import { computed } from 'vue'
 
 const theme = useThemeStore()
 
-const iconComponent = computed(
-  () => (theme.theme === 'light' ? 'moon' : 'sun') + '-icon'
-)
+const icon = computed(() => (theme.theme === 'light' ? 'moon' : 'sun'))
 
 const tooltip = computed(() =>
   theme.theme === 'light'

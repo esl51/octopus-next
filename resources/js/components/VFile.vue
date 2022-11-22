@@ -24,7 +24,7 @@
         @change="change"
       />
       <span class="input-icon-addon">
-        <file-upload-icon class="icon" />
+        <o-icon name="file-upload" />
       </span>
     </div>
   </v-form-control>

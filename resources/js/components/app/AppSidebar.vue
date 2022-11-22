@@ -47,10 +47,7 @@
                 v-if="item.icon"
                 class="nav-link-icon d-md-none d-lg-inline-block"
               >
-                <component
-                  :is="item.icon + '-icon'"
-                  class="icon"
-                />
+                <o-icon :name="item.icon" />
               </span>
               <span
                 v-if="item.label"
@@ -69,10 +66,7 @@
                 v-if="item.icon"
                 class="nav-link-icon d-md-none d-lg-inline-block"
               >
-                <component
-                  :is="item.icon + '-icon'"
-                  class="icon"
-                />
+                <o-icon :name="item.icon" />
               </span>
               <span
                 v-if="item.label"
@@ -104,10 +98,7 @@
                       v-if="child.icon"
                       class="nav-link-icon d-md-none d-lg-inline-block"
                     >
-                      <component
-                        :is="child.icon + '-icon'"
-                        class="icon"
-                      />
+                      <o-icon :name="child.icon" />
                     </span>
                     <span
                       v-if="child.label"

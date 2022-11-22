@@ -31,13 +31,16 @@
           :popper-opts="{ strategy: 'fixed' }"
         >
           <template #button-content>
-            <dots-vertical-icon class="icon" />
+            <o-icon name="dots-vertical" />
           </template>
           <b-dropdown-item-button
             :disabled="!item.is_editable"
             @click="edit(item)"
           >
-            <edit-icon class="icon dropdown-item-icon" />
+            <o-icon
+              name="edit"
+              class="dropdown-item-icon"
+            />
             {{ $t('global.edit') }}
           </b-dropdown-item-button>
           <b-dropdown-item-button
@@ -45,7 +48,10 @@
             :disabled="!item.is_deletable"
             @click="destroy(item, item.name)"
           >
-            <trash-icon class="icon dropdown-item-icon text-danger" />
+            <o-icon
+              name="trash"
+              class="dropdown-item-icon text-danger"
+            />
             {{ $t('global.delete') }}
           </b-dropdown-item-button>
         </b-dropdown>

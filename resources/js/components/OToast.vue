@@ -5,11 +5,11 @@
     :class="classes"
   >
     <div class="d-flex align-items-center">
-      <div class="toast-body pe-0">
-        <component
-          :is="iconComponent"
-          class="icon"
-        />
+      <div
+        v-if="icon"
+        class="toast-body pe-0"
+      >
+        <o-icon :name="icon" />
       </div>
       <div class="toast-body flex-grow-1">
         <div
@@ -81,7 +81,7 @@ const closeClasses = computed(() => ({
   'btn-close-white': props.variant !== undefined,
 }))
 
-const iconComponent = computed(() => {
+const icon = computed(() => {
   let icon: string | null = null
   if (props.variant == 'info') {
     icon = 'info-circle'
@@ -92,11 +92,7 @@ const iconComponent = computed(() => {
   } else if (props.variant == 'warning') {
     icon = 'alert-triangle'
   }
-  if (icon === null) {
-    return null
-  } else {
-    return icon + '-icon'
-  }
+  return icon
 })
 
 const emit = defineEmits(['show', 'hide'])
