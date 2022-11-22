@@ -1,3 +1,4 @@
+import OActions from './OActions.vue'
 import OAvatar from './OAvatar.vue'
 import OButton from './OButton.vue'
 import OButtonAdd from './OButtonAdd.vue'
@@ -25,6 +26,7 @@ import VSubmit from './VSubmit.vue'
 import VTextarea from './VTextarea.vue'
 
 export default {
+  OActions,
   OAvatar,
   OButton,
   OButtonAdd,

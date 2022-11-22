@@ -23,38 +23,12 @@
       @sort="sort"
     >
       <template #cell(action-column)="{ item }">
-        <b-dropdown
-          v-if="item.is_editable || item.is_deletable"
-          variant="link"
-          no-caret
-          toggle-class="btn-action btn-action-table"
-          :popper-opts="{ strategy: 'fixed' }"
-        >
-          <template #button-content>
-            <o-icon name="dots-vertical" />
-          </template>
-          <b-dropdown-item-button
-            :disabled="!item.is_editable"
-            @click="edit(item)"
-          >
-            <o-icon
-              name="edit"
-              class="dropdown-item-icon"
-            />
-            {{ $t('global.edit') }}
-          </b-dropdown-item-button>
-          <b-dropdown-item-button
-            variant="danger"
-            :disabled="!item.is_deletable"
-            @click="destroy(item, item.title)"
-          >
-            <o-icon
-              name="trash"
-              class="dropdown-item-icon text-danger"
-            />
-            {{ $t('global.delete') }}
-          </b-dropdown-item-button>
-        </b-dropdown>
+        <o-actions
+          v-if="item.is_deletable || item.is_editable"
+          :item="item"
+          @edit="edit(item)"
+          @delete="destroy(item, item.title)"
+        />
       </template>
     </o-table>
     <template #footer>

@@ -133,6 +133,14 @@ export interface OTableColumn {
     | ((value: unknown) => string)
 }
 
+export interface ItemAction {
+  label: string
+  icon?: string
+  variant?: string
+  disabled?: boolean
+  handler: () => void
+}
+
 export type AppConfig = {
   name: string
   locale: LangLocale
