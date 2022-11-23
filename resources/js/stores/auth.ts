@@ -25,6 +25,7 @@ export const useAuthStore = defineStore('auth', {
       this.updateUser(me)
     },
     async logout() {
+      this.$reset()
       try {
         await authApi.logout()
       } catch (e) {
@@ -33,7 +34,6 @@ export const useAuthStore = defineStore('auth', {
           throw err
         }
       }
-      this.$reset()
     },
     can(permission: string): boolean {
       return this.user?.can !== undefined && this.user.can[permission] === true
