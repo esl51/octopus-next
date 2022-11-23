@@ -1,8 +1,14 @@
 <template>
-  <teleport to="#page-search">
+  <teleport
+    v-if="mounted"
+    to="#page-search"
+  >
     <o-search @input="search" />
   </teleport>
-  <teleport to="#page-meta">
+  <teleport
+    v-if="mounted"
+    to="#page-meta"
+  >
     <span v-if="meta.total > 1">
       {{ $t('global.page_meta', { ...meta }) }}
     </span>
@@ -87,7 +93,7 @@ import OModal from '@/components/OModal.vue'
 import { useItems } from '@/composables/useItems'
 import { usePage } from '@/composables/usePage'
 import { OTableColumn } from '@/types'
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 const { t, availableLocales } = useI18n()
@@ -171,4 +177,10 @@ const columns = ref<Array<OTableColumn>>([
     class: 'table-action-column',
   },
 ])
+
+// teleport on mount
+const mounted = ref(false)
+onMounted(() => {
+  mounted.value = true
+})
 </script>

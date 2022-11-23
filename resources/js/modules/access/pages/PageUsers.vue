@@ -1,8 +1,14 @@
 <template>
-  <teleport to="#page-search">
+  <teleport
+    v-if="mounted"
+    to="#page-search"
+  >
     <o-search @input="search" />
   </teleport>
-  <teleport to="#page-buttons">
+  <teleport
+    v-if="mounted"
+    to="#page-buttons"
+  >
     <o-button-add @click="add" />
   </teleport>
   <teleport to="#page-meta">
@@ -232,4 +238,10 @@ const submitUser = async () => {
     authStore.fetchUser()
   }
 }
+
+// teleport on mount
+const mounted = ref(false)
+onMounted(() => {
+  mounted.value = true
+})
 </script>

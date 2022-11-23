@@ -1,8 +1,14 @@
 <template>
-  <teleport to="#page-search">
+  <teleport
+    v-if="mounted"
+    to="#page-search"
+  >
     <o-search @input="search" />
   </teleport>
-  <teleport to="#page-buttons">
+  <teleport
+    v-if="mounted"
+    to="#page-buttons"
+  >
     <o-button-add @click="add" />
   </teleport>
   <teleport to="#page-meta">
@@ -79,7 +85,7 @@ import { permissionsApi } from '../api'
 import OModal from '@/components/OModal.vue'
 import { useItems } from '@/composables/useItems'
 import { usePage } from '@/composables/usePage'
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
@@ -150,4 +156,10 @@ const columns = ref([
     class: 'table-action-column',
   },
 ])
+
+// teleport on mount
+const mounted = ref(false)
+onMounted(() => {
+  mounted.value = true
+})
 </script>

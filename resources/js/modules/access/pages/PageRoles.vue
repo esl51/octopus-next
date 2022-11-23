@@ -1,8 +1,14 @@
 <template>
-  <teleport to="#page-search">
+  <teleport
+    v-if="mounted"
+    to="#page-search"
+  >
     <o-search @input="search" />
   </teleport>
-  <teleport to="#page-buttons">
+  <teleport
+    v-if="mounted"
+    to="#page-buttons"
+  >
     <o-button-add @click="add" />
   </teleport>
   <teleport to="#page-meta">
@@ -176,5 +182,11 @@ const permissions = ref<Array<Item>>([])
 onMounted(async () => {
   const { data } = await permissionsApi.all()
   permissions.value = data
+})
+
+// teleport on mount
+const mounted = ref(false)
+onMounted(() => {
+  mounted.value = true
 })
 </script>
