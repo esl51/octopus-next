@@ -152,12 +152,14 @@ axios.interceptors.response.use(
         title: t('error.session_expired_title'),
         body: t('error.session_expired_text'),
       })
-      await authStore.logout()
-      router.push({ name: 'auth.login', query: { intended_url: route.path } })
+      if (route.name !== 'auth.login') {
+        await authStore.logout()
+        router.push({ name: 'auth.login', query: { intended_url: route.path } })
+      }
     }
 
     // other errors
-    else if (status >= 400) {
+    else if (status === 400 || status > 401) {
       danger({
         title: t('error.alert_title'),
         body: t('error.alert_text'),
