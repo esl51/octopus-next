@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { markRaw, ref, watch } from 'vue'
+import { defineAsyncComponent, markRaw, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
 const layout = ref()
@@ -17,10 +17,9 @@ watch(
     const layoutName = metaLayout
       ? metaLayout[0].toUpperCase() + metaLayout.slice(1)
       : 'Default'
-    const component = await import(
-      /* @vite-ignore */ `./AppLayout${layoutName}.vue`
+    layout.value = markRaw(
+      defineAsyncComponent(() => import(`./AppLayout${layoutName}.vue`))
     )
-    layout.value = markRaw(component.default)
   },
   {
     immediate: true,
