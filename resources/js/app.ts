@@ -4,6 +4,7 @@ import components from './components'
 import head from './plugins/head'
 import i18n from './plugins/i18n'
 import pinia from './plugins/pinia'
+import sortable from './plugins/sortable'
 import router from './router'
 import 'bootstrap'
 import { BootstrapVue3 } from 'bootstrap-vue-3'
@@ -19,6 +20,9 @@ app.use(head)
 app.use(i18n)
 app.use(BootstrapVue3)
 app.use(Vue3Mount)
+
+// directives
+app.directive('sortable', sortable)
 
 // globals
 app.config.globalProperties.$appConfig = window.config

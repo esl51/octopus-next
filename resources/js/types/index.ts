@@ -90,6 +90,8 @@ export interface ItemsApi {
   store: (payload: Record<string, unknown>) => Promise<Item>
   update: (id: number, payload: Record<string, unknown>) => Promise<Item>
   destroy: (id: number) => Promise<void>
+  moveAfter: (id: number, afterId: number) => Promise<Item>
+  moveBefore: (id: number, beforeId: number) => Promise<Item>
 }
 
 export interface Role extends Item {

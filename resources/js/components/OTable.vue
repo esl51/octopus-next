@@ -4,10 +4,13 @@
     class="table-responsive"
   >
     <table
+      v-sortable
       class="table card-table table-vcenter text-nowrap datatable"
       :class="{
         [`table-stacked-${stacked}`]: !!stacked,
+        draggable: !!sortable,
       }"
+      @drag-end="move"
     >
       <thead>
         <tr>
@@ -87,14 +90,16 @@ const props = withDefaults(
     columns: Array<OTableColumn>
     params: ListParams
     stacked?: string
+    sortable?: boolean
   }>(),
   {
     stacked: 'md',
+    sortable: false,
   }
 )
 
 // emits
-const emit = defineEmits(['sort'])
+const emit = defineEmits(['sort', 'move'])
 
 // items
 const items = computed(() => props.data)
@@ -132,5 +137,10 @@ const format = (value: unknown, formatter?: OTableColumn['formatter']) => {
     return formatFileSize(value)
   }
   return value
+}
+
+// move
+const move = (event: Event) => {
+  emit('move', event)
 }
 </script>

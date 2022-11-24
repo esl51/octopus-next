@@ -150,6 +150,37 @@ export function useItems(config: ItemsConfig) {
     })
   }
 
+  // move
+  interface MoveEvent extends Event {
+    oldIndex: number
+    newIndex: number
+  }
+  const move = async (event: MoveEvent) => {
+    try {
+      loadItem(items.value[event.oldIndex])
+      items.value.splice(event.oldIndex, 1)
+      items.value.splice(event.newIndex, 0, current.value)
+      if (event.newIndex > event.oldIndex) {
+        loadItem(
+          await config.api.moveAfter(
+            current.value.id,
+            items.value[event.newIndex - 1].id
+          )
+        )
+      } else if (event.newIndex < event.oldIndex) {
+        loadItem(
+          await config.api.moveBefore(
+            current.value.id,
+            items.value[event.newIndex + 1].id
+          )
+        )
+      }
+    } catch (e) {
+      items.value = []
+      fetchItems()
+    }
+  }
+
   // search
   const search = debounce((query: string) => {
     router.replace({
@@ -283,6 +314,7 @@ export function useItems(config: ItemsConfig) {
     fetchItems,
     paginate,
     sort,
+    move,
     search,
     add,
     store,

@@ -92,6 +92,12 @@
   }
 }
 
+.table.draggable {
+  tr {
+    cursor: move;
+  }
+}
+
 .card-body:last-child {
   .card-table:last-child tbody tr:last-child td {
     border-bottom: none;

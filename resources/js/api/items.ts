@@ -69,6 +69,28 @@ export default function itemsApi(endpoint: string): ItemsApi {
     await api.delete(url + id)
   }
 
+  /**
+   * Move item after id
+   * @param id Item id
+   * @param afterId Item after id
+   * @returns Item
+   */
+  const moveAfter = async (id: number, afterId: number): Promise<Item> => {
+    const { data } = await api.post(url + id + '/move-after/' + afterId)
+    return data.data as Item
+  }
+
+  /**
+   * Move item before id
+   * @param id Item id
+   * @param beforeId Item before id
+   * @returns Item
+   */
+  const moveBefore = async (id: number, beforeId: number): Promise<Item> => {
+    const { data } = await api.post(url + id + '/move-before/' + beforeId)
+    return data.data as Item
+  }
+
   return {
     url,
     all,
@@ -77,5 +99,7 @@ export default function itemsApi(endpoint: string): ItemsApi {
     store,
     update,
     destroy,
+    moveAfter,
+    moveBefore,
   }
 }
