@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Rutorika\Sortable\SortableTrait;
 use Astrotomic\Translatable\Translatable;
 use Storage;
@@ -20,7 +21,7 @@ use Storage;
  * @property int $size
  * @property string $url
  */
-class File extends Model
+class File extends Model implements TranslatableContract
 {
     use SortableTrait;
     use Translatable;
