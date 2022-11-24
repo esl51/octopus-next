@@ -4,7 +4,7 @@
     class="table-responsive"
   >
     <table
-      v-sortable
+      v-sortable="!!sortable ? {} : false"
       class="table card-table table-vcenter text-nowrap datatable"
       :class="{
         [`table-stacked-${stacked}`]: !!stacked,

@@ -22,6 +22,9 @@ interface SortableHTMLElement extends HTMLElement {
 
 export const sortable: ObjectDirective<SortableHTMLElement> = {
   mounted(el: SortableHTMLElement, binding: DirectiveBinding, vnode: VNode) {
+    if (binding.value === false) {
+      return
+    }
     let elem = el.querySelector('tbody') as SortableHTMLElement
     if (!elem) {
       elem = el
@@ -29,6 +32,9 @@ export const sortable: ObjectDirective<SortableHTMLElement> = {
     el._sortable = createSortable(elem, binding.value, vnode)
   },
   updated(el: SortableHTMLElement, binding: DirectiveBinding, vnode: VNode) {
+    if (binding.value === false) {
+      return
+    }
     let elem = el.querySelector('tbody') as SortableHTMLElement
     if (!elem) {
       elem = el
@@ -36,7 +42,10 @@ export const sortable: ObjectDirective<SortableHTMLElement> = {
     el._sortable?.destroy()
     el._sortable = createSortable(elem, binding.value, vnode)
   },
-  unmounted(el: SortableHTMLElement) {
+  unmounted(el: SortableHTMLElement, binding: DirectiveBinding) {
+    if (binding.value === false) {
+      return
+    }
     el._sortable?.destroy()
   },
 }
