@@ -10,6 +10,7 @@ use Storage;
 /**
  * File
  *
+ * @property string $title
  * @property int $position
  * @property int $filable_id
  * @property string $filable_type
