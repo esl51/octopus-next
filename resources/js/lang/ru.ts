@@ -26,6 +26,9 @@ export default {
     page_meta: '{from}-{to} из {total}',
     enable_light_mode: 'Включить дневной режим',
     enable_dark_mode: 'Включить ночной режим',
+    empty_title: 'Тут ничего нет',
+    empty_body:
+      'Попробуйте изменить запрос или фильтр, чтобы найти то, что ищете.',
   },
   error: {
     alert_title: 'Ой...',

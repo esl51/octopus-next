@@ -26,6 +26,9 @@ export default {
     page_meta: '{from}-{to} of {total}',
     enable_light_mode: 'Enable light mode',
     enable_dark_mode: 'Enable dark mode',
+    empty_title: 'No results found',
+    empty_body:
+      "Try adjusting your search or filter to find what you're looking for.",
   },
   error: {
     alert_title: 'Oops...',

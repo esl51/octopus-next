@@ -1,5 +1,8 @@
 <template>
-  <div class="table-responsive">
+  <div
+    v-if="items.length"
+    class="table-responsive"
+  >
     <table
       class="table card-table table-vcenter text-nowrap datatable"
       :class="{
@@ -53,6 +56,18 @@
         </tr>
       </tbody>
     </table>
+  </div>
+  <div
+    v-else
+    class="empty"
+  >
+    <div class="empty-icon">
+      <o-icon name="mood-sad" />
+    </div>
+    <p class="empty-title">{{ $t('global.empty_title') }}</p>
+    <p class="empty-subtitle text-muted">
+      {{ $t('global.empty_body') }}
+    </p>
   </div>
 </template>
 
