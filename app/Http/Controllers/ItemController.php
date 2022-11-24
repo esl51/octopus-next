@@ -39,11 +39,6 @@ abstract class ItemController extends Controller
      */
     protected $withCount = [];
     /**
-     * Return sortable listing
-     * @var boolean
-     */
-    protected $sortable = false;
-    /**
      * Has search
      * @var boolean
      */
@@ -83,13 +78,10 @@ abstract class ItemController extends Controller
      *
      * @return array Prepared fillable translations
      */
-    public function getFillableTranslations($fillableTranslations = null)
+    public function getFillableTranslations()
     {
-        if (!$fillableTranslations) {
-            $fillableTranslations = $this->fillableTranslations();
-        }
         $translations = [];
-        foreach ($fillableTranslations as $key) {
+        foreach ($this->fillableTranslations as $key) {
             foreach (config('translatable.locales') as $locale) {
                 $translations[] = $key . ':' . $locale;
             }
@@ -99,12 +91,13 @@ abstract class ItemController extends Controller
     }
 
     /**
-     * Check permissions hook.
+     * Add conditions hook.
      *
-     * @param \App\EloquentBuilder $query
-     * @return \App\EloquentBuilder
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\EloquentBuilder $query
+     * @return \App\Models\EloquentBuilder
      */
-    public function checkPermissions($query)
+    public function addConditions(Request $request, $query)
     {
         return $query;
     }
@@ -156,20 +149,31 @@ abstract class ItemController extends Controller
     }
 
     /**
+     * Init query.
+     *
+     * @param Request $request
+     * @return \App\Models\EloquentBuilder
+     */
+    protected function initQuery(Request $request)
+    {
+        return call_user_func([$this->class, 'query']);
+    }
+
+    /**
      * Get items query.
      *
      * @param  \Illuminate\Http\Request $request
-     * @return \App\EloquentBuilder
+     * @return \App\Models\EloquentBuilder
      */
     protected function newItemsQuery(Request $request)
     {
         $table = (new $this->class())->getTable();
         $columns = $this->class::getColumns();
 
-        $items = call_user_func([$this->class, 'query']);
+        $items = $this->initQuery($request);
         $items->select($columns)->groupBy($columns);
 
-        $items = $this->checkPermissions($items);
+        $items = $this->addConditions($request, $items);
         $with = $this->with;
         if (method_exists($this->class, 'translations')) {
             $with[] = 'translations';
@@ -198,7 +202,7 @@ abstract class ItemController extends Controller
         $items = $this->handleOrder(
             $request,
             $items,
-            !empty($this->sortable),
+            method_exists($this->class, 'sorted'),
             $this->sortByReplacements(),
             $this->sortByTranslations(),
         );
@@ -210,11 +214,11 @@ abstract class ItemController extends Controller
      * Handle ordering.
      *
      * @param Request $request
-     * @param \App\EloquentBuilder $items
+     * @param \App\Models\EloquentBuilder $items
      * @param boolean $sortable
      * @param array $replacements
      * @param array $translations
-     * @return \App\EloquentBuilder
+     * @return \App\Models\EloquentBuilder
      */
     public function handleOrder(Request $request, $items, $sortable = false, $replacements = [], $translations = [])
     {
@@ -239,18 +243,19 @@ abstract class ItemController extends Controller
     /**
      * Get item.
      *
+     * @param  \Illuminate\Http\Request $request
      * @param  integer  $id
      * @param  boolean  $withRelations
      * @return mixed
      */
-    public function getItem($id, $withRelations = false)
+    public function getItem(Request $request, $id, $withRelations = false)
     {
         $columns = $this->class::getColumns();
 
-        $item = call_user_func([$this->class, 'query']);
+        $item = $this->initQuery($request);
         $item->select($columns)->groupBy($columns);
 
-        $item = $this->checkPermissions($item);
+        $item = $this->addConditions($request, $item);
         if ($withRelations) {
             $with = $this->with;
             // load all translations for modifying purposes
@@ -291,20 +296,21 @@ abstract class ItemController extends Controller
             $data = array_merge($data, $request->only($this->getFillableTranslations()));
         }
         $data = $this->beforeStore($request, $data);
-        $item = call_user_func([$this->class, 'create'], $data);
+        $item = $this->initQuery($request)->create($data);
         $this->afterStore($request, $item);
-        return $this->show($item->id);
+        $request->id = $item->id;
+        return $this->show($request);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  integer  $id
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        $item = $this->getItem($id, true);
+        $item = $this->getItem($request, intval($request->id), true);
         if (!$item) {
             abort(404, trans('item.not_found'));
         }
@@ -315,14 +321,13 @@ abstract class ItemController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  integer  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $rules = $this->getValidationRules($request, intval($id));
+        $rules = $this->getValidationRules($request, intval($request->id));
         $this->validate($request, $rules);
-        $item = $this->getItem($id);
+        $item = $this->getItem($request, intval($request->id));
         if (!$item) {
             abort(404, trans('item.not_found'));
         }
@@ -339,18 +344,18 @@ abstract class ItemController extends Controller
         $data = $this->beforeUpdate($request, $data);
         $item->update($data);
         $this->afterUpdate($request, $item);
-        return $this->show($item->id);
+        return $this->show($request);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  integer  $id
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $item = call_user_func([$this->class, 'find'], $id);
+        $item = $this->getItem($request, intval($request->id));
         if (!$item) {
             abort(404, trans('item.not_found'));
         }
@@ -422,39 +427,37 @@ abstract class ItemController extends Controller
     /**
      * Move the specified resource before another.
      *
-     * @param  integer  $id
-     * @param  integer  $before
+     * @param  \Illuminate\Http\Request  $request
      * @return  \Illuminate\Http\Response
      */
-    public function moveBefore($id, $before)
+    public function moveBefore(Request $request)
     {
-        $item = $this->getItem($id);
+        $item = $this->getItem($request, intval($request->id));
         if (!$item) {
             abort(404, trans('item.not_found'));
         }
-        $itemBefore = $this->getItem($before);
+        $itemBefore = $this->getItem($request, intval($request->before));
         $item->moveBefore($itemBefore);
-        return $this->show($item->id);
+        return $this->show($request);
     }
 
     /**
      * Move the specified resource after another.
      *
-     * @param  integer  $id
-     * @param  integer  $after
+     * @param  \Illuminate\Http\Request  $request
      * @return  \Illuminate\Http\Response
      */
-    public function moveAfter($id, $after)
+    public function moveAfter(Request $request)
     {
-        $item = $this->getItem($id);
+        $item = $this->getItem($request, intval($request->id));
         if (!$item) {
             abort(404, trans('item.not_found'));
         }
-        $itemAfter = $this->getItem($after);
+        $itemAfter = $this->getItem($request, intval($request->after));
         if (!$itemAfter) {
             abort(404, trans('item.not_found'));
         }
         $item->moveAfter($itemAfter);
-        return $this->show($item->id);
+        return $this->show($request);
     }
 }

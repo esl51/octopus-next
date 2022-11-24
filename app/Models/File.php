@@ -63,7 +63,7 @@ class File extends Model implements TranslatableContract
     public function getUrlAttribute()
     {
         return route('files.view', [
-            'file' => $this->id,
+            'id' => $this->id,
         ]);
     }
 

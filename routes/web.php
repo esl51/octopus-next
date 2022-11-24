@@ -15,8 +15,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::get('files/{file}/view', [FileController::class, 'view'])->name('files.view');
-    Route::get('files/{file}/download', [FileController::class, 'download'])->name('files.download');
+    Route::get('files/{id}/view', [FileController::class, 'view'])->name('files.view');
+    Route::get('files/{id}/download', [FileController::class, 'download'])->name('files.download');
 });
 
 Route::get('{any}', function () {

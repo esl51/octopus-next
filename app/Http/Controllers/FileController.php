@@ -21,7 +21,7 @@ class FileController extends ItemController
     /**
      * @inheritDoc
      */
-    public function checkPermissions($query)
+    public function addConditions($request, $query)
     {
         return $query->viewable();
     }
@@ -65,15 +65,15 @@ class FileController extends ItemController
         ];
     }
 
-    public function download($id)
+    public function download(Request $request)
     {
-        $item = $this->getItem($id);
+        $item = $this->getItem($request, intval($request->id));
         return $item->download();
     }
 
-    public function view($id)
+    public function view(Request $request)
     {
-        $item = $this->getItem($id);
+        $item = $this->getItem($request, intval($request->id));
         return $item->response();
     }
 }

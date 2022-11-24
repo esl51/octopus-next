@@ -10,31 +10,31 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
         // Permissions
         Route::get('access/permissions', [PermissionController::class, 'index']);
-        Route::get('access/permissions/{permission}', [PermissionController::class, 'show']);
+        Route::get('access/permissions/{id}', [PermissionController::class, 'show']);
         Route::post('access/permissions', [PermissionController::class, 'store']);
-        Route::put('access/permissions/{permission}', [PermissionController::class, 'update']);
-        Route::delete('access/permissions/{permission}', [PermissionController::class, 'destroy']);
+        Route::put('access/permissions/{id}', [PermissionController::class, 'update']);
+        Route::delete('access/permissions/{id}', [PermissionController::class, 'destroy']);
 
         // Roles
         Route::post('access/roles', [RoleController::class, 'store']);
-        Route::put('access/roles/{role}', [RoleController::class, 'update']);
-        Route::delete('access/roles/{role}', [RoleController::class, 'destroy']);
+        Route::put('access/roles/{id}', [RoleController::class, 'update']);
+        Route::delete('access/roles/{id}', [RoleController::class, 'destroy']);
     });
 
     // Roles
     Route::get('access/roles', [RoleController::class, 'index']);
-    Route::get('access/roles/{role}', [RoleController::class, 'show']);
+    Route::get('access/roles/{id}', [RoleController::class, 'show']);
 
     // Manage users
     Route::group(['middleware' => ['can:manage users']], function () {
 
         // Users
         Route::post('access/users', [UserController::class, 'store']);
-        Route::put('access/users/{user}', [UserController::class, 'update']);
-        Route::delete('access/users/{user}', [UserController::class, 'destroy']);
+        Route::put('access/users/{id}', [UserController::class, 'update']);
+        Route::delete('access/users/{id}', [UserController::class, 'destroy']);
     });
 
     // Users
     Route::get('access/users', [UserController::class, 'index']);
-    Route::get('access/users/{user}', [UserController::class, 'show']);
+    Route::get('access/users/{id}', [UserController::class, 'show']);
 });
