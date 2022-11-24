@@ -47,6 +47,7 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('file_translations');
         Schema::dropIfExists('files');
     }
 };
