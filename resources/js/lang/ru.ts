@@ -44,4 +44,7 @@ export default {
   layout: {
     open_user_menu: 'Открыть меню пользователя',
   },
+  directory: {
+    title: 'Справочники',
+  },
 }

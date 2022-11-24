@@ -45,4 +45,7 @@ export default {
   layout: {
     open_user_menu: 'Open user menu',
   },
+  directory: {
+    title: 'Directory',
+  },
 }
