@@ -83,10 +83,13 @@ abstract class ItemController extends Controller
      *
      * @return array Prepared fillable translations
      */
-    public function getFillableTranslations()
+    public function getFillableTranslations($fillableTranslations = null)
     {
+        if (!$fillableTranslations) {
+            $fillableTranslations = $this->fillableTranslations();
+        }
         $translations = [];
-        foreach ($this->fillableTranslations as $key) {
+        foreach ($fillableTranslations as $key) {
             foreach (config('translatable.locales') as $locale) {
                 $translations[] = $key . ':' . $locale;
             }
@@ -192,11 +195,32 @@ abstract class ItemController extends Controller
             }
         }
 
+        $items = $this->handleOrder(
+            $request,
+            $items,
+            !empty($this->sortable),
+            $this->sortByReplacements(),
+            $this->sortByTranslations(),
+        );
+
+        return $items;
+    }
+
+    /**
+     * Handle ordering.
+     *
+     * @param Request $request
+     * @param \App\EloquentBuilder $items
+     * @param boolean $sortable
+     * @param array $replacements
+     * @param array $translations
+     * @return \App\EloquentBuilder
+     */
+    public function handleOrder(Request $request, $items, $sortable = false, $replacements = [], $translations = [])
+    {
         $sortBy = htmlspecialchars($request->sort_by);
         $sortDesc = filter_var($request->sort_desc, FILTER_VALIDATE_BOOLEAN);
         if ($sortBy) {
-            $replacements = $this->sortByReplacements();
-            $translations = $this->sortByTranslations();
             if (!empty($replacements[$sortBy])) {
                 $items->orderBy($replacements[$sortBy], $sortDesc ? 'desc' : 'asc');
             } elseif (!empty($translations[$sortBy])) {
@@ -206,10 +230,9 @@ abstract class ItemController extends Controller
                 $items->orderBy($sortBy, $sortDesc ? 'desc' : 'asc');
             }
         }
-        if (!empty($this->sortable)) {
+        if ($sortable) {
             $items->sorted();
         }
-
         return $items;
     }
 
