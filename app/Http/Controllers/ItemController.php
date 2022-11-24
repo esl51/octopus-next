@@ -207,7 +207,7 @@ abstract class ItemController extends Controller
             }
         }
         if (!empty($this->sortable)) {
-            $items->ordered();
+            $items->sorted();
         }
 
         return $items;
