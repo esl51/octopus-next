@@ -1,9 +1,4 @@
 .page-body .page-header {
-  min-height: calc(
-    var(--#{$prefix}btn-line-height) * var(--#{$prefix}btn-font-size) +
-      var(--#{$prefix}btn-padding-y) * 2 + var(--#{$prefix}btn-border-width) * 2
-  );
-
   &:first-child {
     margin-top: 0;
   }
