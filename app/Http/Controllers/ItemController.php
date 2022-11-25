@@ -202,7 +202,7 @@ abstract class ItemController extends Controller
         $items = $this->handleOrder(
             $request,
             $items,
-            method_exists($this->class, 'sorted'),
+            method_exists($this->class, 'scopeSorted'),
             $this->sortByReplacements(),
             $this->sortByTranslations(),
         );
