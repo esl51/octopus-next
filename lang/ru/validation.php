@@ -171,7 +171,7 @@ return [
 
     'attributes' => [
         'name' => 'название',
-        'first_name' => 'имя',
+        'person_name' => 'имя',
         'title' => 'заголовок',
         'password' => 'пароль',
         'avatar' => 'фото',

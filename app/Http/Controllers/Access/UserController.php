@@ -37,6 +37,13 @@ class UserController extends ItemController
         ];
     }
 
+    public function getCustomAttributes(): array
+    {
+        return [
+            'name' => trans('validation.attributes.person_name'),
+        ];
+    }
+
     /**
      * @inheritDoc
      */
