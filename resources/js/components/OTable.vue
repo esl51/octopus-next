@@ -1,15 +1,9 @@
 <template>
-  <div
-    v-if="items.length"
-    class="table-responsive"
-  >
+  <div class="table-responsive">
     <table
       v-sortable="!!sortable ? {} : false"
-      class="table card-table table-vcenter text-nowrap datatable"
-      :class="{
-        [`table-stacked-${stacked}`]: !!stacked,
-        draggable: !!sortable,
-      }"
+      class="table table-vcenter datatable"
+      :class="classes"
       @drag-end="move"
     >
       <thead>
@@ -38,8 +32,30 @@
         </tr>
       </thead>
       <tbody>
+        <tr v-if="busy && !items.length">
+          <td
+            :colspan="activeColumns.length"
+            class="text-center"
+          >
+            <b-spinner />
+          </td>
+        </tr>
+        <tr v-else-if="!busy && !items.length">
+          <td :colspan="activeColumns.length">
+            <div class="empty">
+              <div class="empty-icon">
+                <o-icon name="mood-sad" />
+              </div>
+              <p class="empty-title">{{ $t('global.empty_title') }}</p>
+              <p class="empty-subtitle text-muted">
+                {{ $t('global.empty_body') }}
+              </p>
+            </div>
+          </td>
+        </tr>
         <tr
           v-for="item in items"
+          v-else
           :key="item.id"
         >
           <td
@@ -60,18 +76,6 @@
       </tbody>
     </table>
   </div>
-  <div
-    v-else
-    class="empty"
-  >
-    <div class="empty-icon">
-      <o-icon name="mood-sad" />
-    </div>
-    <p class="empty-title">{{ $t('global.empty_title') }}</p>
-    <p class="empty-subtitle text-muted">
-      {{ $t('global.empty_body') }}
-    </p>
-  </div>
 </template>
 
 <script setup lang="ts">
@@ -91,10 +95,14 @@ const props = withDefaults(
     params: ListParams
     stacked?: string
     sortable?: boolean
+    busy?: boolean
+    card?: boolean
   }>(),
   {
     stacked: 'md',
     sortable: false,
+    busy: false,
+    card: false,
   }
 )
 
@@ -148,4 +156,13 @@ const format = (value: unknown, formatter?: OTableColumn['formatter']) => {
 const move = (event: Event) => {
   emit('move', event)
 }
+
+// classes
+const classes = computed(() => ({
+  [`table-stacked-${props.stacked}`]: !!props.stacked,
+  draggable: !!props.sortable,
+  'opacity-50': !!props.busy,
+  'pe-none': !!props.busy,
+  'card-table': !!props.card,
+}))
 </script>

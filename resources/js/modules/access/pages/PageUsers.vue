@@ -12,15 +12,15 @@
     </template>
   </o-page-header>
   <b-card
-    :class="cardClasses"
     body-class="p-0"
     footer-class="border-top-0"
   >
     <o-table
-      class="card-table"
       :data="items"
       :params="params"
       :columns="columns"
+      :busy="busy"
+      card
       @sort="sort"
     >
       <template #cell(name)="{ item }">
@@ -139,7 +139,7 @@ import { useItems } from '@/composables/useItems'
 import { usePage } from '@/composables/usePage'
 import { useAuthStore } from '@/stores/auth'
 import { Item, User } from '@/types'
-import { computed, onMounted, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
@@ -187,12 +187,6 @@ const {
     per_page: 6,
   },
 })
-
-// card class
-const cardClasses = computed(() => ({
-  'opacity-50': busy.value,
-  'pe-none': busy.value,
-}))
 
 // columns
 const columns = ref([

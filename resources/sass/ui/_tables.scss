@@ -14,6 +14,14 @@
     $infix: breakpoint-infix($next, $grid-breakpoints);
 
     &#{$infix} {
+      @include media-breakpoint-up($next) {
+        .card-body:last-child > &.card-table:last-child,
+        .card-body:last-child > .table-responsive:last-child > &.card-table {
+          tbody tr:last-child td {
+            border-bottom-width: 0;
+          }
+        }
+      }
       @include media-breakpoint-down($next) {
         display: block;
 
@@ -95,11 +103,5 @@
 .table.draggable {
   tbody tr {
     cursor: move;
-  }
-}
-
-.card-body:last-child {
-  .card-table:last-child tbody tr:last-child td {
-    border-bottom: none;
   }
 }
