@@ -4,6 +4,7 @@
       <div class="col">
         <component
           :is="titleTag"
+          v-if="title"
           class="page-title"
         >
           {{ title }}
@@ -30,11 +31,12 @@
 <script setup lang="ts">
 withDefaults(
   defineProps<{
-    title: string
+    title?: string
     titleTag?: string
   }>(),
   {
-    titleTag: 'h2',
+    title: undefined,
+    titleTag: 'h1',
   }
 )
 </script>
