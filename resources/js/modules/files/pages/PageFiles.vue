@@ -1,5 +1,5 @@
 <template>
-  <o-page-header :title="$t('access.permissions.title')">
+  <o-page-header :title="$t('files.title')">
     <template #buttons>
       <o-search @input="search" />
     </template>
