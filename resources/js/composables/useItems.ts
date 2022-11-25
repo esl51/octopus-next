@@ -37,8 +37,15 @@ export function useItems(config: ItemsConfig) {
   // form
   const form = reactive(new Form(config.defaults))
 
+  // init form
+  const initForm = () => {
+    form.clear()
+    form.fill(config.defaults)
+  }
+
   // fill form
   const fillForm = (item: Item) => {
+    form.clear()
     const data = {} as Record<string, unknown>
     Object.keys(config.defaults).forEach((key) => {
       data[key] = null
@@ -196,7 +203,7 @@ export function useItems(config: ItemsConfig) {
   // add
   const add = () => {
     current.value = {} as Item
-    form.fill(config.defaults)
+    initForm()
     config.modal?.value?.show()
   }
 
