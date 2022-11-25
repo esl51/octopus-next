@@ -6,6 +6,7 @@ import {
   onMounted,
   provide,
   ref,
+  watch,
 } from 'vue'
 import { useI18n } from 'vue-i18n'
 
@@ -27,10 +28,10 @@ export function useFormControl(config: ControlConfig) {
   const id = computed(() => 'input-' + getCurrentInstance()?.uid)
 
   // locales
-  const { availableLocales, locale } = useI18n()
+  const { availableLocales, fallbackLocale } = useI18n()
   const activeLocale = ref('')
   onMounted(() => {
-    activeLocale.value = locale.value
+    activeLocale.value = fallbackLocale.value as string
   })
 
   // validation
@@ -51,6 +52,18 @@ export function useFormControl(config: ControlConfig) {
     })
     return states
   })
+
+  // change active locale to error locale
+  watch(
+    () => localeStates.value,
+    (states) => {
+      const errorLocale = Object.keys(states).find((k) => states[k] === false)
+      if (errorLocale) {
+        activeLocale.value = errorLocale
+      }
+    },
+    { deep: true }
+  )
 
   // provide data for v-form-control component
   provide('id', id)

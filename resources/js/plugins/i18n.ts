@@ -7,6 +7,7 @@ const DEFAULT_LANGUAGE = window.config.locale
 const i18n = createI18n({
   legacy: false,
   locale: DEFAULT_LANGUAGE,
+  fallbackLocale: window.config.fallbackLocale,
   globalInjection: true,
   messages,
 })

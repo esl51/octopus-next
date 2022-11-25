@@ -294,6 +294,25 @@ export function useItems(config: ItemsConfig) {
     { immediate: true, deep: true }
   )
 
+  // focus first error
+  watch(
+    () => form.errors.errors,
+    (errors) => {
+      const firstError = Object.keys(errors)[0]
+      if (firstError) {
+        const input = document.querySelector(
+          '[name="' + firstError + '"]'
+        ) as HTMLInputElement
+        if (input) {
+          setTimeout(() => {
+            input.focus()
+          }, 10)
+        }
+      }
+    },
+    { deep: true }
+  )
+
   // show add/edit modal with specific route query
   onMounted(async () => {
     const addItem = Number(route.query.add)
