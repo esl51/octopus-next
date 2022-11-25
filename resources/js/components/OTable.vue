@@ -15,7 +15,7 @@
       <thead>
         <tr>
           <th
-            v-for="column in columns"
+            v-for="column in activeColumns"
             :key="column.key"
             :class="column.class"
           >
@@ -43,7 +43,7 @@
           :key="item.id"
         >
           <td
-            v-for="column in columns"
+            v-for="column in activeColumns"
             :key="column.key"
             :class="column.class"
             :data-title="column.title"
@@ -103,6 +103,11 @@ const emit = defineEmits(['sort', 'move'])
 
 // items
 const items = computed(() => props.data)
+
+// active columns
+const activeColumns = computed(() =>
+  props.columns.filter((c) => c.disabled !== true)
+)
 
 // sort
 const sort = (key: string) => {

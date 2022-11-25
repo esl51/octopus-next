@@ -126,6 +126,7 @@ export interface OTableColumn {
   title?: string
   sortable?: boolean
   class?: string
+  disabled?: boolean
   formatter?:
     | 'date'
     | 'datetime'
