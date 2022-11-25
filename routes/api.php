@@ -1,11 +1,5 @@
 <?php
 
-use App\Http\Controllers\Access\PermissionController;
-use App\Http\Controllers\Access\RoleController;
-use App\Http\Controllers\Access\UserController;
-use App\Http\Controllers\AuthController;
-use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
