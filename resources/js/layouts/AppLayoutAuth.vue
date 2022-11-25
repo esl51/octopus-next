@@ -1,7 +1,5 @@
 <template>
   <div class="page page-center">
-    <div id="page-meta"></div>
-    <div id="page-buttons"></div>
     <div class="container container-tight py-4">
       <div class="d-flex">
         <app-locale-dropdown

@@ -1,4 +1,5 @@
 <template>
+  <o-page-header :title="$t('auth.profile.title')" />
   <app-verify-alert />
   <div class="card">
     <div class="card-body">

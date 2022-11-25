@@ -6,6 +6,7 @@ import OConfirm from './OConfirm.vue'
 import OFileImage from './OFileImage.vue'
 import OFileList from './OFileList.vue'
 import OIcon from './OIcon.vue'
+import OPageHeader from './OPageHeader.vue'
 import OPagination from './OPagination.vue'
 import OSearch from './OSearch.vue'
 import OTable from './OTable.vue'
@@ -34,6 +35,7 @@ export default {
   OFileImage,
   OFileList,
   OIcon,
+  OPageHeader,
   OPagination,
   OSearch,
   OTable,

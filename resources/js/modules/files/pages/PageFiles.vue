@@ -1,18 +1,15 @@
 <template>
-  <teleport
-    v-if="mounted"
-    to="#page-search"
-  >
-    <o-search @input="search" />
-  </teleport>
-  <teleport
-    v-if="mounted"
-    to="#page-meta"
-  >
-    <span v-if="meta.total > 1">
+  <o-page-header :title="$t('access.permissions.title')">
+    <template #buttons>
+      <o-search @input="search" />
+    </template>
+    <template
+      v-if="meta.total > 1"
+      #meta
+    >
       {{ $t('global.page_meta', { ...meta }) }}
-    </span>
-  </teleport>
+    </template>
+  </o-page-header>
   <b-card
     :class="cardClasses"
     body-class="p-0"
@@ -177,10 +174,4 @@ const columns = ref<Array<OTableColumn>>([
     class: 'table-action-column',
   },
 ])
-
-// teleport on mount
-const mounted = ref(false)
-onMounted(() => {
-  mounted.value = true
-})
 </script>
