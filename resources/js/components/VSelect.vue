@@ -45,7 +45,7 @@
 import OIcon from './OIcon.vue'
 import { useFormControl } from '@/composables/useFormControl'
 import { Item } from '@/types'
-import { Size } from 'bootstrap-vue-3'
+import { Size } from 'bootstrap-vue-next'
 import Form from 'vform'
 import { computed, h, inject, ref } from 'vue'
 import VueSelect from 'vue-select'

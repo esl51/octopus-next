@@ -1,5 +1,7 @@
 import vue from '@vitejs/plugin-vue'
 import laravel from 'laravel-vite-plugin'
+import { BootstrapVueNextResolver } from 'unplugin-vue-components/resolvers'
+import Components from 'unplugin-vue-components/vite'
 import { defineConfig } from 'vite'
 import eslintPlugin from 'vite-plugin-eslint'
 import svgLoader from 'vite-svg-loader'
@@ -18,6 +20,9 @@ export default defineConfig({
           includeAbsolute: false,
         },
       },
+    }),
+    Components({
+      resolvers: [BootstrapVueNextResolver()],
     }),
     svgLoader(),
   ],

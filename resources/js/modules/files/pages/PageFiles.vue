@@ -15,7 +15,7 @@
     footer-class="border-top-0"
   >
     <o-table
-      :data="items"
+      :data="(items as Array<File>)"
       :params="params"
       :columns="columns"
       :busy="busy"
@@ -89,8 +89,8 @@ import { filesApi } from '../api'
 import OModal from '@/components/OModal.vue'
 import { useItems } from '@/composables/useItems'
 import { usePage } from '@/composables/usePage'
-import { OTableColumn } from '@/types'
-import { computed, ref } from 'vue'
+import { OTableColumn, File } from '@/types'
+import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 const { t, availableLocales } = useI18n()

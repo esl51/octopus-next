@@ -58,7 +58,7 @@
 
 <script setup lang="ts">
 import { useFormControl } from '@/composables/useFormControl'
-import { InputType, Size } from 'bootstrap-vue-3'
+import { InputType, Size } from 'bootstrap-vue-next'
 import Form from 'vform'
 import { ref, computed, inject } from 'vue'
 

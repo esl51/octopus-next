@@ -86,7 +86,7 @@
   --jd-resizer-handle-color: #{$primary};
   --jd-resizer-border-color: #{$primary};
 
-  .theme-dark & {
+  body[data-bs-theme='dark'] & {
     --jd-color-panel: var(--#{$prefix}dark);
     --jd-color-background-light-gray: var(--#{$prefix}dark);
     --jd-color-button-background-hover: var(--#{$prefix}bg-surface);
@@ -118,13 +118,13 @@
     }
   }
 
-  .theme-dark & {
-    background-color: $dark-mode-darken;
-    border-color: $dark-mode-border-color;
+  body[data-bs-theme='dark'] & {
+    background-color: $darken-dark;
+    border-color: $border-color-dark;
 
     .jodit-ui-input_focused_true & {
-      background-color: $dark-mode-darken;
-      border-color: $dark-mode-border-color;
+      background-color: $darken-dark;
+      border-color: $border-color-dark;
     }
   }
 }
@@ -153,11 +153,11 @@
     outline: 0;
   }
 
-  .theme-dark & {
-    color: $dark-mode-text;
+  body[data-bs-theme='dark'] & {
+    color: $body-color-dark;
 
     &:focus {
-      color: $dark-mode-text;
+      color: $body-color-dark;
     }
   }
 }
@@ -245,7 +245,7 @@
     }
   }
 
-  .theme-dark & {
+  body[data-bs-theme='dark'] & {
     background: url(escape-svg(
         'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-palette" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.25" stroke="' +
           $light +
@@ -270,12 +270,12 @@
   border-radius: #{$border-radius};
 }
 
-.theme-dark .jodit-add-new-line span {
+body[data-bs-theme='dark'] .jodit-add-new-line span {
   background-color: var(--#{$prefix}dark);
   border-color: var(--#{$prefix}border-color);
 }
 
-.theme-dark .jodit-add-new-line::after {
+body[data-bs-theme='dark'] .jodit-add-new-line::after {
   background-color: var(--#{$prefix}border-color);
 }
 

@@ -44,11 +44,11 @@ const appName = window.config.name
 const title = computed(() =>
   pageStore.title ? pageStore.title + ' • ' + appName : appName
 )
-const theme = computed(() => 'theme-' + themeStore.theme)
+const theme = computed(() => themeStore.theme)
 useHead({
   title,
   bodyAttrs: {
-    class: theme,
+    'data-bs-theme': theme,
   },
 })
 

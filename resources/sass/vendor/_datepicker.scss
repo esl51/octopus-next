@@ -106,7 +106,7 @@ $sidebar-margin-left: 100px;
   border: $border-width solid $border-color-translucent;
   border-radius: $border-radius;
 
-  .theme-dark & {
+  body[data-bs-theme='dark'] & {
     background-color: $bg-surface-dark;
   }
 }

@@ -32,7 +32,7 @@
 
 <script setup lang="ts">
 import { useFormControl } from '@/composables/useFormControl'
-import { Size } from 'bootstrap-vue-3'
+import { Size } from 'bootstrap-vue-next'
 import Form from 'vform'
 import { computed, inject, ref, watch } from 'vue'
 

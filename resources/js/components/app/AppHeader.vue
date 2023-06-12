@@ -3,7 +3,7 @@
     toggleable="md"
     tag="header"
     class="navbar-light d-none d-lg-flex d-print-none"
-    container="xl"
+    container="fluid"
   >
     <b-navbar-nav class="flex-row order-md-last ms-auto">
       <div class="nav-item d-none d-md-flex me-3">

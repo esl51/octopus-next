@@ -1,8 +1,14 @@
 .dropdown-toggle {
+  flex: 1;
+
   &::after {
     transition: transform 0.35s ease;
   }
-  &.collapsed::after {
+  &.show::after {
     transform: rotate(135deg);
+  }
+
+  .btn-content {
+    display: flex;
   }
 }

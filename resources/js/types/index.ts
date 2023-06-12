@@ -100,6 +100,11 @@ export interface Role extends Item {
   title: string
 }
 
+export interface Permission extends Item {
+  id: number
+  name: string
+}
+
 export interface User extends Item {
   id: number
   name: string

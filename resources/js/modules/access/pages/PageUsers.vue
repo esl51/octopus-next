@@ -16,7 +16,7 @@
     footer-class="border-top-0"
   >
     <o-table
-      :data="items"
+      :data="(items as Array<User>)"
       :params="params"
       :columns="columns"
       :busy="busy"
@@ -54,7 +54,7 @@
       <template #cell(roles)="{ item }">
         <div
           class="text-muted"
-          v-html="item.roles.map((r: Item) => r.title).join('<br />')"
+          v-html="item.roles?.map((r: Item) => r.title).join('<br />')"
         />
       </template>
       <template #cell(action-column)="{ item }">
@@ -138,7 +138,7 @@ import OModal from '@/components/OModal.vue'
 import { useItems } from '@/composables/useItems'
 import { usePage } from '@/composables/usePage'
 import { useAuthStore } from '@/stores/auth'
-import { Item, User } from '@/types'
+import { Item, Role, User } from '@/types'
 import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
@@ -214,10 +214,10 @@ const columns = ref([
 ])
 
 // roles
-const roles = ref<Array<Item>>([])
+const roles = ref<Array<Role>>([])
 onMounted(async () => {
   const { data } = await rolesApi.all()
-  roles.value = data
+  roles.value = data as Array<Role>
 })
 
 // submit user

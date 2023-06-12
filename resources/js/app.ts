@@ -7,7 +7,6 @@ import pinia from './plugins/pinia'
 import sortable from './plugins/sortable'
 import router from './router'
 import 'bootstrap'
-import { BootstrapVue3 } from 'bootstrap-vue-3'
 import { createApp } from 'vue'
 import Vue3Mount from 'vue3-mount'
 
@@ -18,7 +17,6 @@ app.use(pinia)
 app.use(router)
 app.use(head)
 app.use(i18n)
-app.use(BootstrapVue3)
 app.use(Vue3Mount)
 
 // directives

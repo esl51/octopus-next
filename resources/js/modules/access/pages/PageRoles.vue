@@ -16,7 +16,7 @@
     footer-class="border-top-0"
   >
     <o-table
-      :data="items"
+      :data="(items as Array<Role>)"
       :params="params"
       :columns="columns"
       :busy="busy"
@@ -90,7 +90,7 @@ import { permissionsApi, rolesApi } from '../api'
 import OModal from '@/components/OModal.vue'
 import { useItems } from '@/composables/useItems'
 import { usePage } from '@/composables/usePage'
-import { Item } from '@/types'
+import { Item, Role } from '@/types'
 import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 

@@ -1,8 +1,8 @@
 <template>
   <b-dropdown
     :text="locales[locale]"
-    :variant="variant"
-    :size="size"
+    :variant="(variant as ButtonVariant)"
+    :size="(size as Size)"
     :right="right"
   >
     <b-dropdown-item
@@ -18,6 +18,7 @@
 <script setup lang="ts">
 import { useLangStore } from '@/stores/lang'
 import { LangLocale } from '@/types'
+import { ButtonVariant, Size } from 'bootstrap-vue-next/dist/src/types'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
@@ -34,7 +35,7 @@ withDefaults(
     right?: boolean
   }>(),
   {
-    variant: 'default',
+    variant: 'default' as ButtonVariant,
     size: undefined,
     right: true,
   }

@@ -17,9 +17,4 @@
 import AppFooter from '@/components/app/AppFooter.vue'
 import AppHeader from '@/components/app/AppHeader.vue'
 import AppSidebar from '@/components/app/AppSidebar.vue'
-import { usePageStore } from '@/stores/page'
-import { computed } from 'vue'
-
-const pageStore = usePageStore()
-const title = computed(() => pageStore.title)
 </script>

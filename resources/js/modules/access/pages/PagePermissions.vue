@@ -16,7 +16,7 @@
     footer-class="border-top-0"
   >
     <o-table
-      :data="items"
+      :data="(items as Array<Permission>)"
       :params="params"
       :columns="columns"
       :busy="busy"
@@ -80,7 +80,8 @@ import { permissionsApi } from '../api'
 import OModal from '@/components/OModal.vue'
 import { useItems } from '@/composables/useItems'
 import { usePage } from '@/composables/usePage'
-import { computed, ref } from 'vue'
+import { Permission } from '@/types'
+import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()

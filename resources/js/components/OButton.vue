@@ -1,9 +1,9 @@
 <template>
   <b-button
-    :type="type"
+    :type="(type as ButtonType)"
     :disabled="disabled"
-    :variant="variant"
-    :size="size"
+    :variant="(variant as ButtonVariant)"
+    :size="(size as Size)"
     :class="classes"
   >
     <b-spinner
@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import { ButtonType, ButtonVariant, Size } from 'bootstrap-vue-3'
+import { ButtonType, ButtonVariant, Size } from 'bootstrap-vue-next'
 import { computed } from 'vue'
 
 // props
@@ -24,9 +24,9 @@ const props = withDefaults(
   defineProps<{
     disabled?: boolean
     busy?: boolean
-    type?: ButtonType
-    variant?: ButtonVariant
-    size?: Size
+    type?: string
+    variant?: string
+    size?: string
     icon?: boolean
   }>(),
   {

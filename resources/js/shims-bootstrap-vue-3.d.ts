@@ -1,9 +1,9 @@
 /* eslint-disable */
 export {}
 
-import 'bootstrap-vue-3'
+import 'bootstrap-vue-next'
 
-declare module 'bootstrap-vue-3/dist/types' {
+declare module 'bootstrap-vue-next/dist/types' {
   export interface BaseColorVariant {
   }
   export interface BaseButtonVariant {

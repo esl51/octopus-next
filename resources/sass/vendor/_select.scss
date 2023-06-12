@@ -40,10 +40,11 @@
   --vs-disabled-color: var(--vs-state-disabled-color);
   --vs-disabled-cursor: var(--vs-state-disabled-cursor);
 
-  .theme-dark & {
-    --vs-state-disabled-bg: #{$dark-mode-darken};
+  body[data-bs-theme='dark'] & {
+    --vs-state-disabled-bg: #{$darken-dark};
   }
 }
+
 .vs__dropdown-toggle {
   width: 100%;
   padding: $input-padding-y $input-padding-x;
@@ -59,21 +60,11 @@
   @include box-shadow($input-box-shadow);
   @include transition($input-transition);
 
-  .theme-dark & {
-    background-color: $dark-mode-darken;
-    color: $dark-mode-text;
-    border-color: $dark-mode-border-color;
-  }
-}
-
-.is-invalid {
-  .vs__dropdown-toggle {
+  .is-invalid & {
     border-color: var(--#{$prefix}danger);
   }
-}
 
-.vs--open {
-  .vs__dropdown-toggle {
+  .vs--open & {
     color: $input-focus-color;
     background-color: $input-focus-bg;
     border-color: $input-focus-border-color;
@@ -87,15 +78,7 @@
     border-bottom-left-radius: var(--vs-border-radius);
     border-bottom-right-radius: var(--vs-border-radius);
 
-    .theme-dark & {
-      background-color: $dark-mode-darken;
-      color: $dark-mode-text;
-      border-color: $dark-mode-border-color;
-    }
-  }
-
-  .is-invalid & {
-    .vs__dropdown-toggle {
+    &.is-invalid {
       border-color: var(--#{$prefix}danger);
       @if $enable-shadows {
         @include box-shadow(
@@ -111,6 +94,13 @@
           rgba($danger, $input-btn-focus-color-opacity);
       }
     }
+  }
+
+  body[data-bs-theme='dark'] &,
+  body[data-bs-theme='dark'] .vs--open & {
+    background-color: $darken-dark;
+    color: $body-color-dark;
+    border-color: $border-color-dark;
   }
 }
 
@@ -179,6 +169,7 @@
 }
 
 .v-select.v-select--sm {
+  // stylelint-disable-next-line no-descending-specificity
   .vs__dropdown-toggle {
     min-height: $input-height-sm;
     padding: $input-padding-y-sm $input-padding-x-sm;
@@ -206,6 +197,7 @@
 }
 
 .v-select.v-select--lg {
+  // stylelint-disable-next-line no-descending-specificity
   .vs__dropdown-toggle {
     min-height: $input-height-lg;
     padding: $input-padding-y-lg $input-padding-x-lg;

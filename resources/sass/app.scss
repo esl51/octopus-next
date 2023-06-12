@@ -3,9 +3,9 @@
 // tabler
 @import '@tabler/core/src/scss/tabler';
 
-// bootstrap vue 3
+// bootstrap vue
 // stylelint-disable-next-line scss/at-import-partial-extension
-@import 'bootstrap-vue-3/src/styles/styles.scss';
+@import 'bootstrap-vue-next/src/styles/styles.scss';
 
 // layout
 @import 'layout/core';
@@ -14,9 +14,11 @@
 // ui
 @import 'ui/avatars';
 @import 'ui/buttons';
+@import 'ui/dropdowns';
 @import 'ui/forms';
 @import 'ui/forms/validation';
 @import 'ui/modals';
+@import 'ui/nav';
 @import 'ui/toasts';
 @import 'ui/tables';
 

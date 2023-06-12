@@ -1,0 +1,12 @@
+.nav-link {
+  &.btn {
+    --#{$prefix}btn-padding-x: 0;
+  }
+  &.btn-link {
+    color: inherit;
+
+    &:hover {
+      color: var(--#{$prefix}nav-link-hover-color);
+    }
+  }
+}

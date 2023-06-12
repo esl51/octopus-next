@@ -12,7 +12,7 @@
       v-for="(action, index) in allActions"
       :key="'action-' + index"
       :disabled="action.disabled"
-      :variant="!action.disabled ? action.variant : undefined"
+      :variant="!action.disabled ? action.variant as ColorVariant : undefined"
       @click="action.handler"
     >
       <o-icon
@@ -31,6 +31,7 @@
 
 <script setup lang="ts">
 import { Item, ItemAction } from '@/types'
+import { ColorVariant } from 'bootstrap-vue-next'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 

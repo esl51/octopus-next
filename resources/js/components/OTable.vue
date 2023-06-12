@@ -78,7 +78,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" generic="T extends Item">
 import { useFormatter } from '@/composables/useFormatter'
 import { Item, ListParams } from '@/types'
 import { OTableColumn } from '@/types'
@@ -90,7 +90,7 @@ const { formatDate, formatDateTime, formatTime, formatMoney, formatFileSize } =
 // props
 const props = withDefaults(
   defineProps<{
-    data: Array<Item>
+    data: Array<T>
     columns: Array<OTableColumn>
     params: ListParams
     stacked?: string
