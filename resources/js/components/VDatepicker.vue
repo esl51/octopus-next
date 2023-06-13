@@ -42,7 +42,7 @@ import { Size } from 'bootstrap-vue-next'
 import Form from 'vform'
 import { computed, inject } from 'vue'
 import DatePicker from 'vue-datepicker-next'
-import 'vue-datepicker-next/locale/ru'
+import 'vue-datepicker-next/locale/ru.es'
 
 // props
 const props = withDefaults(
