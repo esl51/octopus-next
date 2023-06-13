@@ -1,10 +1,3 @@
-import dayjs from 'dayjs'
-import timezone from 'dayjs/plugin/timezone'
-import utc from 'dayjs/plugin/utc'
-
-dayjs.extend(utc)
-dayjs.extend(timezone)
-
 /**
  * Debounce
  * @param func Callback function
@@ -72,11 +65,15 @@ export function handleDates(body: any) {
     const value = body[key]
     if (typeof value === 'string') {
       const tz = import.meta.env.VITE_SERVER_TIMEZONE
-      const date = dayjs(value)
-      if (date.format().replace(/Z$/, '+00:00') === value.toString()) {
-        body[key] = new Date(
-          date.toDate().toLocaleString('en-US', { timeZone: tz })
-        )
+      const date = new Date(value.toString())
+      let dateString = null
+      try {
+        dateString = date.toISOString().split('.')[0] + '+00:00'
+      } catch (e) {
+        dateString = null
+      }
+      if (dateString === value.toString()) {
+        body[key] = new Date(date.toLocaleString('en-US', { timeZone: tz }))
       } else {
         body[key] = value
       }
@@ -112,5 +109,5 @@ export function handleDatesAsStrings(body: any) {
  * @returns string
  */
 export function serializeDate(date: Date): string {
-  return dayjs(date).format('YYYY-MM-DDTHH:mm:ss')
+  return date.toISOString().split('.')[0]
 }
