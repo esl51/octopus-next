@@ -1,27 +1,21 @@
 # Octopus Next
 
-## Requirements
-
-- [Docker](https://docs.docker.com/engine/install/)
-- [Laravel Sail](https://laravel.com/docs/9.x/sail#installation)
-
 ## Installation
 
 ### Backend
 
 ```bash
 git clone git@github.com:esl51/octopus-next.git ./
-sail up -d
-sail composer update
+composer update
 cp .env.example .env
-sail artisan key:generate --ansi
-sail artisan jwt:secret --force --ansi
+php artisan key:generate --ansi
+php artisan jwt:secret --force --ansi
 mkdir -p storage/app/public/media
-sail artisan storage:link
+php artisan storage:link
 ```
 Edit `.env` and set your database connection details
 ```bash
-sail artisan migrate:fresh --seed
+php artisan migrate:fresh --seed
 ```
 
 ### Frontend
@@ -29,7 +23,7 @@ sail artisan migrate:fresh --seed
 #### Production
 
 ```bash
-sail npm install
+php npm install
 ```
 
 #### Development
@@ -42,8 +36,10 @@ npm install
 
 ### Backend
 
+#### Development
+
 ```bash
-sail up -d
+php artisan serve
 ```
 
 ### Frontend
@@ -51,7 +47,7 @@ sail up -d
 #### Production
 
 ```bash
-sail npm run build
+npm run build
 ```
 
 #### Development
@@ -65,11 +61,11 @@ npm run dev
 ### Unit and Feature tests
 
 ```bash
-sail artisan test
+php artisan test
 ```
 
 ### Coverage
 
 ```bash
-sail artisan test --coverage-html ./coverage
+XDEBUG_MODE=coverage php artisan test --coverage
 ```
