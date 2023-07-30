@@ -234,7 +234,7 @@ abstract class ItemController extends Controller
         $sortDesc = filter_var($request->sort_desc, FILTER_VALIDATE_BOOLEAN);
         if ($sortBy) {
             if (!empty($replacements[$sortBy])) {
-                $items->orderBy(($table ? $table . '.' : '') . $replacements[$sortBy], $sortDesc ? 'desc' : 'asc');
+                $items->orderBy($replacements[$sortBy], $sortDesc ? 'desc' : 'asc');
             } elseif (!empty($translations[$sortBy])) {
                 $items->orderByTranslation($sortBy, $sortDesc ? 'desc' : 'asc');
                 $items->groupBy($translations[$sortBy]);
