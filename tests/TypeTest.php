@@ -4,7 +4,6 @@ namespace Tests;
 
 use Tests\TestCase;
 use App\Models\User;
-use Database\Seeders\PermissionSeeder;
 
 abstract class TypeTest extends TestCase
 {
@@ -17,7 +16,6 @@ abstract class TypeTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->seed(PermissionSeeder::class);
         $this->user = User::factory()->afterCreating(function ($model) {
             $model->assignRole('root');
         })->create();

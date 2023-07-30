@@ -15,7 +15,7 @@ trait SortableTestTrait
             ->postJson($this->uri . '/' . ($this->pivot ? $item2->{$this->pivotAttribute} : $item2->id)
                 . '/move-before/' . ($this->pivot ? $item->{$this->pivotAttribute} : $item->id))
             ->assertSuccessful()
-            ->assertJsonPath($this->pivot ? 'data.pivot.position' : 'data.position', 1);
+            ->assertJsonPath($this->pivot ? 'data.pivot.position' : 'data.position', $item->position);
     }
 
     /** @test */
@@ -27,6 +27,6 @@ trait SortableTestTrait
             ->postJson($this->uri . '/' . ($this->pivot ? $item->{$this->pivotAttribute} : $item->id)
                 . '/move-after/' . ($this->pivot ? $item2->{$this->pivotAttribute} : $item2->id))
             ->assertSuccessful()
-            ->assertJsonPath($this->pivot ? 'data.pivot.position' : 'data.position', 2);
+            ->assertJsonPath($this->pivot ? 'data.pivot.position' : 'data.position', $item2->position);
     }
 }

@@ -4,7 +4,6 @@ namespace Tests;
 
 use Tests\TestCase;
 use App\Models\User;
-use Database\Seeders\PermissionSeeder;
 
 abstract class ItemTest extends TestCase
 {
@@ -26,7 +25,6 @@ abstract class ItemTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->seed(PermissionSeeder::class);
         $this->user = User::factory()->afterCreating(function ($model) {
             $model->assignRole('root');
         })->create();
@@ -65,8 +63,8 @@ abstract class ItemTest extends TestCase
             ->getJson($this->uri)
             ->assertSuccessful()
             ->assertJsonStructure($this->pivot
-            ? ['data' => ['*' => ['pivot' => $this->validStructure['data']]]]
-            : ['data' => ['*' => $this->validStructure['data']]]);
+                ? ['data' => ['*' => ['pivot' => $this->validStructure['data']]]]
+                : ['data' => ['*' => $this->validStructure['data']]]);
     }
 
     /** @test */
@@ -77,8 +75,8 @@ abstract class ItemTest extends TestCase
             ->getJson($this->uri . '/?id=' . $item->id)
             ->assertSuccessful()
             ->assertJsonStructure($this->pivot
-            ? ['data' => ['*' => ['pivot' => $this->validStructure['data']]]]
-            : ['data' => ['*' => $this->validStructure['data']]])
+                ? ['data' => ['*' => ['pivot' => $this->validStructure['data']]]]
+                : ['data' => ['*' => $this->validStructure['data']]])
             ->assertJsonCount(1, 'data');
     }
 
@@ -90,8 +88,8 @@ abstract class ItemTest extends TestCase
             ->getJson($this->uri . '?sort_by=id&sort_desc=0')
             ->assertSuccessful()
             ->assertJsonStructure($this->pivot
-            ? ['data' => ['*' => ['pivot' => $this->validStructure['data']]]]
-            : ['data' => ['*' => $this->validStructure['data']]]);
+                ? ['data' => ['*' => ['pivot' => $this->validStructure['data']]]]
+                : ['data' => ['*' => $this->validStructure['data']]]);
     }
 
     /** @test */
@@ -102,8 +100,8 @@ abstract class ItemTest extends TestCase
             ->getJson($this->uri . '?search=' . ($this->pivot ? $item->{$this->pivotAttribute} : $item->id))
             ->assertSuccessful()
             ->assertJsonStructure($this->pivot
-            ? ['data' => ['*' => ['pivot' => $this->validStructure['data']]]]
-            : ['data' => ['*' => $this->validStructure['data']]])
+                ? ['data' => ['*' => ['pivot' => $this->validStructure['data']]]]
+                : ['data' => ['*' => $this->validStructure['data']]])
             ->assertJsonCount(1, 'data');
     }
 
@@ -122,8 +120,8 @@ abstract class ItemTest extends TestCase
             ->assertSuccessful()
             ->assertJsonCount(1, 'data')
             ->assertJsonStructure($this->pivot
-            ? ['data' => ['*' => ['pivot' => $this->validStructure['data']]]]
-            : ['data' => ['*' => $this->validStructure['data']]]);
+                ? ['data' => ['*' => ['pivot' => $this->validStructure['data']]]]
+                : ['data' => ['*' => $this->validStructure['data']]]);
     }
 
     /** @test */
