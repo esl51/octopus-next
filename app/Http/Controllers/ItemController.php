@@ -202,6 +202,7 @@ abstract class ItemController extends Controller
         $items = $this->handleOrder(
             $request,
             $items,
+            $table,
             method_exists($this->class, 'scopeSorted'),
             $this->sortByReplacements(),
             $this->sortByTranslations(),
@@ -215,23 +216,24 @@ abstract class ItemController extends Controller
      *
      * @param Request $request
      * @param \App\Models\EloquentBuilder $items
+     * @param string $table $sortable
      * @param boolean $sortable
      * @param array $replacements
      * @param array $translations
      * @return \App\Models\EloquentBuilder
      */
-    public function handleOrder(Request $request, $items, $sortable = false, $replacements = [], $translations = [])
+    public function handleOrder(Request $request, $items, $table = '', $sortable = false, $replacements = [], $translations = [])
     {
         $sortBy = htmlspecialchars($request->sort_by);
         $sortDesc = filter_var($request->sort_desc, FILTER_VALIDATE_BOOLEAN);
         if ($sortBy) {
             if (!empty($replacements[$sortBy])) {
-                $items->orderBy($replacements[$sortBy], $sortDesc ? 'desc' : 'asc');
+                $items->orderBy(($table ? $table . '.' : '') . $replacements[$sortBy], $sortDesc ? 'desc' : 'asc');
             } elseif (!empty($translations[$sortBy])) {
                 $items->orderByTranslation($sortBy, $sortDesc ? 'desc' : 'asc');
                 $items->groupBy($translations[$sortBy]);
             } else {
-                $items->orderBy($sortBy, $sortDesc ? 'desc' : 'asc');
+                $items->orderBy(($table ? $table . '.' : '') . $sortBy, $sortDesc ? 'desc' : 'asc');
             }
         }
         if ($sortable) {
