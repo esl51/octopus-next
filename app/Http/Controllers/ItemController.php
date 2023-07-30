@@ -222,8 +222,14 @@ abstract class ItemController extends Controller
      * @param array $translations
      * @return \App\Models\EloquentBuilder
      */
-    public function handleOrder(Request $request, $items, $table = '', $sortable = false, $replacements = [], $translations = [])
-    {
+    public function handleOrder(
+        Request $request,
+        $items,
+        $table = '',
+        $sortable = false,
+        $replacements = [],
+        $translations = []
+    ) {
         $sortBy = htmlspecialchars($request->sort_by);
         $sortDesc = filter_var($request->sort_desc, FILTER_VALIDATE_BOOLEAN);
         if ($sortBy) {
