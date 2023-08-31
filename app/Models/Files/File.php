@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Files;
 
+use App\Models\Model;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Rutorika\Sortable\SortableTrait;
 use Astrotomic\Translatable\Translatable;
