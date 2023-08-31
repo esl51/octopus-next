@@ -31,7 +31,7 @@ router.beforeEach(async (to, from, next) => {
     ({ to, from, next }: MiddlewareInterface) => void
   > = []
   for (const name of middleware) {
-    const module = await import(/* @vite-ignore */ `../middleware/${name}.ts`)
+    const module = await import(`../middleware/${name}.ts`)
     middlewareModules.push(module.default)
   }
 
