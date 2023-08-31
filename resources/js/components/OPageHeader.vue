@@ -37,6 +37,6 @@ withDefaults(
   {
     title: undefined,
     titleTag: 'h1',
-  }
+  },
 )
 </script>

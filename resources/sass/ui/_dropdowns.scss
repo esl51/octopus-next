@@ -12,3 +12,11 @@
     display: flex;
   }
 }
+
+.dropdown {
+  .btn-group {
+    display: flex;
+    flex-direction: column;
+    box-shadow: none;
+  }
+}

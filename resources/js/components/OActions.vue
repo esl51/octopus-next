@@ -12,7 +12,7 @@
       v-for="(action, index) in allActions"
       :key="'action-' + index"
       :disabled="action.disabled"
-      :variant="!action.disabled ? action.variant as ColorVariant : undefined"
+      :variant="!action.disabled ? (action.variant as ColorVariant) : undefined"
       @click="action.handler"
     >
       <o-icon
@@ -49,7 +49,7 @@ const props = withDefaults(
     actions: undefined,
     edit: true,
     delete: true,
-  }
+  },
 )
 
 // emits

@@ -66,7 +66,7 @@ const form = reactive(
     name: '',
     email: '',
     password: '',
-  })
+  }),
 )
 
 // register

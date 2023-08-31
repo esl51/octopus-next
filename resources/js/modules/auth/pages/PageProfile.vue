@@ -189,7 +189,7 @@ const profileForm = reactive(
   new Form({
     name: '',
     email: '',
-  })
+  }),
 )
 const updateProfile = async () => {
   await profileForm.put(authUrls.profileInformation)
@@ -209,7 +209,7 @@ const passwordForm = reactive(
   new Form({
     current_password: '',
     password: '',
-  })
+  }),
 )
 const updatePassword = async () => {
   await passwordForm.put(authUrls.password)

@@ -82,7 +82,7 @@ export function useItems(config: ItemsConfig) {
         const localeKey = localeKeys[1]
         const locale = localeKeys[2]
         const localeTranslations = item.translations.find(
-          (translation) => translation.locale === locale
+          (translation) => translation.locale === locale,
         )
         if (localeTranslations && localeTranslations[localeKey]) {
           data[key] = localeTranslations[localeKey]
@@ -171,15 +171,15 @@ export function useItems(config: ItemsConfig) {
         loadItem(
           await config.api.moveAfter(
             current.value.id,
-            items.value[event.newIndex - 1].id
-          )
+            items.value[event.newIndex - 1].id,
+          ),
         )
       } else if (event.newIndex < event.oldIndex) {
         loadItem(
           await config.api.moveBefore(
             current.value.id,
-            items.value[event.newIndex + 1].id
-          )
+            items.value[event.newIndex + 1].id,
+          ),
         )
       }
     } catch (e) {
@@ -291,7 +291,7 @@ export function useItems(config: ItemsConfig) {
       params.value = { ...clearParams, ...query }
       fetchItems()
     },
-    { immediate: true, deep: true }
+    { immediate: true, deep: true },
   )
 
   // focus first error
@@ -301,7 +301,7 @@ export function useItems(config: ItemsConfig) {
       const firstError = Object.keys(errors)[0]
       if (firstError) {
         const input = document.querySelector(
-          '[name="' + firstError + '"]'
+          '[name="' + firstError + '"]',
         ) as HTMLInputElement
         if (input) {
           setTimeout(() => {
@@ -310,7 +310,7 @@ export function useItems(config: ItemsConfig) {
         }
       }
     },
-    { deep: true }
+    { deep: true },
   )
 
   // show add/edit modal with specific route query

@@ -73,7 +73,7 @@ const props = withDefaults(
   }>(),
   {
     count: 5,
-  }
+  },
 )
 
 // emits
@@ -91,14 +91,14 @@ const localMeta = computed(() => props.meta)
 
 // prev
 const prev = computed(() =>
-  props.meta.current_page > 1 ? props.meta.current_page - 1 : null
+  props.meta.current_page > 1 ? props.meta.current_page - 1 : null,
 )
 
 //next
 const next = computed(() =>
   props.meta.current_page < props.meta.last_page
     ? props.meta.current_page + 1
-    : null
+    : null,
 )
 
 // pages
@@ -117,7 +117,7 @@ const pages = computed(() => {
   }
   const left = Math.max(
     0,
-    Math.min(total - width, current - Math.floor(width / 2))
+    Math.min(total - width, current - Math.floor(width / 2)),
   )
   const items: (string | number)[] = new Array(width)
   for (let i = 0; i < width; i += 1) {

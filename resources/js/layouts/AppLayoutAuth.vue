@@ -4,7 +4,7 @@
       <div class="d-flex">
         <app-locale-dropdown
           class="ms-auto f-0"
-          :variant="('default' as ButtonVariant)"
+          :variant="'default' as ButtonVariant"
           size="sm"
         />
       </div>

@@ -92,7 +92,7 @@ const props = withDefaults(
     icon: undefined,
     type: 'text',
     translatable: false,
-  }
+  },
 )
 
 // control

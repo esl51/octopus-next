@@ -62,7 +62,7 @@ const props = withDefaults(
     title: undefined,
     body: undefined,
     hint: undefined,
-  }
+  },
 )
 
 const localShow = ref(false)

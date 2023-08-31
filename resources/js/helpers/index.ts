@@ -6,7 +6,7 @@
  */
 export function debounce<F extends (...args: Parameters<F>) => ReturnType<F>>(
   func: F,
-  waitFor: number
+  waitFor: number,
 ): (...args: Parameters<F>) => void {
   let timeout: ReturnType<typeof setTimeout>
   return (...args: Parameters<F>): void => {
@@ -23,7 +23,7 @@ export function debounce<F extends (...args: Parameters<F>) => ReturnType<F>>(
  */
 export function namespaceParams(
   params: Record<string, unknown>,
-  namespace: string
+  namespace: string,
 ): Record<string, unknown> {
   const nsParams = {} as Record<string, unknown>
   Object.entries(params).forEach(([key, value]) => {
@@ -40,7 +40,7 @@ export function namespaceParams(
  */
 export function simplifyParams(
   params: Record<string, unknown>,
-  namespace: string
+  namespace: string,
 ): Record<string, unknown> {
   const sParams = {} as Record<string, unknown>
   Object.entries(params).forEach(([key, value]) => {

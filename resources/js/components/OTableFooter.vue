@@ -28,7 +28,7 @@ withDefaults(
   }>(),
   {
     showMeta: false,
-  }
+  },
 )
 
 // emits

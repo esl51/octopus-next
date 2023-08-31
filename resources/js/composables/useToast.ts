@@ -25,7 +25,7 @@ const toaster = () => {
           ...options,
           onHide: () => unmount(),
         }),
-      'toasts'
+      'toasts',
     )
 
     return mounted

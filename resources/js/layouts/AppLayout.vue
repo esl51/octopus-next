@@ -18,11 +18,11 @@ watch(
       ? metaLayout[0].toUpperCase() + metaLayout.slice(1)
       : 'Default'
     layout.value = markRaw(
-      defineAsyncComponent(() => import(`./AppLayout${layoutName}.vue`))
+      defineAsyncComponent(() => import(`./AppLayout${layoutName}.vue`)),
     )
   },
   {
     immediate: true,
-  }
+  },
 )
 </script>

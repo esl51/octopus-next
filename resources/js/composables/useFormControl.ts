@@ -36,12 +36,12 @@ export function useFormControl(config: ControlConfig) {
 
   // validation
   const fields = computed(() =>
-    translatable ? availableLocales.map((item) => name + ':' + item) : [name]
+    translatable ? availableLocales.map((item) => name + ':' + item) : [name],
   )
 
   const errors = computed(() => form?.value.errors.only(...fields.value))
   const state = computed(() =>
-    form?.value.errors.hasAny(...fields.value) ? false : undefined
+    form?.value.errors.hasAny(...fields.value) ? false : undefined,
   )
   const localeStates = computed(() => {
     const states = {} as Record<string, boolean | undefined>
@@ -62,7 +62,7 @@ export function useFormControl(config: ControlConfig) {
         activeLocale.value = errorLocale
       }
     },
-    { deep: true }
+    { deep: true },
   )
 
   // provide data for v-form-control component

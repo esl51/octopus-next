@@ -16,7 +16,7 @@
     footer-class="border-top-0"
   >
     <o-table
-      :data="(items as Array<Permission>)"
+      :data="items as Array<Permission>"
       :params="params"
       :columns="columns"
       :busy="busy"
@@ -42,7 +42,7 @@
   </b-card>
   <o-modal
     ref="modal"
-    :title="current.name as string ?? $t('access.permissions.new_title')"
+    :title="(current.name as string) ?? $t('access.permissions.new_title')"
     @hide="cleanRoute"
   >
     <v-form

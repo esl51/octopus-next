@@ -50,7 +50,7 @@ const props = withDefaults(
     size: undefined,
     keyAttribute: 'id',
     labelAttribute: 'name',
-  }
+  },
 )
 
 // control

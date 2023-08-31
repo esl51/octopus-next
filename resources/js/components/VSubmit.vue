@@ -1,10 +1,10 @@
 <template>
   <o-button
-    :type="(type as ButtonType)"
+    :type="type as ButtonType"
     :disabled="form?.busy || disabled"
     :busy="form?.busy"
-    :variant="(variant as ButtonVariant)"
-    :size="(size as Size)"
+    :variant="variant as ButtonVariant"
+    :size="size as Size"
   >
     <slot />
   </o-button>
@@ -28,7 +28,7 @@ withDefaults(
     type: 'submit',
     variant: 'primary',
     size: undefined,
-  }
+  },
 )
 
 // form

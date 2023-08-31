@@ -16,7 +16,7 @@
     footer-class="border-top-0"
   >
     <o-table
-      :data="(items as Array<User>)"
+      :data="items as Array<User>"
       :params="params"
       :columns="columns"
       :busy="busy"
@@ -76,7 +76,7 @@
   </b-card>
   <o-modal
     ref="modal"
-    :title="current.name as string ?? $t('access.users.new_title')"
+    :title="(current.name as string) ?? $t('access.users.new_title')"
     @hide="cleanRoute"
   >
     <v-form

@@ -103,7 +103,7 @@ const props = withDefaults(
     sortable: false,
     busy: false,
     card: false,
-  }
+  },
 )
 
 // emits
@@ -114,7 +114,7 @@ const items = computed(() => props.data)
 
 // active columns
 const activeColumns = computed(() =>
-  props.columns.filter((c) => c.disabled !== true)
+  props.columns.filter((c) => c.disabled !== true),
 )
 
 // sort

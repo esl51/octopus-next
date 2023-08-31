@@ -10,7 +10,7 @@ declare interface Context {
 export default function middlewarePipeline(
   context: Context,
   middleware: Array<(data: MiddlewareInterface) => void>,
-  index: number
+  index: number,
 ): NavigationGuardNext /* | Promise<Context> */ {
   const nextMiddleware = middleware[index]
   if (!nextMiddleware) {

@@ -20,6 +20,6 @@ const icon = computed(() => (theme.theme === 'light' ? 'moon' : 'sun'))
 const tooltip = computed(() =>
   theme.theme === 'light'
     ? 'global.enable_dark_mode'
-    : 'global.enable_light_mode'
+    : 'global.enable_light_mode',
 )
 </script>

@@ -34,6 +34,6 @@ const submit = (e: Event) => {
 // form
 provide(
   'form',
-  computed(() => props.form)
+  computed(() => props.form),
 )
 </script>

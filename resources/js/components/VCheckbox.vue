@@ -32,7 +32,7 @@ const props = withDefaults(
     disabled: false,
     autofocus: false,
     size: undefined,
-  }
+  },
 )
 
 // control

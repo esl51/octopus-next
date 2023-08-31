@@ -12,7 +12,7 @@ Object.entries(
   import.meta.glob('../modules/*/lang/*.ts', {
     eager: true,
     import: 'default',
-  })
+  }),
 ).forEach(([path, definition]) => {
   const moduleName = path.split('/')[2]
   const locale = path.split('/').reverse().shift()?.replace(/\.ts$/, '')

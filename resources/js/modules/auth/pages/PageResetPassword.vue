@@ -57,7 +57,7 @@ const form = reactive(
     token: '',
     email: '',
     password: '',
-  })
+  }),
 )
 
 // submit

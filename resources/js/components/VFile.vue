@@ -60,7 +60,7 @@ const props = withDefaults(
     size: undefined,
     placeholder: undefined,
     multiple: false,
-  }
+  },
 )
 
 // control
@@ -99,7 +99,7 @@ watch(
     if (value === undefined || value === null) {
       input.value.value = ''
     }
-  }
+  },
 )
 
 const classes = computed(() => ({

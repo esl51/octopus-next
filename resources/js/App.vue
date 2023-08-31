@@ -42,7 +42,7 @@ const { danger, warning } = useToast()
 // page
 const appName = window.config.name
 const title = computed(() =>
-  pageStore.title ? pageStore.title + ' • ' + appName : appName
+  pageStore.title ? pageStore.title + ' • ' + appName : appName,
 )
 const theme = computed(() => themeStore.theme)
 useHead({
@@ -55,7 +55,7 @@ useHead({
 // nav
 const nav: Array<NavItem> = []
 Object.entries(
-  import.meta.glob('./modules/*/nav.ts', { eager: true, import: 'default' })
+  import.meta.glob('./modules/*/nav.ts', { eager: true, import: 'default' }),
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
 ).forEach(([path, definition]) => {
   if (definition) {
@@ -65,7 +65,7 @@ Object.entries(
           (navItem) =>
             navItem.label === item.label &&
             navItem.icon === item.icon &&
-            navItem.children
+            navItem.children,
         )
         if (existing) {
           existing.children?.push(...item.children)
@@ -165,6 +165,6 @@ axios.interceptors.response.use(
     }
 
     return Promise.reject(error)
-  }
+  },
 )
 </script>

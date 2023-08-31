@@ -17,7 +17,7 @@ withDefaults(
   }>(),
   {
     size: undefined,
-  }
+  },
 )
 
 // get file icon

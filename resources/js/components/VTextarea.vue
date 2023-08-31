@@ -64,7 +64,7 @@ const props = withDefaults(
     size: undefined,
     placeholder: undefined,
     translatable: false,
-  }
+  },
 )
 
 // control

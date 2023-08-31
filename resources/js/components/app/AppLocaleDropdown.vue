@@ -1,8 +1,8 @@
 <template>
   <b-dropdown
     :text="locales[locale]"
-    :variant="(variant as ButtonVariant)"
-    :size="(size as Size)"
+    :variant="variant as ButtonVariant"
+    :size="size as Size"
     :right="right"
   >
     <b-dropdown-item
@@ -38,14 +38,14 @@ withDefaults(
     variant: 'default' as ButtonVariant,
     size: undefined,
     right: true,
-  }
+  },
 )
 
 // locale
 const locale = computed(() => langStore.locale)
 const locales = computed(() => langStore.locales)
 const langLocales = computed(
-  () => Object.keys(langStore.locales) as Array<LangLocale>
+  () => Object.keys(langStore.locales) as Array<LangLocale>,
 )
 const setLocale = (newLocale: LangLocale) => {
   if (i18n.locale.value !== newLocale) {

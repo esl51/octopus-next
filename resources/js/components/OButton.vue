@@ -1,9 +1,9 @@
 <template>
   <b-button
-    :type="(type as ButtonType)"
+    :type="type as ButtonType"
     :disabled="disabled"
-    :variant="(variant as ButtonVariant)"
-    :size="(size as Size)"
+    :variant="variant as ButtonVariant"
+    :size="size as Size"
     :class="classes"
   >
     <b-spinner
@@ -36,7 +36,7 @@ const props = withDefaults(
     variant: 'primary',
     size: undefined,
     icon: false,
-  }
+  },
 )
 
 const classes = computed(() => ({

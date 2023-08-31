@@ -12,7 +12,7 @@ export default ({ to, next }: AclInterface) => {
   const permissions = ([] as Array<string | undefined>).concat(
     ...to.matched.map((r) => {
       return r.meta?.permissions
-    })
+    }),
   )
   let userAuthorized = false
   permissions.forEach((permission) => {

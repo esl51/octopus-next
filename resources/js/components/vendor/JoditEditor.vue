@@ -26,7 +26,7 @@ const props = withDefaults(
     config: () => ({}),
     id: undefined,
     name: undefined,
-  }
+  },
 )
 
 const textarea = ref()
@@ -48,7 +48,7 @@ watch(
       jodit.value.setReadOnly(config.readonly)
     }
   },
-  { deep: true }
+  { deep: true },
 )
 
 onBeforeUnmount(() => {

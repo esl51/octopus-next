@@ -2,7 +2,10 @@ import { RouteRecordRaw } from 'vue-router'
 
 const modules: Array<RouteRecordRaw> = []
 Object.entries(
-  import.meta.glob('../modules/*/routes.ts', { eager: true, import: 'default' })
+  import.meta.glob('../modules/*/routes.ts', {
+    eager: true,
+    import: 'default',
+  }),
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
 ).forEach(([path, definition]) => {
   if (definition) {

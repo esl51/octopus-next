@@ -4,7 +4,7 @@ import { DirectiveBinding, ObjectDirective, VNode } from 'vue'
 const createSortable = (
   el: HTMLElement,
   options: DirectiveBinding,
-  vnode: VNode
+  vnode: VNode,
 ) => {
   return Sortable.create(el, {
     ...options,

@@ -63,7 +63,7 @@ const form = reactive(
     roles_async: [],
     'ta:en': '',
     'ta:ru': '<p>test</p>',
-  })
+  }),
 )
 
 const { t } = useI18n()
@@ -89,7 +89,7 @@ const searchRoles = debounce(
       busy(false)
     }
   },
-  300
+  300,
 )
 
 // roles

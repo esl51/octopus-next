@@ -73,7 +73,7 @@ const props = withDefaults(
     size: undefined,
     closeButton: true,
     hideOnBackdropClick: true,
-  }
+  },
 )
 
 // emits
@@ -93,11 +93,11 @@ const backdropClasses = computed(() => ({
   show: localShow.value,
 }))
 const styles = computed(() =>
-  localHidden.value ? 'display: none;' : 'display: block;'
+  localHidden.value ? 'display: none;' : 'display: block;',
 )
 const dialog = ref<HTMLElement | null>(null)
 const autofocusInput = computed(
-  () => dialog.value?.querySelector('[autofocus],.autofocus') as HTMLElement
+  () => dialog.value?.querySelector('[autofocus],.autofocus') as HTMLElement,
 )
 
 // show

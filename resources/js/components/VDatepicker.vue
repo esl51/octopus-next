@@ -80,7 +80,7 @@ const props = withDefaults(
     accentDates: undefined,
     defaultPanel: undefined,
     defaultValue: undefined,
-  }
+  },
 )
 
 // control

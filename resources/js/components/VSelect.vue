@@ -79,7 +79,7 @@ const props = withDefaults(
     keyAttribute: 'id',
     labelAttribute: 'name',
     initialOptions: null,
-  }
+  },
 )
 
 // control
@@ -119,7 +119,7 @@ const select = (options: Array<Item | number> | Item) => {
       typeof o === 'number'
         ? labelOptions.value.find((lo) => lo[props.keyAttribute] === o) ||
           ({ [props.keyAttribute]: o } as Item)
-        : o
+        : o,
     )
   }
   cachedOptions.value = [...cachedOptions.value, ...selected]
@@ -152,7 +152,7 @@ const getLabel = (option: Item | number) => {
     return option[props.labelAttribute]
   }
   const labelOption = labelOptions.value.find(
-    (lo: Item) => lo[props.keyAttribute] == option
+    (lo: Item) => lo[props.keyAttribute] == option,
   )
   if (labelOption) {
     return labelOption[props.labelAttribute]

@@ -36,6 +36,6 @@ const classes = computed(() => {
 
 //image
 const style = computed<StyleValue | undefined>(() =>
-  props.image ? `background-image: url("${props.image}");` : undefined
+  props.image ? `background-image: url("${props.image}");` : undefined,
 )
 </script>

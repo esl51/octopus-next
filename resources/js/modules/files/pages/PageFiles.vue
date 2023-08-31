@@ -15,7 +15,7 @@
     footer-class="border-top-0"
   >
     <o-table
-      :data="(items as Array<File>)"
+      :data="items as Array<File>"
       :params="params"
       :columns="columns"
       :busy="busy"
@@ -52,7 +52,7 @@
   </b-card>
   <o-modal
     ref="modal"
-    :title="current.title as string ?? $t('files.new_title')"
+    :title="(current.title as string) ?? $t('files.new_title')"
     @hide="cleanRoute"
   >
     <v-form

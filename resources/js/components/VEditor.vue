@@ -69,8 +69,8 @@
             if (icons[clearName]) {
               return icons[clearName]
             }
-          }
-        }
+          },
+        },
       }"
     />
   </v-form-control>
@@ -122,8 +122,8 @@ const iconNames: { [key: string]: string } = {
 Object.entries(
   import.meta.glob(
     '../../../node_modules/@tabler/icons/icons/(rotate-2|rotate-clockwise-2|search|section-sign|bold|italic|underline|strikethrough|align-left|align-right|align-center|align-justified|typography|text-size|shadow|line-height|text-spellcheck|cut|copy|clipboard-copy|box-margin|paint|table|link|minus|omega|indent-increase|indent-decrease|list|list-numbers|superscript|subscript|photo|file|video|eraser|maximize|code|droplet|arrows-vertical|layout-board-split|column-insert-right|arrows-diagonal-minimize|row-insert-bottom|trash|eye|printer|question-mark|chevron-down|pencil|unlink).svg',
-    { eager: true, as: 'raw' }
-  )
+    { eager: true, as: 'raw' },
+  ),
 ).forEach(([path, definition]) => {
   const name = path
     .split('/')
@@ -157,7 +157,7 @@ const props = withDefaults(
     autofocus: false,
     placeholder: undefined,
     translatable: false,
-  }
+  },
 )
 
 // control

@@ -64,7 +64,7 @@ const props = withDefaults(
     noTitle: undefined,
     hideOnNo: true,
     hideOnBackdropClick: true,
-  }
+  },
 )
 
 // emits

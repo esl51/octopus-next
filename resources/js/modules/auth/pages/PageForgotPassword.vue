@@ -54,7 +54,7 @@ usePage({
 const form = reactive(
   new Form({
     email: '',
-  })
+  }),
 )
 
 // submit

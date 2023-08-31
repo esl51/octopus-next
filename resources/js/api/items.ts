@@ -55,7 +55,7 @@ export default function itemsApi(endpoint: string): ItemsApi {
    */
   const update = async (
     id: number,
-    payload: Record<string, unknown>
+    payload: Record<string, unknown>,
   ): Promise<Item> => {
     const { data } = await api.put(url + id, payload)
     return data.data as Item

@@ -71,7 +71,7 @@ const props = withDefaults(
   {
     files: undefined,
     confirmable: false,
-  }
+  },
 )
 
 // emits
@@ -90,7 +90,7 @@ watch(
         : [files as File]
       : []
   },
-  { immediate: true }
+  { immediate: true },
 )
 
 // download

@@ -19,10 +19,10 @@ watch(
   (name) => {
     icon.value = markRaw(
       defineAsyncComponent(
-        () => import(`../../../node_modules/@tabler/icons/icons/${name}.svg`)
-      )
+        () => import(`../../../node_modules/@tabler/icons/icons/${name}.svg`),
+      ),
     )
   },
-  { immediate: true }
+  { immediate: true },
 )
 </script>

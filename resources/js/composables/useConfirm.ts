@@ -43,7 +43,7 @@ const confirmator = () => {
           onNo: () => resolveFn(false),
           onHide: () => unmount(),
         }),
-      'confirms'
+      'confirms',
     )
 
     return promise
