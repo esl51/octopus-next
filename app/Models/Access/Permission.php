@@ -1,7 +1,9 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Access;
 
+use App\Models\HasColumns;
+use App\Models\SerializesDates;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\Permission\Models\Permission as BasePermission;
 use Roquie\LaravelPerPageResolver\PerPageResolverTrait;

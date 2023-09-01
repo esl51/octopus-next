@@ -2,9 +2,9 @@
 
 namespace Tests\Feature;
 
-use App\Models\Permission;
+use App\Models\Access\Permission;
 use Tests\ItemTest;
-use App\Models\Role;
+use App\Models\Access\Role;
 
 class RoleTest extends ItemTest
 {
@@ -68,7 +68,7 @@ class RoleTest extends ItemTest
             ->getJson($this->uri . '?sort_by=title&sort_desc=0')
             ->assertSuccessful()
             ->assertJsonStructure($this->pivot
-            ? ['data' => ['*' => ['pivot' => $this->validStructure['data']]]]
-            : ['data' => ['*' => $this->validStructure['data']]]);
+                ? ['data' => ['*' => ['pivot' => $this->validStructure['data']]]]
+                : ['data' => ['*' => $this->validStructure['data']]]);
     }
 }

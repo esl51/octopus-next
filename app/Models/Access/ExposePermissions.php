@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Access;
 
 use Auth;
 use Illuminate\Support\Collection;

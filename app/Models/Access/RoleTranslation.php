@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Access;
+
+use App\Models\Model;
 
 class RoleTranslation extends Model
 {

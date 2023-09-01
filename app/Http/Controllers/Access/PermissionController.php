@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Access;
 
-use App\Models\Permission;
+use App\Models\Access\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\ItemController;

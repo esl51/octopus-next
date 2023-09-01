@@ -1,7 +1,9 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Access;
 
+use App\Models\HasColumns;
+use App\Models\SerializesDates;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
 use Spatie\Permission\Models\Role as BaseRole;

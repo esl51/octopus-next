@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Permission;
-use App\Models\Role;
+use App\Models\Access\Permission;
+use App\Models\Access\Role;
 use Illuminate\Database\Seeder;
 
 class PermissionSeeder extends Seeder
@@ -35,7 +35,6 @@ class PermissionSeeder extends Seeder
             'manage access' => [],
             'manage users' => ['admin'],
             'manage files' => ['admin'],
-            'manage properties' => ['admin'],
         ];
         foreach ($permissions as $item => $roles) {
             Permission::factory()->create([

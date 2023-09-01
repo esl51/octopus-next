@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Model;
 use App\Models\TranslatableRuleFactory;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -337,7 +337,7 @@ abstract class ItemController extends Controller
                 throw $e;
             }
         }
-        return response(null, 204);
+        return response()->json(null, 204);
     }
 
     /**

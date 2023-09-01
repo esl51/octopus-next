@@ -3,7 +3,7 @@
 namespace Tests;
 
 use Tests\TestCase;
-use App\Models\User;
+use App\Models\Access\User;
 
 abstract class TypeTest extends TestCase
 {

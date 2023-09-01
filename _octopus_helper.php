@@ -8,18 +8,19 @@ namespace Illuminate\Contracts\Auth {
         /**
          * Get the currently authenticated user.
          *
-         * @return \App\Models\User|null
+         * @return \App\Models\Access\User|null
          */
         public function user();
     }
 }
 
 namespace Illuminate\Http {
-    interface Request {
+    interface Request
+    {
         /**
          * Get the currently authenticated user.
          *
-         * @return \App\Models\User|null
+         * @return \App\Models\Access\User|null
          */
         public function user();
     }

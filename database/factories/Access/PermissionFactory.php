@@ -1,13 +1,13 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Access;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Role>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Access\Permission>
  */
-class RoleFactory extends Factory
+class PermissionFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,7 +18,6 @@ class RoleFactory extends Factory
     {
         return [
             'name' => fake()->words(3, true),
-            'title' => fake()->realText(20),
             'guard_name' => 'web',
         ];
     }

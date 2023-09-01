@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Access;
 
 use App\Models\Files\File;
 use App\Models\Files\HasFiles;
+use App\Models\HasColumns;
+use App\Models\SerializesDates;
 use Auth;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;

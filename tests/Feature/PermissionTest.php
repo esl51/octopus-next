@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use Tests\ItemTest;
-use App\Models\Permission;
+use App\Models\Access\Permission;
 
 class PermissionTest extends ItemTest
 {

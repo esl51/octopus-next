@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Auth;
 
-use App\Models\User;
+use App\Models\Access\User;
 use App\Providers\RouteServiceProvider;
 use Tests\TestCase;
 
@@ -83,7 +83,7 @@ class LoginTest extends TestCase
         $this->actingAs($this->user)
             ->getJson($this->userUrl)
             ->assertSuccessful()
-            ->assertJsonStructure(['id', 'name', 'email']);
+            ->assertJsonStructure(['data' => ['id', 'name', 'email']]);
     }
 
     /** @test */

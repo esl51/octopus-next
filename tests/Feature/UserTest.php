@@ -3,8 +3,8 @@
 namespace Tests\Feature;
 
 use Tests\ItemTest;
-use App\Models\Role;
-use App\Models\User;
+use App\Models\Access\Role;
+use App\Models\Access\User;
 use Illuminate\Http\UploadedFile;
 
 class UserTest extends ItemTest
@@ -91,7 +91,7 @@ class UserTest extends ItemTest
         $this->actingAs($this->admin)
             ->getJson('/api/auth/user')
             ->assertSuccessful()
-            ->assertJsonStructure(['can']);
+            ->assertJsonStructure(['data' => ['can']]);
     }
 
     /** @test */
