@@ -6,6 +6,7 @@ use App\Models\Model;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Rutorika\Sortable\SortableTrait;
 use Astrotomic\Translatable\Translatable;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Storage;
 
 /**
@@ -54,12 +55,12 @@ class File extends Model implements TranslatableContract
         'file_name',
     ];
 
-    public function filable()
+    public function filable(): MorphTo
     {
         return $this->morphTo();
     }
 
-    public function getUrlAttribute()
+    public function getUrlAttribute(): string
     {
         return route('files.view', [
             'id' => $this->id,
