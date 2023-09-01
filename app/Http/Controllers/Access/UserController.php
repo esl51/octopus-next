@@ -4,28 +4,27 @@ namespace App\Http\Controllers\Access;
 
 use App\Http\Controllers\ItemController;
 use App\Http\Resources\Access\UserResource;
+use App\Models\Model;
 use App\Models\Role;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends ItemController
 {
-    protected $class = User::class;
-    protected $resourceClass = UserResource::class;
-    protected $fillable = [
+    protected string $class = User::class;
+    protected string $resourceClass = UserResource::class;
+    protected array $fillable = [
         'name',
         'email',
     ];
-    protected $with = [
+    protected array $with = [
         'roles',
         'avatar',
     ];
 
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRules(Request $request, $id = null)
+    public function getValidationRules(Request $request, ?int $id = null): array
     {
         return [
             'name' => 'required|max:255',
@@ -44,10 +43,7 @@ class UserController extends ItemController
         ];
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function newItemsQuery(Request $request)
+    protected function newItemsQuery(Request $request): Builder
     {
         $items = parent::newItemsQuery($request);
 
@@ -75,10 +71,7 @@ class UserController extends ItemController
         return $items;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function beforeStore(Request $request, array $data)
+    public function beforeStore(Request $request, array $data): array
     {
         $data['password'] = Hash::make($request->password);
         $data['email_verified_at'] = now();
@@ -86,10 +79,7 @@ class UserController extends ItemController
         return $data;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function afterStore(Request $request, $item)
+    public function afterStore(Request $request, Model $item): void
     {
         if ($request->avatar) {
             $item->storeAvatar($request->avatar);
@@ -106,10 +96,7 @@ class UserController extends ItemController
         $item->syncRoles($roles);
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function beforeUpdate(Request $request, array $data)
+    public function beforeUpdate(Request $request, array $data): array
     {
         if ($request->password) {
             $data['password'] = Hash::make($request->password);
@@ -118,10 +105,7 @@ class UserController extends ItemController
         return $data;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function afterUpdate(Request $request, $item)
+    public function afterUpdate(Request $request, Model $item): void
     {
         if ($request->avatar) {
             $item->storeAvatar($request->avatar);

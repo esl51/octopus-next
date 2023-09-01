@@ -20,7 +20,7 @@ export const authApi = {
   // user
   async user() {
     const { data } = await api.get(authUrls.user)
-    return data
+    return data.data
   },
 
   // login

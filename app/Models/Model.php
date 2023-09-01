@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 use Illuminate\Database\Eloquent\Model as BaseModel;
 use Roquie\LaravelPerPageResolver\PerPageResolverTrait;
@@ -22,17 +23,17 @@ abstract class Model extends BaseModel
     use HasColumns;
     use SerializesDates;
 
-    public function getIsEditableAttribute()
+    public function getIsEditableAttribute(): bool
     {
         return true;
     }
 
-    public function getIsDeletableAttribute()
+    public function getIsDeletableAttribute(): bool
     {
         return true;
     }
 
-    public function newEloquentBuilder($query)
+    public function newEloquentBuilder($query): Builder
     {
         return new EloquentBuilder($query);
     }

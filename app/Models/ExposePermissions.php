@@ -3,26 +3,23 @@
 namespace App\Models;
 
 use Auth;
+use Illuminate\Support\Collection;
 use Spatie\Permission\Models\Permission;
 
 trait ExposePermissions
 {
     /**
      * Get all user permissions.
-     *
-     * @return bool
      */
-    public function getAllPermissionsAttribute()
+    public function getAllPermissionsAttribute(): Collection
     {
         return $this->getAllPermissions();
     }
 
     /**
      * Get all user permissions in a flat array.
-     *
-     * @return array
      */
-    public function getCanAttribute()
+    public function getCanAttribute(): array
     {
         $permissions = [];
         foreach (Permission::all() as $permission) {

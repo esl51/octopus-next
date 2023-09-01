@@ -18,12 +18,12 @@ abstract class Pivot extends BasePivot
     // for potential using with laravel-translatable
     public $incrementing = true;
 
-    public function getIsDeletableAttribute()
+    public function getIsDeletableAttribute(): bool
     {
         return true;
     }
 
-    public function getIsEditableAttribute()
+    public function getIsEditableAttribute(): bool
     {
         return true;
     }

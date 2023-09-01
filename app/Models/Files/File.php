@@ -28,8 +28,6 @@ class File extends Model implements TranslatableContract
     use SortableTrait;
     use Translatable;
 
-    private $url;
-
     protected $fillable = [
         'filable_id',
         'filable_type',

@@ -2,61 +2,51 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Model;
 use App\Models\TranslatableRuleFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\QueryException;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 abstract class ItemController extends Controller
 {
     /**
      * Item class name
-     * @var string
      */
-    protected $class;
+    protected string $class;
     /**
      * Resource class name
-     * @var string
      */
-    protected $resourceClass;
+    protected string $resourceClass;
     /**
      * Fillable properties of class
-     * @var array
      */
-    protected $fillable = [];
+    protected array $fillable = [];
     /**
      * Fillable translatable properties of class
-     * @var array
      */
-    protected $fillableTranslations = [];
+    protected array $fillableTranslations = [];
     /**
      * Relations for loading
-     * @var array
      */
-    protected $with = [];
+    protected array $with = [];
     /**
      * Counts for loading
-     * @var array
      */
-    protected $withCount = [];
+    protected array $withCount = [];
     /**
      * Has search
-     * @var boolean
      */
-    protected $search = true;
+    protected bool $search = true;
 
     /**
      * Get validation rules for new or existing resource.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  integer|null  $id
-     * @return array
      */
-    abstract protected function getValidationRules(Request $request, $id = null);
+    abstract protected function getValidationRules(Request $request, ?int $id = null): array;
 
     /**
      * Get messages.
-     *
-     * @return array
      */
     public function getMessages(): array
     {
@@ -75,10 +65,8 @@ abstract class ItemController extends Controller
 
     /**
      * Get fillable translations.
-     *
-     * @return array Prepared fillable translations
      */
-    public function getFillableTranslations()
+    public function getFillableTranslations(): array
     {
         $translations = [];
         foreach ($this->fillableTranslations as $key) {
@@ -92,42 +80,37 @@ abstract class ItemController extends Controller
 
     /**
      * Add conditions hook.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\EloquentBuilder $query
-     * @return \App\Models\EloquentBuilder
      */
-    public function addConditions(Request $request, $query)
+    public function addConditions(Request $request, Builder $query): Builder
     {
         return $query;
     }
 
     /**
      * "sort_by" replacements
-     *
-     * @return array
      */
-    protected function sortByReplacements()
+    protected function sortByReplacements(): array
     {
         return [];
     }
 
     /**
      * "sort_by" translations
-     *
-     * @return array
      */
-    protected function sortByTranslations()
+    protected function sortByTranslations(): array
     {
         return [];
     }
 
-
     /**
      * @inheritDoc
      */
-    public function validate(Request $request, array $rules, array $messages = [], array $customAttributes = [])
-    {
+    public function validate(
+        Request $request,
+        array $rules,
+        array $messages = [],
+        array $customAttributes = []
+    ): array {
         $allMessages = $this->getMessages();
         $allCustomAttributes = $this->getCustomAttributes();
         if (count($this->fillableTranslations)) {
@@ -150,22 +133,16 @@ abstract class ItemController extends Controller
 
     /**
      * Init query.
-     *
-     * @param Request $request
-     * @return \App\Models\EloquentBuilder
      */
-    protected function initQuery(Request $request)
+    protected function initQuery(Request $request): Builder
     {
         return call_user_func([$this->class, 'query']);
     }
 
     /**
      * Get items query.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \App\Models\EloquentBuilder
      */
-    protected function newItemsQuery(Request $request)
+    protected function newItemsQuery(Request $request): Builder
     {
         $table = (new $this->class())->getTable();
         $columns = $this->class::getColumns();
@@ -213,23 +190,15 @@ abstract class ItemController extends Controller
 
     /**
      * Handle ordering.
-     *
-     * @param Request $request
-     * @param \App\Models\EloquentBuilder $items
-     * @param string $table $sortable
-     * @param boolean $sortable
-     * @param array $replacements
-     * @param array $translations
-     * @return \App\Models\EloquentBuilder
      */
     public function handleOrder(
         Request $request,
-        $items,
-        $table = '',
-        $sortable = false,
-        $replacements = [],
-        $translations = []
-    ) {
+        Builder $items,
+        string $table = '',
+        bool $sortable = false,
+        array $replacements = [],
+        array $translations = []
+    ): Builder {
         $sortBy = htmlspecialchars($request->sort_by);
         $sortDesc = filter_var($request->sort_desc, FILTER_VALIDATE_BOOLEAN);
         if ($sortBy) {
@@ -250,13 +219,8 @@ abstract class ItemController extends Controller
 
     /**
      * Get item.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  integer  $id
-     * @param  boolean  $withRelations
-     * @return mixed
      */
-    public function getItem(Request $request, $id, $withRelations = false)
+    public function getItem(Request $request, int $id, bool $withRelations = false): Model
     {
         $columns = $this->class::getColumns();
 
@@ -280,22 +244,19 @@ abstract class ItemController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request): JsonResponse
     {
-        return call_user_func([$this->resourceClass, 'collection'], $this->newItemsQuery($request)->paginate());
+        return call_user_func(
+            [$this->resourceClass, 'collection'],
+            $this->newItemsQuery($request)->paginate()
+        )->response($request);
     }
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $rules = $this->getValidationRules($request);
         $this->validate($request, $rules);
@@ -306,32 +267,28 @@ abstract class ItemController extends Controller
         $data = $this->beforeStore($request, $data);
         $item = $this->initQuery($request)->create($data);
         $this->afterStore($request, $item);
-        $request->id = $item->id;
+        $request->merge([
+            'id' => $item->id,
+        ]);
         return $this->show($request);
     }
 
     /**
      * Display the specified resource.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
-    public function show(Request $request)
+    public function show(Request $request): JsonResponse
     {
         $item = $this->getItem($request, intval($request->id), true);
         if (!$item) {
             abort(404, trans('item.not_found'));
         }
-        return new $this->resourceClass($item);
+        return (new $this->resourceClass($item))->response($request);
     }
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request): JsonResponse
     {
         $rules = $this->getValidationRules($request, intval($request->id));
         $this->validate($request, $rules);
@@ -357,11 +314,8 @@ abstract class ItemController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy(Request $request): JsonResponse
     {
         $item = $this->getItem($request, intval($request->id));
         if (!$item) {
@@ -383,62 +337,45 @@ abstract class ItemController extends Controller
                 throw $e;
             }
         }
-        return response()->json(null, 204);
+        return response(null, 204);
     }
 
     /**
      * Before store callback.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  array $data
-     * @return array
      */
-    public function beforeStore(Request $request, array $data)
+    public function beforeStore(Request $request, array $data): array
     {
         return $data;
     }
 
     /**
      * Before update callback.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  array $data
-     * @return array
      */
-    public function beforeUpdate(Request $request, array $data)
+    public function beforeUpdate(Request $request, array $data): array
     {
         return $data;
     }
 
     /**
      * After store callback.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  mixed $item
      */
-    public function afterStore(Request $request, $item)
+    public function afterStore(Request $request, Model $item): void
     {
         //
     }
 
     /**
      * After update callback.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  mixed $item
      */
-    public function afterUpdate(Request $request, $item)
+    public function afterUpdate(Request $request, Model $item): void
     {
         //
     }
 
     /**
      * Move the specified resource before another.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return  \Illuminate\Http\Response
      */
-    public function moveBefore(Request $request)
+    public function moveBefore(Request $request): JsonResponse
     {
         $item = $this->getItem($request, intval($request->id));
         if (!$item) {
@@ -451,11 +388,8 @@ abstract class ItemController extends Controller
 
     /**
      * Move the specified resource after another.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return  \Illuminate\Http\Response
      */
-    public function moveAfter(Request $request)
+    public function moveAfter(Request $request): JsonResponse
     {
         $item = $this->getItem($request, intval($request->id));
         if (!$item) {

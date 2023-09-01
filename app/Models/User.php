@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Files\File;
 use App\Models\Files\HasFiles;
 use Auth;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -83,7 +86,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @param Illuminate\Http\UploadedFile $avatar
      * @return void
      */
-    public function storeAvatar($avatar)
+    public function storeAvatar($avatar): void
     {
         $this->deleteAvatar();
         $this->storeFiles($avatar, 'avatar', 256);
@@ -94,12 +97,12 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @return void
      */
-    public function deleteAvatar()
+    public function deleteAvatar(): void
     {
         $this->deleteDirectory('avatar');
     }
 
-    public function avatar()
+    public function avatar(): MorphOne
     {
         return $this->morphOne(File::class, 'filable')->where('type', 'avatar');
     }
@@ -146,7 +149,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return true;
     }
 
-    public static function viewableFilesScope($query)
+    public static function viewableFilesScope(Builder $query)
     {
         $query->where('type', 'avatar');
     }

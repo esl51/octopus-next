@@ -4,32 +4,31 @@ namespace App\Http\Controllers\Access;
 
 use App\Http\Controllers\ItemController;
 use App\Http\Resources\Access\RoleResource;
+use App\Models\Model;
 use App\Models\Role;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
 class RoleController extends ItemController
 {
-    protected $class = Role::class;
-    protected $resourceClass = RoleResource::class;
-    protected $fillable = [
+    protected string $class = Role::class;
+    protected string $resourceClass = RoleResource::class;
+    protected array $fillable = [
         'name',
         'guard_name',
     ];
-    protected $fillableTranslations = [
+    protected array $fillableTranslations = [
         'title',
     ];
-    protected $with = [
+    protected array $with = [
         'permissions',
     ];
-    protected $withCount = [
+    protected array $withCount = [
         'users',
     ];
 
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRules(Request $request, $id = null)
+    public function getValidationRules(Request $request, ?int $id = null): array
     {
         return [
             'name' => [
@@ -38,7 +37,7 @@ class RoleController extends ItemController
                 'max:255',
                 Rule::unique('roles')
                     ->ignore($id)
-                    ->where(fn($query) => $query->where('guard_name', $request->input('guard_name'))),
+                    ->where(fn ($query) => $query->where('guard_name', $request->input('guard_name'))),
             ],
             '%title%' => 'required_if_fallback:nullable|string|max:255',
             'guard_name' => 'required|string|max:255',
@@ -47,10 +46,7 @@ class RoleController extends ItemController
         ];
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function newItemsQuery(Request $request)
+    public function newItemsQuery(Request $request): Builder
     {
         $items = parent::newItemsQuery($request);
 
@@ -66,26 +62,17 @@ class RoleController extends ItemController
         return $items;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function afterStore(Request $request, $item)
+    public function afterStore(Request $request, Model $item): void
     {
         $item->syncPermissions($request->permissions);
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function afterUpdate(Request $request, $item)
+    public function afterUpdate(Request $request, Model $item): void
     {
         $item->syncPermissions($request->permissions);
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function sortByTranslations()
+    public function sortByTranslations(): array
     {
         return [
             'title' => 'role_translations.title',

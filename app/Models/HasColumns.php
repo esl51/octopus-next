@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 trait HasColumns
 {
-    public static function getColumns()
+    public static function getColumns(): array
     {
         $table = (new static())->getTable();
         $columns = [];

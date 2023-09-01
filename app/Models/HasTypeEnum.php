@@ -2,28 +2,29 @@
 
 namespace App\Models;
 
+use stdClass;
 use Str;
 
 trait HasTypeEnum
 {
-    public function alias()
+    public function alias(): string
     {
         return strtolower($this->name);
     }
 
-    public function name()
+    public function name(): string
     {
         $className = explode('\\', self::class);
         $typeName = Str::snake(preg_replace('/Type$/', '', end($className)));
         return trans('type.' . $typeName . '.' . $this->alias());
     }
 
-    public function asObject()
+    public function asObject(): stdClass
     {
         return (object) $this->asArray();
     }
 
-    public function asArray()
+    public function asArray(): array
     {
         $methods = array_filter(
             get_class_methods($this),

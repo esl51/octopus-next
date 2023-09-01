@@ -3,13 +3,11 @@
 namespace App\Http\Resources\Access;
 
 use App\Http\Resources\ItemResource;
+use Illuminate\Http\Request;
 
 class UserResource extends ItemResource
 {
-    /**
-     * @inheritDoc
-     */
-    public function toArray($request)
+    public function toArray(Request $request): array
     {
         $this->makeVisible('roles');
         if ($this->avatar) {

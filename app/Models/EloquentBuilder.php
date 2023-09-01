@@ -11,9 +11,6 @@ use Illuminate\Database\Eloquent\RelationNotFoundException;
 
 class EloquentBuilder extends Builder
 {
-    /**
-     * @inheritDoc
-     */
     protected function eagerLoadRelation(array $models, $name, Closure $constraints)
     {
         try {

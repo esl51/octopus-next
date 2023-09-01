@@ -4,32 +4,29 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\ItemController;
 use App\Http\Resources\FileResource;
-use App\Models\File;
+use App\Models\Files\File;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class FileController extends ItemController
 {
-    protected $class = File::class;
-    protected $resourceClass = FileResource::class;
-    protected $fillable = [
+    protected string $class = File::class;
+    protected string $resourceClass = FileResource::class;
+    protected array $fillable = [
         'original_name',
     ];
-    protected $fillableTranslations = [
+    protected array $fillableTranslations = [
         'title',
     ];
 
-    /**
-     * @inheritDoc
-     */
-    public function addConditions($request, $query)
+    public function addConditions(Request $request, Builder $query): Builder
     {
         return $query->viewable();
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRules(Request $request, $id = null)
+    public function getValidationRules(Request $request, ?int $id = null): array
     {
         return [
             'original_name' => 'required|string|max:255',
@@ -37,10 +34,7 @@ class FileController extends ItemController
         ];
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function newItemsQuery(Request $request)
+    public function newItemsQuery(Request $request): Builder
     {
         $items = parent::newItemsQuery($request);
 
@@ -55,23 +49,20 @@ class FileController extends ItemController
         return $items;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function sortByTranslations()
+    public function sortByTranslations(): array
     {
         return [
             'title' => 'file_translations.title',
         ];
     }
 
-    public function download(Request $request)
+    public function download(Request $request): Response
     {
         $item = $this->getItem($request, intval($request->id));
         return $item->download();
     }
 
-    public function view(Request $request)
+    public function view(Request $request): StreamedResponse
     {
         $item = $this->getItem($request, intval($request->id));
         return $item->response();
