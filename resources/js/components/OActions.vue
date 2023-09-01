@@ -3,7 +3,7 @@
     variant="link"
     no-caret
     toggle-class="btn-action btn-action-table"
-    :popper-opts="{ strategy: 'fixed' }"
+    strategy="fixed"
   >
     <template #button-content>
       <o-icon name="dots-vertical" />
