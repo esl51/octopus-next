@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
@@ -84,11 +85,8 @@ class User extends Authenticatable implements MustVerifyEmail
 
     /**
      * Store avatar.
-     *
-     * @param Illuminate\Http\UploadedFile $avatar
-     * @return void
      */
-    public function storeAvatar($avatar): void
+    public function storeAvatar(UploadedFile $avatar): void
     {
         $this->deleteAvatar();
         $this->storeFiles($avatar, 'avatar', 256);
@@ -151,7 +149,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return true;
     }
 
-    public static function viewableFilesScope(Builder $query)
+    public static function viewableFilesScope(Builder $query): void
     {
         $query->where('type', 'avatar');
     }

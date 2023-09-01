@@ -6,8 +6,10 @@ use App\Models\Model;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Rutorika\Sortable\SortableTrait;
 use Astrotomic\Translatable\Translatable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Storage;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 /**
  * File
@@ -82,21 +84,21 @@ class File extends Model implements TranslatableContract
         return $this->filable->is_editable;
     }
 
-    public function download()
+    public function download(): StreamedResponse
     {
         return Storage::download($this->filable->getPath($this->file_name, $this->type), $this->original_name, [
             'Content-Type' => $this->mime_type,
         ]);
     }
 
-    public function response()
+    public function response(): StreamedResponse
     {
         return Storage::response($this->filable->getPath($this->file_name, $this->type), $this->original_name, [
             'Content-Type' => $this->mime_type,
         ]);
     }
 
-    public function scopeViewable($query)
+    public function scopeViewable(Builder $query): void
     {
         $filableTypes = self::select('filable_type')
             ->groupBy('filable_type')
@@ -111,10 +113,7 @@ class File extends Model implements TranslatableContract
         }
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected static function boot()
+    protected static function boot(): void
     {
         parent::boot();
 

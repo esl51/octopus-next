@@ -7,7 +7,6 @@ use App\Http\Resources\FileResource;
 use App\Models\Files\File;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class FileController extends ItemController
@@ -56,7 +55,7 @@ class FileController extends ItemController
         ];
     }
 
-    public function download(Request $request): Response
+    public function download(Request $request): StreamedResponse
     {
         $item = $this->getItem($request, intval($request->id));
         return $item->download();

@@ -2,6 +2,8 @@
 
 namespace App\Models\Files;
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Http\UploadedFile;
 use Image;
 use Storage;
@@ -9,17 +11,15 @@ use Str;
 
 trait HasFiles
 {
-    public static function viewableFilesScope($query)
+    public static function viewableFilesScope(Builder $query): void
     {
         //
     }
 
     /**
      * Get type name.
-     *
-     * @return string
      */
-    public function getTypeName()
+    public function getTypeName(): string
     {
         $class = get_class($this);
         $classParts = explode('\\', $class);
@@ -29,36 +29,24 @@ trait HasFiles
 
     /**
      * Get storage path.
-     *
-     * @param string|null $type
-     * @return string
      */
-    public function getStoragePath($type = null)
+    public function getStoragePath(?string $type = null): string
     {
         return $this->getTypeName() . '/' . $this->id . ($type ? '/' . $type : '');
     }
 
     /**
      * Get file path.
-     *
-     * @param string $fileName
-     * @param string|null $type
-     * @return string
      */
-    public function getPath($fileName, $type = null)
+    public function getPath(string $fileName, ?string $type = null): string
     {
         return $this->getStoragePath($type) . '/' . $fileName;
     }
 
     /**
      * Store files.
-     *
-     * @param \Illuminate\Http\UploadedFile[]|\Illuminate\Http\UploadedFile $files
-     * @param string|null $type
-     * @param integer $cropSize
-     * @return void
      */
-    public function storeFiles($files, $type = null, $cropSize = 1024)
+    public function storeFiles(array|UploadedFile $files, ?string $type = null, int $cropSize = 1024): void
     {
         if (!is_array($files)) {
             $files = [$files];
@@ -96,13 +84,9 @@ trait HasFiles
     }
 
     /**
-     * Delete file from storage
-     *
-     * @param string $fileName
-     * @param string|null $type
-     * @return void
+     * Delete file from storage.
      */
-    public function deleteFile($fileName, $type = null)
+    public function deleteFile(string $fileName, ?string $type = null): void
     {
         $files = $this->files()->where(['file_name' => $fileName]);
         if ($type) {
@@ -112,12 +96,9 @@ trait HasFiles
     }
 
     /**
-     * Download entire type from storage
-     *
-     * @param string|null $type
-     * @return void
+     * Download entire type from storage.
      */
-    public function deleteDirectory($type = null)
+    public function deleteDirectory(?string $type = null): void
     {
         $files = $this->files();
         if ($type) {
@@ -127,15 +108,12 @@ trait HasFiles
         Storage::deleteDirectory($this->getStoragePath($type));
     }
 
-    public function files()
+    public function files(): MorphMany
     {
         return $this->morphMany(File::class, 'filable');
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected static function bootHasFiles()
+    protected static function bootHasFiles(): void
     {
         static::deleting(function ($model) {
             // remove storable files
