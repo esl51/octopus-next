@@ -184,8 +184,8 @@ export function useItems(config: ItemsConfig) {
       }
     } catch (e) {
       items.value = []
-      fetchItems()
     }
+    fetchItems()
   }
 
   // search
