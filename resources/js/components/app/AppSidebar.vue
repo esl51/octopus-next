@@ -139,12 +139,16 @@ const navItemActive = (item: NavItem) =>
 
 const checkPermissions = (item: NavItem) => {
   return (
-    !item.permissions ||
-    authStore.canAny(item.permissions) ||
-    (item.children &&
-      item.children.some(
-        (c) => !c.permissions || authStore.canAny(c.permissions),
-      ))
+    // without permissions & has accessible children
+    (!item.permissions &&
+      item.children?.some(
+        (c) =>
+          !c.permissions || (c.permissions && authStore.canAny(c.permissions)),
+      )) ||
+    // without permissions & without children
+    (!item.permissions && !item.children?.length) ||
+    // has permissions
+    (item.permissions && authStore.canAny(item.permissions))
   )
 }
 </script>
