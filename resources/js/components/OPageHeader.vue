@@ -11,7 +11,7 @@
         </component>
         <div
           v-if="$slots.meta"
-          class="text-muted mt-1"
+          class="text-muted"
         >
           <slot name="meta" />
         </div>

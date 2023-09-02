@@ -110,8 +110,6 @@ const show = () => {
     const body = document.querySelector('body')
     if (body) {
       body.classList.add('modal-open')
-      body.style.paddingRight = '8px'
-      body.style.overflow = 'hidden'
     }
   }, 1)
 }
@@ -126,8 +124,6 @@ const hide = () => {
     const body = document.querySelector('body')
     if (body && !shownModals.length) {
       body.classList.remove('modal-open')
-      body.style.paddingRight = ''
-      body.style.overflow = ''
     }
   }, 300)
 }
