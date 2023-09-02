@@ -109,16 +109,16 @@ abstract class ItemController extends Controller
         Request $request,
         array $rules,
         array $messages = [],
-        array $customAttributes = []
+        array $attributes = []
     ): array {
         $allMessages = $this->getMessages();
-        $allCustomAttributes = $this->getCustomAttributes();
+        $allAttributes = $this->getCustomAttributes();
         if (count($this->fillableTranslations)) {
             $rules = TranslatableRuleFactory::make($rules);
 
             foreach ($this->fillableTranslations as $attribute) {
                 foreach (config('translatable.locales') as $locale) {
-                    $allCustomAttributes[$attribute . ':' . $locale] =
+                    $allAttributes[$attribute . ':' . $locale] =
                         trans('validation.attributes.' . $attribute) . ' (' . $locale . ')';
                 }
             }
@@ -127,7 +127,7 @@ abstract class ItemController extends Controller
             $request,
             $rules,
             array_merge($messages, $allMessages),
-            array_merge($customAttributes, $allCustomAttributes)
+            array_merge($attributes, $allAttributes)
         );
     }
 
