@@ -164,13 +164,13 @@ abstract class ItemController extends Controller
             $items->withCount($this->withCount);
         }
 
-        $id = intval($request->query('id'));
+        $id = $request->integer('id');
         if ($id && !$request->query('search')) {
             $items->where($table . '.id', $id);
         }
 
         if ($this->search) {
-            $search = htmlspecialchars($request->query('search'));
+            $search = $request->query('search');
             if (is_numeric($search)) {
                 $items->where($table . '.id', $search);
             }
@@ -199,16 +199,21 @@ abstract class ItemController extends Controller
         array $replacements = [],
         array $translations = []
     ): Builder {
-        $sortBy = htmlspecialchars($request->query('sort_by'));
-        $sortDesc = filter_var($request->query('sort_desc'), FILTER_VALIDATE_BOOLEAN);
+        $sortBy = $request->query('sort_by');
         if ($sortBy) {
+            $table = (new $this->class())->getTable();
+            $columns = array_map(
+                fn ($item) => str_replace($table . '.', '', $item),
+                $this->class::getColumns()
+            );
+            $sortDirection = $request->boolean('sort_desc') ? 'desc' : 'asc';
             if (!empty($replacements[$sortBy])) {
-                $items->orderBy($replacements[$sortBy], $sortDesc ? 'desc' : 'asc');
+                $items->orderBy($replacements[$sortBy], $sortDirection);
             } elseif (!empty($translations[$sortBy])) {
-                $items->orderByTranslation($sortBy, $sortDesc ? 'desc' : 'asc');
+                $items->orderByTranslation($sortBy, $sortDirection);
                 $items->groupBy($translations[$sortBy]);
-            } else {
-                $items->orderBy(($table ? $table . '.' : '') . $sortBy, $sortDesc ? 'desc' : 'asc');
+            } elseif (in_array($sortBy, $columns)) {
+                $items->orderBy(($table ? $table . '.' : '') . $sortBy, $sortDirection);
             }
         }
         if ($sortable) {

@@ -47,7 +47,7 @@ class UserController extends ItemController
     {
         $items = parent::newItemsQuery($request);
 
-        $search = htmlspecialchars($request->query('search'));
+        $search = $request->query('search');
         if ($search && !is_numeric($search)) {
             $items->where(function ($query) use ($search) {
                 $query->orWhere('users.name', 'like', '%' . $search . '%')
@@ -60,7 +60,7 @@ class UserController extends ItemController
                 ->where('model_has_roles.model_type', '=', User::class);
         });
 
-        $role = htmlspecialchars($request->query('role'));
+        $role = $request->query('role');
         if ($role) {
             $items->join('roles', 'roles.id', '=', 'model_has_roles.role_id');
             $items->where('roles.name', $role);

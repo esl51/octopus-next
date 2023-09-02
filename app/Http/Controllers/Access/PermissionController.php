@@ -37,7 +37,7 @@ class PermissionController extends ItemController
     {
         $items = parent::newItemsQuery($request);
 
-        $search = htmlspecialchars($request->query('search'));
+        $search = $request->query('search');
         if ($search && !is_numeric($search)) {
             $items->where(function ($query) use ($search) {
                 $query->orWhere('name', 'like', '%' . $search . '%')
