@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\FileController;
+use App\Http\Controllers\Files\FileController;
 use Illuminate\Support\Facades\Route;
 
 /*
