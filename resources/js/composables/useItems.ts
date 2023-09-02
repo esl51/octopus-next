@@ -185,7 +185,9 @@ export function useItems(config: ItemsConfig) {
     } catch (e) {
       items.value = []
     }
-    fetchItems()
+    if (event.oldIndex !== event.newIndex) {
+      fetchItems()
+    }
   }
 
   // search
