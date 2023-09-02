@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import { File } from '@/types'
+import { File } from '@/modules/files/types'
 
 // props
 withDefaults(

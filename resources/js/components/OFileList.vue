@@ -55,7 +55,7 @@
 import api from '@/api'
 import { useConfirm } from '@/composables/useConfirm'
 import { filesApi } from '@/modules/files/api'
-import { File } from '@/types'
+import { File } from '@/modules/files/types'
 import { ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 

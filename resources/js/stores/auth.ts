@@ -1,6 +1,6 @@
 import { ApiError } from '@/api'
 import authApi from '@/api/auth'
-import { User } from '@/types'
+import { User } from '@/modules/access/types'
 import { defineStore } from 'pinia'
 
 interface State {

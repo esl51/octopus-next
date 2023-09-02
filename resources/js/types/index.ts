@@ -94,38 +94,6 @@ export interface ItemsApi {
   moveBefore: (id: number, beforeId: number) => Promise<Item>
 }
 
-export interface Role extends Item {
-  id: number
-  name: string
-  title: string
-}
-
-export interface Permission extends Item {
-  id: number
-  name: string
-}
-
-export interface User extends Item {
-  id: number
-  name: string
-  email: string
-  email_verified_at: Date | null
-  can?: { [permission: string]: boolean }
-  roles?: Array<Role>
-  name_placeholder: string
-  avatar?: File
-}
-
-export interface File extends Item {
-  type?: string
-  original_name: string
-  size: number
-  mime_type: string
-  extension: string
-  title?: string
-  url: string
-}
-
 export interface OTableColumn {
   key: string
   title?: string

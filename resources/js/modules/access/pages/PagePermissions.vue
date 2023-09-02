@@ -80,7 +80,7 @@ import { permissionsApi } from '../api'
 import OModal from '@/components/OModal.vue'
 import { useItems } from '@/composables/useItems'
 import { usePage } from '@/composables/usePage'
-import { Permission } from '@/types'
+import { Permission } from '../types'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
