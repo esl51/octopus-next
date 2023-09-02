@@ -8,6 +8,12 @@
   width: 1%;
 }
 
+.table-action-column {
+  .btn-group {
+    box-shadow: none;
+  }
+}
+
 .table-stacked {
   @each $breakpoint in map-keys($grid-breakpoints) {
     $next: breakpoint-next($breakpoint, $grid-breakpoints);

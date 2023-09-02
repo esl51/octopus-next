@@ -4,6 +4,7 @@
     :variant="variant as ButtonVariant"
     :size="size as Size"
     :right="right"
+    class="shadow-none"
   >
     <b-dropdown-item
       v-for="newLocale in langLocales"
