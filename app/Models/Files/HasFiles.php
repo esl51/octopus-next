@@ -92,7 +92,7 @@ trait HasFiles
                     'file_name' => $uploadedFile->hashName(),
                     'original_name' => $uploadedFile->getClientOriginalName(),
                     'mime_type' => Storage::mimeType($file),
-                    'extension' => $uploadedFile->getExtension(),
+                    'extension' => $uploadedFile->extension(),
                     'size' => Storage::size($file),
                     'title:' . config('translatable.fallback_locale') => $uploadedFile->getClientOriginalName(),
                 ]);
