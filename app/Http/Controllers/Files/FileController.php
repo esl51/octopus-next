@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Files;
 
 use App\Http\Controllers\ItemController;
-use App\Http\Resources\FileResource;
+use App\Http\Resources\Files\FileResource;
 use App\Models\Files\File;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;

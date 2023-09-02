@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\FileController;
+use App\Http\Controllers\Files\FileController;
 
 Route::middleware(['auth:sanctum'])->group(function () {
     // Manage files

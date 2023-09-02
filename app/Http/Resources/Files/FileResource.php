@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Files;
 
 use App\Http\Resources\ItemResource;
 
