@@ -6,6 +6,7 @@ const nav: Array<NavItem> = [
     to: { name: 'files' },
     label: 'files.title',
     icon: 'files',
+    permissions: ['manage files'],
   },
 ]
 
