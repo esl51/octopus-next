@@ -81,10 +81,8 @@ class UserController extends ItemController
 
     public function afterStore(Request $request, Model $item): void
     {
-        if ($request->avatar) {
-            $item->storeAvatar($request->avatar);
-        }
-
+        parent::afterStore($request, $item);
+        $item->handleFiles($request);
         $roles = $request->roles;
         $rootRole = Role::where('name', 'root')->first();
         // if current user is not root - unset root role from new roles
@@ -107,10 +105,8 @@ class UserController extends ItemController
 
     public function afterUpdate(Request $request, Model $item): void
     {
-        if ($request->avatar) {
-            $item->storeAvatar($request->avatar);
-        }
-
+        parent::afterUpdate($request, $item);
+        $item->handleFiles($request);
         $roles = $request->roles;
         $rootRole = Role::where('name', 'root')->first();
         // if user is current user and current user is root and root was unchecked - set only root role

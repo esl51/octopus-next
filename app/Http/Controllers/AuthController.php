@@ -29,7 +29,7 @@ class AuthController extends Controller
         $this->validate($request, [
             'avatar' => 'required|mimes:jpeg,png',
         ]);
-        $user->storeAvatar($request->avatar);
+        $user->handleFiles($request, 'avatar');
         return response()->json(null, 204);
     }
 
@@ -39,7 +39,7 @@ class AuthController extends Controller
     public function deleteAvatar(Request $request): JsonResponse
     {
         $user = $request->user();
-        $user->deleteAvatar();
+        $user->deleteDirectory('avatar');
         return response()->json(null, 204);
     }
 }

@@ -2,16 +2,12 @@
 
 namespace App\Models\Access;
 
-use App\Models\Files\File;
 use App\Models\Files\HasFiles;
 use App\Models\HasColumns;
 use App\Models\SerializesDates;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
@@ -72,6 +68,19 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
+     * File types.
+     *
+     * @var array<string, array|null>
+     */
+    protected $fileTypes = [
+        'avatar' => [
+            'multiple' => false,
+            'replace' => true,
+            'cropSize' => 256,
+        ],
+    ];
+
+    /**
      * The accessors to append to the model's array form.
      *
      * @var array<int, string>
@@ -81,30 +90,6 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     protected $guard_name = 'web';
-
-    /**
-     * Store avatar.
-     */
-    public function storeAvatar(UploadedFile $avatar): void
-    {
-        $this->deleteAvatar();
-        $this->storeFiles($avatar, 'avatar', 256);
-    }
-
-    /**
-     * Delete avatar.
-     *
-     * @return void
-     */
-    public function deleteAvatar(): void
-    {
-        $this->deleteDirectory('avatar');
-    }
-
-    public function avatar(): MorphOne
-    {
-        return $this->morphOne(File::class, 'filable')->where('type', 'avatar');
-    }
 
     public function getNamePlaceholderAttribute(): string
     {
@@ -146,11 +131,6 @@ class User extends Authenticatable implements MustVerifyEmail
             return false;
         }
         return true;
-    }
-
-    public static function viewableFilesScope(Builder $query): void
-    {
-        $query->where('type', 'avatar');
     }
 
     /**

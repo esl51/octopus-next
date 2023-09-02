@@ -4,6 +4,7 @@ namespace App\Models\Files;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Image;
 use Storage;
@@ -11,9 +12,25 @@ use Str;
 
 trait HasFiles
 {
+    /**
+     * Default file type options.
+     */
+    private array $defaultOptions = [
+        'multiple' => true,
+        'replace' => false,
+        'cropSize' => 1024,
+        'viewable' => true,
+    ];
+
+    /**
+     * Only viewable files scope.
+     */
     public static function viewableFilesScope(Builder $query): void
     {
-        //
+        $types = array_keys(array_filter((new self())->getFileTypes(), fn ($item) => !empty($item['viewable'])));
+        if (!empty($types)) {
+            $query->whereIn('type', $types);
+        }
     }
 
     /**
@@ -113,8 +130,63 @@ trait HasFiles
         return $this->morphMany(File::class, 'filable');
     }
 
+    public function handleFiles(Request $request, string|array|null $types = null): void
+    {
+        $fileTypes = $this->getFileTypes();
+        if (is_string($types)) {
+            $fileTypes = array_filter(
+                $fileTypes,
+                fn ($item) => $item == $types,
+                ARRAY_FILTER_USE_KEY
+            );
+        } elseif (is_array($types)) {
+            $fileTypes = array_filter(
+                $fileTypes,
+                fn ($item) => in_array($item, $types),
+                ARRAY_FILTER_USE_KEY
+            );
+        }
+        foreach ($fileTypes as $type => $options) {
+            if ($request->hasFile($type)) {
+                if ($options['replace']) {
+                    $this->deleteDirectory($type);
+                }
+                $this->storeFiles($request->file($type), $type, $options['cropSize']);
+            }
+        }
+    }
+
+    /**
+     * Get file types from `fileTypes` property.
+     */
+    protected function getFileTypes(): array
+    {
+        if (!isset($this->fileTypes)) {
+            return [];
+        }
+        $types = [];
+        foreach ($this->fileTypes as $type => $options) {
+            if (is_string($options)) {
+                $types[$options] = $this->defaultOptions;
+            } elseif (is_string($type) && is_array($options)) {
+                $types[$type] = array_merge($this->defaultOptions, $options);
+            }
+        }
+        return $types;
+    }
+
     protected static function bootHasFiles(): void
     {
+        foreach ((new static())->getFileTypes() as $type => $options) {
+            static::resolveRelationUsing($type, function ($model) use ($type, $options) {
+                if ($options['multiple']) {
+                    return $model->morphMany(File::class, 'filable')->where('type', $type);
+                } else {
+                    return $model->morphOne(File::class, 'filable')->where('type', $type);
+                }
+            });
+        }
+
         static::deleting(function ($model) {
             // remove storable files
             $model->deleteDirectory();
