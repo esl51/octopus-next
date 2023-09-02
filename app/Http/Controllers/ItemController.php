@@ -164,13 +164,13 @@ abstract class ItemController extends Controller
             $items->withCount($this->withCount);
         }
 
-        $id = intval($request->id);
-        if ($id && !$request->search) {
+        $id = intval($request->query('id'));
+        if ($id && !$request->query('search')) {
             $items->where($table . '.id', $id);
         }
 
         if ($this->search) {
-            $search = htmlspecialchars($request->search);
+            $search = htmlspecialchars($request->query('search'));
             if (is_numeric($search)) {
                 $items->where($table . '.id', $search);
             }
@@ -199,8 +199,8 @@ abstract class ItemController extends Controller
         array $replacements = [],
         array $translations = []
     ): Builder {
-        $sortBy = htmlspecialchars($request->sort_by);
-        $sortDesc = filter_var($request->sort_desc, FILTER_VALIDATE_BOOLEAN);
+        $sortBy = htmlspecialchars($request->query('sort_by'));
+        $sortDesc = filter_var($request->query('sort_desc'), FILTER_VALIDATE_BOOLEAN);
         if ($sortBy) {
             if (!empty($replacements[$sortBy])) {
                 $items->orderBy($replacements[$sortBy], $sortDesc ? 'desc' : 'asc');
@@ -270,15 +270,15 @@ abstract class ItemController extends Controller
         $request->merge([
             'id' => $item->id,
         ]);
-        return $this->show($request);
+        return $this->show($request, $item->id);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Request $request): JsonResponse
+    public function show(Request $request, int $id): JsonResponse
     {
-        $item = $this->getItem($request, intval($request->id), true);
+        $item = $this->getItem($request, $id, true);
         if (!$item) {
             abort(404, trans('item.not_found'));
         }
@@ -288,11 +288,11 @@ abstract class ItemController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request): JsonResponse
+    public function update(Request $request, int $id): JsonResponse
     {
-        $rules = $this->getValidationRules($request, intval($request->id));
+        $rules = $this->getValidationRules($request, $id);
         $this->validate($request, $rules);
-        $item = $this->getItem($request, intval($request->id));
+        $item = $this->getItem($request, $id);
         if (!$item) {
             abort(404, trans('item.not_found'));
         }
@@ -309,15 +309,15 @@ abstract class ItemController extends Controller
         $data = $this->beforeUpdate($request, $data);
         $item->update($data);
         $this->afterUpdate($request, $item);
-        return $this->show($request);
+        return $this->show($request, $item->id);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request): JsonResponse
+    public function destroy(Request $request, int $id): JsonResponse
     {
-        $item = $this->getItem($request, intval($request->id));
+        $item = $this->getItem($request, $id);
         if (!$item) {
             abort(404, trans('item.not_found'));
         }
@@ -375,31 +375,31 @@ abstract class ItemController extends Controller
     /**
      * Move the specified resource before another.
      */
-    public function moveBefore(Request $request): JsonResponse
+    public function moveBefore(Request $request, int $id, int $before): JsonResponse
     {
-        $item = $this->getItem($request, intval($request->id));
+        $item = $this->getItem($request, $id);
         if (!$item) {
             abort(404, trans('item.not_found'));
         }
-        $itemBefore = $this->getItem($request, intval($request->before));
+        $itemBefore = $this->getItem($request, $before);
         $item->moveBefore($itemBefore);
-        return $this->show($request);
+        return $this->show($request, $item->id);
     }
 
     /**
      * Move the specified resource after another.
      */
-    public function moveAfter(Request $request): JsonResponse
+    public function moveAfter(Request $request, int $id, int $after): JsonResponse
     {
-        $item = $this->getItem($request, intval($request->id));
+        $item = $this->getItem($request, $id);
         if (!$item) {
             abort(404, trans('item.not_found'));
         }
-        $itemAfter = $this->getItem($request, intval($request->after));
+        $itemAfter = $this->getItem($request, $after);
         if (!$itemAfter) {
             abort(404, trans('item.not_found'));
         }
         $item->moveAfter($itemAfter);
-        return $this->show($request);
+        return $this->show($request, $item->id);
     }
 }

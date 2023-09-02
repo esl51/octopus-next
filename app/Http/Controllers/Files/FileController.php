@@ -37,7 +37,7 @@ class FileController extends ItemController
     {
         $items = parent::newItemsQuery($request);
 
-        $search = htmlspecialchars($request->search);
+        $search = htmlspecialchars($request->query('search'));
         if ($search && !is_numeric($search)) {
             $items->where(function ($query) use ($search) {
                 $query->orWhere('original_name', 'like', '%' . $search . '%')
@@ -55,15 +55,15 @@ class FileController extends ItemController
         ];
     }
 
-    public function download(Request $request): StreamedResponse
+    public function download(Request $request, int $id): StreamedResponse
     {
-        $item = $this->getItem($request, intval($request->id));
+        $item = $this->getItem($request, $id);
         return $item->download();
     }
 
-    public function view(Request $request): StreamedResponse
+    public function view(Request $request, int $id): StreamedResponse
     {
-        $item = $this->getItem($request, intval($request->id));
+        $item = $this->getItem($request, $id);
         return $item->response();
     }
 }

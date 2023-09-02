@@ -47,7 +47,7 @@ class UserController extends ItemController
     {
         $items = parent::newItemsQuery($request);
 
-        $search = htmlspecialchars($request->search);
+        $search = htmlspecialchars($request->query('search'));
         if ($search && !is_numeric($search)) {
             $items->where(function ($query) use ($search) {
                 $query->orWhere('users.name', 'like', '%' . $search . '%')
@@ -60,7 +60,7 @@ class UserController extends ItemController
                 ->where('model_has_roles.model_type', '=', User::class);
         });
 
-        $role = htmlspecialchars($request->role);
+        $role = htmlspecialchars($request->query('role'));
         if ($role) {
             $items->join('roles', 'roles.id', '=', 'model_has_roles.role_id');
             $items->where('roles.name', $role);
@@ -73,7 +73,7 @@ class UserController extends ItemController
 
     public function beforeStore(Request $request, array $data): array
     {
-        $data['password'] = Hash::make($request->password);
+        $data['password'] = Hash::make($request->input('password'));
         $data['email_verified_at'] = now();
 
         return $data;
@@ -83,7 +83,7 @@ class UserController extends ItemController
     {
         parent::afterStore($request, $item);
         $item->handleFiles($request);
-        $roles = $request->roles;
+        $roles = $request->input('roles');
         $rootRole = Role::where('name', 'root')->first();
         // if current user is not root - unset root role from new roles
         if (!$request->user()->hasRole('root')) {
@@ -96,8 +96,8 @@ class UserController extends ItemController
 
     public function beforeUpdate(Request $request, array $data): array
     {
-        if ($request->password) {
-            $data['password'] = Hash::make($request->password);
+        if ($request->input('password')) {
+            $data['password'] = Hash::make($request->input('password'));
         }
 
         return $data;
@@ -107,7 +107,7 @@ class UserController extends ItemController
     {
         parent::afterUpdate($request, $item);
         $item->handleFiles($request);
-        $roles = $request->roles;
+        $roles = $request->input('roles');
         $rootRole = Role::where('name', 'root')->first();
         // if user is current user and current user is root and root was unchecked - set only root role
         if (
