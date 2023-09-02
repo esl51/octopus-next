@@ -2,9 +2,7 @@
 
 namespace App\Models\Access;
 
-use Auth;
 use Illuminate\Support\Collection;
-use Spatie\Permission\Models\Permission;
 
 trait ExposePermissions
 {
@@ -23,7 +21,7 @@ trait ExposePermissions
     {
         $permissions = [];
         foreach (Permission::all() as $permission) {
-            if (Auth::user()->can($permission->name)) {
+            if ($this->can($permission->name)) {
                 $permissions[$permission->name] = true;
             } else {
                 $permissions[$permission->name] = false;

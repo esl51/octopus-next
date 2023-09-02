@@ -3,7 +3,6 @@
 namespace Tests\Feature\Auth;
 
 use App\Models\Access\User;
-use Auth;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Notification;
 use Tests\TestCase;
@@ -47,7 +46,7 @@ class RegisterTest extends TestCase
         ]);
         $this->assertAuthenticated();
         if ($this->verificationEnabled) {
-            $user = Auth::user();
+            $user = auth()->user();
             Notification::assertSentTo($user, VerifyEmail::class);
         }
     }

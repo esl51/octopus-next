@@ -6,7 +6,6 @@ use App\Models\Files\File;
 use App\Models\Files\HasFiles;
 use App\Models\HasColumns;
 use App\Models\SerializesDates;
-use Auth;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -126,11 +125,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getIsDeletableAttribute(): bool
     {
         // if user is current user and has root role
-        if ($this->id == Auth::user()->id && Auth::user()->hasRole('root')) {
+        if ($this->id == auth()->user()->id && auth()->user()->hasRole('root')) {
             return false;
         }
         // if user has root role and current user is not root
-        if ($this->hasRole('root') && !Auth::user()->hasRole('root')) {
+        if ($this->hasRole('root') && !auth()->user()->hasRole('root')) {
             return false;
         }
         // if user has root role and user is last root
@@ -143,7 +142,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getIsEditableAttribute(): bool
     {
         // if user has root role and current user is not root
-        if ($this->hasRole('root') && !Auth::user()->hasRole('root')) {
+        if ($this->hasRole('root') && !auth()->user()->hasRole('root')) {
             return false;
         }
         return true;
