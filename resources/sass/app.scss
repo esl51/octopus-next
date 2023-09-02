@@ -1,4 +1,4 @@
-@import 'config';
+@import 'variables';
 
 // tabler
 @import '@tabler/core/src/scss/tabler';
@@ -6,6 +6,9 @@
 // bootstrap vue
 // stylelint-disable-next-line scss/at-import-partial-extension
 @import 'bootstrap-vue-next/src/styles/styles.scss';
+
+// main
+@import 'utilities';
 
 // layout
 @import 'layout/core';
