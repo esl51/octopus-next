@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\RelationNotFoundException;
 
 class EloquentBuilder extends Builder
 {
-    protected function eagerLoadRelation(array $models, $name, Closure $constraints)
+    protected function eagerLoadRelation(array $models, $name, Closure $constraints): array
     {
         try {
             return parent::eagerLoadRelation($models, $name, $constraints);
