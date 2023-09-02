@@ -13,6 +13,8 @@ class ProfileTest extends TestCase
 {
     public $updateAvatarUrl = '/api/auth/avatar';
     public $deleteAvatarUrl = '/api/auth/avatar';
+    public $viewAvatarUrl = '/files/{id}/view';
+    public $downloadAvatarUrl = '/files/{id}/download';
     public $profileInformationUrl = '/user/profile-information';
     public $passwordUrl = '/user/password';
     public $user;
@@ -82,6 +84,28 @@ class ProfileTest extends TestCase
             ])
             ->assertSuccessful();
         $this->storage->assertExists($this->user->avatar->path);
+    }
+
+    /** @test */
+    public function can_view_avatar()
+    {
+        $this->actingAs($this->user)
+            ->putJson($this->updateAvatarUrl, [
+                'avatar' => UploadedFile::fake()->image('avatar.jpg', 768, 1024),
+            ])
+            ->assertSuccessful();
+        $this->get(str_replace('{id}', $this->user->avatar->id, $this->viewAvatarUrl));
+    }
+
+    /** @test */
+    public function can_download_avatar()
+    {
+        $this->actingAs($this->user)
+            ->putJson($this->updateAvatarUrl, [
+                'avatar' => UploadedFile::fake()->image('avatar.jpg', 768, 1024),
+            ])
+            ->assertSuccessful();
+        $this->get(str_replace('{id}', $this->user->avatar->id, $this->downloadAvatarUrl));
     }
 
     /** @test */
