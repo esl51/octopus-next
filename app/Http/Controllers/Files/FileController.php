@@ -55,15 +55,15 @@ class FileController extends ItemController
         ];
     }
 
-    public function download(Request $request, int $id): StreamedResponse
+    public function download(Request $request): StreamedResponse
     {
-        $item = $this->getItem($request, $id);
+        $item = $this->getItem($request, (int) $request->id);
         return $item->download();
     }
 
-    public function view(Request $request, int $id): StreamedResponse
+    public function view(Request $request): StreamedResponse
     {
-        $item = $this->getItem($request, $id);
+        $item = $this->getItem($request, (int) $request->id);
         return $item->response();
     }
 }
