@@ -18,11 +18,12 @@
           <o-file-image
             :file="item"
             class="flex-shrink-0 me-2"
-            size="sm"
+            size="md"
           />
         </b-link>
         <div class="flex-fill min-w-0">
           <div class="font-weight-medium text-truncate">{{ item.title }}</div>
+          <small class="text-muted">{{ formatFileSize(item.size) }}</small>
         </div>
         <b-link
           v-b-tooltip="$t('global.download')"
@@ -54,6 +55,7 @@
 <script setup lang="ts">
 import api from '@/api'
 import { useConfirm } from '@/composables/useConfirm'
+import { useFormatter } from '@/composables/useFormatter'
 import { filesApi } from '@/modules/files/api'
 import { File } from '@/modules/files/types'
 import { ref, watch } from 'vue'
@@ -61,6 +63,8 @@ import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 const { confirm } = useConfirm()
+
+const { formatFileSize } = useFormatter()
 
 // props
 const props = withDefaults(
