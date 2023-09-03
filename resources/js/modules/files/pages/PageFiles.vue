@@ -24,10 +24,17 @@
     >
       <template #cell(title)="{ item }">
         <div class="d-flex py-1 align-items-center min-w-0">
-          <o-file-image
-            :file="item"
-            class="flex-shrink-0 me-2"
-          />
+          <b-link
+            v-b-tooltip="$t('global.view')"
+            :aria-label="$t('global.view')"
+            :href="item.url"
+            target="_blank"
+          >
+            <o-file-image
+              :file="item"
+              class="flex-shrink-0 me-2"
+            />
+          </b-link>
           <div class="flex-fill min-w-0">
             <div class="font-weight-medium text-truncate">{{ item.title }}</div>
           </div>
