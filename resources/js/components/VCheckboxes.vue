@@ -6,24 +6,33 @@
         v-bind="slotData"
       />
     </template>
-    <b-form-checkbox-group
-      :id="id"
-      v-model="model[name]"
-      :options="options"
-      :value-field="keyAttribute"
-      :text-field="labelAttribute"
-      :state="state"
-      :size="size"
-      :disabled="disabled"
-      :autofocus="autofocus"
-      stacked
-    />
+    <div class="btn-group-md">
+      <div
+        v-for="(item, index) in options"
+        :key="item[keyAttribute] as string"
+        class="form-check"
+      >
+        <input
+          :id="id + '_' + index"
+          v-model="model[name]"
+          class="form-check-input"
+          type="checkbox"
+          :name="name"
+          :value="item[keyAttribute]"
+        />
+        <label
+          :for="id + '_' + index"
+          class="form-check-label"
+        >
+          {{ item[labelAttribute] }}
+        </label>
+      </div>
+    </div>
   </v-form-control>
 </template>
 
 <script setup lang="ts">
 import { useFormControl } from '@/composables/useFormControl'
-import { Size } from 'bootstrap-vue-next'
 import Form from 'vform'
 import { computed, inject } from 'vue'
 
@@ -37,7 +46,6 @@ const props = withDefaults(
     hint?: string
     disabled?: boolean
     autofocus?: boolean
-    size?: Size
     keyAttribute?: string
     labelAttribute?: string
   }>(),
@@ -47,14 +55,13 @@ const props = withDefaults(
     hint: undefined,
     disabled: false,
     autofocus: false,
-    size: undefined,
     keyAttribute: 'id',
     labelAttribute: 'name',
   },
 )
 
 // control
-const { id, state } = useFormControl(props)
+const { id } = useFormControl(props)
 
 // form
 const form: Form | undefined = inject('form')

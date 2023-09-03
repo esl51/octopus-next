@@ -1,5 +1,5 @@
 <template>
-  <b-form
+  <form
     @submit.prevent="submit"
     @keydown="form.onKeydown($event)"
   >
@@ -10,7 +10,7 @@
     >
       <slot name="footer" />
     </div>
-  </b-form>
+  </form>
 </template>
 
 <script setup lang="ts">

@@ -23,19 +23,24 @@
       >
         <o-icon :name="icon" />
       </span>
-      <b-form-input
+      <input
         :id="locale ? id + '-' + locale : id"
         v-model="model[locale ? name + ':' + locale : name]"
         :name="locale ? name + ':' + locale : name"
-        :state="locale ? (locale === activeLocale ? state : undefined) : state"
         :type="inputType"
         :readonly="readonly"
         :disabled="disabled"
         :autofocus="autofocus"
         :autocomplete="autocomplete"
         :placeholder="placeholder"
-        :size="size"
         :class="{
+          'form-control': true,
+          ['form-control-' + size]: !!size,
+          'is-invalid': locale
+            ? locale === activeLocale
+              ? state === false
+              : undefined
+            : state === false,
           autofocus: !!autofocus,
         }"
       />

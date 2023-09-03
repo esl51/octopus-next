@@ -3,9 +3,10 @@
     <span class="input-icon-addon">
       <o-icon name="search" />
     </span>
-    <b-form-input
+    <input
       :placeholder="$t('global.search')"
       :aria-label="$t('global.search')"
+      class="form-control"
       @input="emit('input', $event)"
     />
   </div>

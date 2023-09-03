@@ -1,18 +1,28 @@
 <template>
-  <b-form-checkbox
-    :id="id"
-    v-model="model"
-    :state="state"
-    :invalid-feedback="errors"
-    :size="size"
-  >
-    {{ label }}
-  </b-form-checkbox>
+  <div class="form-check">
+    <input
+      :id="id"
+      v-model="model[name]"
+      class="form-check-input"
+      type="checkbox"
+      :name="name"
+    />
+    <label
+      v-if="label"
+      class="form-check-label"
+    >
+      {{ label }}
+    </label>
+  </div>
+  <div
+    v-if="state === false && errors?.length"
+    class="invalid-feedback"
+    v-html="errors?.join('<br />')"
+  />
 </template>
 
 <script setup lang="ts">
 import { useFormControl } from '@/composables/useFormControl'
-import { Size } from 'bootstrap-vue-next'
 import Form from 'vform'
 import { computed, inject } from 'vue'
 
@@ -24,14 +34,12 @@ const props = withDefaults(
     label?: string
     disabled?: boolean
     autofocus?: boolean
-    size?: Size
   }>(),
   {
     modelValue: undefined,
     label: undefined,
     disabled: false,
     autofocus: false,
-    size: undefined,
   },
 )
 

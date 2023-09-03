@@ -205,14 +205,14 @@ export function useItems(config: ItemsConfig) {
 
   // add
   const add = () => {
-    current.value = {} as Item
+    loadItem({} as Item)
     initForm()
     config.modal?.value?.show()
   }
 
   // edit
   const edit = (item: Item) => {
-    current.value = item
+    loadItem(item)
     fillForm(item)
     config.modal?.value?.show()
   }

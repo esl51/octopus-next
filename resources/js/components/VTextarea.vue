@@ -11,21 +11,26 @@
         :states="localeStates"
       />
     </template>
-    <b-form-textarea
+    <textarea
       v-for="locale in translatable ? availableLocales : [undefined]"
       v-show="!translatable || locale === activeLocale"
       :id="locale ? id + '-' + locale : id"
       :key="locale ? name + ':' + locale : name"
       v-model="model[locale ? name + ':' + locale : name]"
       :name="locale ? name + ':' + locale : name"
-      :state="locale ? (locale === activeLocale ? state : undefined) : state"
       :readonly="readonly"
       :disabled="disabled"
       :autofocus="autofocus"
       :autocomplete="autocomplete"
       :placeholder="placeholder"
-      :size="size"
       :class="{
+        'form-control': true,
+        ['form-control-' + size]: !!size,
+        'is-invalid': locale
+          ? locale === activeLocale
+            ? state === false
+            : undefined
+          : state === false,
         autofocus: !!autofocus,
       }"
     />
