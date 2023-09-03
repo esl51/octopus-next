@@ -36,17 +36,17 @@ export function useItems(config: ItemsConfig) {
   const busy = ref(false)
 
   // form
-  const form = reactive(new Form(config.defaults))
+  const form = reactive(Form.make(config.defaults))
 
   // init form
   const initForm = () => {
     form.clear()
-    form.fill(config.defaults)
+    form.reset()
   }
 
   // fill form
   const fillForm = (item: Item) => {
-    form.clear()
+    initForm()
     const data = {} as Record<string, unknown>
     Object.keys(config.defaults).forEach((key) => {
       data[key] = null
