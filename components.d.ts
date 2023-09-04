@@ -12,7 +12,6 @@ declare module 'vue' {
     BDropdownItemButton: typeof import('bootstrap-vue-next')['BDropdownItemButton']
     BNavbar: typeof import('bootstrap-vue-next')['BNavbar']
     BNavbarNav: typeof import('bootstrap-vue-next')['BNavbarNav']
-    BNavbarToggle: typeof import('bootstrap-vue-next')['BNavbarToggle']
     BNavItem: typeof import('bootstrap-vue-next')['BNavItem']
     BNavItemDropdown: typeof import('bootstrap-vue-next')['BNavItemDropdown']
     RouterLink: typeof import('vue-router')['RouterLink']
