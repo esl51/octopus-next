@@ -7,6 +7,7 @@
       <slot />
     </div>
     <div
+      v-if="$slots.footer"
       class="card-footer"
       :class="footerClass"
     >
