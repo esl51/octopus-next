@@ -3,6 +3,7 @@
     :type="type"
     :disabled="disabled"
     :class="classes"
+    class="btn"
   >
     <b-spinner
       v-if="busy"
