@@ -4,12 +4,14 @@
     tag="aside"
     class="navbar-vertical"
   >
-    <b-navbar-toggle
+    <button
       :key="$route.path"
-      v-b-toggle.sidebar-menu
+      class="navbar-toggler"
+      data-bs-toggle="collapse"
+      data-bs-target="#sidebar-menu"
     >
       <span class="navbar-toggler-icon" />
-    </b-navbar-toggle>
+    </button>
     <router-link
       :to="{ name: 'home' }"
       class="navbar-brand navbar-brand-autodark"
@@ -23,9 +25,9 @@
     <b-navbar-nav class="flex-row d-lg-none">
       <app-user-menu />
     </b-navbar-nav>
-    <b-collapse
+    <div
       id="sidebar-menu"
-      is-nav
+      class="collapse navbar-collapse"
     >
       <b-navbar-nav class="pt-lg-3">
         <template v-for="(item, index) in nav">
@@ -106,7 +108,7 @@
           </b-nav-item-dropdown>
         </template>
       </b-navbar-nav>
-    </b-collapse>
+    </div>
   </b-navbar>
 </template>
 
