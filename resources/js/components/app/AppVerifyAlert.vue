@@ -1,5 +1,5 @@
 <template>
-  <b-alert
+  <o-alert
     v-if="
       $appConfig.authFeatures.includes('email-verification') &&
       verificationSent === null &&
@@ -20,8 +20,8 @@
         {{ $t('auth.verification.alert_send_button') }}
       </o-button>
     </div>
-  </b-alert>
-  <b-alert
+  </o-alert>
+  <o-alert
     v-else-if="
       $appConfig.authFeatures.includes('email-verification') &&
       user?.email_verified_at !== null &&
@@ -42,7 +42,13 @@
         {{ $t('auth.verification.verified', { email: user?.email }) }}
       </div>
     </div>
-  </b-alert>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    />
+  </o-alert>
 </template>
 
 <script setup lang="ts">

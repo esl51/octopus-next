@@ -1,4 +1,5 @@
 import OActions from './OActions.vue'
+import OAlert from './OAlert.vue'
 import OAvatar from './OAvatar.vue'
 import OButton from './OButton.vue'
 import OButtonAdd from './OButtonAdd.vue'
@@ -28,6 +29,7 @@ import VTextarea from './VTextarea.vue'
 
 export default {
   OActions,
+  OAlert,
   OAvatar,
   OButton,
   OButtonAdd,
