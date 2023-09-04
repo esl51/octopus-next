@@ -10,6 +10,7 @@
     <label
       v-if="label"
       class="form-check-label"
+      :for="id"
     >
       {{ label }}
     </label>
