@@ -9,7 +9,7 @@
       class="list-group-item p-2"
     >
       <div class="d-flex align-items-center min-w-0">
-        <b-link
+        <a
           v-b-tooltip="$t('global.view')"
           :aria-label="$t('global.view')"
           :href="item.url"
@@ -20,33 +20,35 @@
             class="flex-shrink-0 me-2"
             size="md"
           />
-        </b-link>
+        </a>
         <div class="flex-fill min-w-0">
           <div class="font-weight-medium text-truncate">{{ item.title }}</div>
           <small class="text-muted">{{ formatFileSize(item.size) }}</small>
         </div>
-        <b-link
+        <a
           v-b-tooltip="$t('global.download')"
           :aria-label="$t('global.download')"
+          href="#"
           @click.prevent="download(item)"
         >
           <o-icon
             name="download"
             class="me-2"
           />
-        </b-link>
-        <b-link
+        </a>
+        <a
           v-b-tooltip="$t('global.delete')"
           :aria-label="$t('global.delete')"
           :disabled="!item.is_deletable"
           :class="item.is_deletable ? 'text-danger' : 'text-muted pe-none'"
+          href="#"
           @click.prevent="destroy(item)"
         >
           <o-icon
             name="trash"
             class="me-1"
           />
-        </b-link>
+        </a>
       </div>
     </li>
   </ul>

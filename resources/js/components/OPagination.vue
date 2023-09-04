@@ -9,14 +9,14 @@
         disabled: !prev,
       }"
     >
-      <b-link
+      <button
         class="page-link"
-        :tabindex="!prev ? -1 : null"
+        :tabindex="!prev ? -1 : undefined"
         :aria-disabled="!prev"
         @click.prevent="change(prev)"
       >
         <o-icon name="chevron-left" />
-      </b-link>
+      </button>
     </li>
     <template
       v-for="page in pages"
@@ -29,12 +29,12 @@
           active: page + 1 === localMeta.current_page,
         }"
       >
-        <b-link
+        <button
           class="page-link"
           @click.prevent="change(page + 1)"
         >
           {{ page + 1 }}
-        </b-link>
+        </button>
       </li>
       <li
         v-else
@@ -49,14 +49,14 @@
         disabled: !next,
       }"
     >
-      <b-link
+      <button
         class="page-link"
-        :tabindex="!next ? -1 : null"
+        :tabindex="!next ? -1 : undefined"
         :aria-disabled="!next"
         @click.prevent="change(next)"
       >
         <o-icon name="chevron-right" />
-      </b-link>
+      </button>
     </li>
   </ul>
 </template>

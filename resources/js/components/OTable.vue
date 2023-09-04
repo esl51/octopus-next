@@ -14,9 +14,12 @@
             :class="column.class"
           >
             <template v-if="column.sortable">
-              <b-link @click.prevent="sort(column.key)">
+              <a
+                href="#"
+                @click.prevent="sort(column.key)"
+              >
                 {{ column.title }}
-              </b-link>
+              </a>
               <template v-if="params.sort_by === column.key">
                 <o-icon
                   v-if="params.sort_desc !== undefined"
@@ -37,7 +40,7 @@
             :colspan="activeColumns.length"
             class="text-center"
           >
-            <o-spinner />
+            <b-spinner />
           </td>
         </tr>
         <tr v-else-if="!busy && !items.length">

@@ -1,10 +1,11 @@
 <template>
   <div class="nav-item dropdown">
-    <b-link
+    <a
       class="nav-link d-flex lh-1 text-reset p-0"
       data-bs-toggle="dropdown"
       :aria-label="$t('layout.open_user_menu')"
       aria-expanded="false"
+      href="#"
     >
       <o-avatar
         :image="user?.avatar?.url"
@@ -28,7 +29,7 @@
           {{ user.roles[0].title }}
         </div>
       </div>
-    </b-link>
+    </a>
     <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
       <b-dropdown-item
         v-if="

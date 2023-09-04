@@ -24,7 +24,7 @@
     >
       <template #cell(title)="{ item }">
         <div class="d-flex py-1 align-items-center min-w-0">
-          <b-link
+          <a
             v-b-tooltip="$t('global.view')"
             :aria-label="$t('global.view')"
             :href="item.url"
@@ -34,7 +34,7 @@
               :file="item"
               class="flex-shrink-0 me-2"
             />
-          </b-link>
+          </a>
           <div class="flex-fill min-w-0">
             <div class="font-weight-medium text-truncate">{{ item.title }}</div>
           </div>
