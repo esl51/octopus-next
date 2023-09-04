@@ -1,3 +1,8 @@
+.modal-open {
+  overflow: hidden;
+  padding-right: var(--scrollbar-width, 16px);
+}
+
 .modal-content {
   box-shadow: $box-shadow;
   border-radius: var(--#{$prefix}modal-border-radius);

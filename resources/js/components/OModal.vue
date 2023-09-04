@@ -109,6 +109,10 @@ const show = () => {
     autofocusInput.value?.focus()
     const body = document.querySelector('body')
     if (body) {
+      body.style.setProperty(
+        '--scrollbar-width',
+        window.innerWidth - document.documentElement.offsetWidth + 'px',
+      )
       body.classList.add('modal-open')
     }
   }, 1)
