@@ -1,20 +1,19 @@
 <template>
-  <b-navbar
-    toggleable="md"
-    tag="header"
-    class="navbar-light d-none d-lg-flex d-print-none"
-    container="fluid"
+  <header
+    class="navbar navbar-expand-md navbar-light d-none d-lg-flex d-print-none"
   >
-    <b-navbar-nav class="flex-row order-md-last ms-auto">
-      <div class="nav-item d-none d-md-flex me-3">
-        <div class="btn-list">
-          <app-locale-dropdown variant="link" />
-          <app-theme-switch />
-        </div>
-      </div>
-      <app-user-menu />
-    </b-navbar-nav>
-  </b-navbar>
+    <div class="container-fluid">
+      <ul class="navbar-nav flex-row order-md-last ms-auto">
+        <li class="nav-item d-none d-md-flex me-3">
+          <div class="btn-list">
+            <app-locale-dropdown variant="link" />
+            <app-theme-switch />
+          </div>
+        </li>
+        <app-user-menu />
+      </ul>
+    </div>
+  </header>
 </template>
 
 <script setup lang="ts">

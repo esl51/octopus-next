@@ -45,7 +45,6 @@
 import OIcon from './OIcon.vue'
 import { useFormControl } from '@/composables/useFormControl'
 import { Item } from '@/types'
-import { Size } from 'bootstrap-vue-next'
 import Form from 'vform'
 import { computed, h, inject, ref } from 'vue'
 import VueSelect from 'vue-select'
@@ -62,7 +61,7 @@ const props = withDefaults(
     label?: string
     hint?: string
     disabled?: boolean
-    size?: Size
+    size?: 'sm' | 'lg'
     placeholder?: string
     keyAttribute?: string
     labelAttribute?: string

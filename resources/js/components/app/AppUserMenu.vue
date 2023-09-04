@@ -1,5 +1,5 @@
 <template>
-  <div class="nav-item dropdown">
+  <li class="nav-item dropdown">
     <a
       class="nav-link d-flex lh-1 text-reset p-0"
       data-bs-toggle="dropdown"
@@ -30,28 +30,35 @@
         </div>
       </div>
     </a>
-    <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-      <b-dropdown-item
+    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+      <li
         v-if="
           $appConfig.authFeatures.includes('update-profile-information') ||
           $appConfig.authFeatures.includes('update-passwords')
         "
-        :to="{ name: 'auth.profile' }"
       >
-        {{ $t('auth.profile.title') }}
-        <span
-          v-if="
-            $appConfig.authFeatures.includes('email-verification') &&
-            user?.email_verified_at === null
-          "
-          class="badge bg-warning ms-auto"
-        />
-      </b-dropdown-item>
-      <b-dropdown-item-button @click="logout">
+        <router-link
+          :to="{ name: 'auth.profile' }"
+          class="dropdown-item"
+        >
+          {{ $t('auth.profile.title') }}
+          <span
+            v-if="
+              $appConfig.authFeatures.includes('email-verification') &&
+              user?.email_verified_at === null
+            "
+            class="badge bg-warning ms-auto"
+          />
+        </router-link>
+      </li>
+      <button
+        class="dropdown-item"
+        @click="logout"
+      >
         {{ $t('auth.logout.title') }}
-      </b-dropdown-item-button>
-    </div>
-  </div>
+      </button>
+    </ul>
+  </li>
 </template>
 
 <script setup lang="ts">

@@ -1,37 +1,43 @@
 <template>
-  <b-dropdown
-    variant="link"
-    no-caret
-    toggle-class="btn-action btn-action-table"
-    strategy="fixed"
-  >
-    <template #button-content>
-      <o-icon name="dots-vertical" />
-    </template>
-    <b-dropdown-item-button
-      v-for="(action, index) in allActions"
-      :key="'action-' + index"
-      :disabled="action.disabled"
-      :variant="!action.disabled ? (action.variant as ColorVariant) : undefined"
-      @click="action.handler"
+  <div class="dropdown">
+    <o-button
+      variant="link"
+      class="dropdown-toggle dropdown-toggle-no-caret btn-action btn-action-table"
+      data-bs-toggle="dropdown"
+      data-bs-popper-config='{ "strategy": "fixed" }'
     >
-      <o-icon
-        v-if="action.icon"
-        :name="action.icon"
-        class="dropdown-item-icon"
-        :class="{
-          [`text-${action.variant}`]: !!action.variant && !action.disabled,
-          'text-muted': action.disabled,
-        }"
-      />
-      {{ action.label }}
-    </b-dropdown-item-button>
-  </b-dropdown>
+      <o-icon name="dots-vertical" />
+    </o-button>
+    <ul class="dropdown-menu">
+      <li>
+        <button
+          v-for="(action, index) in allActions"
+          :key="'action-' + index"
+          :disabled="action.disabled"
+          class="dropdown-item"
+          :class="{
+            ['text-' + action.variant]: !!action.variant && !action.disabled,
+          }"
+          @click="action.handler"
+        >
+          <o-icon
+            v-if="action.icon"
+            :name="action.icon"
+            class="dropdown-item-icon"
+            :class="{
+              [`text-${action.variant}`]: !!action.variant && !action.disabled,
+              'text-muted': action.disabled,
+            }"
+          />
+          {{ action.label }}
+        </button>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { Item, ItemAction } from '@/types'
-import { ColorVariant } from 'bootstrap-vue-next'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 

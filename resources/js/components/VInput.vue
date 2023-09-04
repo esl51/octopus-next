@@ -49,7 +49,8 @@
         class="input-icon-addon pe-auto"
       >
         <a
-          v-b-tooltip="$t('global.show_password')"
+          :title="$t('global.show_password')"
+          data-bs-toggle="tooltip"
           class="link-secondary d-flex"
           :aria-label="$t('global.show_password')"
           href="#"
@@ -64,7 +65,6 @@
 
 <script setup lang="ts">
 import { useFormControl } from '@/composables/useFormControl'
-import { InputType, Size } from 'bootstrap-vue-next'
 import Form from 'vform'
 import { ref, computed, inject } from 'vue'
 
@@ -79,8 +79,8 @@ const props = withDefaults(
     disabled?: boolean
     autofocus?: boolean
     autocomplete?: string
-    size?: Size
-    type?: InputType
+    size?: 'sm' | 'lg'
+    type?: 'text' | 'password' | 'email' | 'tel'
     placeholder?: string
     icon?: string
     translatable?: boolean

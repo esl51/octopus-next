@@ -10,7 +10,8 @@
     >
       <div class="d-flex align-items-center min-w-0">
         <a
-          v-b-tooltip="$t('global.view')"
+          :title="$t('global.view')"
+          data-bs-toggle="tooltip"
           :aria-label="$t('global.view')"
           :href="item.url"
           target="_blank"
@@ -26,7 +27,8 @@
           <small class="text-muted">{{ formatFileSize(item.size) }}</small>
         </div>
         <a
-          v-b-tooltip="$t('global.download')"
+          :title="$t('global.download')"
+          data-bs-toggle="tooltip"
           :aria-label="$t('global.download')"
           href="#"
           @click.prevent="download(item)"
@@ -37,7 +39,8 @@
           />
         </a>
         <a
-          v-b-tooltip="$t('global.delete')"
+          :title="$t('global.delete')"
+          data-bs-toggle="tooltip"
           :aria-label="$t('global.delete')"
           :disabled="!item.is_deletable"
           :class="item.is_deletable ? 'text-danger' : 'text-muted pe-none'"

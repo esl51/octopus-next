@@ -25,7 +25,8 @@
       <template #cell(title)="{ item }">
         <div class="d-flex py-1 align-items-center min-w-0">
           <a
-            v-b-tooltip="$t('global.view')"
+            :title="$t('global.view')"
+            data-bs-toggle="tooltip"
             :aria-label="$t('global.view')"
             :href="item.url"
             target="_blank"

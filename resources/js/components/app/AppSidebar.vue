@@ -1,115 +1,131 @@
 <template>
-  <b-navbar
-    toggleable="lg"
-    tag="aside"
-    class="navbar-vertical"
-  >
-    <button
-      :key="$route.path"
-      class="navbar-toggler"
-      data-bs-toggle="collapse"
-      data-bs-target="#sidebar-menu"
-    >
-      <span class="navbar-toggler-icon" />
-    </button>
-    <router-link
-      :to="{ name: 'home' }"
-      class="navbar-brand navbar-brand-autodark"
-    >
-      <img
-        :src="'/img/logo' + (theme === 'dark' ? '-white' : '') + '.svg'"
-        height="26"
-        :alt="$appConfig.name"
-      />
-    </router-link>
-    <b-navbar-nav class="flex-row d-lg-none">
-      <app-user-menu />
-    </b-navbar-nav>
-    <div
-      id="sidebar-menu"
-      class="collapse navbar-collapse"
-    >
-      <b-navbar-nav class="pt-lg-3">
-        <template v-for="(item, index) in nav">
-          <b-nav-item
-            v-if="!item.children && checkPermissions(item)"
-            :key="'nav-' + index"
-            :to="item.to"
-            :class="{
-              dropdown: !!item.children,
-              active: navItemActive(item),
-            }"
-          >
-            <span
-              v-if="item.icon"
-              class="nav-link-icon d-md-none d-lg-inline-block"
+  <aside class="navbar navbar-expand-lg navbar-vertical">
+    <div class="container-fluid">
+      <button
+        :key="$route.path"
+        class="navbar-toggler"
+        data-bs-toggle="collapse"
+        data-bs-target="#sidebar-menu"
+      >
+        <span class="navbar-toggler-icon" />
+      </button>
+      <router-link
+        :to="{ name: 'home' }"
+        class="navbar-brand navbar-brand-autodark"
+      >
+        <img
+          :src="'/img/logo' + (theme === 'dark' ? '-white' : '') + '.svg'"
+          height="26"
+          :alt="$appConfig.name"
+        />
+      </router-link>
+      <ul class="navbar-nav flex-row d-lg-none">
+        <app-user-menu />
+      </ul>
+      <div
+        id="sidebar-menu"
+        class="collapse navbar-collapse"
+      >
+        <ul class="navbar-nav pt-lg-3">
+          <template v-for="(item, index) in nav">
+            <li
+              v-if="!item.children && checkPermissions(item) && item.to"
+              :key="'nav-' + index"
+              class="nav-item"
+              :class="{
+                dropdown: !!item.children,
+                active: navItemActive(item),
+              }"
             >
-              <o-icon :name="item.icon" />
-            </span>
-            <span
-              v-if="item.label"
-              class="nav-link-title"
-            >
-              {{ $t(item.label) }}
-            </span>
-          </b-nav-item>
-          <b-nav-item-dropdown
-            v-else-if="checkPermissions(item)"
-            :key="'nav-dd-' + index"
-            :toggle-class="{
-              show: navItemActive(item),
-            }"
-            :menu-class="{
-              'w-auto': true,
-              'd-block': navItemActive(item),
-            }"
-            :class="{
-              active: navItemActive(item),
-            }"
-          >
-            <template #button-content>
-              <span
-                v-if="item.icon"
-                class="nav-link-icon d-md-none d-lg-inline-block"
-              >
-                <o-icon :name="item.icon" />
-              </span>
-              <span
-                v-if="item.label"
-                class="nav-link-title"
-              >
-                {{ $t(item.label) }}
-              </span>
-            </template>
-            <template
-              v-for="(child, childIndex) in item.children"
-              :key="'nav-child-' + childIndex"
-            >
-              <b-dropdown-item
-                v-if="
-                  !child.permissions || authStore?.canAny(child.permissions)
-                "
-                :to="child.to"
+              <router-link
+                class="nav-link"
+                :to="item.to"
               >
                 <span
-                  v-if="child.icon"
+                  v-if="item.icon"
                   class="nav-link-icon d-md-none d-lg-inline-block"
                 >
-                  <o-icon :name="child.icon" />
+                  <o-icon :name="item.icon" />
                 </span>
                 <span
-                  v-if="child.label"
+                  v-if="item.label"
                   class="nav-link-title"
                 >
-                  {{ $t(child.label) }}
+                  {{ $t(item.label) }}
                 </span>
-              </b-dropdown-item>
-            </template>
-          </b-nav-item-dropdown>
-        </template>
-      </b-navbar-nav>
+              </router-link>
+            </li>
+            <li
+              v-else-if="checkPermissions(item)"
+              :key="'nav-dd-' + index"
+              class="nav-item dropdown"
+              :class="{
+                active: navItemActive(item),
+              }"
+            >
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                data-bs-toggle="dropdown"
+                :class="{
+                  show: navItemActive(item),
+                }"
+              >
+                <span
+                  v-if="item.icon"
+                  class="nav-link-icon d-md-none d-lg-inline-block"
+                >
+                  <o-icon :name="item.icon" />
+                </span>
+                <span
+                  v-if="item.label"
+                  class="nav-link-title"
+                >
+                  {{ $t(item.label) }}
+                </span>
+              </a>
+              <div
+                class="dropdown-menu"
+                :class="{
+                  show: navItemActive(item),
+                  'd-block': navItemActive(item),
+                }"
+              >
+                <template
+                  v-for="(child, childIndex) in item.children"
+                  :key="'nav-child-' + childIndex"
+                >
+                  <router-link
+                    v-if="
+                      (!child.permissions ||
+                        authStore?.canAny(child.permissions)) &&
+                      child.to
+                    "
+                    class="dropdown-item"
+                    active-class="active"
+                    :to="child.to"
+                  >
+                    <span
+                      v-if="child.icon"
+                      class="nav-link-icon d-md-none d-lg-inline-block"
+                    >
+                      <o-icon :name="child.icon" />
+                    </span>
+                    <span
+                      v-if="child.label"
+                      class="nav-link-title"
+                    >
+                      {{ $t(child.label) }}
+                    </span>
+                  </router-link>
+                </template>
+              </div>
+            </li>
+          </template>
+        </ul>
+      </div>
     </div>
-  </b-navbar>
+  </aside>
 </template>
 
 <script setup lang="ts">

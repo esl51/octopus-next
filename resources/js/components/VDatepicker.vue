@@ -38,7 +38,6 @@
 
 <script setup lang="ts">
 import { useFormControl } from '@/composables/useFormControl'
-import { Size } from 'bootstrap-vue-next'
 import Form from 'vform'
 import { computed, inject } from 'vue'
 import DatePicker from 'vue-datepicker-next'
@@ -54,7 +53,7 @@ const props = withDefaults(
     disabled?: boolean
     autofocus?: boolean
     autocomplete?: string
-    size?: Size
+    size?: 'sm' | 'lg'
     placeholder?: string
     icon?: string
     min?: Date

@@ -39,7 +39,6 @@
 
 <script setup lang="ts">
 import { useFormControl } from '@/composables/useFormControl'
-import { Size } from 'bootstrap-vue-next'
 import Form from 'vform'
 import { computed, inject } from 'vue'
 
@@ -54,7 +53,7 @@ const props = withDefaults(
     disabled?: boolean
     autofocus?: boolean
     autocomplete?: string
-    size?: Size
+    size?: 'sm' | 'lg'
     placeholder?: string
     translatable?: boolean
   }>(),

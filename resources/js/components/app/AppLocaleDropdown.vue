@@ -1,25 +1,31 @@
 <template>
-  <b-dropdown
-    :text="locales[locale]"
-    :variant="variant as ButtonVariant"
-    :size="size as Size"
-    :right="right"
-    class="shadow-none"
-  >
-    <b-dropdown-item
-      v-for="newLocale in langLocales"
-      :key="newLocale"
-      @click.prevent="setLocale(newLocale)"
+  <div class="dropdown">
+    <o-button
+      :variant="variant"
+      :size="size"
+      class="dropdown-toggle"
+      data-bs-toggle="dropdown"
     >
-      {{ locales[newLocale] }}
-    </b-dropdown-item>
-  </b-dropdown>
+      {{ locales[locale] }}
+    </o-button>
+    <ul class="dropdown-menu dropdown-menu-end">
+      <li>
+        <button
+          v-for="newLocale in langLocales"
+          :key="newLocale"
+          class="dropdown-item"
+          @click.prevent="setLocale(newLocale)"
+        >
+          {{ locales[newLocale] }}
+        </button>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { useLangStore } from '@/stores/lang'
 import { LangLocale } from '@/types'
-import { ButtonVariant, Size } from 'bootstrap-vue-next/dist/src/types'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
@@ -32,11 +38,11 @@ const router = useRouter()
 withDefaults(
   defineProps<{
     variant?: string
-    size?: string
+    size?: 'sm' | 'lg'
     right?: boolean
   }>(),
   {
-    variant: 'default' as ButtonVariant,
+    variant: 'default',
     size: undefined,
     right: true,
   },

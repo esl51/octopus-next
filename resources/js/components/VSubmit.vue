@@ -1,17 +1,16 @@
 <template>
   <o-button
-    :type="type as ButtonType"
+    :type="type"
     :disabled="form?.busy || disabled"
     :busy="form?.busy"
-    :variant="variant as ButtonVariant"
-    :size="size as Size"
+    :variant="variant"
+    :size="size"
   >
     <slot />
   </o-button>
 </template>
 
 <script setup lang="ts">
-import { ButtonType, ButtonVariant, Size } from 'bootstrap-vue-next'
 import Form from 'vform'
 import { inject } from 'vue'
 
@@ -19,9 +18,9 @@ import { inject } from 'vue'
 withDefaults(
   defineProps<{
     disabled?: boolean
-    type?: string
+    type?: 'button' | 'submit'
     variant?: string
-    size?: string
+    size?: 'sm' | 'lg'
   }>(),
   {
     disabled: false,

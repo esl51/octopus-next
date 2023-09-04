@@ -4,7 +4,6 @@
       <div class="d-flex">
         <app-locale-dropdown
           class="ms-auto f-0"
-          :variant="'default' as ButtonVariant"
           size="sm"
         />
       </div>
@@ -27,5 +26,4 @@
 
 <script setup lang="ts">
 import AppLocaleDropdown from '@/components/app/AppLocaleDropdown.vue'
-import { ButtonVariant } from 'bootstrap-vue-next'
 </script>

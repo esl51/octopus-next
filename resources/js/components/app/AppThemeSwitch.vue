@@ -1,6 +1,7 @@
 <template>
   <a
-    v-b-tooltip="$t(tooltip)"
+    :title="$t(tooltip)"
+    data-bs-toggle="tooltip"
     class="nav-link px-0"
     :aria-label="$t(tooltip)"
     href="#"
