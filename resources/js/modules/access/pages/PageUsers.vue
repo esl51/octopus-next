@@ -11,7 +11,7 @@
       {{ $t('global.page_meta', { ...meta }) }}
     </template>
   </o-page-header>
-  <b-card
+  <o-card
     body-class="p-0"
     footer-class="border-top-0"
   >
@@ -73,7 +73,7 @@
         @paginate="paginate"
       />
     </template>
-  </b-card>
+  </o-card>
   <o-modal
     ref="modal"
     :title="(current.name as string) ?? $t('access.users.new_title')"

@@ -2,6 +2,7 @@ import OActions from './OActions.vue'
 import OAlert from './OAlert.vue'
 import OAvatar from './OAvatar.vue'
 import OButton from './OButton.vue'
+import OCard from './OCard.vue'
 import OButtonAdd from './OButtonAdd.vue'
 import OConfirm from './OConfirm.vue'
 import OFileImage from './OFileImage.vue'
@@ -33,6 +34,7 @@ export default {
   OAvatar,
   OButton,
   OButtonAdd,
+  OCard,
   OConfirm,
   OFileImage,
   OFileList,

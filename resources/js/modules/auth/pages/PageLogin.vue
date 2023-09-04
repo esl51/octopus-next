@@ -1,5 +1,5 @@
 <template>
-  <b-card class="card-md">
+  <o-card class="card-md">
     <h1 class="card-title text-center mb-4">{{ $t('auth.login.headline') }}</h1>
     <v-form
       :form="form"
@@ -40,7 +40,7 @@
         </v-submit>
       </template>
     </v-form>
-  </b-card>
+  </o-card>
   <div
     v-if="$appConfig.authFeatures.includes('registration')"
     class="text-center text-muted mt-3"

@@ -1,5 +1,5 @@
 <template>
-  <b-card class="card-md">
+  <o-card class="card-md">
     <h1 class="h2 text-center mb-4">{{ $t('auth.forgot_password.title') }}</h1>
     <p class="text-muted text-center mb-4">
       {{ $t('auth.forgot_password.text') }}
@@ -23,7 +23,7 @@
         </v-submit>
       </template>
     </v-form>
-  </b-card>
+  </o-card>
   <div class="text-center text-muted mt-3">
     {{ $t('auth.forgot_password.login_title') }}
     <router-link :to="{ name: 'auth.login' }">

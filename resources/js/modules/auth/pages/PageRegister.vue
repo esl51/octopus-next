@@ -1,5 +1,5 @@
 <template>
-  <b-card class="card-md">
+  <o-card class="card-md">
     <h1 class="card-title text-center mb-4">
       {{ $t('auth.register.headline') }}
     </h1>
@@ -33,7 +33,7 @@
         </v-submit>
       </template>
     </v-form>
-  </b-card>
+  </o-card>
   <div class="text-center text-muted mt-3">
     {{ $t('auth.register.login_title') }}
     <router-link :to="{ name: 'auth.login' }">
