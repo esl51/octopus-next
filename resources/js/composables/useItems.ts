@@ -8,12 +8,14 @@ import Form from 'vform'
 import { nextTick, onMounted, reactive, Ref, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from 'vue-router'
+import { useListsStore } from '@/stores/lists'
 
 interface ItemsConfig {
   api: ItemsApi
   defaults: Record<string, unknown>
   modal?: Ref<typeof OModal | null>
   params?: ListParams
+  listKey: string
 }
 
 export function useItems(config: ItemsConfig) {
@@ -34,6 +36,9 @@ export function useItems(config: ItemsConfig) {
   } as ListParams)
 
   const busy = ref(false)
+
+  // lists
+  const lists = useListsStore()
 
   // form
   const form = reactive(Form.make(config.defaults))
@@ -125,12 +130,9 @@ export function useItems(config: ItemsConfig) {
 
   // paginate
   const paginate = (page: number) => {
-    router.replace({
-      query: {
-        ...route.query,
-        ...params.value,
-        page,
-      },
+    lists.update(config.listKey, {
+      ...params.value,
+      page,
     })
   }
 
@@ -148,13 +150,10 @@ export function useItems(config: ItemsConfig) {
     } else {
       sortDesc = 0
     }
-    router.replace({
-      query: {
-        ...route.query,
-        ...params.value,
-        sort_by: sortBy,
-        sort_desc: sortDesc,
-      },
+    lists.update(config.listKey, {
+      ...params.value,
+      sort_by: sortBy,
+      sort_desc: sortDesc,
     })
   }
 
@@ -193,15 +192,18 @@ export function useItems(config: ItemsConfig) {
 
   // search
   const search = debounce((query: string) => {
-    router.replace({
-      query: {
-        ...route.query,
-        ...params.value,
-        search: query,
-        page: 1,
-      },
+    lists.update(config.listKey, {
+      ...params.value,
+      search: query,
+      page: 1,
     })
   }, 300)
+  watch(
+    () => params.value.search as string,
+    async (query) => {
+      search(query)
+    },
+  )
 
   // add
   const add = () => {
@@ -291,7 +293,23 @@ export function useItems(config: ItemsConfig) {
       if (!query.edit && clearParams.edit) {
         delete clearParams.edit
       }
-      params.value = { ...clearParams, ...query }
+      params.value = {
+        ...clearParams,
+        ...lists.lists[config.listKey],
+      }
+      fetchItems()
+    },
+    { immediate: true, deep: true },
+  )
+
+  // list change
+  watch(
+    () => lists.lists[config.listKey],
+    async (listParams) => {
+      params.value = {
+        ...params.value,
+        ...listParams,
+      }
       fetchItems()
     },
     { immediate: true, deep: true },
@@ -307,9 +325,9 @@ export function useItems(config: ItemsConfig) {
           '[name="' + firstError + '"]',
         ) as HTMLInputElement
         if (input) {
-          setTimeout(() => {
+          nextTick(() => {
             input.focus()
-          }, 10)
+          })
         }
       }
     },

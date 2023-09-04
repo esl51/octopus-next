@@ -1,7 +1,7 @@
 <template>
   <o-page-header :title="$t('access.users.title')">
     <template #buttons>
-      <o-search @input="search" />
+      <o-search v-model="params.search" />
       <o-button-add @click="add" />
     </template>
     <template
@@ -174,7 +174,6 @@ const {
   fetchItems,
   paginate,
   sort,
-  search,
   add,
   edit,
   submit,
@@ -184,9 +183,7 @@ const {
   api: usersApi,
   defaults,
   modal,
-  params: {
-    per_page: 6,
-  },
+  listKey: 'users',
 })
 
 // columns

@@ -1,7 +1,7 @@
 <template>
   <o-page-header :title="$t('files.title')">
     <template #buttons>
-      <o-search @input="search" />
+      <o-search v-model="params.search" />
     </template>
     <template
       v-if="meta.total > 1"
@@ -129,7 +129,6 @@ const {
   current,
   paginate,
   sort,
-  search,
   edit,
   submit,
   destroy,
@@ -138,6 +137,7 @@ const {
   api: filesApi,
   defaults,
   modal,
+  listKey: 'files',
 })
 
 // columns

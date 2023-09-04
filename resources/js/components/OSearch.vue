@@ -4,6 +4,7 @@
       <o-icon name="search" />
     </span>
     <input
+      v-model="model"
       :placeholder="$t('global.search')"
       :aria-label="$t('global.search')"
       class="form-control"
@@ -13,5 +14,23 @@
 </template>
 
 <script setup lang="ts">
-const emit = defineEmits(['input'])
+import { computed } from 'vue'
+
+// props
+const props = withDefaults(
+  defineProps<{
+    modelValue?: string
+  }>(),
+  {
+    modelValue: undefined,
+  },
+)
+// value
+const emit = defineEmits(['input', 'update:modelValue'])
+const model = computed({
+  get: () => props.modelValue,
+  set: (value) => {
+    emit('update:modelValue', value)
+  },
+})
 </script>

@@ -1,7 +1,7 @@
 <template>
   <o-page-header :title="$t('access.permissions.title')">
     <template #buttons>
-      <o-search @input="search" />
+      <o-search v-model="params.search" />
       <o-button-add @click="add" />
     </template>
     <template
@@ -110,7 +110,6 @@ const {
   current,
   paginate,
   sort,
-  search,
   add,
   edit,
   submit,
@@ -120,6 +119,7 @@ const {
   api: permissionsApi,
   defaults,
   modal,
+  listKey: 'permissions',
 })
 
 // columns
