@@ -48,14 +48,15 @@
         v-if="type === 'password'"
         class="input-icon-addon pe-auto"
       >
-        <b-link
+        <a
           v-b-tooltip="$t('global.show_password')"
           class="link-secondary d-flex"
           :aria-label="$t('global.show_password')"
+          href="#"
           @click.prevent="togglePasswordVisible"
         >
           <o-icon :name="passwordVisible ? 'eye-off' : 'eye'" />
-        </b-link>
+        </a>
       </span>
     </div>
   </v-form-control>
