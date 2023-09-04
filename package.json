@@ -45,7 +45,7 @@
     "@vueuse/head": "^1.0.6",
     "axios": "^1.1.2",
     "bootstrap": "^5.2.2",
-    "bootstrap-vue-next": "^0.11.0",
+    "bootstrap-vue-next": "^0.12.0",
     "jodit": "^3.23.3",
     "object-to-formdata": "^4.4.2",
     "pinia": "^2.0.23",
