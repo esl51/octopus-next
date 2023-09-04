@@ -3,7 +3,6 @@
     :type="type"
     :disabled="disabled"
     :class="classes"
-    class="btn"
   >
     <b-spinner
       v-if="busy"
@@ -38,6 +37,7 @@ const props = withDefaults(
 )
 
 const classes = computed(() => ({
+  btn: true,
   'btn-icon': !!props.icon,
   ['btn-' + props.variant]: !!props.variant,
   ['btn-' + props.size]: !!props.size,
