@@ -37,7 +37,7 @@
             :colspan="activeColumns.length"
             class="text-center"
           >
-            <b-spinner />
+            <o-spinner />
           </td>
         </tr>
         <tr v-else-if="!busy && !items.length">

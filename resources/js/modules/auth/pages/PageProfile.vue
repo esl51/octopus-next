@@ -27,7 +27,7 @@
                 hidden
                 @change="updateAvatar"
               />
-              <b-spinner
+              <o-spinner
                 v-if="updatingAvatar"
                 class="me-2"
                 small
@@ -44,7 +44,7 @@
               :disabled="deletingAvatar"
               @click="deleteAvatar"
             >
-              <b-spinner
+              <o-spinner
                 v-if="deletingAvatar"
                 class="me-2"
                 small

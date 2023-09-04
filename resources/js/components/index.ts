@@ -11,6 +11,7 @@ import OIcon from './OIcon.vue'
 import OPageHeader from './OPageHeader.vue'
 import OPagination from './OPagination.vue'
 import OSearch from './OSearch.vue'
+import OSpinner from './OSpinner.vue'
 import OTable from './OTable.vue'
 import OTableFooter from './OTableFooter.vue'
 import OToast from './OToast.vue'
@@ -42,6 +43,7 @@ export default {
   OPageHeader,
   OPagination,
   OSearch,
+  OSpinner,
   OTable,
   OTableFooter,
   OToast,

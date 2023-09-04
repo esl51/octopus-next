@@ -4,7 +4,7 @@
     :disabled="disabled"
     :class="classes"
   >
-    <b-spinner
+    <o-spinner
       v-if="busy"
       class="me-2"
       small
