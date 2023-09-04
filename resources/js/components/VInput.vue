@@ -49,8 +49,8 @@
         class="input-icon-addon pe-auto"
       >
         <a
+          v-tooltip
           :title="$t('global.show_password')"
-          data-bs-toggle="tooltip"
           class="link-secondary d-flex"
           :aria-label="$t('global.show_password')"
           href="#"

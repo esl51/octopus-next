@@ -1,7 +1,7 @@
 <template>
   <o-button
+    v-tooltip
     :title="$t('global.add')"
-    data-bs-toggle="tooltip"
     variant="primary"
     icon
     @click="emit('click')"
