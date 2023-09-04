@@ -1,9 +1,7 @@
 <template>
-  <b-button
-    :type="type as ButtonType"
+  <button
+    :type="type"
     :disabled="disabled"
-    :variant="variant as ButtonVariant"
-    :size="size as Size"
     :class="classes"
   >
     <b-spinner
@@ -12,11 +10,10 @@
       small
     />
     <slot />
-  </b-button>
+  </button>
 </template>
 
 <script setup lang="ts">
-import { ButtonType, ButtonVariant, Size } from 'bootstrap-vue-next'
 import { computed } from 'vue'
 
 // props
@@ -24,9 +21,9 @@ const props = withDefaults(
   defineProps<{
     disabled?: boolean
     busy?: boolean
-    type?: string
+    type?: 'button' | 'submit' | 'reset'
     variant?: string
-    size?: string
+    size?: 'sm' | 'lg'
     icon?: boolean
   }>(),
   {
@@ -41,5 +38,7 @@ const props = withDefaults(
 
 const classes = computed(() => ({
   'btn-icon': !!props.icon,
+  ['btn-' + props.variant]: !!props.variant,
+  ['btn-' + props.size]: !!props.size,
 }))
 </script>
