@@ -24,7 +24,7 @@
         @change="change"
       />
       <span class="input-icon-addon">
-        <o-icon name="file-upload" />
+        <o-icon :type="IconFileUpload" />
       </span>
     </div>
   </v-form-control>
@@ -32,6 +32,7 @@
 
 <script setup lang="ts">
 import { useFormControl } from '@/composables/useFormControl'
+import { IconFileUpload } from '@tabler/icons-vue'
 import Form from 'vform'
 import { computed, inject, ref, watch } from 'vue'
 

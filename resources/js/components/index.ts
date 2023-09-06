@@ -4,7 +4,9 @@ import OAvatar from './OAvatar.vue'
 import OButton from './OButton.vue'
 import OCard from './OCard.vue'
 import OButtonAdd from './OButtonAdd.vue'
+import OCollapse from './OCollapse.vue'
 import OConfirm from './OConfirm.vue'
+import ODropdown from './ODropdown.vue'
 import OFileImage from './OFileImage.vue'
 import OFileList from './OFileList.vue'
 import OIcon from './OIcon.vue'
@@ -18,12 +20,10 @@ import OToast from './OToast.vue'
 import VCheckbox from './VCheckbox.vue'
 import VCheckboxes from './VCheckboxes.vue'
 import VDatepicker from './VDatepicker.vue'
-import VEditor from './VEditor.vue'
 import VFile from './VFile.vue'
 import VForm from './VForm.vue'
 import VFormControl from './VFormControl.vue'
 import VInput from './VInput.vue'
-import VLocaleSwitch from './VLocaleSwitch.vue'
 import VRadios from './VRadios.vue'
 import VSelect from './VSelect.vue'
 import VSubmit from './VSubmit.vue'
@@ -36,7 +36,9 @@ export default {
   OButton,
   OButtonAdd,
   OCard,
+  OCollapse,
   OConfirm,
+  ODropdown,
   OFileImage,
   OFileList,
   OIcon,
@@ -50,12 +52,10 @@ export default {
   VCheckbox,
   VCheckboxes,
   VDatepicker,
-  VEditor,
   VFile,
   VForm,
   VFormControl,
   VInput,
-  VLocaleSwitch,
   VRadios,
   VSelect,
   VSubmit,

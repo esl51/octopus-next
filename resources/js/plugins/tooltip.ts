@@ -1,4 +1,4 @@
-import { Tooltip } from 'bootstrap'
+import Tooltip from 'bootstrap/js/dist/tooltip'
 
 export const tooltip = {
   mounted(el: HTMLElement) {

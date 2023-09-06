@@ -34,7 +34,7 @@
           @click.prevent="download(item)"
         >
           <o-icon
-            name="download"
+            :type="IconDownload"
             class="me-2"
           />
         </a>
@@ -48,7 +48,7 @@
           @click.prevent="destroy(item)"
         >
           <o-icon
-            name="trash"
+            :type="IconTrash"
             class="me-1"
           />
         </a>
@@ -63,6 +63,7 @@ import { useConfirm } from '@/composables/useConfirm'
 import { useFormatter } from '@/composables/useFormatter'
 import { filesApi } from '@/modules/files/api'
 import { File } from '@/modules/files/types'
+import { IconTrash, IconDownload } from '@tabler/icons-vue'
 import { ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 

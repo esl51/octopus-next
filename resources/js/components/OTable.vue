@@ -23,7 +23,9 @@
               <template v-if="params.sort_by === column.key">
                 <o-icon
                   v-if="params.sort_desc !== undefined"
-                  :name="params.sort_desc == 1 ? 'chevron-down' : 'chevron-up'"
+                  :type="
+                    params.sort_desc == 1 ? IconChevronDown : IconChevronUp
+                  "
                   class="icon-sm icon-thick"
                 />
               </template>
@@ -47,7 +49,7 @@
           <td :colspan="activeColumns.length">
             <div class="empty">
               <div class="empty-icon">
-                <o-icon name="mood-sad" />
+                <o-icon :type="IconMoodSad" />
               </div>
               <p class="empty-title">{{ $t('global.empty_title') }}</p>
               <p class="empty-subtitle text-muted">
@@ -85,6 +87,8 @@
 import { useFormatter } from '@/composables/useFormatter'
 import { Item, ListParams } from '@/types'
 import { OTableColumn } from '@/types'
+import { IconMoodSad } from '@tabler/icons-vue'
+import { IconChevronUp, IconChevronDown } from '@tabler/icons-vue'
 import { computed } from 'vue'
 
 const { formatDate, formatDateTime, formatTime, formatMoney, formatFileSize } =

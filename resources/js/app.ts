@@ -7,7 +7,6 @@ import pinia from './plugins/pinia'
 import sortable from './plugins/sortable'
 import tooltip from './plugins/tooltip'
 import router from './router'
-import 'bootstrap'
 import { createApp } from 'vue'
 import Vue3Mount from 'vue3-mount'
 

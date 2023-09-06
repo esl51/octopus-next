@@ -1,10 +1,11 @@
 import { NavItem } from '@/types'
+import { IconLock } from '@tabler/icons-vue'
 
 const nav: Array<NavItem> = [
   {
     position: 100,
     label: 'access.title',
-    icon: 'lock',
+    icon: IconLock,
     children: [
       {
         to: { name: 'access.users' },

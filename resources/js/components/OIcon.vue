@@ -1,28 +1,16 @@
 <template>
   <component
-    :is="icon"
+    :is="type"
     viewBox="0 0 24 24"
+    class="icon"
   />
 </template>
 
 <script setup lang="ts">
-import { defineAsyncComponent, markRaw, ref, watch } from 'vue'
+import { SVGProps } from '@tabler/icons-vue'
+import { FunctionalComponent } from 'vue'
 
-const props = defineProps<{
-  name: string
+defineProps<{
+  type: FunctionalComponent<SVGProps>
 }>()
-
-const icon = ref()
-
-watch(
-  () => props.name,
-  (name) => {
-    icon.value = markRaw(
-      defineAsyncComponent(
-        () => import(`../../../node_modules/@tabler/icons/icons/${name}.svg`),
-      ),
-    )
-  },
-  { immediate: true },
-)
 </script>

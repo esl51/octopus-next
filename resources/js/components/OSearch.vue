@@ -1,7 +1,7 @@
 <template>
   <div class="input-icon">
     <span class="input-icon-addon">
-      <o-icon name="search" />
+      <o-icon :type="IconSearch" />
     </span>
     <input
       v-model="model"
@@ -14,6 +14,7 @@
 </template>
 
 <script setup lang="ts">
+import { IconSearch } from '@tabler/icons-vue'
 import { computed } from 'vue'
 
 // props

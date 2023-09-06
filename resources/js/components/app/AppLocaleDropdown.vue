@@ -1,26 +1,24 @@
 <template>
-  <div class="dropdown">
-    <o-button
-      :variant="variant"
-      :size="size"
-      class="dropdown-toggle"
-      data-bs-toggle="dropdown"
-    >
+  <o-dropdown
+    :toggle-variant="variant"
+    :toggle-size="size"
+    menu-end
+  >
+    <template #toggle>
       {{ locales[locale] }}
-    </o-button>
-    <ul class="dropdown-menu dropdown-menu-end">
-      <li>
-        <button
-          v-for="newLocale in langLocales"
-          :key="newLocale"
-          class="dropdown-item"
-          @click.prevent="setLocale(newLocale)"
-        >
-          {{ locales[newLocale] }}
-        </button>
-      </li>
-    </ul>
-  </div>
+    </template>
+    <li
+      v-for="newLocale in langLocales"
+      :key="newLocale"
+    >
+      <button
+        class="dropdown-item"
+        @click.prevent="setLocale(newLocale)"
+      >
+        {{ locales[newLocale] }}
+      </button>
+    </li>
+  </o-dropdown>
 </template>
 
 <script setup lang="ts">

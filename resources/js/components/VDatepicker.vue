@@ -27,10 +27,10 @@
       :get-classes="dateClass"
     >
       <template #icon-calendar>
-        <o-icon name="calendar" />
+        <o-icon :type="IconCalendar" />
       </template>
       <template #icon-clear>
-        <o-icon name="x" />
+        <o-icon :type="IconX" />
       </template>
     </date-picker>
   </v-form-control>
@@ -38,6 +38,7 @@
 
 <script setup lang="ts">
 import { useFormControl } from '@/composables/useFormControl'
+import { IconX, IconCalendar } from '@tabler/icons-vue'
 import Form from 'vform'
 import { computed, inject } from 'vue'
 import DatePicker from 'vue-datepicker-next'

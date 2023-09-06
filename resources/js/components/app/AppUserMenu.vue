@@ -1,12 +1,13 @@
 <template>
-  <li class="nav-item dropdown">
-    <a
-      class="nav-link d-flex lh-1 text-reset p-0"
-      data-bs-toggle="dropdown"
-      :aria-label="$t('layout.open_user_menu')"
-      aria-expanded="false"
-      href="#"
-    >
+  <o-dropdown
+    toggle-anchor
+    toggle-class="nav-link d-flex lh-1 text-reset p-0"
+    class="nav-item"
+    :aria-label="$t('layout.open_user_menu')"
+    menu-end
+    menu-arrow
+  >
+    <template #toggle>
       <o-avatar
         :image="user?.avatar?.url"
         :placeholder="user?.name_placeholder"
@@ -29,36 +30,34 @@
           {{ user.roles[0].title }}
         </div>
       </div>
-    </a>
-    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-      <li
-        v-if="
-          $appConfig.authFeatures.includes('update-profile-information') ||
-          $appConfig.authFeatures.includes('update-passwords')
-        "
-      >
-        <router-link
-          :to="{ name: 'auth.profile' }"
-          class="dropdown-item"
-        >
-          {{ $t('auth.profile.title') }}
-          <span
-            v-if="
-              $appConfig.authFeatures.includes('email-verification') &&
-              user?.email_verified_at === null
-            "
-            class="badge bg-warning ms-auto"
-          />
-        </router-link>
-      </li>
-      <button
+    </template>
+    <li
+      v-if="
+        $appConfig.authFeatures.includes('update-profile-information') ||
+        $appConfig.authFeatures.includes('update-passwords')
+      "
+    >
+      <router-link
+        :to="{ name: 'auth.profile' }"
         class="dropdown-item"
-        @click="logout"
       >
-        {{ $t('auth.logout.title') }}
-      </button>
-    </ul>
-  </li>
+        {{ $t('auth.profile.title') }}
+        <span
+          v-if="
+            $appConfig.authFeatures.includes('email-verification') &&
+            user?.email_verified_at === null
+          "
+          class="badge bg-warning ms-auto"
+        />
+      </router-link>
+    </li>
+    <button
+      class="dropdown-item"
+      @click="logout"
+    >
+      {{ $t('auth.logout.title') }}
+    </button>
+  </o-dropdown>
 </template>
 
 <script setup lang="ts">

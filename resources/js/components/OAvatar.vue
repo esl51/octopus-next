@@ -6,7 +6,7 @@
   >
     <o-icon
       v-if="!image && icon"
-      :name="icon"
+      :type="icon"
       class="avatar-icon"
     />
     <template v-else-if="!image && !icon && placeholder">
@@ -17,13 +17,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed, StyleValue } from 'vue'
+import { SVGProps } from '@tabler/icons-vue'
+import { computed, FunctionalComponent, StyleValue } from 'vue'
 
 // props
 const props = defineProps<{
   image?: string | null
   placeholder?: string
-  icon?: string
+  icon?: FunctionalComponent<SVGProps>
   size?: string
 }>()
 

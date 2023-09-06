@@ -18,8 +18,8 @@
       :placeholder="placeholder"
       :close-on-select="!multiple"
       :components="{
-        Deselect: { render: () => h(OIcon, { name: 'x' }) },
-        OpenIndicator: { render: () => h(OIcon, { name: 'chevron-down' }) },
+        Deselect: { render: () => h(OIcon, { type: IconX }) },
+        OpenIndicator: { render: () => h(OIcon, { type: IconChevronDown }) },
       }"
       :class="{
         [`v-select--${size}`]: !!size,
@@ -45,6 +45,7 @@
 import OIcon from './OIcon.vue'
 import { useFormControl } from '@/composables/useFormControl'
 import { Item } from '@/types'
+import { IconChevronDown, IconX } from '@tabler/icons-vue'
 import Form from 'vform'
 import { computed, h, inject, ref } from 'vue'
 import VueSelect from 'vue-select'

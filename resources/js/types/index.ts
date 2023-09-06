@@ -1,4 +1,6 @@
 import messages from '@/lang'
+import { SVGProps } from '@tabler/icons-vue'
+import { FunctionalComponent } from 'vue'
 import {
   NavigationGuardNext,
   RouteLocationNormalized,
@@ -14,7 +16,7 @@ export type NavItem = {
   position?: number
   label: string
   to?: RouteLocationRaw
-  icon?: string
+  icon?: FunctionalComponent<SVGProps>
   children?: Array<NavItem>
   permissions?: Array<string> | string
 }
@@ -111,7 +113,7 @@ export interface OTableColumn {
 
 export interface ItemAction {
   label: string
-  icon?: string
+  icon?: FunctionalComponent<SVGProps>
   variant?: string
   disabled?: boolean
   handler: () => void

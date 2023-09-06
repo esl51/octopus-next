@@ -13,12 +13,12 @@
         :placeholder="$t('auth.forgot_password.email_placeholder')"
         name="email"
         type="email"
-        icon="user"
+        :icon="IconUser"
         autofocus
       />
       <template #footer>
         <v-submit class="w-100">
-          <o-icon name="mail" />
+          <o-icon :type="IconMail" />
           {{ $t('auth.forgot_password.submit_button') }}
         </v-submit>
       </template>
@@ -36,6 +36,7 @@
 import { authUrls } from '@/api/auth'
 import { usePage } from '@/composables/usePage'
 import { useToast } from '@/composables/useToast'
+import { IconUser, IconMail } from '@tabler/icons-vue'
 import Form from 'vform'
 import { reactive } from 'vue'
 import { useI18n } from 'vue-i18n'

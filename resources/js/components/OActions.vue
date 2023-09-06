@@ -1,43 +1,42 @@
 <template>
-  <div class="dropdown">
-    <o-button
-      variant="link"
-      class="dropdown-toggle dropdown-toggle-no-caret btn-action btn-action-table"
-      data-bs-toggle="dropdown"
-      data-bs-popper-config='{ "strategy": "fixed" }'
+  <o-dropdown
+    no-caret
+    toggle-class="btn-action btn-action-table"
+    toggle-variant="link"
+  >
+    <template #toggle>
+      <o-icon :type="IconDotsVertical" />
+    </template>
+    <li
+      v-for="(action, index) in allActions"
+      :key="'action-' + index"
     >
-      <o-icon name="dots-vertical" />
-    </o-button>
-    <ul class="dropdown-menu">
-      <li>
-        <button
-          v-for="(action, index) in allActions"
-          :key="'action-' + index"
-          :disabled="action.disabled"
-          class="dropdown-item"
+      <button
+        :disabled="action.disabled"
+        class="dropdown-item"
+        :class="{
+          ['text-' + action.variant]: !!action.variant && !action.disabled,
+        }"
+        @click="action.handler"
+      >
+        <o-icon
+          v-if="action.icon"
+          :type="action.icon"
+          class="dropdown-item-icon"
           :class="{
-            ['text-' + action.variant]: !!action.variant && !action.disabled,
+            [`text-${action.variant}`]: !!action.variant && !action.disabled,
+            'text-muted': action.disabled,
           }"
-          @click="action.handler"
-        >
-          <o-icon
-            v-if="action.icon"
-            :name="action.icon"
-            class="dropdown-item-icon"
-            :class="{
-              [`text-${action.variant}`]: !!action.variant && !action.disabled,
-              'text-muted': action.disabled,
-            }"
-          />
-          {{ action.label }}
-        </button>
-      </li>
-    </ul>
-  </div>
+        />
+        {{ action.label }}
+      </button>
+    </li>
+  </o-dropdown>
 </template>
 
 <script setup lang="ts">
 import { Item, ItemAction } from '@/types'
+import { IconDotsVertical, IconEdit, IconTrash } from '@tabler/icons-vue'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
@@ -66,7 +65,7 @@ const defaultActions = computed<Array<ItemAction>>(() => {
   if (props.edit) {
     actions.push({
       label: t('global.edit'),
-      icon: 'edit',
+      icon: IconEdit,
       disabled: !props.item.is_editable,
       handler: () => {
         emit('edit', props.item)
@@ -76,7 +75,7 @@ const defaultActions = computed<Array<ItemAction>>(() => {
   if (props.delete) {
     actions.push({
       label: t('global.delete'),
-      icon: 'trash',
+      icon: IconTrash,
       variant: 'danger',
       disabled: !props.item.is_deletable,
       handler: () => {

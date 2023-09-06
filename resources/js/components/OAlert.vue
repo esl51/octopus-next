@@ -1,5 +1,6 @@
 <template>
   <div
+    ref="alert"
     :class="{
       alert: true,
       ['alert-' + variant]: !!variant,
@@ -19,6 +20,9 @@
 </template>
 
 <script setup lang="ts">
+import Alert from 'bootstrap/js/dist/alert'
+import { ref } from 'vue'
+
 // props
 withDefaults(
   defineProps<{
@@ -32,4 +36,9 @@ withDefaults(
     show: false,
   },
 )
+
+const alert = ref(null)
+if (alert.value) {
+  new Alert(alert.value)
+}
 </script>

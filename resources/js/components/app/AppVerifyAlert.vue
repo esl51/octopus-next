@@ -16,7 +16,7 @@
         :busy="busy"
         @click="send"
       >
-        <o-icon name="mail" />
+        <o-icon :type="IconMail" />
         {{ $t('auth.verification.alert_send_button') }}
       </o-button>
     </div>
@@ -34,7 +34,7 @@
     <div class="d-flex">
       <div>
         <o-icon
-          name="check"
+          :type="IconCheck"
           class="alert-icon"
         />
       </div>
@@ -42,12 +42,6 @@
         {{ $t('auth.verification.verified', { email: user?.email }) }}
       </div>
     </div>
-    <button
-      type="button"
-      class="btn-close"
-      data-bs-dismiss="alert"
-      aria-label="Close"
-    />
   </o-alert>
 </template>
 
@@ -55,6 +49,7 @@
 import authApi from '@/api/auth'
 import { useToast } from '@/composables/useToast'
 import { useAuthStore } from '@/stores/auth'
+import { IconCheck, IconMail } from '@tabler/icons-vue'
 import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from 'vue-router'

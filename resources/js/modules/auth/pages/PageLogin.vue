@@ -10,7 +10,7 @@
         :placeholder="$t('auth.login.email_placeholder')"
         name="email"
         type="email"
-        icon="user"
+        :icon="IconUser"
         autofocus
       />
       <v-input
@@ -18,7 +18,7 @@
         :placeholder="$t('auth.login.password_placeholder')"
         name="password"
         type="password"
-        icon="key"
+        :icon="IconKey"
       >
         <template
           v-if="$appConfig.authFeatures.includes('reset-passwords')"
@@ -56,6 +56,7 @@
 import { authApi, authUrls } from '@/api/auth'
 import { usePage } from '@/composables/usePage'
 import { useAuthStore } from '@/stores/auth'
+import { IconUser, IconKey } from '@tabler/icons-vue'
 import Form from 'vform'
 import { reactive } from 'vue'
 import { useI18n } from 'vue-i18n'

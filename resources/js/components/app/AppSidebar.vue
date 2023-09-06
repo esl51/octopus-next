@@ -22,9 +22,9 @@
       <ul class="navbar-nav flex-row d-lg-none">
         <app-user-menu />
       </ul>
-      <div
+      <o-collapse
         id="sidebar-menu"
-        class="collapse navbar-collapse"
+        class="navbar-collapse"
       >
         <ul class="navbar-nav pt-lg-3">
           <template v-for="(item, index) in nav">
@@ -33,7 +33,6 @@
               :key="'nav-' + index"
               class="nav-item"
               :class="{
-                dropdown: !!item.children,
                 active: navItemActive(item),
               }"
             >
@@ -45,7 +44,7 @@
                   v-if="item.icon"
                   class="nav-link-icon d-md-none d-lg-inline-block"
                 >
-                  <o-icon :name="item.icon" />
+                  <o-icon :type="item.icon" />
                 </span>
                 <span
                   v-if="item.label"
@@ -55,27 +54,30 @@
                 </span>
               </router-link>
             </li>
-            <li
+            <o-dropdown
               v-else-if="checkPermissions(item)"
               :key="'nav-dd-' + index"
-              class="nav-item dropdown"
+              tag="li"
+              class="nav-item"
               :class="{
                 active: navItemActive(item),
               }"
+              toggle-anchor
+              :toggle-class="{
+                'nav-link': true,
+                show: navItemActive(item),
+              }"
+              :menu-class="{
+                show: navItemActive(item),
+                'd-block': navItemActive(item),
+              }"
             >
-              <a
-                class="nav-link dropdown-toggle"
-                href="#"
-                data-bs-toggle="dropdown"
-                :class="{
-                  show: navItemActive(item),
-                }"
-              >
+              <template #toggle>
                 <span
                   v-if="item.icon"
                   class="nav-link-icon d-md-none d-lg-inline-block"
                 >
-                  <o-icon :name="item.icon" />
+                  <o-icon :type="item.icon" />
                 </span>
                 <span
                   v-if="item.label"
@@ -83,47 +85,39 @@
                 >
                   {{ $t(item.label) }}
                 </span>
-              </a>
-              <div
-                class="dropdown-menu"
-                :class="{
-                  show: navItemActive(item),
-                  'd-block': navItemActive(item),
-                }"
+              </template>
+              <li
+                v-for="(child, childIndex) in item.children"
+                :key="'nav-child-' + childIndex"
               >
-                <template
-                  v-for="(child, childIndex) in item.children"
-                  :key="'nav-child-' + childIndex"
+                <router-link
+                  v-if="
+                    (!child.permissions ||
+                      authStore?.canAny(child.permissions)) &&
+                    child.to
+                  "
+                  class="dropdown-item"
+                  active-class="active"
+                  :to="child.to"
                 >
-                  <router-link
-                    v-if="
-                      (!child.permissions ||
-                        authStore?.canAny(child.permissions)) &&
-                      child.to
-                    "
-                    class="dropdown-item"
-                    active-class="active"
-                    :to="child.to"
+                  <span
+                    v-if="child.icon"
+                    class="nav-link-icon d-md-none d-lg-inline-block"
                   >
-                    <span
-                      v-if="child.icon"
-                      class="nav-link-icon d-md-none d-lg-inline-block"
-                    >
-                      <o-icon :name="child.icon" />
-                    </span>
-                    <span
-                      v-if="child.label"
-                      class="nav-link-title"
-                    >
-                      {{ $t(child.label) }}
-                    </span>
-                  </router-link>
-                </template>
-              </div>
-            </li>
+                    <o-icon :type="child.icon" />
+                  </span>
+                  <span
+                    v-if="child.label"
+                    class="nav-link-title"
+                  >
+                    {{ $t(child.label) }}
+                  </span>
+                </router-link>
+              </li>
+            </o-dropdown>
           </template>
         </ul>
-      </div>
+      </o-collapse>
     </div>
   </aside>
 </template>

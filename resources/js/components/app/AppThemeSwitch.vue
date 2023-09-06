@@ -7,17 +7,18 @@
     href="#"
     @click.prevent="theme.toggleTheme"
   >
-    <o-icon :name="icon" />
+    <o-icon :type="icon" />
   </a>
 </template>
 
 <script setup lang="ts">
 import { useThemeStore } from '@/stores/theme'
+import { IconSun, IconMoon } from '@tabler/icons-vue'
 import { computed } from 'vue'
 
 const theme = useThemeStore()
 
-const icon = computed(() => (theme.theme === 'light' ? 'moon' : 'sun'))
+const icon = computed(() => (theme.theme === 'light' ? IconMoon : IconSun))
 
 const tooltip = computed(() =>
   theme.theme === 'light'

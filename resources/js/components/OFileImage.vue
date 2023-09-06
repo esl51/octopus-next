@@ -8,6 +8,7 @@
 
 <script setup lang="ts">
 import { File } from '@/modules/files/types'
+import { IconPhoto, IconFile } from '@tabler/icons-vue'
 
 // props
 withDefaults(
@@ -22,9 +23,9 @@ withDefaults(
 
 // get file icon
 const getIcon = (mimeType: string) => {
-  let icon = 'file'
+  let icon = IconFile
   if (mimeType.match(/^image\//)) {
-    icon = 'photo'
+    icon = IconPhoto
   }
   return icon
 }

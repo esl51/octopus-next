@@ -9,7 +9,7 @@
         v-if="icon"
         class="toast-body pe-0"
       >
-        <o-icon :name="icon" />
+        <o-icon :type="icon" />
       </div>
       <div class="toast-body flex-grow-1">
         <div
@@ -45,7 +45,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import {
+  IconInfoCircle,
+  IconCircleX,
+  IconAlertTriangle,
+  IconCircleCheck,
+} from '@tabler/icons-vue'
+import { SVGProps } from '@tabler/icons-vue'
+import { FunctionalComponent, computed, onMounted, ref } from 'vue'
 
 // props
 const props = withDefaults(
@@ -82,15 +89,15 @@ const closeClasses = computed(() => ({
 }))
 
 const icon = computed(() => {
-  let icon: string | null = null
+  let icon: FunctionalComponent<SVGProps> | null = null
   if (props.variant == 'info') {
-    icon = 'info-circle'
+    icon = IconInfoCircle
   } else if (props.variant == 'success') {
-    icon = 'circle-check'
+    icon = IconCircleCheck
   } else if (props.variant == 'danger') {
-    icon = 'circle-x'
+    icon = IconCircleX
   } else if (props.variant == 'warning') {
-    icon = 'alert-triangle'
+    icon = IconAlertTriangle
   }
   return icon
 })

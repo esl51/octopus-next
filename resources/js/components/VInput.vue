@@ -21,7 +21,7 @@
         v-if="icon"
         class="input-icon-addon"
       >
-        <o-icon :name="icon" />
+        <o-icon :type="icon" />
       </span>
       <input
         :id="locale ? id + '-' + locale : id"
@@ -56,7 +56,7 @@
           href="#"
           @click.prevent="togglePasswordVisible"
         >
-          <o-icon :name="passwordVisible ? 'eye-off' : 'eye'" />
+          <o-icon :type="passwordVisible ? IconEyeOff : IconEye" />
         </a>
       </span>
     </div>
@@ -64,9 +64,12 @@
 </template>
 
 <script setup lang="ts">
+import VLocaleSwitch from './VLocaleSwitch.vue'
 import { useFormControl } from '@/composables/useFormControl'
+import { SVGProps } from '@tabler/icons-vue'
+import { IconEye, IconEyeOff } from '@tabler/icons-vue'
 import Form from 'vform'
-import { ref, computed, inject } from 'vue'
+import { ref, computed, inject, FunctionalComponent } from 'vue'
 
 // props
 const props = withDefaults(
@@ -82,7 +85,7 @@ const props = withDefaults(
     size?: 'sm' | 'lg'
     type?: 'text' | 'password' | 'email' | 'tel'
     placeholder?: string
-    icon?: string
+    icon?: FunctionalComponent<SVGProps>
     translatable?: boolean
   }>(),
   {

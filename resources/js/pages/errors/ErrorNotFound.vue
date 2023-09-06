@@ -10,7 +10,7 @@
         :to="{ name: 'home' }"
         class="btn btn-primary"
       >
-        <o-icon name="arrow-left" />
+        <o-icon :type="IconArrowLeft" />
         {{ $t('error.home_button') }}
       </router-link>
     </div>
@@ -18,5 +18,7 @@
 </template>
 
 <script setup lang="ts">
+import { IconArrowLeft } from '@tabler/icons-vue'
+
 //
 </script>

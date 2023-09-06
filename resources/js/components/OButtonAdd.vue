@@ -6,10 +6,12 @@
     icon
     @click="emit('click')"
   >
-    <o-icon name="plus" />
+    <o-icon :type="IconPlus" />
   </o-button>
 </template>
 
 <script setup lang="ts">
+import { IconPlus } from '@tabler/icons-vue'
+
 const emit = defineEmits(['click'])
 </script>

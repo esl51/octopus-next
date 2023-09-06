@@ -77,6 +77,7 @@
 </template>
 
 <script setup lang="ts">
+import VLocaleSwitch from './VLocaleSwitch.vue'
 import JoditEditor from './vendor/JoditEditor.vue'
 import { useFormControl } from '@/composables/useFormControl'
 import Form from 'vform'

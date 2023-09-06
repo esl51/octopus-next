@@ -15,7 +15,7 @@
         :aria-disabled="!prev"
         @click.prevent="change(prev)"
       >
-        <o-icon name="chevron-left" />
+        <o-icon :type="IconChevronLeft" />
       </button>
     </li>
     <template
@@ -55,7 +55,7 @@
         :aria-disabled="!next"
         @click.prevent="change(next)"
       >
-        <o-icon name="chevron-right" />
+        <o-icon :type="IconChevronRight" />
       </button>
     </li>
   </ul>
@@ -63,6 +63,7 @@
 
 <script setup lang="ts">
 import { Meta } from '@/types'
+import { IconChevronRight, IconChevronLeft } from '@tabler/icons-vue'
 import { computed } from 'vue'
 
 // props
