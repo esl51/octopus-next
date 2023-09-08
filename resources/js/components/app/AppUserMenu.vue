@@ -6,6 +6,7 @@
     :aria-label="$t('layout.open_user_menu')"
     menu-end
     menu-arrow
+    no-caret
   >
     <template #toggle>
       <o-avatar

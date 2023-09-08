@@ -64,8 +64,7 @@ if (dropdown.value) {
 // toggle classes
 const toggleClasses = computed(() => {
   let classes: { [className: string]: boolean } = {
-    'dropdown-toggle': true,
-    'dropdown-toggle-no-caret': props.noCaret,
+    'dropdown-toggle': !props.noCaret,
   }
   if (typeof props.toggleClass === 'string') {
     classes[props.toggleClass] = true
