@@ -9,7 +9,6 @@ git clone git@github.com:esl51/octopus-next.git ./
 composer update
 cp .env.example .env
 php artisan key:generate --ansi
-php artisan jwt:secret --force --ansi
 mkdir -p storage/app/public/media
 php artisan storage:link
 ```
