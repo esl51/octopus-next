@@ -22,7 +22,7 @@ php artisan migrate:fresh --seed
 #### Production
 
 ```bash
-php npm install
+npm install
 ```
 
 #### Development
