@@ -1,25 +1,27 @@
 <template>
-  <div class="form-check">
-    <input
-      :id="id"
-      v-model="model[name]"
-      class="form-check-input"
-      type="checkbox"
-      :name="name"
+  <div>
+    <div class="form-check">
+      <input
+        :id="id"
+        v-model="model[name]"
+        class="form-check-input"
+        type="checkbox"
+        :name="name"
+      />
+      <label
+        v-if="label"
+        class="form-check-label"
+        :for="id"
+      >
+        {{ label }}
+      </label>
+    </div>
+    <div
+      v-if="state === false && errors?.length"
+      class="invalid-feedback"
+      v-html="errors?.join('<br />')"
     />
-    <label
-      v-if="label"
-      class="form-check-label"
-      :for="id"
-    >
-      {{ label }}
-    </label>
   </div>
-  <div
-    v-if="state === false && errors?.length"
-    class="invalid-feedback"
-    v-html="errors?.join('<br />')"
-  />
 </template>
 
 <script setup lang="ts">
