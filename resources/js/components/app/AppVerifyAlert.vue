@@ -3,9 +3,10 @@
     v-if="
       $appConfig.authFeatures.includes('email-verification') &&
       verificationSent === null &&
-      verified === false
+      verified === false &&
+      user?.email_verified_at === null
     "
-    :show="user?.email_verified_at === null"
+    dismissible
     variant="warning"
   >
     <h3 class="mb-1">{{ $t('auth.verification.alert_title') }}</h3>
@@ -28,7 +29,6 @@
       verified === true
     "
     variant="success"
-    show
     dismissible
   >
     <div class="d-flex">

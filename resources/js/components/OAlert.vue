@@ -5,7 +5,6 @@
       alert: true,
       ['alert-' + variant]: !!variant,
       'alert-dismissible': dismissible,
-      show,
     }"
   >
     <slot />
@@ -28,12 +27,10 @@ withDefaults(
   defineProps<{
     variant?: string
     dismissible?: boolean
-    show?: boolean
   }>(),
   {
     variant: 'info',
     dismissible: false,
-    show: false,
   },
 )
 
