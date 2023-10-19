@@ -10,21 +10,21 @@ import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from 'vue-router'
 import { useListsStore } from '@/stores/lists'
 
-interface ItemsConfig {
-  api: ItemsApi
+interface ItemsConfig<T extends Item> {
+  api: ItemsApi<T>
   defaults: Record<string, unknown>
   modal?: Ref<typeof OModal | null>
   params?: ListParams
   listKey: string
 }
 
-export function useItems(config: ItemsConfig) {
+export function useItems<T extends Item>(config: ItemsConfig<T>) {
   const router = useRouter()
   const route = useRoute()
   const { confirm } = useConfirm()
   const { t, availableLocales } = useI18n()
 
-  const items = ref([] as Array<Item>)
+  const items = ref([] as Array<T>) as Ref<Array<T>>
   const meta = ref({} as Meta)
   const params = ref({
     search: '',
@@ -50,7 +50,7 @@ export function useItems(config: ItemsConfig) {
   }
 
   // fill form
-  const fillForm = (item: Item) => {
+  const fillForm = (item: T) => {
     initForm()
     const data = {} as Record<string, unknown>
     Object.keys(config.defaults).forEach((key) => {
@@ -59,9 +59,9 @@ export function useItems(config: ItemsConfig) {
         if ((item[key] as Array<File>)?.some((f) => f.original_name && f.url)) {
           // files
           data[key] = []
-        } else if ((item[key] as Array<Item>)?.some((i) => i.id)) {
+        } else if ((item[key] as Array<T>)?.some((i) => i.id)) {
           // options
-          data[key] = (item[key] as Array<Item>)?.map((i) => i.id)
+          data[key] = (item[key] as Array<T>)?.map((i) => i.id)
         } else {
           data[key] = []
         }
@@ -71,9 +71,9 @@ export function useItems(config: ItemsConfig) {
       ) {
         // file
         data[key] = null
-      } else if ((item[key] as Item)?.id) {
+      } else if ((item[key] as T)?.id) {
         // option
-        data[key] = (item[key] as Item)?.id
+        data[key] = (item[key] as T)?.id
       } else {
         data[key] = item[key]
       }
@@ -101,7 +101,7 @@ export function useItems(config: ItemsConfig) {
   }
 
   // current item
-  const current = ref({} as Item)
+  const current = ref({} as T) as Ref<T>
 
   // fetch item
   const fetchItem = async (id: number) => {
@@ -109,7 +109,7 @@ export function useItems(config: ItemsConfig) {
   }
 
   // load item
-  const loadItem = async (item: Item) => {
+  const loadItem = async (item: T) => {
     current.value = item
   }
 
@@ -207,13 +207,13 @@ export function useItems(config: ItemsConfig) {
 
   // add
   const add = () => {
-    loadItem({} as Item)
+    loadItem({} as T)
     initForm()
     config.modal?.value?.show()
   }
 
   // edit
-  const edit = (item: Item) => {
+  const edit = (item: T) => {
     loadItem(item)
     fillForm(item)
     config.modal?.value?.show()
@@ -245,7 +245,7 @@ export function useItems(config: ItemsConfig) {
   }
 
   // update
-  const update = async (item: number | Item) => {
+  const update = async (item: number | T) => {
     const id = typeof item === 'number' ? item : item.id
     const { data } = await form.post(config.api.url + id, {
       transformRequest: [
@@ -257,7 +257,7 @@ export function useItems(config: ItemsConfig) {
   }
 
   // destroy
-  const destroy = async (item: number | Item, name?: string) => {
+  const destroy = async (item: number | T, name?: string) => {
     const id = typeof item === 'number' ? item : item.id
     if (
       await confirm({

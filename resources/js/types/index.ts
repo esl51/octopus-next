@@ -79,21 +79,21 @@ export interface Meta {
   total: number
 }
 
-export interface ListResponse {
-  data: Array<Item>
+export interface ListResponse<T extends Item> {
+  data: Array<T>
   meta: Meta
 }
 
-export interface ItemsApi {
+export interface ItemsApi<T extends Item> {
   url: string
-  all: () => Promise<ListResponse>
-  list: (params?: ListParams) => Promise<ListResponse>
-  get: (id: number) => Promise<Item>
-  store: (payload: Record<string, unknown>) => Promise<Item>
-  update: (id: number, payload: Record<string, unknown>) => Promise<Item>
+  all: () => Promise<ListResponse<T>>
+  list: (params?: ListParams) => Promise<ListResponse<T>>
+  get: (id: number) => Promise<T>
+  store: (payload: Record<string, unknown>) => Promise<T>
+  update: (id: number, payload: Record<string, unknown>) => Promise<T>
   destroy: (id: number) => Promise<void>
-  moveAfter: (id: number, afterId: number) => Promise<Item>
-  moveBefore: (id: number, beforeId: number) => Promise<Item>
+  moveAfter: (id: number, afterId: number) => Promise<T>
+  moveBefore: (id: number, beforeId: number) => Promise<T>
 }
 
 export interface OTableColumn {

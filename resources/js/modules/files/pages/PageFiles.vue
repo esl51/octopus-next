@@ -15,7 +15,7 @@
     footer-class="border-top-0"
   >
     <o-table
-      :data="items as Array<File>"
+      :data="items"
       :params="params"
       :columns="columns"
       :busy="busy"
@@ -134,7 +134,7 @@ const {
   submit,
   destroy,
   cleanRoute,
-} = useItems({
+} = useItems<File>({
   api: filesApi,
   defaults,
   modal,

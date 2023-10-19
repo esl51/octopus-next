@@ -16,7 +16,7 @@
     footer-class="border-top-0"
   >
     <o-table
-      :data="items as Array<User>"
+      :data="items"
       :params="params"
       :columns="columns"
       :busy="busy"
@@ -179,7 +179,7 @@ const {
   submit,
   destroy,
   cleanRoute,
-} = useItems({
+} = useItems<User>({
   api: usersApi,
   defaults,
   modal,

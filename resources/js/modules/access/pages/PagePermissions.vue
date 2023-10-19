@@ -16,7 +16,7 @@
     footer-class="border-top-0"
   >
     <o-table
-      :data="items as Array<Permission>"
+      :data="items"
       :params="params"
       :columns="columns"
       :busy="busy"
@@ -115,7 +115,7 @@ const {
   submit,
   destroy,
   cleanRoute,
-} = useItems({
+} = useItems<Permission>({
   api: permissionsApi,
   defaults,
   modal,

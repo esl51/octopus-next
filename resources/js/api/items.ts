@@ -6,14 +6,16 @@ import { Item, ItemsApi, ListParams, ListResponse } from '@/types'
  * @param endpoint Api endpoint URL
  * @returns Items Api methods
  */
-export default function itemsApi(endpoint: string): ItemsApi {
+export default function itemsApi<T extends Item>(
+  endpoint: string,
+): ItemsApi<T> {
   const url = endpoint.replace(/\/*$/, '/')
 
   /**
    * All items.
    * @returns ListResponse
    */
-  const all = async (): Promise<ListResponse> => {
+  const all = async (): Promise<ListResponse<T>> => {
     return await list({ per_page: 999 })
   }
 
@@ -22,9 +24,9 @@ export default function itemsApi(endpoint: string): ItemsApi {
    * @param params Query params
    * @returns ListResponse
    */
-  const list = async (params?: ListParams): Promise<ListResponse> => {
+  const list = async (params?: ListParams): Promise<ListResponse<T>> => {
     const { data } = await api.get(url, { params })
-    return data as ListResponse
+    return data as ListResponse<T>
   }
 
   /**
@@ -32,9 +34,9 @@ export default function itemsApi(endpoint: string): ItemsApi {
    * @param id Item id
    * @returns Item
    */
-  const get = async (id: number): Promise<Item> => {
+  const get = async (id: number): Promise<T> => {
     const { data } = await api.get(url + id)
-    return data.data as Item
+    return data.data as T
   }
 
   /**
@@ -42,9 +44,9 @@ export default function itemsApi(endpoint: string): ItemsApi {
    * @param payload Item data
    * @returns Item
    */
-  const store = async (payload: Record<string, unknown>): Promise<Item> => {
+  const store = async (payload: Record<string, unknown>): Promise<T> => {
     const { data } = await api.post(url, payload)
-    return data.data as Item
+    return data.data as T
   }
 
   /**
@@ -56,9 +58,9 @@ export default function itemsApi(endpoint: string): ItemsApi {
   const update = async (
     id: number,
     payload: Record<string, unknown>,
-  ): Promise<Item> => {
+  ): Promise<T> => {
     const { data } = await api.put(url + id, payload)
-    return data.data as Item
+    return data.data as T
   }
 
   /**
@@ -75,9 +77,9 @@ export default function itemsApi(endpoint: string): ItemsApi {
    * @param afterId Item after id
    * @returns Item
    */
-  const moveAfter = async (id: number, afterId: number): Promise<Item> => {
+  const moveAfter = async (id: number, afterId: number): Promise<T> => {
     const { data } = await api.post(url + id + '/move-after/' + afterId)
-    return data.data as Item
+    return data.data as T
   }
 
   /**
@@ -86,9 +88,9 @@ export default function itemsApi(endpoint: string): ItemsApi {
    * @param beforeId Item before id
    * @returns Item
    */
-  const moveBefore = async (id: number, beforeId: number): Promise<Item> => {
+  const moveBefore = async (id: number, beforeId: number): Promise<T> => {
     const { data } = await api.post(url + id + '/move-before/' + beforeId)
-    return data.data as Item
+    return data.data as T
   }
 
   return {
