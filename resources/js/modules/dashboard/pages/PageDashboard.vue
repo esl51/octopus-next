@@ -1,8 +1,8 @@
 <template>
   <o-page-header :title="$t('dashboard.title')" />
   <app-verify-alert />
-  <div>
-    <h4>To Do</h4>
+  <o-card>
+    <h3 class="card-title">To Do</h3>
     <ul>
       <li>
         Доработать модуль списка файлов для переименования файлов (внутри
@@ -11,7 +11,7 @@
       <li>Сортировка перетаскиванием файлов в списке</li>
       <li>Просмотр изображений/аватарок в модальном окне</li>
     </ul>
-  </div>
+  </o-card>
 </template>
 
 <script setup lang="ts">
