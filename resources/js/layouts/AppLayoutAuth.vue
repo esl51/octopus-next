@@ -12,11 +12,7 @@
           :to="{ name: 'home' }"
           class="navbar-brand navbar-brand-autodark"
         >
-          <img
-            src="/img/logo.svg"
-            height="36"
-            :alt="$appConfig.name"
-          />
+          <app-logo />
         </router-link>
       </div>
       <slot />
@@ -26,4 +22,5 @@
 
 <script setup lang="ts">
 import AppLocaleDropdown from '@/components/app/AppLocaleDropdown.vue'
+import AppLogo from '@/components/app/AppLogo.vue'
 </script>

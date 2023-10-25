@@ -13,11 +13,7 @@
         :to="{ name: 'home' }"
         class="navbar-brand navbar-brand-autodark"
       >
-        <img
-          :src="'/img/logo' + (theme === 'dark' ? '-white' : '') + '.svg'"
-          height="26"
-          :alt="$appConfig.name"
-        />
+        <app-logo :white="theme === 'dark'" />
       </router-link>
       <ul class="navbar-nav flex-row d-lg-none">
         <app-user-menu />
@@ -130,6 +126,7 @@ import { NavItem } from '@/types'
 import { computed } from 'vue'
 import { inject } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import AppLogo from './AppLogo.vue'
 
 const route = useRoute()
 const router = useRouter()
