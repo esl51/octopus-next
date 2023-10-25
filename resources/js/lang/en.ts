@@ -22,6 +22,7 @@ export default {
     id_label: 'ID',
     name_label: 'Name',
     title_label: 'Title',
+    created_at_label: 'Created at',
     items_table_footer: 'Showing {from} to {to} of {total} entries',
     page_meta: '{from}-{to} of {total}',
     enable_light_mode: 'Enable light mode',

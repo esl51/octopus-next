@@ -22,6 +22,7 @@ export default {
     id_label: 'ID',
     name_label: 'Название',
     title_label: 'Заголовок',
+    created_at_label: 'Создано',
     items_table_footer: 'Отображаются записи с {from} по {to} из {total}',
     page_meta: '{from}-{to} из {total}',
     enable_light_mode: 'Включить дневной режим',
