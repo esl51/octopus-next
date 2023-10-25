@@ -37,5 +37,6 @@ class SetLocale
         if (array_key_exists($locale, $locales)) {
             return $locale;
         }
+        return null;
     }
 }
