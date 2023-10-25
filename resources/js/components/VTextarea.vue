@@ -41,6 +41,7 @@
 import { useFormControl } from '@/composables/useFormControl'
 import Form from 'vform'
 import { computed, inject } from 'vue'
+import VLocaleSwitch from './VLocaleSwitch.vue'
 
 // props
 const props = withDefaults(
