@@ -72,6 +72,7 @@ trait HasFiles
             if ($uploadedFile instanceof UploadedFile) {
                 if (in_array($uploadedFile->getMimeType(), ['image/jpeg', 'image/png'])) {
                     $img = Image::make($uploadedFile);
+                    $img->orientate();
                     if ($img->width() < $img->height()) {
                         $img->widen($cropSize, function ($constraint) {
                             $constraint->upsize();
