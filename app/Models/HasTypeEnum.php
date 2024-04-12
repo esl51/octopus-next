@@ -16,7 +16,7 @@ trait HasTypeEnum
     {
         $className = explode('\\', self::class);
         $typeName = Str::snake(preg_replace('/Type$/', '', end($className)));
-        return trans('type.' . $typeName . '.' . $this->alias());
+        return trans(Str::plural($typeName) . '.types.' .  $this->alias());
     }
 
     public function asObject(): stdClass

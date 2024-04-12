@@ -141,6 +141,8 @@ return [
     'url' => 'The :attribute must be a valid URL.',
     'uuid' => 'The :attribute must be a valid UUID.',
 
+    'alias' => 'The :attribute must only contain latin lowercase letters, numbers and underscores.',
+
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines
@@ -176,6 +178,10 @@ return [
         'password' => 'password',
         'avatar' => 'avatar',
         'current_password' => 'current password',
+        'alias' => 'alias',
+        'property' => 'attribute',
+        'property_type_id' => 'attribute type',
+        'property_group_id' => 'attribute group',
     ],
 
 ];
