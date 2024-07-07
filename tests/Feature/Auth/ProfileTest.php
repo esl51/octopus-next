@@ -7,6 +7,7 @@ use Hash;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Http\UploadedFile;
 use Notification;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class ProfileTest extends TestCase
@@ -29,7 +30,7 @@ class ProfileTest extends TestCase
         $this->user = User::factory()->create();
     }
 
-    /** @test */
+    #[Test]
     public function can_update_profile_information()
     {
         if ($this->verificationEnabled) {
@@ -52,7 +53,7 @@ class ProfileTest extends TestCase
         }
     }
 
-    /** @test */
+    #[Test]
     public function can_update_password()
     {
         $this->actingAs($this->user)
@@ -64,7 +65,7 @@ class ProfileTest extends TestCase
         $this->assertTrue(Hash::check('new_password', $this->user->password));
     }
 
-    /** @test */
+    #[Test]
     public function can_not_update_password_with_invalid_current()
     {
         $this->actingAs($this->user)
@@ -75,7 +76,7 @@ class ProfileTest extends TestCase
             ->assertJsonValidationErrors('current_password');
     }
 
-    /** @test */
+    #[Test]
     public function can_update_avatar()
     {
         $this->actingAs($this->user)
@@ -86,7 +87,7 @@ class ProfileTest extends TestCase
         $this->storage->assertExists($this->user->avatar->path);
     }
 
-    /** @test */
+    #[Test]
     public function can_view_avatar()
     {
         $this->actingAs($this->user)
@@ -97,7 +98,7 @@ class ProfileTest extends TestCase
         $this->get(str_replace('{id}', $this->user->avatar->id, $this->viewAvatarUrl));
     }
 
-    /** @test */
+    #[Test]
     public function can_download_avatar()
     {
         $this->actingAs($this->user)
@@ -108,7 +109,7 @@ class ProfileTest extends TestCase
         $this->get(str_replace('{id}', $this->user->avatar->id, $this->downloadAvatarUrl));
     }
 
-    /** @test */
+    #[Test]
     public function can_delete_avatar()
     {
         $this->actingAs($this->user)

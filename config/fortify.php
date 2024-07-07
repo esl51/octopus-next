@@ -1,6 +1,6 @@
 <?php
 
-use App\Providers\RouteServiceProvider;
+use App\Providers\AppServiceProvider;
 use Laravel\Fortify\Features;
 
 return [
@@ -61,7 +61,7 @@ return [
     |
     */
 
-    'home' => env('SPA_URL') . '/dashboard',
+    'home' => env('SPA_URL') . AppServiceProvider::HOME,
 
     /*
     |--------------------------------------------------------------------------

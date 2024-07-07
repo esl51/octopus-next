@@ -5,6 +5,7 @@ namespace Tests\Feature\Auth;
 use App\Models\Access\User;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Notification;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class RegisterTest extends TestCase
@@ -26,14 +27,14 @@ class RegisterTest extends TestCase
         $this->user = User::factory()->create();
     }
 
-    /** @test */
+    #[Test]
     public function can_see_register_page()
     {
         $this->get($this->registerUrl)
             ->assertSuccessful();
     }
 
-    /** @test */
+    #[Test]
     public function can_register()
     {
         if ($this->verificationEnabled) {
@@ -51,7 +52,7 @@ class RegisterTest extends TestCase
         }
     }
 
-    /** @test */
+    #[Test]
     public function can_not_register_with_invalid_data()
     {
         $this->postJson($this->registerUrl, [

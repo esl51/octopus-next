@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Access\Permission;
 use Tests\ItemTest;
 use App\Models\Access\Role;
+use PHPUnit\Framework\Attributes\Test;
 
 class RoleTest extends ItemTest
 {
@@ -46,21 +47,21 @@ class RoleTest extends ItemTest
         return $item;
     }
 
-    /** @test */
+    #[Test]
     public function create_item()
     {
         $response = parent::create_item();
         $response->assertJsonCount(1, 'data.permissions');
     }
 
-    /** @test */
+    #[Test]
     public function update_item()
     {
         $response = parent::update_item();
         $response->assertJsonCount(1, 'data.permissions');
     }
 
-    /** @test */
+    #[Test]
     public function list_items_sorted_by_title()
     {
         $this->createItem($this->itemAttributes);

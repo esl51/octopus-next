@@ -2,11 +2,12 @@
 
 namespace Tests\Feature;
 
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class LocaleTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function can_set_locale_from_header()
     {
         $this->withHeaders(['Accept-Language' => 'ru'])

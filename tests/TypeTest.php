@@ -4,6 +4,7 @@ namespace Tests;
 
 use Tests\TestCase;
 use App\Models\Access\User;
+use PHPUnit\Framework\Attributes\Test;
 
 abstract class TypeTest extends TestCase
 {
@@ -21,7 +22,7 @@ abstract class TypeTest extends TestCase
         })->create();
     }
 
-    /** @test */
+    #[Test]
     public function list_items()
     {
         $this->actingAs($this->user)

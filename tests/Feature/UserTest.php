@@ -6,6 +6,7 @@ use Tests\ItemTest;
 use App\Models\Access\Role;
 use App\Models\Access\User;
 use Illuminate\Http\UploadedFile;
+use PHPUnit\Framework\Attributes\Test;
 
 class UserTest extends ItemTest
 {
@@ -53,7 +54,7 @@ class UserTest extends ItemTest
         return $item;
     }
 
-    /** @test */
+    #[Test]
     public function create_item()
     {
         $response = parent::create_item();
@@ -63,7 +64,7 @@ class UserTest extends ItemTest
         $this->storage->assertExists($item->avatar->path);
     }
 
-    /** @test */
+    #[Test]
     public function update_item()
     {
         $response = parent::update_item();
@@ -73,7 +74,7 @@ class UserTest extends ItemTest
         $this->storage->assertExists($item->avatar->path);
     }
 
-    /** @test */
+    #[Test]
     public function list_items_by_role_name()
     {
         $this->createItem($this->itemAttributes);
@@ -84,7 +85,7 @@ class UserTest extends ItemTest
             ->assertJsonCount(1, 'data');
     }
 
-    /** @test */
+    #[Test]
     public function admin_has_can_attribute()
     {
         $this->createItem($this->itemAttributes);
@@ -94,7 +95,7 @@ class UserTest extends ItemTest
             ->assertJsonStructure(['data' => ['can']]);
     }
 
-    /** @test */
+    #[Test]
     public function admin_can_not_update_root()
     {
         $response = $this->actingAs($this->admin)
@@ -106,7 +107,7 @@ class UserTest extends ItemTest
             ->assertJsonStructure(['status']);
     }
 
-    /** @test */
+    #[Test]
     public function admin_can_not_delete_root()
     {
         $response = $this->actingAs($this->admin)

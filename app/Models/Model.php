@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
-use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 use Illuminate\Database\Eloquent\Model as BaseModel;
 use Roquie\LaravelPerPageResolver\PerPageResolverTrait;
 
@@ -19,7 +18,6 @@ use Roquie\LaravelPerPageResolver\PerPageResolverTrait;
 abstract class Model extends BaseModel
 {
     use PerPageResolverTrait;
-    use HasEagerLimit;
     use HasColumns;
     use SerializesDates;
 

@@ -4,6 +4,7 @@ namespace Tests;
 
 use Tests\TestCase;
 use App\Models\Access\User;
+use PHPUnit\Framework\Attributes\Test;
 
 abstract class ItemTest extends TestCase
 {
@@ -43,7 +44,7 @@ abstract class ItemTest extends TestCase
         return $item->create($attributes);
     }
 
-    /** @test */
+    #[Test]
     public function show_item()
     {
         $item = $this->createItem($this->itemAttributes);
@@ -55,7 +56,7 @@ abstract class ItemTest extends TestCase
                 : $this->validStructure);
     }
 
-    /** @test */
+    #[Test]
     public function list_items()
     {
         $this->createItem($this->itemAttributes);
@@ -67,7 +68,7 @@ abstract class ItemTest extends TestCase
                 : ['data' => ['*' => $this->validStructure['data']]]);
     }
 
-    /** @test */
+    #[Test]
     public function list_items_by_id()
     {
         $item = $this->createItem($this->itemAttributes);
@@ -80,7 +81,7 @@ abstract class ItemTest extends TestCase
             ->assertJsonCount(1, 'data');
     }
 
-    /** @test */
+    #[Test]
     public function list_items_sorted_by_id()
     {
         $this->createItem($this->itemAttributes);
@@ -92,7 +93,7 @@ abstract class ItemTest extends TestCase
                 : ['data' => ['*' => $this->validStructure['data']]]);
     }
 
-    /** @test */
+    #[Test]
     public function search_item_by_id()
     {
         $item = $this->createItem($this->itemAttributes);
@@ -105,7 +106,7 @@ abstract class ItemTest extends TestCase
             ->assertJsonCount(1, 'data');
     }
 
-    /** @test */
+    #[Test]
     public function search_item_by_string()
     {
         $item = $this->createItem($this->itemAttributes);
@@ -124,7 +125,7 @@ abstract class ItemTest extends TestCase
                 : ['data' => ['*' => $this->validStructure['data']]]);
     }
 
-    /** @test */
+    #[Test]
     public function create_item()
     {
         $dummyData = $this->dummyData;
@@ -156,7 +157,7 @@ abstract class ItemTest extends TestCase
         return $response;
     }
 
-    /** @test */
+    #[Test]
     public function update_item()
     {
         $item = $this->createItem($this->itemAttributes);
@@ -192,7 +193,7 @@ abstract class ItemTest extends TestCase
         return $response;
     }
 
-    /** @test */
+    #[Test]
     public function delete_item()
     {
         $item = $this->createItem($this->itemAttributes);

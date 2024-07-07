@@ -71,18 +71,18 @@ trait HasFiles
         foreach ($files as $uploadedFile) {
             if ($uploadedFile instanceof UploadedFile) {
                 if (in_array($uploadedFile->getMimeType(), ['image/jpeg', 'image/png'])) {
-                    $img = Image::make($uploadedFile);
-                    $img->orientate();
+                    $img = Image::read($uploadedFile);
+                    $img->orient();
                     if ($img->width() < $img->height()) {
-                        $img->widen($cropSize, function ($constraint) {
-                            $constraint->upsize();
-                        });
+                        $img->scaleDown(width: $cropSize);
                     } else {
-                        $img->heighten($cropSize, function ($constraint) {
-                            $constraint->upsize();
-                        });
+                        $img->scaleDown(height: $cropSize);
                     }
-                    $img->stream();
+                    if ($uploadedFile->getMimeType() == 'image/jpeg') {
+                        $img = $img->toJpeg()->toFilePointer();
+                    } elseif ($uploadedFile->getMimeType() == 'image/png') {
+                        $img = $img->toPng()->toFilePointer();
+                    }
                     Storage::put($this->getPath($uploadedFile->hashName(), $type), $img);
                 } else {
                     $uploadedFile->store($this->getStoragePath($type));

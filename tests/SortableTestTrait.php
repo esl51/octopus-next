@@ -2,11 +2,13 @@
 
 namespace Tests;
 
+use PHPUnit\Framework\Attributes\Test;
+
 trait SortableTestTrait
 {
     protected $item2Attributes = [];
 
-    /** @test */
+    #[Test]
     public function move_item_before()
     {
         $item = $this->createItem($this->itemAttributes);
@@ -18,7 +20,7 @@ trait SortableTestTrait
             ->assertJsonPath($this->pivot ? 'data.pivot.position' : 'data.position', $item->position);
     }
 
-    /** @test */
+    #[Test]
     public function move_item_after()
     {
         $item = $this->createItem($this->itemAttributes);

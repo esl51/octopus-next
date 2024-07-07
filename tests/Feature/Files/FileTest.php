@@ -4,6 +4,7 @@ namespace Tests\Feature\Files;
 
 use Tests\ItemTest;
 use App\Models\Files\File;
+use PHPUnit\Framework\Attributes\Test;
 
 class FileTest extends ItemTest
 {
@@ -38,7 +39,7 @@ class FileTest extends ItemTest
         ];
     }
 
-    /** @test */
+    #[Test]
     public function create_item()
     {
         $this->markTestSkipped('not needed');

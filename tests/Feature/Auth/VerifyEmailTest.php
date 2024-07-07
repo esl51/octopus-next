@@ -3,11 +3,12 @@
 namespace Tests\Feature\Auth;
 
 use App\Models\Access\User;
-use App\Providers\RouteServiceProvider;
+use App\Providers\AppServiceProvider;
 use Event;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Notification;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 use URL;
 
@@ -29,7 +30,7 @@ class VerifyEmailTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function can_request_verification_link()
     {
         Notification::fake();
@@ -38,7 +39,7 @@ class VerifyEmailTest extends TestCase
         Notification::assertSentTo($this->user, VerifyEmail::class);
     }
 
-    /** @test */
+    #[Test]
     public function can_verify_email()
     {
         Event::fake();
@@ -51,10 +52,10 @@ class VerifyEmailTest extends TestCase
             ->get($verifyEmailUrl);
         Event::assertDispatched(Verified::class);
         $this->assertTrue($this->user->fresh()->hasVerifiedEmail());
-        $response->assertRedirect(RouteServiceProvider::HOME . '?verified=1');
+        $response->assertRedirect(AppServiceProvider::HOME . '?verified=1');
     }
 
-    /** @test */
+    #[Test]
     public function can_not_verify_email_with_invalid_hash()
     {
         $verifyEmailUrl = URL::temporarySignedRoute(
@@ -68,7 +69,7 @@ class VerifyEmailTest extends TestCase
         $this->assertFalse($this->user->fresh()->hasVerifiedEmail());
     }
 
-    /** @test */
+    #[Test]
     public function can_not_verify_email_unauthenticated()
     {
         $verifyEmailUrl = URL::temporarySignedRoute(
