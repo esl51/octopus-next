@@ -141,9 +141,8 @@ const nav: Array<NavItem> | undefined = inject('nav')
 const navItemActive = (item: NavItem) =>
   (item.to && router.resolve(item.to)?.name === route.name) ||
   (!!item.children &&
-    route.matched.some(
-      ({ name }) =>
-        item.children?.some((c) => c.to && router.resolve(c.to)?.name === name),
+    route.matched.some(({ name }) =>
+      item.children?.some((c) => c.to && router.resolve(c.to)?.name === name),
     ))
 
 const checkPermissions = (item: NavItem) => {

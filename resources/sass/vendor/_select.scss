@@ -211,9 +211,10 @@
     }
   }
 
-  // stylelint-disable-next-line no-descending-specificity
+  // stylelint-disable no-descending-specificity
   .vs__search,
   .vs__search:focus {
     @include font-size($input-font-size-lg);
   }
+  // stylelint-enable no-descending-specificity
 }
