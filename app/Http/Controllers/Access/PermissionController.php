@@ -27,7 +27,7 @@ class PermissionController extends ItemController
                 'max:255',
                 Rule::unique('permissions')
                     ->ignore($id)
-                    ->where(fn ($query) => $query->where('guard_name', $request->input('guard_name'))),
+                    ->where(fn($query) => $query->where('guard_name', $request->guard_name)),
             ],
             'guard_name' => 'required|string|max:255',
         ];

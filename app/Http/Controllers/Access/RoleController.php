@@ -37,7 +37,7 @@ class RoleController extends ItemController
                 'max:255',
                 Rule::unique('roles')
                     ->ignore($id)
-                    ->where(fn ($query) => $query->where('guard_name', $request->input('guard_name'))),
+                    ->where(fn($query) => $query->where('guard_name', $request->guard_name)),
             ],
             '%title%' => 'required_if_fallback:nullable|string|max:255',
             'guard_name' => 'required|string|max:255',
@@ -64,12 +64,12 @@ class RoleController extends ItemController
 
     public function afterStore(Request $request, Model $item): void
     {
-        $item->syncPermissions($request->input('permissions'));
+        $item->syncPermissions($request->permissions);
     }
 
     public function afterUpdate(Request $request, Model $item): void
     {
-        $item->syncPermissions($request->input('permissions'));
+        $item->syncPermissions($request->permissions);
     }
 
     public function sortByTranslations(): array
