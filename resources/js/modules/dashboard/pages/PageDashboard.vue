@@ -2,15 +2,7 @@
   <o-page-header :title="$t('dashboard.title')" />
   <app-verify-alert />
   <o-card>
-    <h3 class="card-title">To Do</h3>
-    <ul>
-      <li>
-        Доработать модуль списка файлов для переименования файлов (внутри
-        объектов, а не в разделе Файлы)
-      </li>
-      <li>Сортировка перетаскиванием файлов в списке</li>
-      <li>Просмотр изображений/аватарок в модальном окне</li>
-    </ul>
+    <h3 class="card-title">...</h3>
   </o-card>
 </template>
 

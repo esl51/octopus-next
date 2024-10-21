@@ -68,3 +68,10 @@ php artisan test
 ```bash
 XDEBUG_MODE=coverage php artisan test --coverage
 ```
+
+# Roadmap
+
+- [Best practices](https://github.com/alexeymezenin/laravel-best-practices/blob/master/russian.md)
+- Доработать модуль списка файлов для переименования файлов (внутри объектов, а не в разделе Файлы)
+- Сортировка перетаскиванием файлов в списке
+- Просмотр изображений/аватарок в модальном окне
