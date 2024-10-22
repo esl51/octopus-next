@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\SerializesDates;
+use App\Traits\SerializesDates;
 use Illuminate\Database\Eloquent\Relations\MorphPivot as BaseMorphPivot;
 
 /**

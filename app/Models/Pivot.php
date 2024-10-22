@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\SerializesDates;
 use Illuminate\Database\Eloquent\Relations\Pivot as BasePivot;
 
 /**

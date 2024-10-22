@@ -3,63 +3,20 @@
 namespace App\Http\Controllers\Files;
 
 use App\Http\Controllers\ItemController;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class FileController extends ItemController
 {
-    protected array $fillable = [
-        'original_name',
-    ];
-    protected array $fillableTranslations = [
-        'title',
-    ];
-
-    public function addConditions(Request $request, Builder $query): Builder
-    {
-        return $query->viewable();
-    }
-
-    public function getValidationRules(Request $request, ?int $id = null): array
-    {
-        return [
-            'original_name' => 'required|string|max:255',
-            '%title%' => 'nullable|string|max:255',
-        ];
-    }
-
-    public function newItemsQuery(Request $request): Builder
-    {
-        $items = parent::newItemsQuery($request);
-
-        $search = $request->query('search');
-        if ($search && !is_numeric($search)) {
-            $items->where(function ($query) use ($search) {
-                $query->orWhere('original_name', 'like', '%' . $search . '%')
-                    ->orWhereTranslationLike('title', '%' . $search . '%');
-            });
-        }
-
-        return $items;
-    }
-
-    public function sortByTranslations(): array
-    {
-        return [
-            'title' => 'file_translations.title',
-        ];
-    }
-
     public function download(Request $request): StreamedResponse
     {
-        $item = $this->getItem($request, (int) $request->id);
+        $item = $this->findItem((int) $request->route('id'));
         return $item->download();
     }
 
     public function view(Request $request): StreamedResponse
     {
-        $item = $this->getItem($request, (int) $request->id);
+        $item = $this->findItem((int) $request->route('id'));
         return $item->response();
     }
 }

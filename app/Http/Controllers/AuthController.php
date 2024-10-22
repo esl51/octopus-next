@@ -29,7 +29,7 @@ class AuthController extends Controller
         $this->validate($request, [
             'avatar' => 'required|mimes:jpeg,png',
         ]);
-        $user->handleFiles($request, 'avatar');
+        $user->handleFiles($request->allFiles(), 'avatar');
         return response()->json(null, 204);
     }
 

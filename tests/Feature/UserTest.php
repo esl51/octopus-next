@@ -98,21 +98,19 @@ class UserTest extends ItemTest
     #[Test]
     public function admin_can_not_update_root()
     {
-        $response = $this->actingAs($this->admin)
+        $this->actingAs($this->admin)
             ->putJson('/api/access/users/' . $this->user->id, [
                 'name' => 'Root User',
                 'email' => 'new.email@root.org',
             ])
-            ->assertStatus(400)
-            ->assertJsonStructure(['status']);
+            ->assertStatus(403);
     }
 
     #[Test]
     public function admin_can_not_delete_root()
     {
-        $response = $this->actingAs($this->admin)
+        $this->actingAs($this->admin)
             ->deleteJson('/api/access/users/' . $this->user->id)
-            ->assertStatus(400)
-            ->assertJsonStructure(['status']);
+            ->assertStatus(403);
     }
 }

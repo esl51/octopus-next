@@ -2,9 +2,10 @@
 
 namespace App\Models\Access;
 
-use App\Models\Files\HasFiles;
-use App\Models\HasColumns;
-use App\Models\SerializesDates;
+use App\Traits\Access\ExposePermissions;
+use App\Traits\Files\HasFiles;
+use App\Traits\HasColumns;
+use App\Traits\SerializesDates;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Models\Files;
+namespace App\Traits\Files;
 
+use App\Models\Files\File;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Image;
 use Storage;
@@ -27,7 +27,7 @@ trait HasFiles
      */
     public static function viewableFilesScope(Builder $query): void
     {
-        $types = array_keys(array_filter((new self())->getFileTypes(), fn ($item) => !empty($item['viewable'])));
+        $types = array_keys(array_filter((new self())->getFileTypes(), fn($item) => !empty($item['viewable'])));
         if (!empty($types)) {
             $query->whereIn('type', $types);
         }
@@ -131,28 +131,31 @@ trait HasFiles
         return $this->morphMany(File::class, 'filable');
     }
 
-    public function handleFiles(Request $request, string|array|null $types = null): void
+    public function handleFiles(?array $files = null, string|array|null $types = null): void
     {
+        if (empty($files)) {
+            return;
+        }
         $fileTypes = $this->getFileTypes();
         if (is_string($types)) {
             $fileTypes = array_filter(
                 $fileTypes,
-                fn ($item) => $item == $types,
+                fn($item) => $item == $types,
                 ARRAY_FILTER_USE_KEY
             );
         } elseif (is_array($types)) {
             $fileTypes = array_filter(
                 $fileTypes,
-                fn ($item) => in_array($item, $types),
+                fn($item) => in_array($item, $types),
                 ARRAY_FILTER_USE_KEY
             );
         }
         foreach ($fileTypes as $type => $options) {
-            if ($request->hasFile($type)) {
+            if (data_get($files, $type)) {
                 if ($options['replace']) {
                     $this->deleteDirectory($type);
                 }
-                $this->storeFiles($request->file($type), $type, $options['cropSize']);
+                $this->storeFiles(data_get($files, $type), $type, $options['cropSize']);
             }
         }
     }

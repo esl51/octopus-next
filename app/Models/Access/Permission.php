@@ -2,8 +2,8 @@
 
 namespace App\Models\Access;
 
-use App\Models\HasColumns;
-use App\Models\SerializesDates;
+use App\Traits\HasColumns;
+use App\Traits\SerializesDates;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\Permission\Models\Permission as BasePermission;
 use Roquie\LaravelPerPageResolver\PerPageResolverTrait;

@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Classes\EloquentBuilder;
+use App\Traits\HasColumns;
+use App\Traits\SerializesDates;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model as BaseModel;
 use Roquie\LaravelPerPageResolver\PerPageResolverTrait;

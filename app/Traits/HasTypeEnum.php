@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Traits;
 
 use stdClass;
 use Str;
@@ -28,7 +28,7 @@ trait HasTypeEnum
     {
         $methods = array_filter(
             get_class_methods($this),
-            fn ($item) => !in_array($item, ['from', 'tryFrom', 'cases', 'asArray', 'asObject'])
+            fn($item) => !in_array($item, ['from', 'tryFrom', 'cases', 'asArray', 'asObject'])
         );
 
         $array = [

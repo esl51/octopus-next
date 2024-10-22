@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Models\Access;
+namespace App\Traits\Access;
 
+use App\Models\Access\Permission;
 use Illuminate\Support\Collection;
 
 trait ExposePermissions

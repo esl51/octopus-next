@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Classes;
 
 use Astrotomic\Translatable\Validation\RuleFactory;
 
