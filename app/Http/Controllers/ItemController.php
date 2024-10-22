@@ -14,11 +14,11 @@ abstract class ItemController extends Controller
     /**
      * Item class name
      */
-    protected string $class;
+    protected ?string $class = null;
     /**
      * Resource class name
      */
-    protected string $resourceClass;
+    protected ?string $resourceClass = null;
     /**
      * Fillable properties of class
      */
@@ -39,6 +39,22 @@ abstract class ItemController extends Controller
      * Has search
      */
     protected bool $search = true;
+
+    public function __construct()
+    {
+        $this->class = $this->class ?: self::guessClass();
+        $this->resourceClass = $this->resourceClass ?: self::guessResourceClass();
+    }
+
+    private static function guessClass(): string
+    {
+        return preg_replace('/(.+)\\\\Http\\\\Controllers\\\\(.+)Controller$/m', '$1\Models\\\$2', static::class);
+    }
+
+    private static function guessResourceClass(): string
+    {
+        return preg_replace('/(.+)\\\\Controllers\\\\(.+)Controller$/m', '$1\Resources\\\$2Resource', static::class);
+    }
 
     /**
      * Get validation rules for new or existing resource.
@@ -203,7 +219,7 @@ abstract class ItemController extends Controller
         if ($sortBy) {
             $table = (new $this->class())->getTable();
             $columns = array_map(
-                fn ($item) => str_replace($table . '.', '', $item),
+                fn($item) => str_replace($table . '.', '', $item),
                 $this->class::getColumns()
             );
             $sortDirection = $request->boolean('sort_desc') ? 'desc' : 'asc';

@@ -2,17 +2,13 @@
 
 namespace App\Http\Controllers\Access;
 
-use App\Models\Access\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\ItemController;
-use App\Http\Resources\Access\PermissionResource;
 use Illuminate\Database\Eloquent\Builder;
 
 class PermissionController extends ItemController
 {
-    protected string $class = Permission::class;
-    protected string $resourceClass = PermissionResource::class;
     protected array $fillable = [
         'name',
         'guard_name',

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Access;
 
 use App\Http\Controllers\ItemController;
-use App\Http\Resources\Access\UserResource;
 use App\Models\Access\Role;
 use App\Models\Access\User;
 use Illuminate\Database\Eloquent\Builder;
@@ -13,8 +12,6 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends ItemController
 {
-    protected string $class = User::class;
-    protected string $resourceClass = UserResource::class;
     protected array $fillable = [
         'name',
         'email',

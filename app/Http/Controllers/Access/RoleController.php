@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Access;
 
 use App\Http\Controllers\ItemController;
-use App\Http\Resources\Access\RoleResource;
-use App\Models\Access\Role;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -12,8 +10,6 @@ use Illuminate\Validation\Rule;
 
 class RoleController extends ItemController
 {
-    protected string $class = Role::class;
-    protected string $resourceClass = RoleResource::class;
     protected array $fillable = [
         'name',
         'guard_name',
