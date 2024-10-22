@@ -76,7 +76,7 @@ class UserService extends ItemService
         $rootRole = Role::where('name', 'root')->first();
         // if user is current user and current user is root and root was unchecked - set only root role
         if (
-            $item->id == auth()->user()->id &&
+            $item->id == auth()->id() &&
             auth()->user()->hasRole('root') &&
             !in_array($rootRole->id, $roles)
         ) {
