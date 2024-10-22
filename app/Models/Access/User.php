@@ -111,7 +111,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getIsDeletableAttribute(): bool
     {
         // if user is current user and has root role
-        if ($this->id == auth()->user()->id && auth()->user()->hasRole('root')) {
+        if ($this->id == auth()->id() && auth()->user()->hasRole('root')) {
             return false;
         }
         // if user has root role and current user is not root
