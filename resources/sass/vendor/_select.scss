@@ -1,5 +1,8 @@
+@use '../globals' as *;
+
 @use 'sass:color';
-@import 'vue-select/dist/vue-select.css';
+@use 'vue-select/dist/vue-select.css';
+
 .v-select {
   --vs-search-input-color: #{$input-color};
   --vs-search-input-placeholder-color: #{$input-placeholder-color};

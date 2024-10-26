@@ -9,6 +9,7 @@ import tooltip from './plugins/tooltip'
 import router from './router'
 import { createApp } from 'vue'
 import Vue3Mount from 'vue3-mount'
+import VueDOMPurifyHTML from 'vue-dompurify-html'
 
 const app = createApp(App)
 
@@ -18,6 +19,7 @@ app.use(router)
 app.use(head)
 app.use(i18n)
 app.use(Vue3Mount)
+app.use(VueDOMPurifyHTML)
 
 // directives
 app.directive('sortable', sortable)

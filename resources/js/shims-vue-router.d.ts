@@ -1,4 +1,3 @@
-/* eslint-disable */
 export {}
 
 import 'vue-router'

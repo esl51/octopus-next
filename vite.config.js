@@ -21,6 +21,14 @@ export default defineConfig({
     }),
     svgLoader(),
   ],
+  css: {
+    preprocessorOptions: {
+      scss: {
+        api: 'modern-compiler',
+        quietDeps: true,
+      },
+    },
+  },
   resolve: {
     alias: {
       '~bootstrap': 'bootstrap',

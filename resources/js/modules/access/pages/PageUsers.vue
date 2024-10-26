@@ -41,20 +41,24 @@
           <div class="flex-fill min-w-0">
             <div class="font-weight-medium text-truncate">{{ item.name }}</div>
             <div class="text-muted fw-normal text-truncate">
+              <!-- eslint-disable sonarjs/no-vue-bypass-sanitization -->
               <a
-                :href="'mailto:' + item.email"
+                :href="sanitizeUrl('mailto:' + item.email)"
                 class="text-reset"
               >
                 {{ item.email }}
               </a>
+              <!-- eslint-enable -->
             </div>
           </div>
         </div>
       </template>
       <template #cell(roles)="{ item }">
         <div
+          v-dompurify-html="
+            item.roles?.map((r: Item) => r.title).join('<br />')
+          "
           class="text-muted"
-          v-html="item.roles?.map((r: Item) => r.title).join('<br />')"
         />
       </template>
       <template #cell(action-column)="{ item }">
@@ -142,6 +146,7 @@ import { Item } from '@/types'
 import { Role, User } from '../types'
 import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { sanitizeUrl } from '@braintree/sanitize-url'
 
 const { t } = useI18n()
 

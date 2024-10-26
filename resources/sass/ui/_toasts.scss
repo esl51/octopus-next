@@ -1,3 +1,5 @@
+@use '../globals' as *;
+
 .toast-body + .btn-close {
   margin-top: $toast-padding-x;
   margin-right: $toast-padding-x;

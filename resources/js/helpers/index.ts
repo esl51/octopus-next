@@ -71,6 +71,7 @@ export function handleDates(body: any) {
         dateString = date.toISOString().split('.')[0] + '+00:00'
       } catch (e) {
         dateString = null
+        console.log(e)
       }
       if (dateString === value.toString()) {
         body[key] = new Date(date.toLocaleString('en-US', { timeZone: tz }))

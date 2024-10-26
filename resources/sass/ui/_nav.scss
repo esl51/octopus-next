@@ -1,3 +1,5 @@
+@use '../globals' as *;
+
 .nav-link {
   &.btn {
     --#{$prefix}btn-padding-x: 0;

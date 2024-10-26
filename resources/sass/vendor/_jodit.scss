@@ -1,4 +1,5 @@
-@import 'jodit/build/jodit.es2018.css';
+@use '../globals' as *;
+@use 'jodit/build/jodit.es2018.css';
 
 .jodit-editor,
 .jodit-popup-container,

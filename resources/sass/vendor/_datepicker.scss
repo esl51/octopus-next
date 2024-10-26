@@ -1,51 +1,43 @@
+@use '../globals' as *;
+
 @use 'sass:color';
 
 $namespace: 'xmx';
 
-$default-color: inherit;
-$primary-color: $primary;
+@use 'vue-datepicker-next/scss/index' with (
+  $namespace: $namespace,
 
-$today-color: $primary;
+  $default-color: inherit,
+  $primary-color: $primary,
 
-$popup-z-index: 2001;
+  $today-color: $primary,
 
-$input-border-color: $input-border-color;
-$input-color: $input-color;
-$input-hover-border-color: $input-border-color;
+  $popup-z-index: 2001,
 
-$disabled-color: $input-color;
-$disabled-background-color: $input-disabled-bg;
+  $input-border-color: $input-border-color,
+  $input-color: $input-color,
+  $input-hover-border-color: $input-border-color,
 
-$border-color: $border-color-translucent;
+  $disabled-color: $input-color,
+  $disabled-background-color: $input-disabled-bg,
 
-$calendar-active-color: var(--#{$prefix}primary-fg);
-$calendar-active-background-color: $primary-color;
+  $border-color: $border-color-translucent,
 
-$calendar-hover-color: inherit;
-$calendar-hover-background-color: rgba(var(--#{$prefix}muted-rgb), 0.04);
+  $calendar-active-color: var(--#{$prefix}primary-fg),
+  $calendar-active-background-color: $primary,
 
-$calendar-in-range-color: $default-color;
-$calendar-in-range-background-color: color.mix(
-  #fff,
-  $calendar-active-background-color,
-  85%
+  $calendar-hover-color: inherit,
+  $calendar-hover-background-color: rgba(var(--#{$prefix}muted-rgb), 0.04),
+  $calendar-in-range-color: inherit,
+  $calendar-in-range-background-color: color.mix(#fff, $primary, 85%),
+  $time-active-color: $primary,
+  $time-active-background-color: transparent,
+
+  $time-hover-color: inherit,
+  $time-hover-background-color: color.mix(#fff, $primary, 95%),
+  $input-border-radius: $input-border-radius,
+  $sidebar-margin-left: 100px
 );
-
-$time-active-color: $primary-color;
-$time-active-background-color: transparent;
-
-$time-hover-color: $default-color;
-$time-hover-background-color: color.mix(
-  #fff,
-  $calendar-active-background-color,
-  95%
-);
-
-$input-border-radius: $input-border-radius;
-$sidebar-margin-left: 100px;
-
-// stylelint-disable-next-line scss/at-import-partial-extension
-@import 'vue-datepicker-next/scss/index.scss';
 
 .#{$namespace}-datepicker {
   width: 100%;

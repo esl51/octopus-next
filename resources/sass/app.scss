@@ -1,27 +1,20 @@
-@import 'variables';
-
-// tabler
-@import '@tabler/core/src/scss/tabler';
-
-// main
-@import 'utilities';
-
 // layout
-@import 'layout/core';
-@import 'layout/page';
+@use 'layout/core';
+@use 'layout/page';
 
 // ui
-@import 'ui/avatars';
-@import 'ui/buttons';
-@import 'ui/dropdowns';
-@import 'ui/forms';
-@import 'ui/forms/validation';
-@import 'ui/modals';
-@import 'ui/nav';
-@import 'ui/toasts';
-@import 'ui/tables';
+@use 'ui/avatars';
+@use 'ui/buttons';
+@use 'ui/dropdowns';
+@use 'ui/forms';
+@use 'ui/forms/validation';
+@use 'ui/modals';
+@use 'ui/nav';
+@use 'ui/navbar';
+@use 'ui/toasts';
+@use 'ui/tables';
 
 // vendor
-@import 'vendor/datepicker';
-@import 'vendor/select';
-@import 'vendor/jodit';
+@use 'vendor/datepicker';
+@use 'vendor/select';
+@use 'vendor/jodit';

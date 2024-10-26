@@ -1,0 +1,20 @@
+@forward '@tabler/core/src/scss/tabler' with (
+  // utilities
+  $utilities:
+    (
+      'min-width': (
+        property: min-width,
+        class: min-w,
+        values: (
+          0: 0,
+          auth: auto,
+        ),
+      )
+    ),
+
+  // colors
+  $primary: #0093d2,
+
+  // toasts
+  $toast-spacing: 0.5rem
+);

@@ -26,8 +26,8 @@
     </div>
     <div
       v-if="state === false && errors?.length"
+      v-dompurify-html="errors?.join('<br />')"
       class="invalid-feedback"
-      v-html="errors?.join('<br />')"
     />
   </div>
 </template>

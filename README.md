@@ -75,3 +75,5 @@ XDEBUG_MODE=coverage php artisan test --coverage
 - Доработать модуль списка файлов для переименования файлов (внутри объектов, а не в разделе Файлы)
 - Сортировка перетаскиванием файлов в списке
 - Просмотр изображений/аватарок в модальном окне
+- VSelect перевести на [vue-multiselect](https://vue-multiselect.js.org/)
+- Перевести строки в VSelect [подробнее](https://github.com/sagalbot/vue-select/pull/988)

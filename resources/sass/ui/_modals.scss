@@ -1,3 +1,5 @@
+@use '../globals' as *;
+
 .modal-open {
   overflow: hidden;
   padding-right: var(--scrollbar-width, 16px);

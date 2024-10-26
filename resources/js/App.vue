@@ -56,7 +56,6 @@ useHead({
 const nav: Array<NavItem> = []
 Object.entries(
   import.meta.glob('./modules/*/nav.ts', { eager: true, import: 'default' }),
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
 ).forEach(([path, definition]) => {
   if (definition) {
     ;(definition as Array<NavItem>).forEach((item) => {

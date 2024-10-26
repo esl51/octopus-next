@@ -50,8 +50,6 @@ import Form from 'vform'
 import { computed, h, inject, ref } from 'vue'
 import VueSelect from 'vue-select'
 
-// todo: translate strings https://github.com/sagalbot/vue-select/pull/988
-
 // props
 const props = withDefaults(
   defineProps<{

@@ -6,7 +6,6 @@ Object.entries(
     eager: true,
     import: 'default',
   }),
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
 ).forEach(([path, definition]) => {
   if (definition) {
     modules.push(...(definition as Array<RouteRecordRaw>))

@@ -9,11 +9,12 @@
       class="list-group-item p-2"
     >
       <div class="d-flex align-items-center min-w-0">
+        <!-- eslint-disable sonarjs/no-vue-bypass-sanitization -->
         <a
           v-tooltip
           :title="$t('global.view')"
           :aria-label="$t('global.view')"
-          :href="item.url"
+          :href="sanitizeUrl(item.url)"
           target="_blank"
         >
           <o-file-image
@@ -22,6 +23,7 @@
             size="md"
           />
         </a>
+        <!-- eslint-enable -->
         <div class="flex-fill min-w-0">
           <div class="font-weight-medium text-truncate">{{ item.title }}</div>
           <small class="text-muted">{{ formatFileSize(item.size) }}</small>
@@ -63,6 +65,7 @@ import { useConfirm } from '@/composables/useConfirm'
 import { useFormatter } from '@/composables/useFormatter'
 import { filesApi } from '@/modules/files/api'
 import { File } from '@/modules/files/types'
+import { sanitizeUrl } from '@braintree/sanitize-url'
 import { IconTrash, IconDownload } from '@tabler/icons-vue'
 import { ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -94,11 +97,12 @@ const fileList = ref<Array<File>>([])
 watch(
   () => props.files,
   (files) => {
-    fileList.value = files
-      ? Array.isArray(files)
+    fileList.value = []
+    if (files) {
+      fileList.value = Array.isArray(files)
         ? (files as Array<File>)
         : [files as File]
-      : []
+    }
   },
   { immediate: true },
 )
