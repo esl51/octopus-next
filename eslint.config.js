@@ -57,6 +57,7 @@ export default [
       'sonarjs/cognitive-complexity': ['error', 50],
       'sonarjs/no-hardcoded-credentials': 'off',
       'sonarjs/constructor-for-side-effects': 'off',
+      'sonarjs/no-ignored-exceptions': 'off',
     },
   },
 
@@ -68,11 +69,6 @@ export default [
       parserOptions: {
         parser: ts.parser,
       },
-    },
-  },
-  {
-    rules: {
-      'vue/no-v-html': 'off',
     },
   },
 

@@ -184,7 +184,6 @@ export function useItems<T extends Item>(config: ItemsConfig<T>) {
       }
     } catch (e) {
       items.value = []
-      console.log(e)
     }
     if (event.oldIndex !== event.newIndex) {
       fetchItems()
