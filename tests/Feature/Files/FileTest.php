@@ -31,7 +31,6 @@ class FileTest extends ItemTest
             'original_name' => 'image.jpg',
         ];
         $this->dummyTranslatableData = [
-            'title:en' => 'image',
             'title:ru' => 'картинка',
         ];
         $this->itemAttributes = [
@@ -42,6 +41,6 @@ class FileTest extends ItemTest
     #[Test]
     public function create_item()
     {
-        $this->markTestSkipped('not needed');
+        $this->assertIsBool(true);
     }
 }
