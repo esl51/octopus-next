@@ -25,7 +25,7 @@
         </a>
         <!-- eslint-enable -->
         <div class="flex-fill min-w-0">
-          <div class="font-weight-medium text-truncate">{{ item.title }}</div>
+          <div class="fw-medium text-truncate">{{ item.title }}</div>
           <small class="text-muted">{{ formatFileSize(item.size) }}</small>
         </div>
         <a
