@@ -37,6 +37,24 @@
           {{ $t('global.start_typing') }}
         </template>
       </template>
+      <template
+        v-if="$slots.option"
+        #option="option"
+      >
+        <slot
+          name="option"
+          v-bind="cast<object>(option)"
+        />
+      </template>
+      <template
+        v-if="$slots.selected"
+        #selected-option="option"
+      >
+        <slot
+          name="selected"
+          v-bind="normalizeOption(option)"
+        />
+      </template>
     </vue-select>
   </v-form-control>
 </template>
@@ -44,6 +62,7 @@
 <script setup lang="ts">
 import OIcon from './OIcon.vue'
 import { useFormControl } from '@/composables/useFormControl'
+import { cast } from '@/helpers'
 import { Item } from '@/types'
 import { IconChevronDown, IconX } from '@tabler/icons-vue'
 import Form from 'vform'
@@ -156,6 +175,19 @@ const getLabel = (option: Item | number) => {
     return labelOption[props.labelAttribute]
   }
   return option
+}
+
+// normalize option
+const normalizeOption = (option: Item | number | { label: number }) => {
+  if (typeof option === 'number') {
+    return labelOptions.value.find((lo) => lo[props.keyAttribute] === option)
+  } else if (option.label) {
+    return labelOptions.value.find(
+      (lo) => lo[props.keyAttribute] === option.label,
+    )
+  } else {
+    return option
+  }
 }
 
 // search
