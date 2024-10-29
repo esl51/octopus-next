@@ -51,7 +51,7 @@ import {
   IconAlertTriangle,
   IconCircleCheck,
 } from '@tabler/icons-vue'
-import { SVGProps } from '@tabler/icons-vue'
+import { SVGProps } from '@/types'
 import { FunctionalComponent, computed, onMounted, ref } from 'vue'
 
 // props

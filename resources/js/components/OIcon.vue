@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import { SVGProps } from '@tabler/icons-vue'
+import { SVGProps } from '@/types'
 import { FunctionalComponent } from 'vue'
 
 defineProps<{

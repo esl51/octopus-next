@@ -10,8 +10,8 @@ import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from 'vue-router'
 import { useListsStore } from '@/stores/lists'
 
-interface ItemsConfig<T extends Item> {
-  api: ItemsApi<T>
+interface ItemsConfig<T extends Item, U extends ItemsApi<T> = ItemsApi<T>> {
+  api: U
   defaults: Record<string, unknown>
   modal?: Ref<typeof OModal | null>
   params?: ListParams

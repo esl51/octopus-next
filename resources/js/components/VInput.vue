@@ -66,7 +66,7 @@
 <script setup lang="ts">
 import VLocaleSwitch from './VLocaleSwitch.vue'
 import { useFormControl } from '@/composables/useFormControl'
-import { SVGProps } from '@tabler/icons-vue'
+import { SVGProps } from '@/types'
 import { IconEye, IconEyeOff } from '@tabler/icons-vue'
 import Form from 'vform'
 import { ref, computed, inject, FunctionalComponent } from 'vue'

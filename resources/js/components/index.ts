@@ -28,8 +28,13 @@ import VRadios from './VRadios.vue'
 import VSelect from './VSelect.vue'
 import VSubmit from './VSubmit.vue'
 import VTextarea from './VTextarea.vue'
+import type { Component } from 'vue'
 
-export default {
+type ComponentMap = {
+  [key: string]: Component
+}
+
+const components: ComponentMap = {
   OActions,
   OAlert,
   OAvatar,
@@ -61,3 +66,5 @@ export default {
   VSubmit,
   VTextarea,
 }
+
+export default components

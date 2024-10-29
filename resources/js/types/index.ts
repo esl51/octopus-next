@@ -1,11 +1,15 @@
 import messages from '@/lang'
-import { SVGProps } from '@tabler/icons-vue'
-import { FunctionalComponent } from 'vue'
+import { FunctionalComponent, SVGAttributes } from 'vue'
 import {
   NavigationGuardNext,
   RouteLocationNormalized,
   RouteLocationRaw,
 } from 'vue-router'
+
+export interface SVGProps extends Partial<SVGAttributes> {
+  size?: 24 | number | string
+  strokeWidth?: number | string
+}
 
 export type BreadcrumbItem = {
   to: RouteLocationRaw
