@@ -6,12 +6,12 @@
  */
 export function debounce<F extends (...args: Parameters<F>) => ReturnType<F>>(
   func: F,
-  waitFor: number,
+  waitFor?: number,
 ): (...args: Parameters<F>) => void {
   let timeout: ReturnType<typeof setTimeout>
   return (...args: Parameters<F>): void => {
     clearTimeout(timeout)
-    timeout = setTimeout(() => func(...args), waitFor)
+    timeout = setTimeout(() => func(...args), waitFor || 250)
   }
 }
 
@@ -110,4 +110,12 @@ export function handleDatesAsStrings(body: any) {
  */
 export function serializeDate(date: Date): string {
   return date.toISOString().split('.')[0]
+}
+
+/**
+ * Fix for syntax highlight in VSCode
+ * @param unknown t to cast
+ */
+export function cast<T>(t: unknown): T {
+  return t as T
 }

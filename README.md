@@ -77,3 +77,4 @@ XDEBUG_MODE=coverage php artisan test --coverage
 - Просмотр изображений/аватарок в модальном окне
 - VSelect перевести на [vue-multiselect](https://vue-multiselect.js.org/)
 - Перевести строки в VSelect [подробнее](https://github.com/sagalbot/vue-select/pull/988)
+- Удалить helpers.cast когда [исправят](https://github.com/vuejs/language-tools/issues/3400)
