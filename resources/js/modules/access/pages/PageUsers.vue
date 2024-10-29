@@ -25,36 +25,12 @@
     >
       <template #cell(name)="{ item }">
         <div class="d-flex py-1 align-items-center min-w-0">
-          <o-avatar
-            :image="item.avatar?.url"
-            :placeholder="item.name_placeholder"
-            class="flex-shrink-0 me-2"
-          >
-            <span
-              v-if="item?.disabled_at"
-              class="badge bg-danger"
-            />
-            <span
-              v-else-if="
-                $appConfig.authFeatures.includes('email-verification') &&
-                item?.email_verified_at === null
-              "
-              class="badge bg-warning"
-            />
-          </o-avatar>
-          <div class="flex-fill min-w-0">
-            <div class="font-weight-medium text-truncate">{{ item.name }}</div>
-            <div class="text-muted fw-normal text-truncate">
-              <!-- eslint-disable sonarjs/no-vue-bypass-sanitization -->
-              <a
-                :href="sanitizeUrl('mailto:' + item.email)"
-                class="text-reset"
-              >
-                {{ item.email }}
-              </a>
-              <!-- eslint-enable -->
-            </div>
-          </div>
+          <app-user
+            :user="item"
+            indicate-unverified
+            indicate-disabled
+            email
+          />
         </div>
       </template>
       <template #cell(roles)="{ item }">
@@ -169,6 +145,7 @@
 
 <script setup lang="ts">
 import { rolesApi, usersApi } from '../api'
+import AppUser from '@/components/app/AppUser.vue'
 import OModal from '@/components/OModal.vue'
 import { useItems } from '@/composables/useItems'
 import { usePage } from '@/composables/usePage'
@@ -177,7 +154,6 @@ import { Item, ItemAction } from '@/types'
 import { Role, User } from '../types'
 import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { sanitizeUrl } from '@braintree/sanitize-url'
 import { IconSquare, IconSquareCheck } from '@tabler/icons-vue'
 
 const { t } = useI18n()

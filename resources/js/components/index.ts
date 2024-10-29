@@ -1,9 +1,10 @@
 import OActions from './OActions.vue'
 import OAlert from './OAlert.vue'
 import OAvatar from './OAvatar.vue'
+import OBadge from './OBadge.vue'
 import OButton from './OButton.vue'
-import OCard from './OCard.vue'
 import OButtonAdd from './OButtonAdd.vue'
+import OCard from './OCard.vue'
 import OCollapse from './OCollapse.vue'
 import OConfirm from './OConfirm.vue'
 import ODropdown from './ODropdown.vue'
@@ -38,6 +39,7 @@ const components: ComponentMap = {
   OActions,
   OAlert,
   OAvatar,
+  OBadge,
   OButton,
   OButtonAdd,
   OCard,
