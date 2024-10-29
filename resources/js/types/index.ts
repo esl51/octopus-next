@@ -120,6 +120,7 @@ export interface ItemAction {
   icon?: FunctionalComponent<SVGProps>
   variant?: string
   disabled?: boolean
+  hidden?: boolean
   handler: () => void
 }
 

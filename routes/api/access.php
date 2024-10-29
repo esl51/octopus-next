@@ -32,6 +32,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('access/users', [UserController::class, 'store']);
         Route::put('access/users/{id}', [UserController::class, 'update']);
         Route::delete('access/users/{id}', [UserController::class, 'destroy']);
+        Route::post('access/users/{id}/disable', [UserController::class, 'disable']);
+        Route::post('access/users/{id}/enable', [UserController::class, 'enable']);
     });
 
     // Users

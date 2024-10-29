@@ -75,6 +75,34 @@ class UserTest extends ItemTest
     }
 
     #[Test]
+    public function disable_item()
+    {
+        $item = $this->createItem();
+        $response = $this->actingAs($this->user)
+            ->postJson($this->uri . '/' . $item->id . '/disable')
+            ->assertSuccessful()
+            ->assertJsonStructure($this->pivot
+                ? ['data' => ['pivot' => $this->validStructure['data']]]
+                : $this->validStructure)
+            ->assertJsonPath('data.disabled_at', fn($v) => $v != null);
+    }
+
+    #[Test]
+    public function enable_item()
+    {
+        $item = $this->createItem([
+            'disabled_at' => now(),
+        ]);
+        $response = $this->actingAs($this->user)
+            ->postJson($this->uri . '/' . $item->id . '/enable')
+            ->assertSuccessful()
+            ->assertJsonStructure($this->pivot
+                ? ['data' => ['pivot' => $this->validStructure['data']]]
+                : $this->validStructure)
+            ->assertJsonPath('data.disabled_at', null);
+    }
+
+    #[Test]
     public function list_items_by_role_name()
     {
         $this->createItem($this->itemAttributes);

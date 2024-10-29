@@ -92,4 +92,23 @@ class UserService extends ItemService
 
         return $item;
     }
+
+    public function disable(int $id): Model
+    {
+        $item = $this->get($id);
+        $item->update([
+            'disabled_at' => now(),
+        ]);
+        return $item;
+    }
+
+    public function enable(int $id): Model
+    {
+        $item = $this->get($id);
+        $item->update([
+            'disabled_at' => null,
+        ]);
+
+        return $item;
+    }
 }

@@ -8,6 +8,8 @@ export default {
     email_label: 'Email',
     password_label: 'Пароль',
     avatar_label: 'Фото',
+    disable_label: 'Отключить',
+    enable_label: 'Включить',
   },
   roles: {
     title: 'Роли',

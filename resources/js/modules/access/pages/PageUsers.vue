@@ -31,7 +31,11 @@
             class="flex-shrink-0 me-2"
           >
             <span
-              v-if="
+              v-if="item?.disabled_at"
+              class="badge bg-danger"
+            />
+            <span
+              v-else-if="
                 $appConfig.authFeatures.includes('email-verification') &&
                 item?.email_verified_at === null
               "
@@ -63,8 +67,35 @@
       </template>
       <template #cell(action-column)="{ item }">
         <o-actions
-          v-if="item.is_deletable || item.is_editable"
+          v-if="
+            item.is_deletable ||
+            item.is_editable ||
+            item.is_disablable ||
+            item.is_enablable
+          "
           :item="item"
+          :actions="
+            [
+              {
+                label: $t('access.users.disable_label'),
+                icon: IconSquare,
+                hidden: !item.is_disablable,
+                variant: 'warning',
+                handler() {
+                  disable(item)
+                },
+              },
+              {
+                label: $t('access.users.enable_label'),
+                icon: IconSquareCheck,
+                hidden: !item.is_enablable,
+                variant: 'success',
+                handler() {
+                  enable(item)
+                },
+              },
+            ] as Array<ItemAction>
+          "
           @edit="edit(item)"
           @delete="destroy(item, item.name)"
         />
@@ -142,11 +173,12 @@ import OModal from '@/components/OModal.vue'
 import { useItems } from '@/composables/useItems'
 import { usePage } from '@/composables/usePage'
 import { useAuthStore } from '@/stores/auth'
-import { Item } from '@/types'
+import { Item, ItemAction } from '@/types'
 import { Role, User } from '../types'
 import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { sanitizeUrl } from '@braintree/sanitize-url'
+import { IconSquare, IconSquareCheck } from '@tabler/icons-vue'
 
 const { t } = useI18n()
 
@@ -190,6 +222,20 @@ const {
   modal,
   listKey: 'users',
 })
+
+// disable
+const disable = async (item: number | User) => {
+  const id = typeof item === 'number' ? item : item.id
+  await usersApi.disable(id)
+  fetchItems()
+}
+
+// enable
+const enable = async (item: number | User) => {
+  const id = typeof item === 'number' ? item : item.id
+  await usersApi.enable(id)
+  fetchItems()
+}
 
 // columns
 const columns = ref([

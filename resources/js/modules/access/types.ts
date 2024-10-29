@@ -1,4 +1,4 @@
-import { Item } from '@/types'
+import { Item, ItemsApi } from '@/types'
 import { File } from '@/modules/files/types'
 
 export interface Role extends Item {
@@ -21,4 +21,9 @@ export interface User extends Item {
   roles?: Array<Role>
   name_placeholder: string
   avatar?: File
+}
+
+export interface UsersApi<T extends User> extends ItemsApi<T> {
+  disable: (id: number) => Promise<User>
+  enable: (id: number) => Promise<User>
 }

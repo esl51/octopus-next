@@ -14,11 +14,13 @@ class LoginTest extends TestCase
     public $userUrl = '/api/auth/user';
     public $logoutUrl = '/logout';
     public $user;
+    public $disabledUser;
 
     public function setUp(): void
     {
         parent::setUp();
         $this->user = User::factory()->create();
+        $this->disabledUser = User::factory()->disabled()->create([]);
     }
 
     #[Test]
@@ -62,6 +64,17 @@ class LoginTest extends TestCase
         $this->actingAs($this->user)
             ->postJson($this->loginUrl, [
                 'email' => $this->user->email,
+                'password' => 'password',
+            ])
+            ->assertJsonStructure(['error']);
+    }
+
+    #[Test]
+    public function can_not_log_in_disabled()
+    {
+        $this->actingAs($this->disabledUser)
+            ->postJson($this->loginUrl, [
+                'email' => $this->disabledUser->email,
                 'password' => 'password',
             ])
             ->assertJsonStructure(['error']);

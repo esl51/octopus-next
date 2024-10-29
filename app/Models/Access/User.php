@@ -22,6 +22,7 @@ use Roquie\LaravelPerPageResolver\PerPageResolverTrait;
  * @property string $email
  * @property string $password
  * @property \Illuminate\Support\Carbon $email_verified_at
+ * @property \Illuminate\Support\Carbon $disabled_at
  *
  * @property Role[] $roles
  */
@@ -46,6 +47,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
+        'disabled_at',
     ];
 
     /**
@@ -66,6 +68,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'disabled_at' => 'datetime',
     ];
 
     /**
@@ -127,6 +130,36 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getIsEditableAttribute(): bool
     {
+        // if user has root role and current user is not root
+        if ($this->hasRole('root') && !auth()->user()->hasRole('root')) {
+            return false;
+        }
+        return true;
+    }
+
+    public function getIsDisablableAttribute(): bool
+    {
+        // is user is disabled
+        if ($this->disabled_at) {
+            return false;
+        }
+        // if user is current user and has root role
+        if ($this->id == auth()->id()) {
+            return false;
+        }
+        // if user has root role and current user is not root
+        if ($this->hasRole('root') && !auth()->user()->hasRole('root')) {
+            return false;
+        }
+        return true;
+    }
+
+    public function getIsEnablableAttribute(): bool
+    {
+        // is user is not disabled
+        if ($this->disabled_at == null) {
+            return false;
+        }
         // if user has root role and current user is not root
         if ($this->hasRole('root') && !auth()->user()->hasRole('root')) {
             return false;

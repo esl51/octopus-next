@@ -60,7 +60,7 @@ const props = withDefaults(
 // emits
 const emit = defineEmits(['edit', 'delete'])
 
-const defaultActions = computed<Array<ItemAction>>(() => {
+const preActions = computed<Array<ItemAction>>(() => {
   const actions: Array<ItemAction> = []
   if (props.edit) {
     actions.push({
@@ -72,6 +72,11 @@ const defaultActions = computed<Array<ItemAction>>(() => {
       },
     })
   }
+  return actions
+})
+
+const postActions = computed<Array<ItemAction>>(() => {
+  const actions: Array<ItemAction> = []
   if (props.delete) {
     actions.push({
       label: t('global.delete'),
@@ -86,8 +91,9 @@ const defaultActions = computed<Array<ItemAction>>(() => {
   return actions
 })
 
-const allActions = computed<Array<ItemAction>>(() => ({
-  ...defaultActions.value,
-  ...props.actions,
-}))
+const allActions = computed<Array<ItemAction>>(() => [
+  ...preActions.value,
+  ...(props.actions?.filter((a) => !a.hidden) || []),
+  ...postActions.value,
+])
 </script>
