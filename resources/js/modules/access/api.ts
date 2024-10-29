@@ -15,12 +15,12 @@ export const usersApi: UsersApi<User> = {
   ...items,
 
   async disable(id: number): Promise<User> {
-    const { data } = await api.post(items.url + '/' + id + '/disable')
+    const { data } = await api.post(items.url + id + '/disable')
     return data.data as User
   },
 
   async enable(id: number): Promise<User> {
-    const { data } = await api.post(items.url + '/' + id + '/enable')
+    const { data } = await api.post(items.url + id + '/enable')
     return data.data as User
   },
 }

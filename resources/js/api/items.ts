@@ -9,7 +9,7 @@ import { Item, ItemsApi, ListParams, ListResponse } from '@/types'
 export default function itemsApi<T extends Item>(
   endpoint: string,
 ): ItemsApi<T> {
-  const url = endpoint.replace(/\/$/, '/')
+  const url = endpoint.replace(/\/$/, '') + '/'
 
   /**
    * All items.
