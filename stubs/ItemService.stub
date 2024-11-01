@@ -1,0 +1,31 @@
+<?php
+
+namespace DummyNamespace;
+
+use App\Services\ItemService;
+use Illuminate\Database\Eloquent\Builder;
+
+class DummyClass extends ItemService
+{
+    protected array $with = [
+    ];
+
+    public function addConditions(Builder $query): Builder
+    {
+        //
+    }
+
+    public function newItemsQuery(array $params): Builder
+    {
+        $items = parent::newItemsQuery($params);
+
+        $search = $params['search'] ?? null;
+        if ($search && !is_numeric($search)) {
+            $items->where(function ($query) use ($search) {
+                // $query->orWhere('name', 'like', '%' . $search . '%');
+            });
+        }
+
+        return $items;
+    }
+}

@@ -1,0 +1,10 @@
+<?php
+
+namespace DummyNamespace;
+
+use App\Http\Controllers\ItemController;
+
+class DummyClass extends ItemController
+{
+    //
+}

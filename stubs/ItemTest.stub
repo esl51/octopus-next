@@ -1,0 +1,24 @@
+<?php
+
+namespace DummyNamespace;
+
+use DummyModelNamespace\DummyModelClass;
+use Tests\ItemTest;
+
+class DummyClass extends ItemTest
+{
+    protected $validStructure = [
+        'data' => [
+            'id',
+        ],
+    ];
+    protected $uri = '/api/dummy-route';
+    protected $class = DummyModelClass::class;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->dummyData = [
+        ];
+    }
+}

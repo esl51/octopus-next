@@ -1,0 +1,10 @@
+<?php
+
+namespace DummyNamespace;
+
+use App\Http\Resources\ItemResource;
+
+class DummyClass extends ItemResource
+{
+    //
+}

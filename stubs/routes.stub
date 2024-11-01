@@ -1,0 +1,13 @@
+<?php
+
+use DummyControllerNamespace\DummyControllerClass;
+
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::group(['middleware' => ['can:dummy permission']], function () {
+        Route::post('dummy-route', [DummyControllerClass::class, 'store']);
+        Route::put('dummy-route/{id}', [DummyControllerClass::class, 'update']);
+        Route::delete('dummy-route/{id}', [DummyControllerClass::class, 'destroy']);
+        Route::get('dummy-route', [DummyControllerClass::class, 'index']);
+        Route::get('dummy-route/{id}', [DummyControllerClass::class, 'show']);
+    });
+});
