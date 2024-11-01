@@ -44,6 +44,7 @@ const props = withDefaults(
     options: Array<Record<string, unknown>>
     label?: string
     hint?: string
+    description?: string
     disabled?: boolean
     autofocus?: boolean
     keyAttribute?: string
@@ -53,6 +54,7 @@ const props = withDefaults(
     modelValue: undefined,
     label: undefined,
     hint: undefined,
+    description: undefined,
     disabled: false,
     autofocus: false,
     keyAttribute: 'id',

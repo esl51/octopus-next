@@ -50,6 +50,7 @@ const props = withDefaults(
     name: string
     label?: string
     hint?: string
+    description?: string
     readonly?: boolean
     disabled?: boolean
     autofocus?: boolean
@@ -62,6 +63,7 @@ const props = withDefaults(
     modelValue: undefined,
     label: undefined,
     hint: undefined,
+    description: undefined,
     readonly: false,
     disabled: false,
     autofocus: false,

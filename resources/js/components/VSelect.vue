@@ -78,6 +78,7 @@ const props = withDefaults(
     multiple?: boolean
     label?: string
     hint?: string
+    description?: string
     disabled?: boolean
     size?: 'sm' | 'lg'
     placeholder?: string
@@ -90,6 +91,7 @@ const props = withDefaults(
     multiple: false,
     label: undefined,
     hint: undefined,
+    description: undefined,
     disabled: false,
     size: undefined,
     placeholder: undefined,

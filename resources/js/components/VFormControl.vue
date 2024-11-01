@@ -3,20 +3,30 @@
     class="mb-3"
     :class="state === false ? 'is-invalid' : undefined"
   >
-    <label
+    <div
       v-if="label || $slots.labelDescription"
       class="form-label"
-      :class="'form-label-' + size"
-      :for="label ? id : undefined"
+      :class="size ? 'form-label-' + size : ''"
     >
-      {{ label }}
-      <span
-        v-if="$slots.labelDescription"
-        class="form-label-description"
-      >
-        <slot name="labelDescription" />
-      </span>
-    </label>
+      <div class="d-flex align-items-center">
+        <label :for="label ? id : undefined">{{ label }}</label>
+        <span
+          v-if="description"
+          v-tooltip
+          :title="description"
+          :aria-label="description"
+          class="text-primary ms-1"
+        >
+          <icon-info-square-rounded class="icon" />
+        </span>
+        <small
+          v-if="$slots.labelDescription"
+          class="fw-normal ms-auto"
+        >
+          <slot name="labelDescription" />
+        </small>
+      </div>
+    </div>
     <slot />
     <div
       v-if="hint"
@@ -33,6 +43,7 @@
 </template>
 
 <script setup lang="ts">
+import { IconInfoSquareRounded } from '@tabler/icons-vue'
 import { ComputedRef, inject } from 'vue'
 
 const id: ComputedRef<string> | undefined = inject('id')
@@ -40,5 +51,6 @@ const errors: ComputedRef<Array<string>> | undefined = inject('errors')
 const state: ComputedRef<boolean> | undefined = inject('state')
 const label: ComputedRef<string> | undefined = inject('label')
 const hint: ComputedRef<string> | undefined = inject('hint')
+const description: ComputedRef<string> | undefined = inject('description')
 const size: ComputedRef<string> | undefined = inject('size')
 </script>
