@@ -100,19 +100,23 @@ class File extends Model implements TranslatableContract
         ]);
     }
 
-    public function scopeViewable(Builder $query): void
+    public function scopeViewable(Builder $query, bool $owned = false): void
     {
         $filableTypes = self::select('filable_type')
             ->groupBy('filable_type')
             ->get()
             ->pluck('filable_type');
 
-        foreach ($filableTypes as $filableType) {
-            $query->where(function ($query) use ($filableType) {
-                $query->where('filable_type', $filableType);
-                $filableType::viewableFilesScope($query);
-            })->orWhere('filable_type', '!=', $filableType);
-        }
+        $query->where(function (Builder $query) use ($filableTypes, $owned) {
+            foreach ($filableTypes as $filableType) {
+                $query->orWhere(function ($query) use ($filableType, $owned) {
+                    $filableType::viewableFilesScope($query);
+                    if ($owned) {
+                        $filableType::ownedFilesScope($query);
+                    }
+                });
+            }
+        });
     }
 
     protected static function boot(): void

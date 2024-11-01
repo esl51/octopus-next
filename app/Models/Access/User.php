@@ -7,6 +7,7 @@ use App\Traits\Files\HasFiles;
 use App\Traits\HasColumns;
 use App\Traits\SerializesDates;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -91,6 +92,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $appends = [
         'name_placeholder',
+        'filable_title',
     ];
 
     protected $guard_name = 'web';
@@ -165,6 +167,16 @@ class User extends Authenticatable implements MustVerifyEmail
             return false;
         }
         return true;
+    }
+
+    public function getFilableTitleAttribute()
+    {
+        return $this->name;
+    }
+
+    public static function ownedFilesScope(Builder $query): void
+    {
+        $query->where('filable_id', auth()->id());
     }
 
     /**

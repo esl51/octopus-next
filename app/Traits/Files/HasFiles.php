@@ -29,8 +29,17 @@ trait HasFiles
     {
         $types = array_keys(array_filter((new self())->getFileTypes(), fn($item) => !empty($item['viewable'])));
         if (!empty($types)) {
+            $query->where('filable_type', self::class);
             $query->whereIn('type', $types);
         }
+    }
+
+    /**
+     * Only owned files scope.
+     */
+    public static function ownedFilesScope(Builder $query): void
+    {
+        //
     }
 
     /**
@@ -93,7 +102,7 @@ trait HasFiles
                     'file_name' => $uploadedFile->hashName(),
                     'original_name' => $uploadedFile->getClientOriginalName(),
                     'mime_type' => Storage::mimeType($file),
-                    'extension' => $uploadedFile->extension(),
+                    'extension' => $uploadedFile->getClientOriginalExtension(),
                     'size' => Storage::size($file),
                     'title:' . config('translatable.fallback_locale') => $uploadedFile->getClientOriginalName(),
                 ]);
@@ -177,6 +186,11 @@ trait HasFiles
             }
         }
         return $types;
+    }
+
+    public function getFilableTitleAttribute(): string
+    {
+        return $this->getTypeName() . ' ' . $this->id;
     }
 
     protected static function bootHasFiles(): void

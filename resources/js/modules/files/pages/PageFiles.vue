@@ -20,7 +20,9 @@
       :columns="columns"
       :busy="busy"
       card
+      sortable
       @sort="sort"
+      @move="move"
     >
       <template #cell(title)="{ item }">
         <div class="d-flex py-1 align-items-center min-w-0">
@@ -40,6 +42,12 @@
           <!-- eslint-enable -->
           <div class="flex-fill min-w-0">
             <div class="fw-medium text-truncate">{{ item.title }}</div>
+            <div
+              v-if="item.filable.filable_title"
+              class="fw-medium text-secondary text-truncate"
+            >
+              {{ item.filable.filable_title }}
+            </div>
           </div>
         </div>
       </template>
@@ -132,6 +140,7 @@ const {
   current,
   paginate,
   sort,
+  move,
   edit,
   submit,
   destroy,

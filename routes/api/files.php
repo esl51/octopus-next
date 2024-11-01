@@ -9,5 +9,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('files/{id}', [FileController::class, 'show']);
         Route::put('files/{id}', [FileController::class, 'update']);
         Route::delete('files/{id}', [FileController::class, 'destroy']);
+        Route::post(
+            'files/{id}/move-before/{before}',
+            [FileController::class, 'moveBefore']
+        );
+        Route::post(
+            'files/{id}/move-after/{after}',
+            [FileController::class, 'moveAfter']
+        );
     });
 });

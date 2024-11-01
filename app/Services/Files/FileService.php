@@ -9,7 +9,7 @@ class FileService extends ItemService
 {
     public function addConditions(Builder $query): Builder
     {
-        return $query->viewable();
+        return $query->viewable(!auth()->user()->can('manage all files'));
     }
 
     public function newItemsQuery(array $params): Builder
@@ -22,6 +22,19 @@ class FileService extends ItemService
                 $query->orWhere('original_name', 'like', '%' . $search . '%')
                     ->orWhereTranslationLike('title', '%' . $search . '%');
             });
+        }
+
+        $filableType = $params['filable_type'] ?? null;
+        if ($filableType) {
+            $items->where('filable_type', 'App\\Models\\' . $filableType);
+        }
+        $filableId = $params['filable_id'] ?? null;
+        if ($filableId) {
+            $items->where('filable_id', $filableId);
+        }
+        $type = $params['type'] ?? null;
+        if ($type) {
+            $items->where('type', $type);
         }
 
         return $items;
