@@ -19,6 +19,7 @@ class ProfileTest extends TestCase
     public $profileInformationUrl = '/user/profile-information';
     public $passwordUrl = '/user/password';
     public $user;
+    public $simpleUser;
     public $verificationEnabled = false;
 
     public function setUp(): void
@@ -28,6 +29,9 @@ class ProfileTest extends TestCase
         $this->verificationEnabled = in_array('email-verification', config('fortify.features'));
 
         $this->user = User::factory()->create();
+        $this->simpleUser = User::factory()->afterCreating(function ($model) {
+            $model->assignRole('user');
+        })->create();
     }
 
     #[Test]
@@ -122,5 +126,33 @@ class ProfileTest extends TestCase
         $this->deleteJson($this->updateAvatarUrl)
             ->assertSuccessful();
         $this->storage->assertMissing($avatarPath);
+    }
+
+    #[Test]
+    public function simple_user_can_not_list_not_owned_avatar()
+    {
+        $this->actingAs($this->user)
+            ->putJson($this->updateAvatarUrl, [
+                'avatar' => UploadedFile::fake()->image('avatar.jpg', 768, 1024),
+            ])
+            ->assertSuccessful();
+        $this->actingAs($this->simpleUser)
+            ->getJson('/api/files')
+            ->assertSuccessful()
+            ->assertJsonCount(0, 'data');
+    }
+
+    #[Test]
+    public function simple_user_can_list_owned_avatar()
+    {
+        $this->actingAs($this->simpleUser)
+            ->putJson($this->updateAvatarUrl, [
+                'avatar' => UploadedFile::fake()->image('avatar.jpg', 768, 1024),
+            ])
+            ->assertSuccessful();
+        $this->actingAs($this->simpleUser)
+            ->getJson('/api/files')
+            ->assertSuccessful()
+            ->assertJsonCount(1, 'data');
     }
 }

@@ -24,6 +24,10 @@ class PermissionSeeder extends Seeder
                 'ru' => ['title' => 'Администратор'],
                 'en' => ['title' => 'Admin'],
             ],
+            'user' => [
+                'ru' => ['title' => 'Пользователь'],
+                'en' => ['title' => 'User'],
+            ],
         ];
         foreach ($roles as $roleName => $roleData) {
             Role::factory()->create(array_merge([
@@ -34,7 +38,7 @@ class PermissionSeeder extends Seeder
         $permissions = [
             'manage access' => [],
             'manage users' => ['admin'],
-            'manage files' => ['admin'],
+            'manage files' => ['admin', 'user'],
             'manage all files' => ['admin'],
         ];
         foreach ($permissions as $item => $roles) {
