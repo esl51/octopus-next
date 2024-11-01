@@ -1,5 +1,8 @@
 <template>
-  <div class="d-flex">
+  <div
+    v-if="availableLocales.length > 1"
+    class="d-flex"
+  >
     <o-button
       v-for="locale in availableLocales"
       :key="locale"

@@ -1,5 +1,6 @@
 <template>
   <o-dropdown
+    v-if="Object.keys(locales).length > 1"
     :toggle-variant="variant"
     :toggle-size="size"
     menu-end
