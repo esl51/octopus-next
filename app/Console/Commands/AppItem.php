@@ -109,7 +109,7 @@ class AppItem extends Command
                 'DummyModelClass' => $className,
                 'DummyModelNamespace' => $modelNamespace,
                 'DummyClass' => $className . 'Factory',
-                'DummyNamespace' => $this->getNamespace('Database\\Factories', $classParts, false),
+                'DummyNamespace' => $this->getNamespace('Database\\Factories', $classParts, false, false),
             ],
         );
 
@@ -124,7 +124,7 @@ class AppItem extends Command
                 'DummyModelClass' => $className,
                 'DummyModelNamespace' => $modelNamespace,
                 'DummyClass' => $className . 'Test',
-                'DummyNamespace' => $this->getNamespace('Tests\\Feature', $classParts, false),
+                'DummyNamespace' => $this->getNamespace('Tests\\Feature', $classParts, false, false),
                 'dummy-route' => $table,
             ],
         );
@@ -166,9 +166,9 @@ class AppItem extends Command
         }
     }
 
-    public function getNamespace(string $prefix, array $classParts, $mkdir = true): string
+    public function getNamespace(string $prefix, array $classParts, $mkdir = true, $app = true): string
     {
-        $namespace = 'App\\' . $prefix;
+        $namespace = ($app ? 'App\\' : '') . $prefix;
         $namespaceParts = array_slice($classParts, 0, -1);
         if (count($namespaceParts)) {
             $namespace .= '\\' . implode('\\', $namespaceParts);
