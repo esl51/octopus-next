@@ -26,5 +26,6 @@ const classes = computed(() => ({
   badge: true,
   'badge-pill': props.pill,
   ['bg-' + props.variant + (props.light ? '-lt' : '')]: !!props.variant,
+  ['text-' + props.variant + '-fg']: !!props.variant && !props.light,
 }))
 </script>
