@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use Illuminate\Support\Collection;
 use stdClass;
 use Str;
 
@@ -28,7 +29,7 @@ trait HasTypeEnum
     {
         $methods = array_filter(
             get_class_methods($this),
-            fn($item) => !in_array($item, ['from', 'tryFrom', 'cases', 'asArray', 'asObject'])
+            fn($item) => !in_array($item, ['from', 'tryFrom', 'cases', 'asArray', 'asObject', 'collect'])
         );
 
         $array = [
@@ -40,5 +41,10 @@ trait HasTypeEnum
         }
 
         return $array;
+    }
+
+    public static function collect(): Collection
+    {
+        return collect(self::cases())->map(fn($item) => $item->asObject());
     }
 }
