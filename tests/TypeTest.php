@@ -9,10 +9,8 @@ use PHPUnit\Framework\Attributes\Test;
 abstract class TypeTest extends TestCase
 {
     protected $user;
-    protected $dummyData = [];
     protected $validStructure;
     protected $uri;
-    protected $class;
 
     public function setUp(): void
     {
