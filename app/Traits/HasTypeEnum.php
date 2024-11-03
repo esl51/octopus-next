@@ -16,8 +16,14 @@ trait HasTypeEnum
     public function name(): string
     {
         $className = explode('\\', self::class);
-        $typeName = Str::snake(preg_replace('/Type$/', '', end($className)));
-        return trans('type.' . $typeName . '.' . $this->alias());
+        $namespaceParts = array_splice($className, 0, -1);
+        $prefix = end($namespaceParts);
+        if ($prefix == 'Models') {
+            $prefix = 'App';
+        }
+        $prefix = Str::snake($prefix);
+        $typeName = Str::snake(Str::pluralStudly(class_basename(self::class)));
+        return trans($prefix . '.' . $typeName . '.' . str_replace('type_', '', $this->alias()));
     }
 
     public function asObject(): stdClass
