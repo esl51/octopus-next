@@ -90,6 +90,10 @@ class CollectionBelongsToMany extends Relation
 
     public function sync(array $ids)
     {
+        $this->pivotItems = DB::table($this->pivotTable)
+            ->where($this->foreignKey, $this->parent->getKey())
+            ->get();
+
         $existingIds = $this->pivotItems->pluck($this->relatedKey)->all();
 
         $toAttach = array_diff($ids, $existingIds);
