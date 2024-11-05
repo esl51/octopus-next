@@ -20,6 +20,7 @@
         {{ noTitle || $t('global.cancel') }}
       </button>
       <button
+        ref="yesButton"
         type="button"
         class="btn"
         :class="yesClasses"
@@ -67,6 +68,9 @@ const props = withDefaults(
   },
 )
 
+// yes button
+const yesButton = ref<HTMLElement | null>(null)
+
 // emits
 const emit = defineEmits(['yes', 'no', 'backdropClick', 'show', 'hide'])
 
@@ -89,6 +93,9 @@ const noClasses = computed(() => ({
 const show = () => {
   emit('show')
   modal.value?.show()
+  setTimeout(() => {
+    yesButton.value?.focus()
+  }, 50)
 }
 
 // hide
