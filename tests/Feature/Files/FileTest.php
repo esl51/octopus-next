@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Files;
 
+use Illuminate\Http\UploadedFile;
 use Tests\ItemTest;
 use App\Models\Files\File;
 use PHPUnit\Framework\Attributes\Test;
@@ -41,6 +42,22 @@ class FileTest extends ItemTest
     #[Test]
     public function create_item()
     {
-        $this->assertIsBool(true);
+        $dummyData = [
+            'filable_type' => 'Access\\User',
+            'filable_id' => $this->user->id,
+            'type' => 'avatar',
+        ];
+        $additionalData = [
+            'file' => UploadedFile::fake()->image('image.jpg', 1024, 768),
+        ];
+        $response = $this->actingAs($this->user)
+            ->postJson($this->uri, array_merge($dummyData, $additionalData))
+            ->assertSuccessful()
+            ->assertJsonStructure($this->validStructure);
+
+        $dummyData['filable_type'] = 'App\\Models\\Access\\User';
+        $this->assertDatabaseHas($this->tableName, $dummyData);
+
+        return $response;
     }
 }

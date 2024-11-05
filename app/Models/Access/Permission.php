@@ -3,6 +3,7 @@
 namespace App\Models\Access;
 
 use App\Traits\HasColumns;
+use App\Traits\HasService;
 use App\Traits\SerializesDates;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\Permission\Models\Permission as BasePermission;
@@ -13,6 +14,7 @@ class Permission extends BasePermission
     use PerPageResolverTrait;
     use HasFactory;
     use HasColumns;
+    use HasService;
     use SerializesDates;
 
     public function getRolesCountAttribute(): int

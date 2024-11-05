@@ -140,6 +140,9 @@ return [
     'uploaded' => 'The :attribute failed to upload.',
     'url' => 'The :attribute must be a valid URL.',
     'uuid' => 'The :attribute must be a valid UUID.',
+    'filable_type' => 'The selected :attribute is invalid.',
+    'filable_id' => 'The selected :attribute is invalid.',
+    'file_type' => 'The selected :attribute is invalid.',
 
     /*
     |--------------------------------------------------------------------------

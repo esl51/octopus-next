@@ -8,6 +8,7 @@
 @use 'ui/dropdowns';
 @use 'ui/forms';
 @use 'ui/forms/validation';
+@use 'ui/lists';
 @use 'ui/modals';
 @use 'ui/nav';
 @use 'ui/navbar';
@@ -16,5 +17,6 @@
 
 // vendor
 @use 'vendor/datepicker';
+@use 'vendor/dropzone';
 @use 'vendor/select';
 @use 'vendor/jodit';

@@ -30,6 +30,8 @@ export default {
     empty_title: 'Тут ничего нет',
     empty_body:
       'Попробуйте изменить запрос или фильтр, чтобы найти то, что ищете.',
+    dropzone_button: 'Выберите файлы',
+    dropzone_hint: 'или переместите их сюда',
   },
   error: {
     alert_title: 'Ой...',

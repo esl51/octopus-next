@@ -1,10 +1,27 @@
 <template>
   <div>
+    <div
+      v-if="title"
+      class="form-label"
+    >
+      <div class="d-flex align-items-center">
+        {{ title }}
+        <span
+          v-if="description"
+          v-tooltip
+          :title="description"
+          :aria-label="description"
+          class="text-primary ms-1"
+        >
+          <icon-info-square-rounded class="icon" />
+        </span>
+      </div>
+    </div>
     <ul
       v-if="items.length"
       v-sortable="!!sortable ? {} : false"
       class="list-group"
-      v-bind="$attrs"
+      :class="{ draggable: !!sortable }"
       @drag-end="move"
     >
       <li
@@ -73,6 +90,19 @@
         </div>
       </li>
     </ul>
+    <app-dropzone
+      v-if="dropzone"
+      :filable-id="filableId"
+      :filable-type="filableType"
+      :type="type"
+      @success="fetchItems"
+    />
+    <div
+      v-if="hint"
+      class="form-text mt-2"
+    >
+      {{ hint }}
+    </div>
     <teleport to="body">
       <o-modal
         ref="modal"
@@ -112,15 +142,21 @@
 
 <script setup lang="ts">
 import { filesApi } from '@/modules/files/api'
+import AppDropzone from './AppDropzone.vue'
 import OModal from '@/components/OModal.vue'
 import { useItems } from '@/composables/useItems'
 import { File } from '@/modules/files/types'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import api from '@/api'
 import { useFormatter } from '@/composables/useFormatter'
 import { sanitizeUrl } from '@braintree/sanitize-url'
-import { IconTrash, IconDownload, IconPencil } from '@tabler/icons-vue'
+import {
+  IconTrash,
+  IconDownload,
+  IconPencil,
+  IconInfoSquareRounded,
+} from '@tabler/icons-vue'
 
 const { availableLocales } = useI18n()
 
@@ -129,13 +165,23 @@ const { formatFileSize } = useFormatter()
 // props
 const props = withDefaults(
   defineProps<{
+    title?: string
+    description?: string
+    hint?: string
     filableId: number
     filableType: string
     type: string
     sortable?: boolean
+    dropzone?: boolean
+    initial?: Array<File>
   }>(),
   {
+    title: undefined,
+    description: undefined,
+    hint: undefined,
     sortable: false,
+    dropzone: true,
+    initial: undefined,
   },
 )
 
@@ -151,18 +197,29 @@ availableLocales.forEach((locale) => {
 })
 
 // items
-const { items, form, current, move, edit, submit, destroy, cleanRoute } =
-  useItems<File>({
-    api: filesApi,
-    defaults,
-    modal,
-    listKey: 'files',
-    params: {
-      filable_id: props.filableId?.toString(),
-      filable_type: props.filableType,
-      type: props.type,
-    },
-  })
+const {
+  items,
+  form,
+  current,
+  setItems,
+  fetchItems,
+  move,
+  edit,
+  submit,
+  destroy,
+  cleanRoute,
+} = useItems<File>({
+  api: filesApi,
+  defaults,
+  modal,
+  listKey: 'app-files',
+  fetchOnMount: false,
+  params: {
+    filable_id: props.filableId?.toString(),
+    filable_type: props.filableType,
+    type: props.type,
+  },
+})
 
 // emits
 const emit = defineEmits(['delete'])
@@ -190,4 +247,12 @@ const destroyFile = async (file: File) => {
   await destroy(file, file.title ?? file.id.toString())
   emit('delete')
 }
+
+onMounted(() => {
+  if (props.initial) {
+    setItems(props.initial)
+  } else {
+    fetchItems()
+  }
+})
 </script>

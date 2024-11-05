@@ -72,8 +72,9 @@ trait HasFiles
     /**
      * Store files.
      */
-    public function storeFiles(array|UploadedFile $files, ?string $type = null, int $cropSize = 1024): void
+    public function storeFiles(array|UploadedFile $files, ?string $type = null, int $cropSize = 1024): array
     {
+        $storedFiles = [];
         if (!is_array($files)) {
             $files = [$files];
         }
@@ -97,17 +98,21 @@ trait HasFiles
                     $uploadedFile->store($this->getStoragePath($type));
                 }
                 $file = $this->getPath($uploadedFile->hashName(), $type);
-                $this->files()->create([
+                $storedFiles[] = $this->files()->create([
                     'type' => $type,
                     'file_name' => $uploadedFile->hashName(),
                     'original_name' => $uploadedFile->getClientOriginalName(),
                     'mime_type' => Storage::mimeType($file),
                     'extension' => $uploadedFile->getClientOriginalExtension(),
                     'size' => Storage::size($file),
-                    'title:' . config('translatable.fallback_locale') => $uploadedFile->getClientOriginalName(),
+                    'title:' . config('translatable.fallback_locale') => pathinfo(
+                        $uploadedFile->getClientOriginalName(),
+                        PATHINFO_FILENAME
+                    ),
                 ]);
             }
         }
+        return $storedFiles;
     }
 
     /**
@@ -140,11 +145,12 @@ trait HasFiles
         return $this->morphMany(File::class, 'filable');
     }
 
-    public function handleFiles(?array $files = null, string|array|null $types = null): void
+    public function handleFiles(?array $files = null, string|array|null $types = null): array
     {
         if (empty($files)) {
-            return;
+            return [];
         }
+        $handledFiles = [];
         $fileTypes = $this->getFileTypes();
         if (is_string($types)) {
             $fileTypes = array_filter(
@@ -164,15 +170,21 @@ trait HasFiles
                 if ($options['replace']) {
                     $this->deleteDirectory($type);
                 }
-                $this->storeFiles(data_get($files, $type), $type, $options['cropSize']);
+                $storedFiles = $this->storeFiles(data_get($files, $type), $type, $options['cropSize']);
+                if ($options['multiple']) {
+                    $handledFiles[$type] = $storedFiles;
+                } else {
+                    $handledFiles[$type] = count($storedFiles) ? $storedFiles[0] : [];
+                }
             }
         }
+        return $handledFiles;
     }
 
     /**
      * Get file types from `fileTypes` property.
      */
-    protected function getFileTypes(): array
+    public function getFileTypes(): array
     {
         if (!isset($this->fileTypes)) {
             return [];

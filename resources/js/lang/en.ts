@@ -30,6 +30,8 @@ export default {
     empty_title: 'No results found',
     empty_body:
       "Try adjusting your search or filter to find what you're looking for.",
+    dropzone_button: 'Select files',
+    dropzone_hint: 'or drop files here',
   },
   error: {
     alert_title: 'Oops...',

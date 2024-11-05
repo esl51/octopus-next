@@ -3,6 +3,7 @@
 namespace App\Models\Files;
 
 use App\Models\Model;
+use App\Traits\HasService;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Rutorika\Sortable\SortableTrait;
 use Astrotomic\Translatable\Translatable;
@@ -30,6 +31,7 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 class File extends Model implements TranslatableContract
 {
     use HasFactory;
+    use HasService;
     use SortableTrait;
     use Translatable;
 
@@ -78,7 +80,7 @@ class File extends Model implements TranslatableContract
 
     public function getIsDeletableAttribute(): bool
     {
-        return $this->filable->is_deletable;
+        return $this->filable->is_editable;
     }
 
     public function getIsEditableAttribute(): bool

@@ -5,7 +5,7 @@ import { Item, ItemsApi, ListParams, Meta } from '@/types'
 import { File } from '@/modules/files/types'
 import { serialize } from 'object-to-formdata'
 import Form from 'vform'
-import { nextTick, onMounted, reactive, Ref, ref, watch } from 'vue'
+import { computed, nextTick, onMounted, reactive, Ref, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from 'vue-router'
 import { useListsStore } from '@/stores/lists'
@@ -15,6 +15,7 @@ interface ItemsConfig<T extends Item, U extends ItemsApi<T> = ItemsApi<T>> {
   defaults: Record<string, unknown>
   modal?: Ref<typeof OModal | null>
   params?: ListParams
+  fetchOnMount?: boolean
   listKey: string
 }
 
@@ -39,6 +40,11 @@ export function useItems<T extends Item>(config: ItemsConfig<T>) {
 
   // lists
   const lists = useListsStore()
+
+  // fetch on mount
+  const fetchOnMount = computed(() =>
+    config.fetchOnMount === false ? false : true,
+  )
 
   // form
   const form = reactive(Form.make(config.defaults))
@@ -111,6 +117,11 @@ export function useItems<T extends Item>(config: ItemsConfig<T>) {
   // load item
   const loadItem = async (item: T) => {
     current.value = item
+  }
+
+  // set items
+  const setItems = (newItems: Array<T>) => {
+    items.value = newItems
   }
 
   // fetch items
@@ -299,7 +310,7 @@ export function useItems<T extends Item>(config: ItemsConfig<T>) {
       }
       fetchItems()
     },
-    { immediate: true, deep: true },
+    { deep: true },
   )
 
   // list change
@@ -312,7 +323,7 @@ export function useItems<T extends Item>(config: ItemsConfig<T>) {
       }
       fetchItems()
     },
-    { immediate: true, deep: true },
+    { deep: true },
   )
 
   // focus first error
@@ -336,6 +347,9 @@ export function useItems<T extends Item>(config: ItemsConfig<T>) {
 
   // show add/edit modal with specific route query
   onMounted(async () => {
+    if (fetchOnMount.value === true) {
+      fetchItems()
+    }
     const addItem = Number(route.query.add)
     const editItem = Number(route.query.edit)
     if (addItem) {
@@ -358,6 +372,7 @@ export function useItems<T extends Item>(config: ItemsConfig<T>) {
     form,
     current,
     fetchItem,
+    setItems,
     fetchItems,
     paginate,
     sort,

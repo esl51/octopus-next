@@ -3,6 +3,7 @@
 namespace App\Models\Access;
 
 use App\Traits\HasColumns;
+use App\Traits\HasService;
 use App\Traits\SerializesDates;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
@@ -15,6 +16,7 @@ class Role extends BaseRole implements TranslatableContract
     use PerPageResolverTrait;
     use HasFactory;
     use HasColumns;
+    use HasService;
     use Translatable;
     use SerializesDates;
 

@@ -5,6 +5,7 @@ namespace App\Models\Access;
 use App\Traits\Access\ExposePermissions;
 use App\Traits\Files\HasFiles;
 use App\Traits\HasColumns;
+use App\Traits\HasService;
 use App\Traits\SerializesDates;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
@@ -36,6 +37,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasFactory;
     use HasFiles;
     use HasRoles;
+    use HasService;
     use Notifiable;
     use SerializesDates;
 

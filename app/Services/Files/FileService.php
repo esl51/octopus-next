@@ -4,6 +4,7 @@ namespace App\Services\Files;
 
 use App\Services\ItemService;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 class FileService extends ItemService
 {
@@ -38,6 +39,22 @@ class FileService extends ItemService
         }
 
         return $items;
+    }
+
+    public function store(array $data, ?array $files = null): Model
+    {
+        /** @var ItemService $filableService */
+        $filableService = call_user_func(['App\\Models\\' . $data['filable_type'], 'service']);
+        $filable = $filableService->get($data['filable_id']);
+
+        $keyedFiles = [
+            $data['type'] => $files['file'],
+        ];
+
+        $handledFiles = $filable->handleFiles($keyedFiles);
+        return is_array($handledFiles[$data['type']])
+            ? $handledFiles[$data['type']][0]
+            : $handledFiles[$data['type']];
     }
 
     public function sortByTranslations(): array

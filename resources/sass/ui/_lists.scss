@@ -1,0 +1,7 @@
+.list-group {
+  &.draggable {
+    .list-group-item {
+      cursor: move;
+    }
+  }
+}
