@@ -4,6 +4,12 @@
       class="card-body"
       :class="bodyClass"
     >
+      <h3
+        v-if="title"
+        class="card-title"
+      >
+        {{ title }}
+      </h3>
       <slot />
     </div>
     <div
@@ -20,10 +26,12 @@
 // props
 withDefaults(
   defineProps<{
+    title?: string
     bodyClass?: string
     footerClass?: string
   }>(),
   {
+    title: '',
     bodyClass: '',
     footerClass: '',
   },
