@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="dropzone-container">
     <div
       v-if="title"
       class="form-label"

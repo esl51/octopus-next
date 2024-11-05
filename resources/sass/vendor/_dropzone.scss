@@ -40,7 +40,9 @@
   &:has(.dz-preview) ~ .dz-message {
     margin-top: 0.5rem;
   }
-  &:has(.dz-preview):not(:has(.dz-complete)) {
+}
+.dropzone-container {
+  .list-group:has(.list-group-item) + & {
     margin-top: 0.5rem;
   }
 }
