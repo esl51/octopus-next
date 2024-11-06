@@ -99,7 +99,7 @@
     />
     <div
       v-if="hint"
-      class="form-text mt-2"
+      class="form-text text-balance mt-2"
     >
       {{ hint }}
     </div>

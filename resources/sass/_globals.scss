@@ -7,7 +7,14 @@
         class: min-w,
         values: (
           0: 0,
-          auth: auto,
+          auto: auto,
+        ),
+      ),
+      'text-wrap': (
+        property: text-wrap,
+        class: text,
+        values: (
+          balance: balance,
         ),
       )
     ),

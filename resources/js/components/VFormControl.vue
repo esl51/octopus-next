@@ -30,7 +30,7 @@
     <slot />
     <div
       v-if="hint"
-      class="form-text"
+      class="form-text text-balance"
     >
       {{ hint }}
     </div>
