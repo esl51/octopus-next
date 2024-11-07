@@ -180,6 +180,7 @@ return [
         'password' => 'password',
         'avatar' => 'avatar',
         'current_password' => 'current password',
+        'file' => 'file',
     ],
 
 ];
