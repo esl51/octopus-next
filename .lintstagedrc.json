@@ -1,5 +1,5 @@
 {
   "*.{ts,vue}": "npx eslint --fix",
   "*.{scss,css,vue}": "npx stylelint --fix",
-  "*.php": "php ./vendor/bin/pint --repair"
+  "*.php": "php ./vendor/bin/pint"
 }
