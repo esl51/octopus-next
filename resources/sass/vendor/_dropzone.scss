@@ -37,7 +37,7 @@
   }
 }
 .dropzone-previews {
-  &:has(.dz-preview) ~ .dz-message {
+  &:has(.dz-preview:not(.dz-complete)) ~ .dz-message {
     margin-top: 0.5rem;
   }
 }
