@@ -145,7 +145,7 @@ class AppItem extends Command
         );
         $routesContent = file_get_contents('routes/api.php');
         if (! preg_match("/$routePath\/$table/", $routesContent)) {
-            $routesContent .= "require __DIR__ . '/api/$routePath/$table.php';\n";
+            $routesContent .= "require __DIR__.'/api/$routePath/$table.php';\n";
         }
         file_put_contents(base_path('routes/api.php'), $routesContent);
     }

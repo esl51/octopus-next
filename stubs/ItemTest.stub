@@ -12,7 +12,9 @@ class DummyClass extends ItemTest
             'id',
         ],
     ];
+
     protected $uri = '/api/dummy-route';
+
     protected $class = DummyModelClass::class;
 
     public function setUp(): void

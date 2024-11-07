@@ -20,8 +20,8 @@ class DummyClass extends ItemService
         $items = parent::newItemsQuery($params);
 
         $search = $params['search'] ?? null;
-        if ($search && !is_numeric($search)) {
-            $items->where(function ($query) use ($search) {
+        if ($search && ! is_numeric($search)) {
+            $items->where(function ($query) {
                 // $query->orWhere('name', 'like', '%' . $search . '%');
             });
         }
