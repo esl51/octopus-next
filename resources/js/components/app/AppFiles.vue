@@ -95,6 +95,7 @@
       :filable-id="filableId"
       :filable-type="filableType"
       :type="type"
+      :accepted-files="acceptedFiles"
       @success="fetchItems"
     />
     <div
@@ -173,6 +174,7 @@ const props = withDefaults(
     type: string
     sortable?: boolean
     dropzone?: boolean
+    acceptedFiles?: string
     initial?: Array<File>
   }>(),
   {
@@ -181,6 +183,7 @@ const props = withDefaults(
     hint: undefined,
     sortable: false,
     dropzone: true,
+    acceptedFiles: undefined,
     initial: undefined,
   },
 )

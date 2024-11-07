@@ -90,6 +90,8 @@ import Dropzone from 'dropzone'
 import { IconFileUpload } from '@tabler/icons-vue'
 import { ref, watchEffect } from 'vue'
 import { filesApi } from '@/modules/files/api'
+import { useToast } from '@/composables/useToast'
+import { useI18n } from 'vue-i18n'
 
 // props
 const props = withDefaults(
@@ -114,6 +116,12 @@ const props = withDefaults(
   },
 )
 
+// toast
+const toast = useToast()
+
+// i18n
+const { t } = useI18n()
+
 // preview template
 const previewTemplate = ref<HTMLElement | null>(null)
 
@@ -137,6 +145,7 @@ const createDropzone = (
       createImageThumbnails: false,
       previewTemplate: previewTemplate.value?.innerHTML,
       previewsContainer: previewContainer.value,
+      dictInvalidFileType: t('global.dropzone_invalid_file_type'),
       headers: {
         'X-CSRF-TOKEN': csrfToken,
       },
@@ -149,6 +158,16 @@ const createDropzone = (
         xhr.send = (body: FormData) => {
           send.call(xhr, body)
         }
+      },
+      error(file, message, xhr) {
+        let title = typeof message == 'string' ? message : message.message
+        if (!title) {
+          title = t('error.alert_text')
+        }
+        toast.danger({
+          title,
+        })
+        emit('error')
       },
     } as Dropzone.DropzoneOptions),
     ...options,
@@ -173,5 +192,5 @@ watchEffect(async () => {
 })
 
 // emits
-const emit = defineEmits(['success'])
+const emit = defineEmits(['success', 'error'])
 </script>

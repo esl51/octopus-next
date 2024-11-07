@@ -32,6 +32,7 @@ export default {
       'Попробуйте изменить запрос или фильтр, чтобы найти то, что ищете.',
     dropzone_button: 'Выберите файлы',
     dropzone_hint: 'или переместите их сюда',
+    dropzone_invalid_file_type: 'Вы не можете загружать файлы этого типа.',
   },
   error: {
     alert_title: 'Ой...',

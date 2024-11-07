@@ -20,6 +20,7 @@ trait HasFiles
         'replace' => false,
         'cropSize' => 1024,
         'viewable' => true,
+        'extensions' => 'jpg,png,gif,pdf,doc,docx,xls,xlsx,ppt,pptx',
     ];
 
     /**
@@ -214,9 +215,9 @@ trait HasFiles
         foreach ((new static)->getFileTypes() as $type => $options) {
             static::resolveRelationUsing($type, function ($model) use ($type, $options) {
                 if ($options['multiple']) {
-                    return $model->morphMany(File::class, 'filable')->where('type', $type);
+                    return $model->morphMany(File::class, 'filable')->where('type', $type)->sorted();
                 } else {
-                    return $model->morphOne(File::class, 'filable')->where('type', $type);
+                    return $model->morphOne(File::class, 'filable')->where('type', $type)->sorted();
                 }
             });
         }

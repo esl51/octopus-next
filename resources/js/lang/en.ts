@@ -32,6 +32,7 @@ export default {
       "Try adjusting your search or filter to find what you're looking for.",
     dropzone_button: 'Select files',
     dropzone_hint: 'or drop files here',
+    dropzone_invalid_file_type: "You can't upload files of this type.",
   },
   error: {
     alert_title: 'Oops...',

@@ -83,6 +83,7 @@ class User extends Authenticatable implements MustVerifyEmail
             'multiple' => false,
             'replace' => true,
             'cropSize' => 256,
+            'extensions' => 'jpg,png',
         ],
     ];
 
