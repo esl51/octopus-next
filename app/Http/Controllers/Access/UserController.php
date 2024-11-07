@@ -13,6 +13,7 @@ class UserController extends ItemController
     {
         $item = $this->findItem((int) $request->route('id'));
         $this->service->disable($item->id);
+
         return $this->show($request);
     }
 
@@ -20,6 +21,7 @@ class UserController extends ItemController
     {
         $item = $this->findItem((int) $request->route('id'));
         $this->service->enable($item->id);
+
         return $this->show($request);
     }
 }

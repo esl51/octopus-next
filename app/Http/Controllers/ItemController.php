@@ -12,11 +12,17 @@ use Illuminate\Http\Request;
 abstract class ItemController extends Controller
 {
     protected ?string $class = null;
+
     protected ?string $resourceClass = null;
+
     protected ?string $storeRequestClass = null;
+
     protected ?string $updateRequestClass = null;
+
     protected ?string $destroyRequestClass = null;
+
     protected ?string $serviceClass = null;
+
     protected ?ItemService $service = null;
 
     public function __construct()
@@ -47,7 +53,7 @@ abstract class ItemController extends Controller
     {
         return preg_replace(
             '/(.+)\\\\Controllers\\\\(.+)Controller$/m',
-            '$1\Requests\\\$2' . ucfirst($type) . 'Request',
+            '$1\Requests\\\$2'.ucfirst($type).'Request',
             static::class
         );
     }
@@ -58,6 +64,7 @@ abstract class ItemController extends Controller
         if (class_exists($requestClass)) {
             return $requestClass;
         }
+
         return self::guessRequestClass('StoreUpdate');
     }
 
@@ -67,6 +74,7 @@ abstract class ItemController extends Controller
         if (class_exists($requestClass)) {
             return $requestClass;
         }
+
         return self::guessRequestClass('StoreUpdate');
     }
 
@@ -76,6 +84,7 @@ abstract class ItemController extends Controller
         if (class_exists($requestClass)) {
             return $requestClass;
         }
+
         return BaseDestroyRequest::class;
     }
 
@@ -89,15 +98,17 @@ abstract class ItemController extends Controller
         if (class_exists($class)) {
             return $class;
         }
+
         return BaseService::class;
     }
 
     public function findItem(int $id, $loadRelations = false)
     {
         $item = $this->service->get($id, $loadRelations);
-        if (!$item) {
+        if (! $item) {
             abort(404, trans('item.not_found'));
         }
+
         return $item;
     }
 
@@ -112,6 +123,7 @@ abstract class ItemController extends Controller
     public function show(Request $request): JsonResponse
     {
         $item = $this->findItem($request->route('id'), true);
+
         return (new $this->resourceClass($item))->response($request);
     }
 
@@ -120,6 +132,7 @@ abstract class ItemController extends Controller
         $data = app($this->storeRequestClass)->validated();
         $item = $this->service->store($data, $request->allFiles());
         $request->route()->setParameter('id', $item->id);
+
         return $this->show($request);
     }
 
@@ -130,6 +143,7 @@ abstract class ItemController extends Controller
             'item' => $item,
         ])->validated();
         $this->service->update($item->id, $data, $request->allFiles());
+
         return $this->show($request);
     }
 
@@ -150,28 +164,31 @@ abstract class ItemController extends Controller
                 throw $e;
             }
         }
+
         return response()->json(null, 204);
     }
 
     public function moveBefore(Request $request): JsonResponse
     {
         $item = $this->findItem($request->route('id'));
-        if (!$item) {
+        if (! $item) {
             abort(404, trans('item.not_found'));
         }
         $itemBefore = $this->findItem($request->route('before'));
         $this->service->moveBefore($item->id, $itemBefore->id);
+
         return $this->show($request);
     }
 
     public function moveAfter(Request $request): JsonResponse
     {
         $item = $this->findItem($request->route('id'));
-        if (!$item) {
+        if (! $item) {
             abort(404, trans('item.not_found'));
         }
         $itemAfter = $this->findItem($request->route('after'));
         $this->service->moveAfter($item->id, $itemAfter->id);
+
         return $this->show($request);
     }
 }

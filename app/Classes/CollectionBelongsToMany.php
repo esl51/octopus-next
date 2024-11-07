@@ -9,10 +9,15 @@ use Illuminate\Support\Facades\DB;
 class CollectionBelongsToMany extends Relation
 {
     protected Collection $relatedItems;
+
     protected Collection $pivotItems;
+
     protected $foreignKey;
+
     protected $relatedKey;
+
     protected $pivotTable;
+
     protected bool $withPivot = false;
 
     public function __construct($parent, Collection $relatedItems, $pivotTable, $foreignKey, $relatedKey)
@@ -85,6 +90,7 @@ class CollectionBelongsToMany extends Relation
             $this->foreignKey,
             $model->getKey()
         )->pluck($this->relatedKey);
+
         return $this->relatedItems->whereIn('id', $relatedIds);
     }
 
@@ -121,6 +127,7 @@ class CollectionBelongsToMany extends Relation
     public function withPivot()
     {
         $this->withPivot = true;
+
         return $this;
     }
 }

@@ -28,6 +28,7 @@ trait ExposePermissions
                 $permissions[$permission->name] = false;
             }
         }
+
         return $permissions;
     }
 }

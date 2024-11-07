@@ -27,8 +27,8 @@ class AppItem extends Command
     public function handle()
     {
         $class = $this->argument('name');
-        if (!preg_match('/\\\\/', $class)) {
-            if (!$this->confirm('Did you remember to use a double backslash (\\\\)?', true)) {
+        if (! preg_match('/\\\\/', $class)) {
+            if (! $this->confirm('Did you remember to use a double backslash (\\\\)?', true)) {
                 return self::FAILURE;
             }
         }
@@ -61,13 +61,13 @@ class AppItem extends Command
             base_path('stubs/ItemService.stub'),
             app_path("Services/{$classPath}Service.php"),
             [
-                'DummyClass' => $className . 'Service',
+                'DummyClass' => $className.'Service',
                 'DummyNamespace' => $this->getNamespace('Services', $classParts),
             ],
         );
 
         // controller
-        $controllerClass = $className . 'Controller';
+        $controllerClass = $className.'Controller';
         $controllerNamespace = $this->getNamespace('Http\\Controllers', $classParts);
         $this->generate(
             base_path('stubs/ItemController.stub'),
@@ -83,7 +83,7 @@ class AppItem extends Command
             base_path('stubs/ItemResource.stub'),
             app_path("Http/Resources/{$classPath}Resource.php"),
             [
-                'DummyClass' => $className . 'Resource',
+                'DummyClass' => $className.'Resource',
                 'DummyNamespace' => $this->getNamespace('Http\\Resources', $classParts),
             ],
         );
@@ -93,7 +93,7 @@ class AppItem extends Command
             base_path('stubs/ItemStoreUpdateRequest.stub'),
             app_path("Http/Requests/{$classPath}StoreUpdateRequest.php"),
             [
-                'DummyClass' => $className . 'StoreUpdateRequest',
+                'DummyClass' => $className.'StoreUpdateRequest',
                 'DummyNamespace' => $this->getNamespace('Http\\Requests', $classParts),
             ],
         );
@@ -108,7 +108,7 @@ class AppItem extends Command
             [
                 'DummyModelClass' => $className,
                 'DummyModelNamespace' => $modelNamespace,
-                'DummyClass' => $className . 'Factory',
+                'DummyClass' => $className.'Factory',
                 'DummyNamespace' => $this->getNamespace('Database\\Factories', $classParts, false, false),
             ],
         );
@@ -123,7 +123,7 @@ class AppItem extends Command
             [
                 'DummyModelClass' => $className,
                 'DummyModelNamespace' => $modelNamespace,
-                'DummyClass' => $className . 'Test',
+                'DummyClass' => $className.'Test',
                 'DummyNamespace' => $this->getNamespace('Tests\\Feature', $classParts, false, false),
                 'dummy-route' => $table,
             ],
@@ -131,7 +131,7 @@ class AppItem extends Command
 
         // routes
         $routeParts = array_slice($classParts, 0, -1);
-        $routePath = implode('/', array_map(fn($item) => Str::kebab($item), $routeParts));
+        $routePath = implode('/', array_map(fn ($item) => Str::kebab($item), $routeParts));
         $this->mkdir(base_path("routes/api/$routePath"));
         $this->generate(
             base_path('stubs/routes.stub'),
@@ -143,35 +143,35 @@ class AppItem extends Command
                 'DummyControllerNamespace' => $controllerNamespace,
             ],
         );
-        $routesContent = file_get_contents("routes/api.php");
-        if (!preg_match("/$routePath\/$table/", $routesContent)) {
+        $routesContent = file_get_contents('routes/api.php');
+        if (! preg_match("/$routePath\/$table/", $routesContent)) {
             $routesContent .= "require __DIR__ . '/api/$routePath/$table.php';\n";
         }
-        file_put_contents(base_path("routes/api.php"), $routesContent);
+        file_put_contents(base_path('routes/api.php'), $routesContent);
     }
 
     public function generate(string $stubPath, string $filePath, array $replacements)
     {
         $stubContent = file_get_contents($stubPath);
         $fileContent = str_replace(array_keys($replacements), $replacements, $stubContent);
-        if (!file_exists($filePath)) {
+        if (! file_exists($filePath)) {
             file_put_contents($filePath, $fileContent);
         }
     }
 
     public function mkdir($path)
     {
-        if (!file_exists($path)) {
+        if (! file_exists($path)) {
             mkdir($path, 0755, true);
         }
     }
 
     public function getNamespace(string $prefix, array $classParts, $mkdir = true, $app = true): string
     {
-        $namespace = ($app ? 'App\\' : '') . $prefix;
+        $namespace = ($app ? 'App\\' : '').$prefix;
         $namespaceParts = array_slice($classParts, 0, -1);
         if (count($namespaceParts)) {
-            $namespace .= '\\' . implode('\\', $namespaceParts);
+            $namespace .= '\\'.implode('\\', $namespaceParts);
         }
         $path = implode('/', $namespaceParts);
         $prefixParts = explode('\\', $prefix);
@@ -179,6 +179,7 @@ class AppItem extends Command
         if ($mkdir) {
             $this->mkdir(app_path("$prefixPath/$path"));
         }
+
         return $namespace;
     }
 }

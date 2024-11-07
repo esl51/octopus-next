@@ -27,8 +27,8 @@ trait HasFiles
      */
     public static function viewableFilesScope(Builder $query): void
     {
-        $types = array_keys(array_filter((new self())->getFileTypes(), fn($item) => !empty($item['viewable'])));
-        if (!empty($types)) {
+        $types = array_keys(array_filter((new self)->getFileTypes(), fn ($item) => ! empty($item['viewable'])));
+        if (! empty($types)) {
             $query->where('filable_type', self::class);
             $query->whereIn('type', $types);
         }
@@ -50,6 +50,7 @@ trait HasFiles
         $class = get_class($this);
         $classParts = explode('\\', $class);
         $name = end($classParts);
+
         return Str::snake($name);
     }
 
@@ -58,7 +59,7 @@ trait HasFiles
      */
     public function getStoragePath(?string $type = null): string
     {
-        return $this->getTypeName() . '/' . $this->id . ($type ? '/' . $type : '');
+        return $this->getTypeName().'/'.$this->id.($type ? '/'.$type : '');
     }
 
     /**
@@ -66,7 +67,7 @@ trait HasFiles
      */
     public function getPath(string $fileName, ?string $type = null): string
     {
-        return $this->getStoragePath($type) . '/' . $fileName;
+        return $this->getStoragePath($type).'/'.$fileName;
     }
 
     /**
@@ -75,7 +76,7 @@ trait HasFiles
     public function storeFiles(array|UploadedFile $files, ?string $type = null, int $cropSize = 1024): array
     {
         $storedFiles = [];
-        if (!is_array($files)) {
+        if (! is_array($files)) {
             $files = [$files];
         }
         foreach ($files as $uploadedFile) {
@@ -105,13 +106,14 @@ trait HasFiles
                     'mime_type' => Storage::mimeType($file),
                     'extension' => $uploadedFile->getClientOriginalExtension(),
                     'size' => Storage::size($file),
-                    'title:' . config('translatable.fallback_locale') => pathinfo(
+                    'title:'.config('translatable.fallback_locale') => pathinfo(
                         $uploadedFile->getClientOriginalName(),
                         PATHINFO_FILENAME
                     ),
                 ]);
             }
         }
+
         return $storedFiles;
     }
 
@@ -155,13 +157,13 @@ trait HasFiles
         if (is_string($types)) {
             $fileTypes = array_filter(
                 $fileTypes,
-                fn($item) => $item == $types,
+                fn ($item) => $item == $types,
                 ARRAY_FILTER_USE_KEY
             );
         } elseif (is_array($types)) {
             $fileTypes = array_filter(
                 $fileTypes,
-                fn($item) => in_array($item, $types),
+                fn ($item) => in_array($item, $types),
                 ARRAY_FILTER_USE_KEY
             );
         }
@@ -178,6 +180,7 @@ trait HasFiles
                 }
             }
         }
+
         return $handledFiles;
     }
 
@@ -186,7 +189,7 @@ trait HasFiles
      */
     public function getFileTypes(): array
     {
-        if (!isset($this->fileTypes)) {
+        if (! isset($this->fileTypes)) {
             return [];
         }
         $types = [];
@@ -197,17 +200,18 @@ trait HasFiles
                 $types[$type] = array_merge($this->defaultOptions, $options);
             }
         }
+
         return $types;
     }
 
     public function getFilableTitleAttribute(): string
     {
-        return $this->getTypeName() . ' ' . $this->id;
+        return $this->getTypeName().' '.$this->id;
     }
 
     protected static function bootHasFiles(): void
     {
-        foreach ((new static())->getFileTypes() as $type => $options) {
+        foreach ((new static)->getFileTypes() as $type => $options) {
             static::resolveRelationUsing($type, function ($model) use ($type, $options) {
                 if ($options['multiple']) {
                     return $model->morphMany(File::class, 'filable')->where('type', $type);

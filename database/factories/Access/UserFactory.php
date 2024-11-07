@@ -40,7 +40,7 @@ class UserFactory extends Factory
      */
     public function unverified()
     {
-        return $this->state(fn(array $attributes) => [
+        return $this->state(fn (array $attributes) => [
             'email_verified_at' => null,
         ]);
     }
@@ -52,7 +52,7 @@ class UserFactory extends Factory
      */
     public function disabled()
     {
-        return $this->state(fn(array $attributes) => [
+        return $this->state(fn (array $attributes) => [
             'disabled_at' => today(),
         ]);
     }

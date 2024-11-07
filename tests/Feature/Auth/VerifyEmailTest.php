@@ -15,13 +15,14 @@ use URL;
 class VerifyEmailTest extends TestCase
 {
     public $notificaitonUrl = '/email/verification-notification';
+
     public $user;
 
     public function setUp(): void
     {
         parent::setUp();
 
-        if (!in_array('email-verification', config('fortify.features'))) {
+        if (! in_array('email-verification', config('fortify.features'))) {
             $this->markTestSkipped('email verification is disabled');
         }
 
@@ -52,7 +53,7 @@ class VerifyEmailTest extends TestCase
             ->get($verifyEmailUrl);
         Event::assertDispatched(Verified::class);
         $this->assertTrue($this->user->fresh()->hasVerifiedEmail());
-        $response->assertRedirect(AppServiceProvider::HOME . '?verified=1');
+        $response->assertRedirect(AppServiceProvider::HOME.'?verified=1');
     }
 
     #[Test]

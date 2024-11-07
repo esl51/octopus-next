@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Resources\Access\UserResource;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
@@ -17,6 +17,7 @@ class AuthController extends Controller
         $user->append('can', 'all_permissions');
         $user->load('avatar');
         $user->makeVisible('roles');
+
         return (new UserResource($user))->response();
     }
 
@@ -30,6 +31,7 @@ class AuthController extends Controller
             'avatar' => 'required|mimes:jpeg,png',
         ]);
         $user->handleFiles($request->allFiles(), 'avatar');
+
         return response()->json(null, 204);
     }
 
@@ -40,6 +42,7 @@ class AuthController extends Controller
     {
         $user = $request->user();
         $user->deleteDirectory('avatar');
+
         return response()->json(null, 204);
     }
 }

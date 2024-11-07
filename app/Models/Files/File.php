@@ -5,11 +5,11 @@ namespace App\Models\Files;
 use App\Models\Model;
 use App\Traits\HasService;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
-use Rutorika\Sortable\SortableTrait;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Rutorika\Sortable\SortableTrait;
 use Storage;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 

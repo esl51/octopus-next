@@ -14,8 +14,8 @@ trait SortableTestTrait
         $item = $this->createItem($this->itemAttributes);
         $item2 = $this->createItem($this->item2Attributes);
         $this->actingAs($this->user)
-            ->postJson($this->uri . '/' . ($this->pivot ? $item2->{$this->pivotAttribute} : $item2->id)
-                . '/move-before/' . ($this->pivot ? $item->{$this->pivotAttribute} : $item->id))
+            ->postJson($this->uri.'/'.($this->pivot ? $item2->{$this->pivotAttribute} : $item2->id)
+                .'/move-before/'.($this->pivot ? $item->{$this->pivotAttribute} : $item->id))
             ->assertSuccessful()
             ->assertJsonPath($this->pivot ? 'data.pivot.position' : 'data.position', $item->position);
     }
@@ -26,8 +26,8 @@ trait SortableTestTrait
         $item = $this->createItem($this->itemAttributes);
         $item2 = $this->createItem($this->item2Attributes);
         $this->actingAs($this->user)
-            ->postJson($this->uri . '/' . ($this->pivot ? $item->{$this->pivotAttribute} : $item->id)
-                . '/move-after/' . ($this->pivot ? $item2->{$this->pivotAttribute} : $item2->id))
+            ->postJson($this->uri.'/'.($this->pivot ? $item->{$this->pivotAttribute} : $item->id)
+                .'/move-after/'.($this->pivot ? $item2->{$this->pivotAttribute} : $item2->id))
             ->assertSuccessful()
             ->assertJsonPath($this->pivot ? 'data.pivot.position' : 'data.position', $item2->position);
     }

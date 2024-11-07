@@ -42,7 +42,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         ResetPassword::createUrlUsing(function ($user, string $token) {
-            return env('SPA_URL') . '/reset-password?token=' . $token;
+            return env('SPA_URL').'/reset-password?token='.$token;
         });
 
         Gate::before(function ($user, $ability) {
@@ -51,7 +51,7 @@ class AppServiceProvider extends ServiceProvider
 
         Fortify::authenticateUsing(function (Request $request) {
             $user = User::where('email', $request->email)->first();
-            if (!$user || !Hash::check($request->password, $user->password)) {
+            if (! $user || ! Hash::check($request->password, $user->password)) {
                 throw ValidationException::withMessages(['email' => trans('auth.failed')]);
             }
             if (
@@ -59,6 +59,7 @@ class AppServiceProvider extends ServiceProvider
             ) {
                 throw ValidationException::withMessages(['email' => trans('auth.disabled')]);
             }
+
             return $user;
         });
         Fortify::createUsersUsing(CreateNewUser::class);
@@ -68,7 +69,8 @@ class AppServiceProvider extends ServiceProvider
 
         RateLimiter::for('login', function (Request $request) {
             $email = (string) $request->email;
-            return Limit::perMinute(5)->by($email . $request->ip());
+
+            return Limit::perMinute(5)->by($email.$request->ip());
         });
 
         RateLimiter::for('two-factor', function (Request $request) {

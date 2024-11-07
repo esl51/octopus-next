@@ -20,8 +20,8 @@ use Roquie\LaravelPerPageResolver\PerPageResolverTrait;
  */
 abstract class Model extends BaseModel
 {
-    use PerPageResolverTrait;
     use HasColumns;
+    use PerPageResolverTrait;
     use SerializesDates;
 
     public function getIsEditableAttribute(): bool

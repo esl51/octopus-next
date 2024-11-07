@@ -13,6 +13,7 @@ abstract class ItemResource extends JsonResource
         if ($this->pivot) {
             $this->pivot->append(['is_editable', 'is_deletable']);
         }
+
         return parent::toArray($request);
     }
 }

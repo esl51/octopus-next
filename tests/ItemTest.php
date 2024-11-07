@@ -2,25 +2,37 @@
 
 namespace Tests;
 
-use Tests\TestCase;
 use App\Models\Access\User;
 use PHPUnit\Framework\Attributes\Test;
 
 abstract class ItemTest extends TestCase
 {
     protected $user;
+
     protected $dummyData = [];
+
     protected $dummyTranslatableData = [];
+
     protected $dummyAdditionalData = [];
+
     protected $validStructure;
+
     protected $uri;
+
     protected $class;
+
     protected $tableName;
+
     protected $translationsTableName;
+
     protected $pivot = false;
+
     protected $pivotAttribute = 'id';
+
     protected $searchAttribute = 'name';
+
     protected $searchString = null;
+
     protected $itemAttributes = [];
 
     public function setUp(): void
@@ -29,11 +41,11 @@ abstract class ItemTest extends TestCase
         $this->user = User::factory()->afterCreating(function ($model) {
             $model->assignRole('root');
         })->create();
-        $model = (new $this->class());
+        $model = (new $this->class);
         $this->tableName = $model->getTable();
         if (method_exists($model, 'translations')) {
             $translationModelName = $model->getTranslationModelName();
-            $this->translationsTableName = (new $translationModelName())->getTable();
+            $this->translationsTableName = (new $translationModelName)->getTable();
         }
     }
 
@@ -41,6 +53,7 @@ abstract class ItemTest extends TestCase
     {
         $item = call_user_func([$this->class, 'factory']);
         $this->actingAs($this->user);
+
         return $item->create($attributes);
     }
 
@@ -49,7 +62,7 @@ abstract class ItemTest extends TestCase
     {
         $item = $this->createItem($this->itemAttributes);
         $this->actingAs($this->user)
-            ->getJson($this->uri . '/' . ($this->pivot ? $item->{$this->pivotAttribute} : $item->id))
+            ->getJson($this->uri.'/'.($this->pivot ? $item->{$this->pivotAttribute} : $item->id))
             ->assertSuccessful()
             ->assertJsonStructure($this->pivot
                 ? ['data' => ['pivot' => $this->validStructure['data']]]
@@ -73,7 +86,7 @@ abstract class ItemTest extends TestCase
     {
         $item = $this->createItem($this->itemAttributes);
         $this->actingAs($this->user)
-            ->getJson($this->uri . '/?id=' . $item->id)
+            ->getJson($this->uri.'/?id='.$item->id)
             ->assertSuccessful()
             ->assertJsonStructure($this->pivot
                 ? ['data' => ['*' => ['pivot' => $this->validStructure['data']]]]
@@ -86,7 +99,7 @@ abstract class ItemTest extends TestCase
     {
         $this->createItem($this->itemAttributes);
         $this->actingAs($this->user)
-            ->getJson($this->uri . '?sort_by=id&sort_desc=0')
+            ->getJson($this->uri.'?sort_by=id&sort_desc=0')
             ->assertSuccessful()
             ->assertJsonStructure($this->pivot
                 ? ['data' => ['*' => ['pivot' => $this->validStructure['data']]]]
@@ -98,7 +111,7 @@ abstract class ItemTest extends TestCase
     {
         $item = $this->createItem($this->itemAttributes);
         $this->actingAs($this->user)
-            ->getJson($this->uri . '?search=' . ($this->pivot ? $item->{$this->pivotAttribute} : $item->id))
+            ->getJson($this->uri.'?search='.($this->pivot ? $item->{$this->pivotAttribute} : $item->id))
             ->assertSuccessful()
             ->assertJsonStructure($this->pivot
                 ? ['data' => ['*' => ['pivot' => $this->validStructure['data']]]]
@@ -110,14 +123,14 @@ abstract class ItemTest extends TestCase
     public function search_item_by_string()
     {
         $item = $this->createItem($this->itemAttributes);
-        if (!$this->searchString) {
+        if (! $this->searchString) {
             $this->searchString = $item->{$this->searchAttribute};
-            if (!$this->searchString) {
+            if (! $this->searchString) {
                 $this->searchString = 'not_existing_string-123';
             }
         }
         $this->actingAs($this->user)
-            ->getJson($this->uri . '?search=' . $this->searchString)
+            ->getJson($this->uri.'?search='.$this->searchString)
             ->assertSuccessful()
             ->assertJsonCount(1, 'data')
             ->assertJsonStructure($this->pivot
@@ -129,10 +142,10 @@ abstract class ItemTest extends TestCase
     public function create_item()
     {
         $dummyData = $this->dummyData;
-        if (!empty($this->dummyAdditionalData)) {
+        if (! empty($this->dummyAdditionalData)) {
             $dummyData = array_merge($dummyData, $this->dummyAdditionalData);
         }
-        if (!empty($this->dummyTranslatableData)) {
+        if (! empty($this->dummyTranslatableData)) {
             $dummyData = array_merge($dummyData, $this->dummyTranslatableData);
         }
         $response = $this->actingAs($this->user)
@@ -165,14 +178,14 @@ abstract class ItemTest extends TestCase
             $this->dummyData[$this->pivotAttribute] = $item->{$this->pivotAttribute};
         }
         $dummyData = $this->dummyData;
-        if (!empty($this->dummyAdditionalData)) {
+        if (! empty($this->dummyAdditionalData)) {
             $dummyData = array_merge($dummyData, $this->dummyAdditionalData);
         }
-        if (!empty($this->dummyTranslatableData)) {
+        if (! empty($this->dummyTranslatableData)) {
             $dummyData = array_merge($dummyData, $this->dummyTranslatableData);
         }
         $response = $this->actingAs($this->user)
-            ->putJson($this->uri . '/' . ($this->pivot ? $item->{$this->pivotAttribute} : $item->id), $dummyData)
+            ->putJson($this->uri.'/'.($this->pivot ? $item->{$this->pivotAttribute} : $item->id), $dummyData)
             ->assertSuccessful()
             ->assertJsonStructure($this->pivot
                 ? ['data' => ['pivot' => $this->validStructure['data']]]
@@ -198,7 +211,7 @@ abstract class ItemTest extends TestCase
     {
         $item = $this->createItem($this->itemAttributes);
         $this->actingAs($this->user)
-            ->deleteJson($this->uri . '/' . ($this->pivot ? $item->{$this->pivotAttribute} : $item->id))
+            ->deleteJson($this->uri.'/'.($this->pivot ? $item->{$this->pivotAttribute} : $item->id))
             ->assertSuccessful();
 
         $this->assertDatabaseMissing($this->tableName, $this->dummyData);

@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
-use Tests\ItemTest;
 use App\Models\Access\Permission;
+use Tests\ItemTest;
 
 class PermissionTest extends ItemTest
 {
@@ -14,7 +14,9 @@ class PermissionTest extends ItemTest
             'guard_name',
         ],
     ];
+
     protected $uri = '/api/access/permissions';
+
     protected $class = Permission::class;
 
     public function setUp(): void

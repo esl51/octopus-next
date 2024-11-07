@@ -13,7 +13,7 @@ trait RefreshTestDatabase
 
     protected function refreshTestDatabase(): void
     {
-        if (!RefreshDatabaseState::$migrated) {
+        if (! RefreshDatabaseState::$migrated) {
             $this->runMigrationsIfNecessary();
 
             $this->app[Kernel::class]->setArtisan(null);
@@ -26,7 +26,7 @@ trait RefreshTestDatabase
 
     protected function runMigrationsIfNecessary(): void
     {
-        if (false === $this->identicalChecksum()) {
+        if ($this->identicalChecksum() === false) {
             $this->createChecksum();
             $this->artisan('migrate:fresh --seed');
         }
@@ -70,7 +70,7 @@ trait RefreshTestDatabase
 
     protected function identicalChecksum(): bool
     {
-        if (false === $this->isChecksumExists()) {
+        if ($this->isChecksumExists() === false) {
             return false;
         }
 

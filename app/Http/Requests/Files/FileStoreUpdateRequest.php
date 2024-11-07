@@ -21,9 +21,10 @@ class FileStoreUpdateRequest extends ItemStoreUpdateRequest
     {
         if ($this->isMethod('post') && empty($this->item)) {
             return true;
-        } elseif (!empty($this->item)) {
+        } elseif (! empty($this->item)) {
             return $this->item->is_editable;
         }
+
         return false;
     }
 
@@ -36,9 +37,9 @@ class FileStoreUpdateRequest extends ItemStoreUpdateRequest
             ]);
         } else {
             return $this->prepareRules([
-                'filable_type' => ['required', 'string', new FilableType()],
-                'filable_id' => ['required', 'integer', new Filable()],
-                'type' => ['required', 'string', new FileType()],
+                'filable_type' => ['required', 'string', new FilableType],
+                'filable_id' => ['required', 'integer', new Filable],
+                'type' => ['required', 'string', new FileType],
             ]);
         }
     }

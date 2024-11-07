@@ -1,6 +1,6 @@
 <?php
+
 // @formatter:off
-// phpcs:ignoreFile
 
 namespace Illuminate\Contracts\Auth {
     interface Guard

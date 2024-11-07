@@ -14,14 +14,16 @@ class Filable implements DataAwareRule, ValidationRule
     public function setData(array $data)
     {
         $this->data = $data;
+
         return $this;
     }
+
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        $filableTypeRule = new FilableType();
+        $filableTypeRule = new FilableType;
         $filableTypeRule->validate('filable_type', $this->data['filable_type'], $fail);
-        $service = call_user_func(['App\\Models\\' . $this->data['filable_type'], 'service']);
-        if (!$service instanceof ItemService || !$item = $service->get($this->data['filable_id'])) {
+        $service = call_user_func(['App\\Models\\'.$this->data['filable_type'], 'service']);
+        if (! $service instanceof ItemService || ! $item = $service->get($this->data['filable_id'])) {
             $fail(trans('filable', [
                 'attribute' => $attribute,
             ]));

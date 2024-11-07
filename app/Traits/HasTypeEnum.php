@@ -23,7 +23,8 @@ trait HasTypeEnum
         }
         $prefix = Str::snake($prefix);
         $typeName = Str::snake(Str::pluralStudly(class_basename(self::class)));
-        return trans($prefix . '.' . $typeName . '.' . str_replace('type_', '', $this->alias()));
+
+        return trans($prefix.'.'.$typeName.'.'.str_replace('type_', '', $this->alias()));
     }
 
     public function asObject(): stdClass
@@ -35,7 +36,7 @@ trait HasTypeEnum
     {
         $methods = array_filter(
             get_class_methods($this),
-            fn($item) => !in_array($item, ['from', 'tryFrom', 'cases', 'asArray', 'asObject', 'collect'])
+            fn ($item) => ! in_array($item, ['from', 'tryFrom', 'cases', 'asArray', 'asObject', 'collect'])
         );
 
         $array = [
@@ -51,6 +52,6 @@ trait HasTypeEnum
 
     public static function collect(): Collection
     {
-        return collect(self::cases())->map(fn($item) => $item->asObject());
+        return collect(self::cases())->map(fn ($item) => $item->asObject());
     }
 }

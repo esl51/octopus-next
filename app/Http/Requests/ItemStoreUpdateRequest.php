@@ -7,7 +7,9 @@ use App\Classes\TranslatableRuleFactory;
 abstract class ItemStoreUpdateRequest extends ItemRequest
 {
     protected $item = null;
+
     protected array $fillable = [];
+
     protected array $fillableTranslations = [];
 
     public function __construct($item = null)
@@ -19,9 +21,10 @@ abstract class ItemStoreUpdateRequest extends ItemRequest
     {
         if ($this->isMethod('post') && empty($this->item)) {
             return true;
-        } elseif (!empty($this->item)) {
+        } elseif (! empty($this->item)) {
             return $this->item->is_editable;
         }
+
         return false;
     }
 
@@ -30,6 +33,7 @@ abstract class ItemStoreUpdateRequest extends ItemRequest
         if (count($this->fillableTranslations)) {
             $rules = TranslatableRuleFactory::make($rules);
         }
+
         return $rules;
     }
 
@@ -39,11 +43,12 @@ abstract class ItemStoreUpdateRequest extends ItemRequest
         if (count($this->fillableTranslations)) {
             foreach ($this->fillableTranslations as $attribute) {
                 foreach (config('translatable.locales') as $locale) {
-                    $attributes[$attribute . ':' . $locale] =
-                        trans('validation.attributes.' . $attribute) . ' (' . $locale . ')';
+                    $attributes[$attribute.':'.$locale] =
+                        trans('validation.attributes.'.$attribute).' ('.$locale.')';
                 }
             }
         }
+
         return $attributes;
     }
 }

@@ -2,10 +2,10 @@
 
 namespace Tests\Feature\Files;
 
-use Illuminate\Http\UploadedFile;
-use Tests\ItemTest;
 use App\Models\Files\File;
+use Illuminate\Http\UploadedFile;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\ItemTest;
 
 class FileTest extends ItemTest
 {
@@ -21,8 +21,11 @@ class FileTest extends ItemTest
             'title',
         ],
     ];
+
     protected $uri = '/api/files';
+
     protected $class = File::class;
+
     protected $searchString = 'image';
 
     public function setUp(): void

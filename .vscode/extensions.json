@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    "DEVSENSE.phptools-vscode",
+    "open-southeners.laravel-pint",
+    "EditorConfig.EditorConfig",
+    "dbaeumer.vscode-eslint",
+    "stylelint.vscode-stylelint",
+  ]
+}

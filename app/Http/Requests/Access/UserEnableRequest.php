@@ -16,9 +16,10 @@ class UserEnableRequest extends ItemRequest
 
     public function authorize(): bool
     {
-        if (!$this->item) {
+        if (! $this->item) {
             $this->item = User::find((int) $this->route('id'));
         }
+
         return $this->item->is_enablable;
     }
 }

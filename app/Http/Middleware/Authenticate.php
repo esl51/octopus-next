@@ -12,11 +12,11 @@ class Authenticate extends Middleware
      */
     protected function redirectTo(Request $request)
     {
-        if (!$request->expectsJson()) {
+        if (! $request->expectsJson()) {
             return url(
                 env('SPA_URL')
-                    . '/login?redirect_url='
-                    . urlencode('/' . $request->path() . '?' . $request->getQueryString())
+                    .'/login?redirect_url='
+                    .urlencode('/'.$request->path().'?'.$request->getQueryString())
             );
         }
     }

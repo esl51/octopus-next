@@ -24,7 +24,7 @@ class UserStoreUpdateRequest extends ItemStoreUpdateRequest
                 $this->getUniqueEmailRule(),
             ],
             'avatar' => 'nullable|mimes:jpeg,png',
-            'password' => ($this->item ? 'nullable' : 'required') . '|min:8',
+            'password' => ($this->item ? 'nullable' : 'required').'|min:8',
             'roles' => 'nullable|array',
             'roles.*' => 'integer',
         ]);

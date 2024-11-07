@@ -10,10 +10,15 @@ use Tests\TestCase;
 class LoginTest extends TestCase
 {
     public $csrfCookieUrl = '/sanctum/csrf-cookie';
+
     public $loginUrl = '/login';
+
     public $userUrl = '/api/auth/user';
+
     public $logoutUrl = '/logout';
+
     public $user;
+
     public $disabledUser;
 
     public function setUp(): void

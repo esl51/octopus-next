@@ -10,7 +10,7 @@ class FileService extends ItemService
 {
     public function addConditions(Builder $query): Builder
     {
-        return $query->viewable(!auth()->user()->can('manage all files'));
+        return $query->viewable(! auth()->user()->can('manage all files'));
     }
 
     public function newItemsQuery(array $params): Builder
@@ -18,16 +18,16 @@ class FileService extends ItemService
         $items = parent::newItemsQuery($params);
 
         $search = $params['search'] ?? null;
-        if ($search && !is_numeric($search)) {
+        if ($search && ! is_numeric($search)) {
             $items->where(function ($query) use ($search) {
-                $query->orWhere('original_name', 'like', '%' . $search . '%')
-                    ->orWhereTranslationLike('title', '%' . $search . '%');
+                $query->orWhere('original_name', 'like', '%'.$search.'%')
+                    ->orWhereTranslationLike('title', '%'.$search.'%');
             });
         }
 
         $filableType = $params['filable_type'] ?? null;
         if ($filableType) {
-            $items->where('filable_type', 'App\\Models\\' . $filableType);
+            $items->where('filable_type', 'App\\Models\\'.$filableType);
         }
         $filableId = $params['filable_id'] ?? null;
         if ($filableId) {
@@ -44,7 +44,7 @@ class FileService extends ItemService
     public function store(array $data, ?array $files = null): Model
     {
         /** @var ItemService $filableService */
-        $filableService = call_user_func(['App\\Models\\' . $data['filable_type'], 'service']);
+        $filableService = call_user_func(['App\\Models\\'.$data['filable_type'], 'service']);
         $filable = $filableService->get($data['filable_id']);
 
         $keyedFiles = [
@@ -52,6 +52,7 @@ class FileService extends ItemService
         ];
 
         $handledFiles = $filable->handleFiles($keyedFiles);
+
         return is_array($handledFiles[$data['type']])
             ? $handledFiles[$data['type']][0]
             : $handledFiles[$data['type']];

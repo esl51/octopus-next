@@ -10,8 +10,8 @@ use Illuminate\Support\Facades\Storage;
  */
 abstract class TestCase extends BaseTestCase
 {
-    use RefreshTestDatabase;
     use CreatesApplication;
+    use RefreshTestDatabase;
 
     /**
      * Storage

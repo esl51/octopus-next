@@ -11,14 +11,16 @@ use Tests\TestCase;
 class ForgotPasswordTest extends TestCase
 {
     public $forgotPasswordUrl = '/forgot-password';
+
     public $resetPasswordUrl = '/reset-password';
+
     public $user;
 
     public function setUp(): void
     {
         parent::setUp();
 
-        if (!in_array('reset-passwords', config('fortify.features'))) {
+        if (! in_array('reset-passwords', config('fortify.features'))) {
             $this->markTestSkipped('resetting passwords is disabled');
         }
 
@@ -50,8 +52,9 @@ class ForgotPasswordTest extends TestCase
             'email' => $this->user->email,
         ]);
         Notification::assertSentTo($this->user, ResetPassword::class, function ($notification) {
-            $this->get($this->resetPasswordUrl . '/' . $notification->token)
+            $this->get($this->resetPasswordUrl.'/'.$notification->token)
                 ->assertStatus(200);
+
             return true;
         });
     }
@@ -70,6 +73,7 @@ class ForgotPasswordTest extends TestCase
                 'password' => 'password',
             ])
                 ->assertSuccessful();
+
             return true;
         });
     }
@@ -88,6 +92,7 @@ class ForgotPasswordTest extends TestCase
                 'password' => 'password',
             ])
                 ->assertStatus(422);
+
             return true;
         });
     }

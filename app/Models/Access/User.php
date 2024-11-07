@@ -13,8 +13,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Spatie\Permission\Traits\HasRoles;
 use Roquie\LaravelPerPageResolver\PerPageResolverTrait;
+use Spatie\Permission\Traits\HasRoles;
 
 /**
  * User
@@ -25,13 +25,11 @@ use Roquie\LaravelPerPageResolver\PerPageResolverTrait;
  * @property string $password
  * @property \Illuminate\Support\Carbon $email_verified_at
  * @property \Illuminate\Support\Carbon $disabled_at
- *
  * @property Role[] $roles
  */
 class User extends Authenticatable implements MustVerifyEmail
 {
     use ExposePermissions;
-    use PerPageResolverTrait;
     use HasApiTokens;
     use HasColumns;
     use HasFactory;
@@ -39,6 +37,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasRoles;
     use HasService;
     use Notifiable;
+    use PerPageResolverTrait;
     use SerializesDates;
 
     /**
@@ -112,6 +111,7 @@ class User extends Authenticatable implements MustVerifyEmail
                 $capitals .= ctype_digit($first) ? '' : $first;
             }
         }
+
         return mb_strtoupper($capitals);
     }
 
@@ -122,22 +122,24 @@ class User extends Authenticatable implements MustVerifyEmail
             return false;
         }
         // if user has root role and current user is not root
-        if ($this->hasRole('root') && !auth()->user()->hasRole('root')) {
+        if ($this->hasRole('root') && ! auth()->user()->hasRole('root')) {
             return false;
         }
         // if user has root role and user is last root
         if ($this->hasRole('root') && User::role('root')->count() < 2) {
             return false;
         }
+
         return true;
     }
 
     public function getIsEditableAttribute(): bool
     {
         // if user has root role and current user is not root
-        if ($this->hasRole('root') && !auth()->user()->hasRole('root')) {
+        if ($this->hasRole('root') && ! auth()->user()->hasRole('root')) {
             return false;
         }
+
         return true;
     }
 
@@ -152,9 +154,10 @@ class User extends Authenticatable implements MustVerifyEmail
             return false;
         }
         // if user has root role and current user is not root
-        if ($this->hasRole('root') && !auth()->user()->hasRole('root')) {
+        if ($this->hasRole('root') && ! auth()->user()->hasRole('root')) {
             return false;
         }
+
         return true;
     }
 
@@ -165,9 +168,10 @@ class User extends Authenticatable implements MustVerifyEmail
             return false;
         }
         // if user has root role and current user is not root
-        if ($this->hasRole('root') && !auth()->user()->hasRole('root')) {
+        if ($this->hasRole('root') && ! auth()->user()->hasRole('root')) {
             return false;
         }
+
         return true;
     }
 
@@ -182,7 +186,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function boot()
     {

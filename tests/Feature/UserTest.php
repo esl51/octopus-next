@@ -2,15 +2,16 @@
 
 namespace Tests\Feature;
 
-use Tests\ItemTest;
 use App\Models\Access\Role;
 use App\Models\Access\User;
 use Illuminate\Http\UploadedFile;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\ItemTest;
 
 class UserTest extends ItemTest
 {
     protected $dummyRole;
+
     protected $validStructure = [
         'data' => [
             'id',
@@ -19,9 +20,13 @@ class UserTest extends ItemTest
             'roles',
         ],
     ];
+
     protected $uri = '/api/access/users';
+
     protected $class = User::class;
+
     protected $admin;
+
     protected $itemAttributes = [
         'name' => 'Fake Test User',
     ];
@@ -51,6 +56,7 @@ class UserTest extends ItemTest
     {
         $item = parent::createItem($attributes);
         $item->syncRoles([$this->dummyRole->id]);
+
         return $item;
     }
 
@@ -79,12 +85,12 @@ class UserTest extends ItemTest
     {
         $item = $this->createItem();
         $response = $this->actingAs($this->user)
-            ->postJson($this->uri . '/' . $item->id . '/disable')
+            ->postJson($this->uri.'/'.$item->id.'/disable')
             ->assertSuccessful()
             ->assertJsonStructure($this->pivot
                 ? ['data' => ['pivot' => $this->validStructure['data']]]
                 : $this->validStructure)
-            ->assertJsonPath('data.disabled_at', fn($v) => $v != null);
+            ->assertJsonPath('data.disabled_at', fn ($v) => $v != null);
     }
 
     #[Test]
@@ -94,7 +100,7 @@ class UserTest extends ItemTest
             'disabled_at' => now(),
         ]);
         $response = $this->actingAs($this->user)
-            ->postJson($this->uri . '/' . $item->id . '/enable')
+            ->postJson($this->uri.'/'.$item->id.'/enable')
             ->assertSuccessful()
             ->assertJsonStructure($this->pivot
                 ? ['data' => ['pivot' => $this->validStructure['data']]]
@@ -107,7 +113,7 @@ class UserTest extends ItemTest
     {
         $this->createItem($this->itemAttributes);
         $this->actingAs($this->user)
-            ->getJson($this->uri . '/?role=' . $this->dummyRole->name)
+            ->getJson($this->uri.'/?role='.$this->dummyRole->name)
             ->assertSuccessful()
             ->assertJsonStructure(['data' => ['*' => $this->validStructure['data']]])
             ->assertJsonCount(1, 'data');
@@ -127,7 +133,7 @@ class UserTest extends ItemTest
     public function admin_can_not_update_root()
     {
         $this->actingAs($this->admin)
-            ->putJson('/api/access/users/' . $this->user->id, [
+            ->putJson('/api/access/users/'.$this->user->id, [
                 'name' => 'Root User',
                 'email' => 'new.email@root.org',
             ])
@@ -138,7 +144,7 @@ class UserTest extends ItemTest
     public function admin_can_not_delete_root()
     {
         $this->actingAs($this->admin)
-            ->deleteJson('/api/access/users/' . $this->user->id)
+            ->deleteJson('/api/access/users/'.$this->user->id)
             ->assertStatus(403);
     }
 }

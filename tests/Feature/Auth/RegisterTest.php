@@ -11,14 +11,16 @@ use Tests\TestCase;
 class RegisterTest extends TestCase
 {
     public $registerUrl = '/register';
+
     public $user;
+
     public $verificationEnabled = false;
 
     public function setUp(): void
     {
         parent::setUp();
 
-        if (!in_array('registration', config('fortify.features'))) {
+        if (! in_array('registration', config('fortify.features'))) {
             $this->markTestSkipped('registration is disabled');
         }
 

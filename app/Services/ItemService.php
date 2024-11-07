@@ -8,8 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 abstract class ItemService
 {
     protected ?string $class = null;
+
     protected array $with = [];
+
     protected array $withCount = [];
+
     protected bool $search = true;
 
     public function __construct(string $modelClass)
@@ -54,28 +57,29 @@ abstract class ItemService
         if ($sortBy) {
             $table = (app($this->class))->getTable();
             $columns = array_map(
-                fn($item) => str_replace($table . '.', '', $item),
+                fn ($item) => str_replace($table.'.', '', $item),
                 $this->class::getColumns()
             );
-            $sortDirection = !empty($params['sort_desc']) ? 'desc' : 'asc';
-            if (!empty($replacements[$sortBy])) {
+            $sortDirection = ! empty($params['sort_desc']) ? 'desc' : 'asc';
+            if (! empty($replacements[$sortBy])) {
                 $items->orderBy($replacements[$sortBy], $sortDirection);
-            } elseif (!empty($translations[$sortBy])) {
+            } elseif (! empty($translations[$sortBy])) {
                 $items->orderByTranslation($sortBy, $sortDirection);
                 $items->groupBy($translations[$sortBy]);
             } elseif (in_array($sortBy, $columns)) {
-                $items->orderBy(($table ? $table . '.' : '') . $sortBy, $sortDirection);
+                $items->orderBy(($table ? $table.'.' : '').$sortBy, $sortDirection);
             }
         }
         if ($sortable) {
             $items->sorted();
         }
+
         return $items;
     }
 
     public function newItemsQuery(array $params): Builder
     {
-        $table = (new $this->class())->getTable();
+        $table = (new $this->class)->getTable();
         $columns = $this->class::getColumns();
 
         $items = $this->initQuery();
@@ -87,25 +91,25 @@ abstract class ItemService
             $with[] = 'translations';
             //$items = call_user_func([$items, 'withTranslation']);
         }
-        if (!empty($with)) {
+        if (! empty($with)) {
             $items->with($with);
         }
 
-        if (!empty($this->withCount)) {
+        if (! empty($this->withCount)) {
             $items->withCount($this->withCount);
         }
 
         $id = $params['id'] ?? null;
         $search = $params['search'] ?? null;
         $filteredById = false;
-        if ($id && !$search) {
-            $items->where($table . '.id', (int) $id);
+        if ($id && ! $search) {
+            $items->where($table.'.id', (int) $id);
             $filteredById = true;
         }
 
-        if ($this->search && !$filteredById) {
+        if ($this->search && ! $filteredById) {
             if (is_numeric($search)) {
-                $items->where($table . '.id', $search);
+                $items->where($table.'.id', $search);
             }
         }
 
@@ -133,10 +137,11 @@ abstract class ItemService
             if (method_exists($this->class, 'translations')) {
                 $with[] = 'translations';
             }
-            if (!empty($with)) {
+            if (! empty($with)) {
                 $item = $item->with($with);
             }
         }
+
         return $item->find($id);
     }
 
@@ -174,6 +179,7 @@ abstract class ItemService
         $item = $this->get($id);
         $itemBefore = $this->get($beforeId);
         $item->moveBefore($itemBefore);
+
         return $item;
     }
 
@@ -182,6 +188,7 @@ abstract class ItemService
         $item = $this->get($id);
         $itemAfter = $this->get($afterId);
         $item->moveAfter($itemAfter);
+
         return $item;
     }
 }

@@ -21,10 +21,10 @@ class UserService extends ItemService
         $items = parent::newItemsQuery($params);
 
         $search = $params['search'] ?? null;
-        if ($search && !is_numeric($search)) {
+        if ($search && ! is_numeric($search)) {
             $items->where(function ($query) use ($search) {
-                $query->orWhere('users.name', 'like', '%' . $search . '%')
-                    ->orWhere('users.email', 'like', '%' . $search . '%');
+                $query->orWhere('users.name', 'like', '%'.$search.'%')
+                    ->orWhere('users.email', 'like', '%'.$search.'%');
             });
         }
 
@@ -51,10 +51,10 @@ class UserService extends ItemService
 
         $item = parent::store($data, $files);
 
-        $roles = array_map(fn($r) => (int) $r, $data['roles'] ?? []);
+        $roles = array_map(fn ($r) => (int) $r, $data['roles'] ?? []);
         $rootRole = Role::where('name', 'root')->first();
         // if current user is not root - unset root role from new roles
-        if (!auth()->user()->hasRole('root')) {
+        if (! auth()->user()->hasRole('root')) {
             if (($key = array_search($rootRole->id, $roles)) !== false) {
                 unset($roles[$key]);
             }
@@ -66,24 +66,24 @@ class UserService extends ItemService
 
     public function update(int $id, array $data, ?array $files = null): Model
     {
-        if (!empty($data['password'])) {
+        if (! empty($data['password'])) {
             $data['password'] = Hash::make($data['password']);
         }
 
         $item = parent::update($id, $data, $files);
 
-        $roles = array_map(fn($r) => (int) $r, $data['roles'] ?? []);
+        $roles = array_map(fn ($r) => (int) $r, $data['roles'] ?? []);
         $rootRole = Role::where('name', 'root')->first();
         // if user is current user and current user is root and root was unchecked - set only root role
         if (
             $item->id == auth()->id() &&
             auth()->user()->hasRole('root') &&
-            !in_array($rootRole->id, $roles)
+            ! in_array($rootRole->id, $roles)
         ) {
             $roles = [$rootRole->id];
         }
         // if current user is not root and user is not root - unset root role from new roles
-        if (!auth()->user()->hasRole('root') && !$item->hasRole('root')) {
+        if (! auth()->user()->hasRole('root') && ! $item->hasRole('root')) {
             if (($key = array_search($rootRole->id, $roles)) !== false) {
                 unset($roles[$key]);
             }
@@ -99,6 +99,7 @@ class UserService extends ItemService
         $item->update([
             'disabled_at' => now(),
         ]);
+
         return $item;
     }
 

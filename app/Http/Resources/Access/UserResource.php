@@ -14,6 +14,7 @@ class UserResource extends ItemResource
         $this->append('is_disablable', 'is_enablable');
         $data = parent::toArray($request);
         $data['avatar'] = FileResource::make($this->whenLoaded('avatar'));
+
         return $data;
     }
 }

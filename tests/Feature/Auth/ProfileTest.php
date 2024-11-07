@@ -13,13 +13,21 @@ use Tests\TestCase;
 class ProfileTest extends TestCase
 {
     public $updateAvatarUrl = '/api/auth/avatar';
+
     public $deleteAvatarUrl = '/api/auth/avatar';
+
     public $viewAvatarUrl = '/files/{id}/view';
+
     public $downloadAvatarUrl = '/files/{id}/download';
+
     public $profileInformationUrl = '/user/profile-information';
+
     public $passwordUrl = '/user/password';
+
     public $user;
+
     public $simpleUser;
+
     public $verificationEnabled = false;
 
     public function setUp(): void

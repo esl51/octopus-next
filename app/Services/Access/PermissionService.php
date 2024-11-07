@@ -11,10 +11,10 @@ class PermissionService extends ItemService
     {
         $items = parent::newItemsQuery($params);
         $search = $params['search'] ?? null;
-        if ($search && !is_numeric($search)) {
+        if ($search && ! is_numeric($search)) {
             $items->where(function ($query) use ($search) {
-                $query->orWhere('name', 'like', '%' . $search . '%')
-                    ->orWhere('guard_name', 'like', '%' . $search . '%');
+                $query->orWhere('name', 'like', '%'.$search.'%')
+                    ->orWhere('guard_name', 'like', '%'.$search.'%');
             });
         }
 

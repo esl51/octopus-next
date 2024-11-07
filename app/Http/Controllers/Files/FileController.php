@@ -11,12 +11,14 @@ class FileController extends ItemController
     public function download(Request $request): StreamedResponse
     {
         $item = $this->findItem((int) $request->route('id'));
+
         return $item->download();
     }
 
     public function view(Request $request): StreamedResponse
     {
         $item = $this->findItem((int) $request->route('id'));
+
         return $item->response();
     }
 }

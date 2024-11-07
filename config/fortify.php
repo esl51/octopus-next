@@ -61,7 +61,7 @@ return [
     |
     */
 
-    'home' => env('SPA_URL') . AppServiceProvider::HOME,
+    'home' => env('SPA_URL').AppServiceProvider::HOME,
 
     /*
     |--------------------------------------------------------------------------

@@ -3,11 +3,11 @@
 namespace App\Classes;
 
 use Closure;
+use Illuminate\Database\Eloquent\RelationNotFoundException;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Roquie\LaravelPerPageResolver\Builder;
-use Illuminate\Database\Eloquent\Relations\Pivot;
-use Illuminate\Database\Eloquent\RelationNotFoundException;
 
 class EloquentBuilder extends Builder
 {

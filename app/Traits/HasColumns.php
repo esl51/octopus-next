@@ -8,11 +8,12 @@ trait HasColumns
 {
     public static function getColumns(): array
     {
-        $table = (new static())->getTable();
+        $table = (new static)->getTable();
         $columns = [];
         foreach (Schema::getColumnListing($table) as $col) {
-            $columns[] = $table . '.' . $col;
+            $columns[] = $table.'.'.$col;
         }
+
         return $columns;
     }
 }

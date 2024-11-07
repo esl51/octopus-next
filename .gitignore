@@ -33,7 +33,11 @@ _ide_helper_models.php
 # local editor configs
 
 /.idea
-/.vscode
+.vscode/**/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
 *.code-workspace
 *.sublime-*
 sftp-config.json

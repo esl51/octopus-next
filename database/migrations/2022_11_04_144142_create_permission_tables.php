@@ -1,9 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use Spatie\Permission\PermissionRegistrar;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreatePermissionTables extends Migration
 {
@@ -54,7 +53,7 @@ class CreatePermissionTables extends Migration
             }
         });
 
-        Schema::create($tableNames['role_translations'], function (Blueprint $table) use ($tableNames, $teams, $columnNames, $pivotRole) {
+        Schema::create($tableNames['role_translations'], function (Blueprint $table) use ($tableNames, $pivotRole) {
             $table->bigIncrements('id'); // role translation id
             $table->foreignId($pivotRole)
                 ->references('id') // role id

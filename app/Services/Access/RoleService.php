@@ -11,6 +11,7 @@ class RoleService extends ItemService
     protected array $with = [
         'permissions',
     ];
+
     protected array $withCount = [
         'users',
     ];
@@ -26,10 +27,10 @@ class RoleService extends ItemService
     {
         $items = parent::newItemsQuery($params);
         $search = $params['search'] ?? null;
-        if ($search && !is_numeric($search)) {
+        if ($search && ! is_numeric($search)) {
             $items->where(function ($query) use ($search) {
-                $query->orWhere('name', 'like', '%' . $search . '%')
-                    ->orWhere('guard_name', 'like', '%' . $search . '%');
+                $query->orWhere('name', 'like', '%'.$search.'%')
+                    ->orWhere('guard_name', 'like', '%'.$search.'%');
             });
         }
 
@@ -39,14 +40,16 @@ class RoleService extends ItemService
     public function store(array $data, ?array $files = null): Model
     {
         $item = parent::store($data, $files);
-        $item->syncPermissions(array_map(fn($p) => (int) $p, $data['permissions'] ?? []));
+        $item->syncPermissions(array_map(fn ($p) => (int) $p, $data['permissions'] ?? []));
+
         return $item;
     }
 
     public function update(int $id, array $data, ?array $files = null): Model
     {
         $item = parent::update($id, $data, $files);
-        $item->syncPermissions(array_map(fn($p) => (int) $p, $data['permissions'] ?? []));
+        $item->syncPermissions(array_map(fn ($p) => (int) $p, $data['permissions'] ?? []));
+
         return $item;
     }
 }

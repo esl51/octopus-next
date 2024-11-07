@@ -3,13 +3,14 @@
 namespace Tests\Feature;
 
 use App\Models\Access\Permission;
-use Tests\ItemTest;
 use App\Models\Access\Role;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\ItemTest;
 
 class RoleTest extends ItemTest
 {
     protected $dummyPermission;
+
     protected $validStructure = [
         'data' => [
             'id',
@@ -19,7 +20,9 @@ class RoleTest extends ItemTest
             'permissions',
         ],
     ];
+
     protected $uri = '/api/access/roles';
+
     protected $class = Role::class;
 
     public function setUp(): void
@@ -36,7 +39,7 @@ class RoleTest extends ItemTest
             'permissions' => [$this->dummyPermission->id],
         ];
         $this->dummyTranslatableData = [
-            'title:' . config('translatable.fallback_locale') => 'Test Role',
+            'title:'.config('translatable.fallback_locale') => 'Test Role',
         ];
     }
 
@@ -44,6 +47,7 @@ class RoleTest extends ItemTest
     {
         $item = parent::createItem($attributes);
         $item->syncPermissions([$this->dummyPermission->id]);
+
         return $item;
     }
 
@@ -66,7 +70,7 @@ class RoleTest extends ItemTest
     {
         $this->createItem($this->itemAttributes);
         $this->actingAs($this->user)
-            ->getJson($this->uri . '?sort_by=title&sort_desc=0')
+            ->getJson($this->uri.'?sort_by=title&sort_desc=0')
             ->assertSuccessful()
             ->assertJsonStructure($this->pivot
                 ? ['data' => ['*' => ['pivot' => $this->validStructure['data']]]]
