@@ -5,6 +5,7 @@ namespace App\Http\Requests\Files;
 use App\Http\Requests\ItemStoreUpdateRequest;
 use App\Rules\Files\Filable;
 use App\Rules\Files\FilableType;
+use App\Rules\Files\File;
 use App\Rules\Files\FileType;
 
 class FileStoreUpdateRequest extends ItemStoreUpdateRequest
@@ -40,6 +41,7 @@ class FileStoreUpdateRequest extends ItemStoreUpdateRequest
                 'filable_type' => ['required', 'string', new FilableType],
                 'filable_id' => ['required', 'integer', new Filable],
                 'type' => ['required', 'string', new FileType],
+                'file' => ['required', 'file', new File],
             ]);
         }
     }
