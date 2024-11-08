@@ -28,17 +28,14 @@ router.beforeEach(async (to, from, next) => {
   }
 
   const middlewareModules: Array<
-    ({ to, from, next }: MiddlewareInterface) => void
+    ({ to, from, next }: MiddlewareInterface) => Promise<void> | void
   > = []
   for (const name of middleware) {
     const module = await import(`../middleware/${name}.ts`)
     middlewareModules.push(module.default)
   }
 
-  middlewareModules[0]({
-    ...context,
-    next: middlewarePipeline(context, middlewareModules, 1),
-  })
+  await middlewarePipeline(context, middlewareModules, 0)
 })
 
 export default router

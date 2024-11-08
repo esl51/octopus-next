@@ -40,6 +40,12 @@ export type LangLocales = {
   [key in LangLocale]: string
 }
 
+export interface MiddlewareContext {
+  to: RouteLocationNormalized
+  from: RouteLocationNormalized
+  next: NavigationGuardNext
+}
+
 export interface MiddlewareInterface {
   to?: RouteLocationNormalized
   from?: RouteLocationNormalized

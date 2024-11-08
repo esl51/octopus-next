@@ -13,6 +13,5 @@ export default ({ next }: MiddlewareInterface) => {
   if (needToFetchUser) {
     authStore.fetchUser()
   }
-
-  next()
+  return next()
 }

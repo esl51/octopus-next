@@ -3,10 +3,9 @@ import { MiddlewareInterface } from '@/types'
 
 const authStore = useAuthStore()
 
-export default ({ next }: MiddlewareInterface) => {
+export default async ({ next }: MiddlewareInterface) => {
   if (authStore.check) {
-    next({ name: 'home' })
-  } else {
-    next()
+    return next({ name: 'home' })
   }
+  return next()
 }

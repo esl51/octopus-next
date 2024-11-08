@@ -1,25 +1,19 @@
-import { MiddlewareInterface } from '@/types'
-import { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
+import { MiddlewareContext, MiddlewareInterface } from '@/types'
 
-declare interface Context {
-  to: RouteLocationNormalized
-  from: RouteLocationNormalized
-  next: NavigationGuardNext
-}
-
-export default function middlewarePipeline(
-  context: Context,
+export default async function middlewarePipeline(
+  context: MiddlewareContext,
   middleware: Array<(data: MiddlewareInterface) => void>,
   index: number,
-): NavigationGuardNext /* | Promise<Context> */ {
+): Promise<void> {
   const nextMiddleware = middleware[index]
   if (!nextMiddleware) {
-    return context.next
+    return context.next()
   }
-  return () => {
-    nextMiddleware({
-      ...context,
-      next: middlewarePipeline(context, middleware, index + 1),
-    })
+  const next = async () => {
+    await middlewarePipeline(context, middleware, index + 1)
   }
+  await nextMiddleware({
+    ...context,
+    next,
+  })
 }

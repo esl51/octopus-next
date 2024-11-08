@@ -21,13 +21,12 @@ export default ({ to, next }: AclInterface) => {
     }
   })
   if (!userAuthorized) {
-    next({
+    return next({
       name: 'not-found',
       params: { pathMatch: to.path.substring(1).split('/') },
       query: to.query,
       hash: to.hash,
     })
-  } else {
-    next()
   }
+  return next()
 }
