@@ -13,7 +13,7 @@ abstract class TypeTest extends TestCase
 
     protected $uri;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->user = User::factory()->afterCreating(function ($model) {

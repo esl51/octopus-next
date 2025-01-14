@@ -25,7 +25,7 @@ class RoleTest extends ItemTest
 
     protected $class = Role::class;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->dummyPermission = Permission::factory()->create([

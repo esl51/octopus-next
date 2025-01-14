@@ -31,7 +31,7 @@ class UserTest extends ItemTest
         'name' => 'Fake Test User',
     ];
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->dummyRole = Role::factory()->create([

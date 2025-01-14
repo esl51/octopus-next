@@ -35,7 +35,7 @@ abstract class ItemTest extends TestCase
 
     protected $itemAttributes = [];
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->user = User::factory()->afterCreating(function ($model) {

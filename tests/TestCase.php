@@ -20,7 +20,7 @@ abstract class TestCase extends BaseTestCase
      */
     protected $storage;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 

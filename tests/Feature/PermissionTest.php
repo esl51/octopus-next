@@ -19,7 +19,7 @@ class PermissionTest extends ItemTest
 
     protected $class = Permission::class;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->dummyData = [
