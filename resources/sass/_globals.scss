@@ -1,7 +1,6 @@
 @forward '@tabler/core/src/scss/tabler' with (
   // utilities
-  $utilities:
-    (
+  $utilities: (
       'min-width': (
         property: min-width,
         class: min-w,

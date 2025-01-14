@@ -32,7 +32,8 @@
   --vs-dropdown-max-height: 350px;
   --vs-dropdown-box-shadow: #{$dropdown-box-shadow};
   --vs-dropdown-option-color: var(--vs-dropdown-color);
-  --vs-dropdown-option-padding: #{$dropdown-item-padding-y} #{$dropdown-item-padding-x};
+  --vs-dropdown-option-padding: #{$dropdown-item-padding-y}
+    #{$dropdown-item-padding-x};
   --vs-dropdown-option--active-bg: #{$dropdown-link-active-bg};
   --vs-dropdown-option--active-color: #{$dropdown-link-active-color};
   --vs-dropdown-option--deselect-bg: #fb5858;

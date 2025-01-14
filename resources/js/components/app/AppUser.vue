@@ -27,7 +27,6 @@
         v-if="email"
         class="text-muted fw-normal text-truncate"
       >
-        <!-- eslint-disable sonarjs/no-vue-bypass-sanitization -->
         <a
           :href="sanitizeUrl('mailto:' + user.email)"
           class="text-reset"

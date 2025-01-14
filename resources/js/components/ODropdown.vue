@@ -4,7 +4,6 @@
     ref="dropdown"
     class="dropdown"
   >
-    <!-- eslint-disable sonarjs/no-vue-bypass-sanitization -->
     <component
       :is="toggleAnchor ? 'a' : 'o-button'"
       :variant="toggleAnchor ? null : toggleVariant"

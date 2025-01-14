@@ -2,7 +2,6 @@ import globals from 'globals'
 import js from '@eslint/js'
 import ts from 'typescript-eslint'
 import vue from 'eslint-plugin-vue'
-import sonarjs from 'eslint-plugin-sonarjs'
 import prettier from 'eslint-plugin-prettier/recommended'
 
 const globalsBrowser = {
@@ -47,17 +46,6 @@ export default [
           caughtErrors: 'none',
         },
       ],
-    },
-  },
-
-  // sonarjs
-  sonarjs.configs.recommended,
-  {
-    rules: {
-      'sonarjs/cognitive-complexity': ['error', 50],
-      'sonarjs/no-hardcoded-credentials': 'off',
-      'sonarjs/constructor-for-side-effects': 'off',
-      'sonarjs/no-ignored-exceptions': 'off',
     },
   },
 

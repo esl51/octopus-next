@@ -30,7 +30,6 @@
         class="list-group-item p-2"
       >
         <div class="d-flex align-items-center min-w-0">
-          <!-- eslint-disable sonarjs/no-vue-bypass-sanitization -->
           <a
             v-tooltip
             :title="$t('global.view')"
