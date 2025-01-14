@@ -3,6 +3,7 @@
 namespace DummyNamespace;
 
 use App\Models\Model;
+use App\Traits\HasService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
@@ -13,6 +14,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class DummyClass extends Model
 {
     use HasFactory;
+    use HasService;
 
     protected $fillable = [
     ];
