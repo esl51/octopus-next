@@ -8,11 +8,17 @@ abstract class ItemStoreUpdateRequest extends ItemRequest
 {
     protected $item = null;
 
-    protected array $fillableTranslations = [];
+    protected ?string $class = null;
 
     public function __construct($item = null)
     {
         $this->item = $item;
+        $this->class = $this->class ?: self::guessClass();
+    }
+
+    private static function guessClass(): string
+    {
+        return preg_replace('/(.+)\\\\Http\\\\Requests\\\\(.+)StoreUpdateRequest$/m', '$1\Models\\\$2', static::class);
     }
 
     public function authorize(): bool
@@ -26,9 +32,14 @@ abstract class ItemStoreUpdateRequest extends ItemRequest
         return false;
     }
 
+    public function isTranslatable(): bool
+    {
+        return ! empty($this->class) && method_exists($this->class, 'translations');
+    }
+
     public function prepareRules(array $rules): array
     {
-        if (count($this->fillableTranslations)) {
+        if ($this->isTranslatable()) {
             $rules = TranslatableRuleFactory::make($rules);
         }
 
@@ -38,8 +49,9 @@ abstract class ItemStoreUpdateRequest extends ItemRequest
     public function attributes()
     {
         $attributes = [];
-        if (count($this->fillableTranslations)) {
-            foreach ($this->fillableTranslations as $attribute) {
+        if ($this->isTranslatable()) {
+            $translatedAttributes = (new $this->class)->translatedAttributes;
+            foreach ($translatedAttributes as $attribute) {
                 foreach (config('translatable.locales') as $locale) {
                     $attributes[$attribute.':'.$locale] =
                         trans('validation.attributes.'.$attribute).' ('.$locale.')';

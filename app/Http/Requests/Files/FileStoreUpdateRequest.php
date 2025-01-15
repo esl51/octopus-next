@@ -10,10 +10,6 @@ use App\Rules\Files\FileType;
 
 class FileStoreUpdateRequest extends ItemStoreUpdateRequest
 {
-    protected array $fillableTranslations = [
-        'title',
-    ];
-
     public function authorize(): bool
     {
         if ($this->isMethod('post') && empty($this->item)) {

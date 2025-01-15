@@ -8,10 +8,6 @@ use Illuminate\Validation\Rules\Unique;
 
 class RoleStoreUpdateRequest extends ItemStoreUpdateRequest
 {
-    protected array $fillableTranslations = [
-        'title',
-    ];
-
     public function rules(): array
     {
         return $this->prepareRules([
