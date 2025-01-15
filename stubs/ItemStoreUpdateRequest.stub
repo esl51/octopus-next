@@ -6,9 +6,6 @@ use App\Http\Requests\ItemStoreUpdateRequest;
 
 class DummyClass extends ItemStoreUpdateRequest
 {
-    protected array $fillable = [
-    ];
-
     public function rules(): array
     {
         return $this->prepareRules([

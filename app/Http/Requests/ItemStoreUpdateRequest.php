@@ -8,8 +8,6 @@ abstract class ItemStoreUpdateRequest extends ItemRequest
 {
     protected $item = null;
 
-    protected array $fillable = [];
-
     protected array $fillableTranslations = [];
 
     public function __construct($item = null)

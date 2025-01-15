@@ -8,11 +8,6 @@ use Illuminate\Validation\Rules\Unique;
 
 class PermissionStoreUpdateRequest extends ItemStoreUpdateRequest
 {
-    protected array $fillable = [
-        'name',
-        'guard_name',
-    ];
-
     public function rules(): array
     {
         return $this->prepareRules([

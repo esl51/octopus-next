@@ -8,11 +8,6 @@ use Illuminate\Validation\Rules\Unique;
 
 class RoleStoreUpdateRequest extends ItemStoreUpdateRequest
 {
-    protected array $fillable = [
-        'name',
-        'guard_name',
-    ];
-
     protected array $fillableTranslations = [
         'title',
     ];

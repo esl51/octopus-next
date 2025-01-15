@@ -8,11 +8,6 @@ use Illuminate\Validation\Rules\Unique;
 
 class UserStoreUpdateRequest extends ItemStoreUpdateRequest
 {
-    protected array $fillable = [
-        'name',
-        'email',
-    ];
-
     public function rules(): array
     {
         return $this->prepareRules([

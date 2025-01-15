@@ -10,10 +10,6 @@ use App\Rules\Files\FileType;
 
 class FileStoreUpdateRequest extends ItemStoreUpdateRequest
 {
-    protected array $fillable = [
-        'original_name',
-    ];
-
     protected array $fillableTranslations = [
         'title',
     ];
