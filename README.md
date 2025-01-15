@@ -71,10 +71,8 @@ XDEBUG_MODE=coverage php artisan test --coverage
 
 # Roadmap
 
-- [Best practices](https://github.com/alexeymezenin/laravel-best-practices/blob/master/russian.md)
-- Доработать модуль списка файлов для переименования файлов (внутри объектов, а не в разделе Файлы)
-- Сортировка перетаскиванием файлов в списке
+- Освежить по [Best practices](https://github.com/alexeymezenin/laravel-best-practices/blob/master/russian.md)
 - Просмотр изображений/аватарок в модальном окне
-- VSelect перевести на [vue-multiselect](https://vue-multiselect.js.org/)
 - Перевести строки в VSelect [подробнее](https://github.com/sagalbot/vue-select/pull/988)
 - Удалить helpers.cast когда [исправят](https://github.com/vuejs/language-tools/issues/3400)
+- Явно указывать, какие поля выбирать, чтоб не делать выборку всех колонок в таблице
