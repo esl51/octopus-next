@@ -1,6 +1,6 @@
 <template>
   <div
-    class="mb-3"
+    class="form-field"
     :class="state === false ? 'is-invalid' : undefined"
   >
     <div
