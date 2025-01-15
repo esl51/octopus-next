@@ -106,6 +106,13 @@ export interface ItemsApi<T extends Item> {
   moveBefore: (id: number, beforeId: number) => Promise<T>
 }
 
+export interface ItemApi<T extends Item> {
+  url: string
+  get: (id: number) => Promise<T>
+  update: (id: number, payload: Record<string, unknown>) => Promise<T>
+  destroy: (id: number) => Promise<void>
+}
+
 export interface OTableColumn {
   key: string
   title?: string
