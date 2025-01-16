@@ -176,7 +176,8 @@ export function useItem<T extends Item>(config: ItemConfig<T>) {
   // fetch on mount
   onMounted(async () => {
     if (config.id && fetchOnMount.value === true) {
-      fetchItem(config.id)
+      await fetchItem(config.id)
+      edit(current.value)
     }
   })
 
