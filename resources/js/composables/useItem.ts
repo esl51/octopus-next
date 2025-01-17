@@ -6,6 +6,7 @@ import { serialize } from 'object-to-formdata'
 import Form from 'vform'
 import { computed, nextTick, onMounted, reactive, Ref, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useToast } from './useToast'
 
 interface ItemConfig<T extends Item, U extends ItemApi<T> = ItemApi<T>> {
   id?: number
@@ -17,6 +18,7 @@ interface ItemConfig<T extends Item, U extends ItemApi<T> = ItemApi<T>> {
 
 export function useItem<T extends Item>(config: ItemConfig<T>) {
   const { confirm } = useConfirm()
+  const { success } = useToast()
   const { t, availableLocales } = useI18n()
 
   const busy = ref(false)
@@ -133,6 +135,9 @@ export function useItem<T extends Item>(config: ItemConfig<T>) {
         (data) => ({ ...data, _method: 'PUT' }),
         (data) => transformRequest(data),
       ],
+    })
+    success({
+      title: t('global.successful_update'),
     })
     return data.data
   }

@@ -33,6 +33,7 @@ export default {
     dropzone_button: 'Выберите файлы',
     dropzone_hint: 'или переместите их сюда',
     dropzone_invalid_file_type: 'Вы не можете загружать файлы этого типа.',
+    successful_update: 'Информация обновлена',
   },
   error: {
     alert_title: 'Ой...',

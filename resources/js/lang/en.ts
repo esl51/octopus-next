@@ -33,6 +33,7 @@ export default {
     dropzone_button: 'Select files',
     dropzone_hint: 'or drop files here',
     dropzone_invalid_file_type: "You can't upload files of this type.",
+    successful_update: 'Information updated',
   },
   error: {
     alert_title: 'Oops...',
