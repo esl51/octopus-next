@@ -1,10 +1,6 @@
 import messages from '@/lang'
 import { FunctionalComponent, SVGAttributes } from 'vue'
-import {
-  NavigationGuardNext,
-  RouteLocationNormalized,
-  RouteLocationRaw,
-} from 'vue-router'
+import { RouteLocationNormalized, RouteLocationRaw } from 'vue-router'
 
 export interface SVGProps extends Partial<SVGAttributes> {
   size?: 24 | number | string
@@ -43,13 +39,11 @@ export type LangLocales = {
 export interface MiddlewareContext {
   to: RouteLocationNormalized
   from: RouteLocationNormalized
-  next: NavigationGuardNext
 }
 
 export interface MiddlewareInterface {
   to?: RouteLocationNormalized
   from?: RouteLocationNormalized
-  next: NavigationGuardNext
 }
 
 export interface ListParams {

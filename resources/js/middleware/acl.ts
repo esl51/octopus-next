@@ -8,11 +8,9 @@ export interface AclInterface extends MiddlewareInterface {
   to: RouteLocationNormalized
 }
 
-export default ({ to, next }: AclInterface) => {
+export default ({ to }: AclInterface) => {
   const permissions = ([] as Array<string | undefined>).concat(
-    ...to.matched.map((r) => {
-      return r.meta?.permissions
-    }),
+    ...to.matched.map((r) => r.meta?.permissions),
   )
   let userAuthorized = false
   permissions.forEach((permission) => {
@@ -21,12 +19,11 @@ export default ({ to, next }: AclInterface) => {
     }
   })
   if (!userAuthorized) {
-    return next({
+    return {
       name: 'not-found',
       params: { pathMatch: to.path.substring(1).split('/') },
       query: to.query,
       hash: to.hash,
-    })
+    }
   }
-  return next()
 }

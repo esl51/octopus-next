@@ -1,6 +1,4 @@
-import middlewarePipeline from './middlewarePipeline'
 import routes from './routes'
-import { MiddlewareInterface } from '@/types'
 import { createWebHistory, createRouter } from 'vue-router'
 
 const globalMiddleware = ['locale']
@@ -10,8 +8,8 @@ const router = createRouter({
   routes,
 })
 
-router.beforeEach(async (to, from, next) => {
-  const context = { to, from, next }
+router.beforeEach(async (to, from) => {
+  const context = { to, from }
   const middleware = [...globalMiddleware]
   const metaMiddleware = to.meta?.middleware
 
@@ -23,19 +21,20 @@ router.beforeEach(async (to, from, next) => {
     }
   }
 
-  if (!middleware.length) {
-    return next()
-  }
+  if (middleware.length) {
+    for (const name of middleware) {
+      const module = await import(`../middleware/${name}.ts`)
+      const result = await module.default(context)
 
-  const middlewareModules: Array<
-    ({ to, from, next }: MiddlewareInterface) => Promise<void> | void
-  > = []
-  for (const name of middleware) {
-    const module = await import(`../middleware/${name}.ts`)
-    middlewareModules.push(module.default)
+      if (
+        result &&
+        ((typeof result === 'object' && 'name' in result) ||
+          typeof result == 'string')
+      ) {
+        return result
+      }
+    }
   }
-
-  await middlewarePipeline(context, middlewareModules, 0)
 })
 
 export default router

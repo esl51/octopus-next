@@ -1,11 +1,9 @@
 import { useAuthStore } from '@/stores/auth'
-import { MiddlewareInterface } from '@/types'
 
 const authStore = useAuthStore()
 
-export default async ({ next }: MiddlewareInterface) => {
+export default async () => {
   if (authStore.check) {
-    return next({ name: 'home' })
+    return { name: 'home' }
   }
-  return next()
 }
