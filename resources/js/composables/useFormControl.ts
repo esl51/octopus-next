@@ -13,13 +13,14 @@ import { useI18n } from 'vue-i18n'
 interface ControlConfig {
   name: string
   hint?: string
+  description?: string
   size?: string
   label?: string
   translatable?: boolean
 }
 
 export function useFormControl(config: ControlConfig) {
-  const { name, hint, size, label, translatable } = config
+  const { name, hint, description, size, label, translatable } = config
 
   // form
   const form: Form | undefined = inject('form')
@@ -69,6 +70,7 @@ export function useFormControl(config: ControlConfig) {
   provide('id', id)
   provide('name', name)
   provide('hint', hint)
+  provide('description', description)
   provide('size', size)
   provide('label', label)
   provide('state', state)
