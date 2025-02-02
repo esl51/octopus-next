@@ -9,7 +9,7 @@
     <div class="btn-group-md">
       <div
         v-for="(item, index) in options"
-        :key="item[keyAttribute] as string"
+        :key="cast<string>(item[keyAttribute])"
         class="form-check"
       >
         <input
@@ -33,6 +33,7 @@
 
 <script setup lang="ts">
 import { useFormControl } from '@/composables/useFormControl'
+import { cast } from '@/helpers'
 import Form from 'vform'
 import { computed, inject } from 'vue'
 
