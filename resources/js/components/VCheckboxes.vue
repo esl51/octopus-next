@@ -9,8 +9,11 @@
     <div class="btn-group-md">
       <div
         v-for="(item, index) in options"
-        :key="item[keyAttribute] as string"
+        :key="cast<string>(item[keyAttribute])"
         class="form-check"
+        :class="{
+          'form-check-inline': !!inline,
+        }"
       >
         <input
           :id="id + '_' + index"
@@ -33,6 +36,7 @@
 
 <script setup lang="ts">
 import { useFormControl } from '@/composables/useFormControl'
+import { cast } from '@/helpers'
 import Form from 'vform'
 import { computed, inject } from 'vue'
 
@@ -49,6 +53,7 @@ const props = withDefaults(
     autofocus?: boolean
     keyAttribute?: string
     labelAttribute?: string
+    inline?: boolean
   }>(),
   {
     modelValue: undefined,
@@ -59,6 +64,7 @@ const props = withDefaults(
     autofocus: false,
     keyAttribute: 'id',
     labelAttribute: 'name',
+    inline: false,
   },
 )
 
