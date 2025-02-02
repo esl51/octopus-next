@@ -12,7 +12,7 @@
           :to="{ name: 'home' }"
           class="navbar-brand navbar-brand-autodark"
         >
-          <app-logo />
+          <app-logo :white="theme === 'dark'" />
         </router-link>
       </div>
       <slot />
@@ -23,4 +23,9 @@
 <script setup lang="ts">
 import AppLocaleDropdown from '@/components/app/AppLocaleDropdown.vue'
 import AppLogo from '@/components/app/AppLogo.vue'
+import { useThemeStore } from '@/stores/theme'
+import { computed } from 'vue'
+
+const themeStore = useThemeStore()
+const theme = computed(() => themeStore.theme)
 </script>
