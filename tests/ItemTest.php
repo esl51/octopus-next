@@ -49,6 +49,20 @@ abstract class ItemTest extends TestCase
         }
     }
 
+    protected function prepareDummy(array $data): array
+    {
+        $newData = [];
+        foreach ($data as $key => $value) {
+            if (is_array($value)) {
+                $newData[$key] = $this->castAsJson($value);
+            } else {
+                $newData[$key] = $value;
+            }
+        }
+
+        return $newData;
+    }
+
     protected function createItem($attributes = [])
     {
         $item = call_user_func([$this->class, 'factory']);
@@ -155,7 +169,7 @@ abstract class ItemTest extends TestCase
                 ? ['data' => ['pivot' => $this->validStructure['data']]]
                 : $this->validStructure);
 
-        $this->assertDatabaseHas($this->tableName, $this->dummyData);
+        $this->assertDatabaseHas($this->tableName, $this->prepareDummy($this->dummyData));
 
         if ($this->dummyTranslatableData) {
             foreach ($this->dummyTranslatableData as $field => $value) {
@@ -163,7 +177,7 @@ abstract class ItemTest extends TestCase
                 preg_match('/^([^:]+):([^$]+)$/', $field, $fieldParts);
                 $dummyTranslatableData[$fieldParts[1]] = $value;
                 $dummyTranslatableData['locale'] = $fieldParts[2];
-                $this->assertDatabaseHas($this->translationsTableName, $dummyTranslatableData);
+                $this->assertDatabaseHas($this->translationsTableName, $this->prepareDummy($dummyTranslatableData));
             }
         }
 
@@ -191,7 +205,7 @@ abstract class ItemTest extends TestCase
                 ? ['data' => ['pivot' => $this->validStructure['data']]]
                 : $this->validStructure);
 
-        $this->assertDatabaseHas($this->tableName, $this->dummyData);
+        $this->assertDatabaseHas($this->tableName, $this->prepareDummy($this->dummyData));
 
         if ($this->dummyTranslatableData) {
             foreach ($this->dummyTranslatableData as $field => $value) {
@@ -199,7 +213,7 @@ abstract class ItemTest extends TestCase
                 preg_match('/^([^:]+):([^$]+)$/', $field, $fieldParts);
                 $dummyTranslatableData[$fieldParts[1]] = $value;
                 $dummyTranslatableData['locale'] = $fieldParts[2];
-                $this->assertDatabaseHas($this->translationsTableName, $dummyTranslatableData);
+                $this->assertDatabaseHas($this->translationsTableName, $this->prepareDummy($dummyTranslatableData));
             }
         }
 
@@ -214,7 +228,7 @@ abstract class ItemTest extends TestCase
             ->deleteJson($this->uri.'/'.($this->pivot ? $item->{$this->pivotAttribute} : $item->id))
             ->assertSuccessful();
 
-        $this->assertDatabaseMissing($this->tableName, $this->dummyData);
+        $this->assertDatabaseMissing($this->tableName, $this->prepareDummy($this->dummyData));
 
         if ($this->dummyTranslatableData) {
             foreach ($this->dummyTranslatableData as $field => $value) {
@@ -222,7 +236,7 @@ abstract class ItemTest extends TestCase
                 preg_match('/^([^:]+):([^$]+)$/', $field, $fieldParts);
                 $dummyTranslatableData[$fieldParts[1]] = $value;
                 $dummyTranslatableData['locale'] = $fieldParts[2];
-                $this->assertDatabaseMissing($this->translationsTableName, $dummyTranslatableData);
+                $this->assertDatabaseMissing($this->translationsTableName, $this->prepareDummy($dummyTranslatableData));
             }
         }
     }
