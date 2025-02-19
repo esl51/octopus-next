@@ -15,7 +15,6 @@
     >
       <slot name="toggle" />
     </component>
-    <!-- eslint-enable -->
     <component
       :is="menuTag"
       :class="menuClasses"

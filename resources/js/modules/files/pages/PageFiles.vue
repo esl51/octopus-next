@@ -38,7 +38,6 @@
               class="flex-shrink-0 me-2"
             />
           </a>
-          <!-- eslint-enable -->
           <div class="flex-fill min-w-0">
             <div class="fw-medium text-truncate">{{ item.title }}</div>
             <div

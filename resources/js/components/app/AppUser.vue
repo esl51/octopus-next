@@ -33,7 +33,6 @@
         >
           {{ user.email }}
         </a>
-        <!-- eslint-enable -->
       </div>
     </div>
   </div>

@@ -43,7 +43,6 @@
               size="md"
             />
           </a>
-          <!-- eslint-enable -->
           <div class="flex-fill min-w-0">
             <div class="fw-normal text-truncate">{{ item.title }}</div>
             <small class="text-muted">{{ formatFileSize(item.size) }}</small>
