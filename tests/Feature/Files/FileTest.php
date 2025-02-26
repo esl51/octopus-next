@@ -6,9 +6,12 @@ use App\Models\Files\File;
 use Illuminate\Http\UploadedFile;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\ItemTest;
+use Tests\SortableTestTrait;
 
 class FileTest extends ItemTest
 {
+    use SortableTestTrait;
+
     protected $validStructure = [
         'data' => [
             'id',
